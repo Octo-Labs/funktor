@@ -1,0 +1,6 @@
+{
+  "Records": [
+    { "body": { "job": "TestWorker", "params": "[]" } },
+    { "body": { "job": "TestWorker", "params": "[]" } }
+  ]
+}
