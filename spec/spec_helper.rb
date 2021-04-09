@@ -1,3 +1,11 @@
+# simplecov has to come first
+require 'simplecov'
+
+SimpleCov.start do
+  add_filter '/spec/'
+end
+
+# Now the normal stuff
 require "bundler/setup"
 require "funktor"
 
