@@ -13,6 +13,10 @@ module Funktor::Worker
   end
 
   module ClassMethods
+    def funktor_queue_url(queue_url)
+      self.custom_queue_url = queue_url
+    end
+
     def queue_url
       custom_queue_url || ENV['FUNKTOR_INCOMING_QUEUE_URL']
     end

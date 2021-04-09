@@ -1,10 +1,19 @@
 require 'funktor/worker'
 RSpec.describe Funktor::Worker, type: :worker do
+  let(:custom_queue_url){ 'http://some-queue-url/' }
   class LambdaTestWorker
     include Funktor::Worker
+    funktor_queue_url 'http://some-queue-url/'
   end
+
   let(:params) do
     {}
+  end
+
+  describe 'queue_url' do
+    it 'can be set at the class level' do
+      expect(LambdaTestWorker.queue_url).to eq(custom_queue_url)
+    end
   end
 
   describe 'perform_async' do
