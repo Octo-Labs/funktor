@@ -31,4 +31,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "activesupport" # TODO - Can we build our own verison of cattr_accessor to avoid this?
 
   spec.add_development_dependency 'simplecov'
+  spec.add_development_dependency 'webmock'
 end

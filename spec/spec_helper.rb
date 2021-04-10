@@ -7,6 +7,8 @@ end
 
 # Now the normal stuff
 require "bundler/setup"
+require 'webmock/rspec'
+
 require "funktor"
 
 RSpec.configure do |config|
