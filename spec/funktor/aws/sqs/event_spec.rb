@@ -1,6 +1,8 @@
-require 'json'
+require_relative '../../../spec_support/job_spec_helpers'
+
 RSpec.describe Funktor::Aws::Sqs::Event do
-  let(:event_data){ JSON.parse(File.open('spec/fixtures/sqs_active_job_queue_event.json').read) }
+  include JobSpecHelpers
+  let(:event_data){ create_event }
   let(:event){ Funktor::Aws::Sqs::Event.new(event_data) }
   it 'has an array of recors' do
     expect(event.records.length).to eq(2)
