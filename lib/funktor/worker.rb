@@ -21,21 +21,21 @@ module Funktor::Worker
       custom_queue_url || ENV['FUNKTOR_INCOMING_QUEUE_URL']
     end
 
-    def perform_async(job_params)
-      self.perform_in(0, job_params)
+    def perform_async(worker_params)
+      self.perform_in(0, worker_params)
     end
 
-    def perform_at(time, job_params)
+    def perform_at(time, worker_params)
       delay = (time.utc - Time.now.utc).round
       if delay < 0
         delay = 0
       end
-      self.perform_in(delay, job_params)
+      self.perform_in(delay, worker_params)
     end
 
-    def perform_in(delay, job_params)
+    def perform_in(delay, worker_params)
       job_id = SecureRandom.uuid
-      payload = build_payload(job_params, job_id, delay)
+      payload = build_job_payload(worker_params, job_id, delay)
       client.send_message({
         # TODO : How to get this URL...
         queue_url: queue_url,
@@ -47,10 +47,10 @@ module Funktor::Worker
       @client ||= Aws::SQS::Client.new
     end
 
-    def build_payload(job_params, job_id, delay)
+    def build_job_payload(worker_params, job_id, delay)
       {
-        job: self.name,
-        params: job_params,
+        worker: self.name,
+        worker_params: worker_params,
         jobId: job_id,
         delay: delay
       }
