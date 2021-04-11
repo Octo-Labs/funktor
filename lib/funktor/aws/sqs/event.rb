@@ -10,6 +10,10 @@ module Funktor
         def records
           @records ||= @event_data["Records"].map{|record_data| Funktor::Aws::Sqs::Record.new(record_data) }
         end
+
+        def jobs
+          records.map(&:job)
+        end
       end
     end
   end
