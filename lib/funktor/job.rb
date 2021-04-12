@@ -54,5 +54,13 @@ module Funktor
     def to_json
       @job_data.to_json
     end
+
+    def retry_limit
+      25
+    end
+
+    def can_retry
+      self.retries < retry_limit
+    end
   end
 end

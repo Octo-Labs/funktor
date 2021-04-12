@@ -34,11 +34,11 @@ class Funktor::ActiveJobHandler
   end
 
   def self.attempt_retry_or_bail(job)
-    if job.retries > 25
-      puts "We retried 25 times. We're bailing on this one."
-      puts payload
-    else
+    if job.can_retry
       trigger_retry(job)
+    else
+      puts "We retried max times. We're bailing on this one."
+      puts job.to_json
     end
   end
 
