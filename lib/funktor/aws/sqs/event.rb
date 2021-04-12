@@ -1,3 +1,4 @@
+require_relative './record'
 module Funktor
   module Aws
     module Sqs

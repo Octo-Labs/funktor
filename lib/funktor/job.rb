@@ -49,7 +49,7 @@ module Funktor
       (count**4) + 15 + (rand(30) * (count + 1))
     end
 
-    def to_json
+    def to_json(arg = nil)
       @job_data.to_json
     end
 
