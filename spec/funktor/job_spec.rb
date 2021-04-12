@@ -9,6 +9,6 @@ RSpec.describe Funktor::Job do
   end
 
   it 'returns a worker class name' do
-    expect(job.worker_class_name).to eq("TestWorker")
+    expect(job.worker_class_name).to eq("HelloWorker")
   end
 end
