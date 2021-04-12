@@ -29,7 +29,6 @@ RSpec.describe Funktor::ActiveJobHandler, type: :handler do
     context 'on failure' do
       before do
         expect(Aws::SQS::Client).to receive(:new).and_return(sqs_client)
-        expect(Funktor::ActiveJobHandler).to receive(:find_job_klass).and_return(FailWorker)
       end
       it "sends a message to the ActiveJobQueue to retry on failure" do
         expect(sqs_client).to receive(:send_message).and_return(nil)
