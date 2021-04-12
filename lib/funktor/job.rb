@@ -31,13 +31,11 @@ module Funktor
     end
 
     def execute
-      worker_class = find_worker_class(worker_class_name)
       worker_class.new.perform(worker_params)
     end
 
-    def find_worker_class(klass_name)
-      klass = Object.const_get klass_name
-      return klass
+    def worker_class
+      @klass ||= Object.const_get worker_class_name
     end
 
     def increment_retries
@@ -61,6 +59,10 @@ module Funktor
 
     def can_retry
       self.retries < retry_limit
+    end
+
+    def retry_queue_url
+      worker_class&.custom_queue_url || ENV['FUNKTOR_INCOMING_QUEUE_URL']
     end
   end
 end

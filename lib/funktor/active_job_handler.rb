@@ -2,16 +2,9 @@ require 'json'
 require 'aws-sdk-sqs'
 #require_relative './activity_helper'
 
-ENV['BUNDLE_GEMFILE'] ||= File.expand_path('../Gemfile', __dir__)
-require 'bundler/setup'
-Bundler.require
-
-# This class is connected to the ActiveJobQueue in SQS.
-# The event contains a Records array with each record representing one job.
 class Funktor::ActiveJobHandler
   attr_accessor :event
   attr_accessor :conext
-  SQS_URL = "https://sqs.us-east-1.amazonaws.com/925259170958/ruby-lambda-experiment-dev-incoming-jobs"
 
   def initialize(event:, context:)
     @event = Funktor::Aws::Sqs::Event.new(event)
@@ -53,9 +46,9 @@ class Funktor::ActiveJobHandler
     puts "scheduling retry # #{job.retries} with delay of #{job.delay}"
     puts job.to_json
     sqs_client.send_message({
-      # TODO : How to get this URL...
-      queue_url: SQS_URL,
-      message_body: job.to_json
+      queue_url: job.retry_queue_url,
+      message_body: job.to_json,
+      delay_seconds: job.delay
     })
   end
 end
