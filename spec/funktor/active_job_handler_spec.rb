@@ -14,17 +14,17 @@ RSpec.describe Funktor::ActiveJobHandler, type: :handler do
   describe 'call' do
     it "calls perform on a worker" do
       expect_any_instance_of(HelloWorker).to receive(:perform).and_return(nil)
-      Funktor::ActiveJobHandler.call(
+      Funktor::ActiveJobHandler.new(
         event: single_job_event,
         context: {}
-      )
+      ).call
     end
     it "calls dispatch twice for two jobs" do
-      expect(Funktor::ActiveJobHandler).to receive(:dispatch).twice.and_return(nil)
-      Funktor::ActiveJobHandler.call(
+      expect_any_instance_of(Funktor::ActiveJobHandler).to receive(:dispatch).twice.and_return(nil)
+      Funktor::ActiveJobHandler.new(
         event: double_job_event,
         context: {}
-      )
+      ).call
     end
     context 'on failure' do
       before do
@@ -32,10 +32,10 @@ RSpec.describe Funktor::ActiveJobHandler, type: :handler do
       end
       it "sends a message to the ActiveJobQueue to retry on failure" do
         expect(sqs_client).to receive(:send_message).and_return(nil)
-        Funktor::ActiveJobHandler.call(
+        Funktor::ActiveJobHandler.new(
           event: fail_once_job_event,
           context: {}
-        )
+        ).call
       end
     end
   end

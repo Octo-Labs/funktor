@@ -9,21 +9,27 @@ Bundler.require
 # This class is connected to the ActiveJobQueue in SQS.
 # The event contains a Records array with each record representing one job.
 class Funktor::ActiveJobHandler
+  attr_accessor :event
+  attr_accessor :conext
   SQS_URL = "https://sqs.us-east-1.amazonaws.com/925259170958/ruby-lambda-experiment-dev-incoming-jobs"
 
-  def self.call(event:, context:)
-    event = Funktor::Aws::Sqs::Event.new(event)
+  def initialize(event:, context:)
+    @event = Funktor::Aws::Sqs::Event.new(event)
+    @context = context
+  end
+
+  def call
     puts "event.jobs.count = #{event.jobs.count}"
     event.jobs.each do |job|
       dispatch(job)
     end
   end
 
-  def self.sqs_client
+  def sqs_client
     @sqs_client ||= Aws::SQS::Client.new
   end
 
-  def self.dispatch(job)
+  def dispatch(job)
     begin
       job.execute
     rescue Exception => e
@@ -33,7 +39,7 @@ class Funktor::ActiveJobHandler
     end
   end
 
-  def self.attempt_retry_or_bail(job)
+  def attempt_retry_or_bail(job)
     if job.can_retry
       trigger_retry(job)
     else
@@ -42,7 +48,7 @@ class Funktor::ActiveJobHandler
     end
   end
 
-  def self.trigger_retry(job)
+  def trigger_retry(job)
     job.increment_retries
     puts "scheduling retry # #{job.retries} with delay of #{job.delay}"
     puts job.to_json
