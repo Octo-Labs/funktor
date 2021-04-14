@@ -6,10 +6,10 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Jeremy Green"]
   spec.email         = ["jeremy@octolabs.com"]
 
-  spec.summary       = %q{Bckground processing in AWS Lambda.}
-  spec.description   = %q{Bckground processing in AWS Lambda.}
+  spec.summary       = %q{Background processing in AWS Lambda.}
+  spec.description   = %q{Background processing in AWS Lambda.}
   #spec.homepage      = "TODO: Put your gem's website or public repo URL here."
-  spec.license       = "MIT"
+  #spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
 
   spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
