@@ -10,6 +10,10 @@ module Funktor
       @job_data["worker"]
     end
 
+    def job_id
+      @job_data["job_id"]
+    end
+
     def worker_params
       @job_data["worker_params"]
     end

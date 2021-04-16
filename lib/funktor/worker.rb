@@ -67,7 +67,7 @@ module Funktor::Worker
       {
         worker: self.name,
         worker_params: worker_params,
-        jobId: job_id,
+        job_id: job_id,
         delay: delay
       }
     end
