@@ -21,9 +21,9 @@ module Funktor::Worker
     end
 
     def queue_url
-      # TODO : Should this default to FUNKTOR_ACTIVE_QUEUE_URL?
+      # TODO : Should this default to FUNKTOR_ACTIVE_JOB_QUEUE?
       # Depends how e handle this in pro...?
-      custom_queue_url || ENV['FUNKTOR_INCOMING_QUEUE_URL']
+      custom_queue_url || ENV['FUNKTOR_INCOMING_JOB_QUEUE']
     end
 
     def perform_async(worker_params)

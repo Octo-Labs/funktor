@@ -66,7 +66,7 @@ module Funktor
     end
 
     def retry_queue_url
-      worker_class&.custom_queue_url || ENV['FUNKTOR_INCOMING_QUEUE_URL']
+      worker_class&.custom_queue_url || ENV['FUNKTOR_INCOMING_JOB_QUEUE']
     end
   end
 end
