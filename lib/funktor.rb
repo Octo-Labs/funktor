@@ -5,6 +5,8 @@ require 'funktor/job'
 require 'funktor/worker'
 require 'funktor/middleware_chain'
 
+require 'json'
+
 module Funktor
   class Error < StandardError; end
   # Your code goes here...
@@ -19,5 +21,13 @@ module Funktor
     @active_job_handler_chain ||= MiddlewareChain.new
     yield @active_job_handler_chain if block_given?
     @active_job_handler_chain
+  end
+
+  def self.parse_json(string)
+    JSON.parse(string)
+  end
+
+  def self.dump_json(object)
+    JSON.generate(object)
   end
 end

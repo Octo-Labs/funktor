@@ -26,7 +26,7 @@ module JobSpecHelpers
     worker_classes.each do |worker_class|
       event_data[:Records].push(build_payload(worker_class))
     end
-    event = JSON.parse(event_data.to_json)
+    event = Funktor.parse_json(event_data.to_json)
     return event
   end
 end

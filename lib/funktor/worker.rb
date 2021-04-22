@@ -50,8 +50,7 @@ module Funktor::Worker
       payload = build_job_payload(worker_params, job_id, delay)
       client.send_message({
         queue_url: queue_url,
-        message_body: payload.to_json,
-        delay_seconds: delay.to_i
+        message_body: Funktor.dump_json(payload), delay_seconds: delay.to_i
       })
     end
 

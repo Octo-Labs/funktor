@@ -3,7 +3,7 @@ module Funktor
     attr_accessor :job_string
     def initialize(job_string)
       @job_string = job_string
-      @job_data = JSON.parse(job_string)
+      @job_data = Funktor.parse_json(job_string)
     end
 
     def worker_class_name
@@ -54,7 +54,7 @@ module Funktor
     end
 
     def to_json(arg = nil)
-      @job_data.to_json
+      Funktor.dump_json(@job_data)
     end
 
     def retry_limit
