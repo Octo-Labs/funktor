@@ -6,15 +6,9 @@ require_relative './aws/sqs/event'
 
 module Funktor
   class ActiveJobHandler
-    attr_accessor :event
-    attr_accessor :conext
 
-    def initialize(event:, context:)
-      @event = Funktor::Aws::Sqs::Event.new(event)
-      @context = context
-    end
-
-    def call
+    def call(event:, context:)
+      event = Funktor::Aws::Sqs::Event.new(event)
       puts "event.jobs.count = #{event.jobs.count}"
       event.jobs.each do |job|
         dispatch(job)
@@ -54,5 +48,6 @@ module Funktor
         delay_seconds: job.delay
       })
     end
+
   end
 end
