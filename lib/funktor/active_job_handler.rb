@@ -21,7 +21,10 @@ module Funktor
 
     def dispatch(job)
       begin
-        job.execute
+        Funktor.active_job_handler_middleware.invoke(job) do
+          job.execute
+        end
+      # rescue Funktor::Job::InvalidJsonError # TODO Make this work
       rescue Exception => e
         puts "Error during processing: #{$!}"
         puts "Backtrace:\n\t#{e.backtrace.join("\n\t")}"
