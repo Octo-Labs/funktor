@@ -1,4 +1,6 @@
-require_relative 'lib/funktor/version'
+$:.push File.expand_path("../lib", __FILE__)
+
+require 'funktor/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "funktor"
