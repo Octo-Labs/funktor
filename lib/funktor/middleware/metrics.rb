@@ -24,14 +24,14 @@ module Funktor
                 "Metrics": [ # CPU, Memory, Duration, etc...
                              {
                                "Name": "Duration",
-                               "Unit": "Seconds"
+                               "Unit": "Milliseconds"
                              }
                 ]
               }
             ]
           },
           "WorkerClassName": job.worker_class_name,
-          "Seconds": time_diff
+          "Duration": time_diff
           #"count": value,
           #"requestId": "989ffbf8-9ace-4817-a57c-e4dd734019ee"
         }
