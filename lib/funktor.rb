@@ -4,6 +4,7 @@ require 'funktor/aws/sqs/record'
 require 'funktor/job'
 require 'funktor/worker'
 require 'funktor/middleware_chain'
+require 'funktor/active_job_handler'
 
 require 'json'
 
