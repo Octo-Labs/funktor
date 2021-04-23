@@ -13,7 +13,7 @@ module Funktor
         puts Funktor.dump_json(metric_hash(time_diff, job))
       end
 
-      def metric_hash(time_diff, job)
+      def metric_hash(time_diff_in_seconds, job)
         {
           "_aws": {
             "Timestamp": Time.now.strftime('%s%3N').to_i,
@@ -31,7 +31,7 @@ module Funktor
             ]
           },
           "WorkerClassName": job.worker_class_name,
-          "Duration": time_diff
+          "Duration": time_diff_in_seconds * 1_000
           #"count": value,
           #"requestId": "989ffbf8-9ace-4817-a57c-e4dd734019ee"
         }
