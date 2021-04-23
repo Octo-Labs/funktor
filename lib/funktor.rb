@@ -17,6 +17,10 @@ module Funktor
     @job_pusher_chain
   end
 
+  def self.configure_active_job_handler
+    yield self
+  end
+
   def self.active_job_handler_middleware
     @active_job_handler_chain ||= MiddlewareChain.new
     yield @active_job_handler_chain if block_given?
@@ -31,3 +35,8 @@ module Funktor
     JSON.generate(object)
   end
 end
+
+# TODO - Should we require this by default or let people opt in?
+# Is it a code smell that we need to include it at the bottom, after
+# the main Funktor module is defined?
+require 'funktor/middleware/metrics'

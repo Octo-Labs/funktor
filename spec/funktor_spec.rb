@@ -23,11 +23,11 @@ RSpec.describe Funktor do
       expect(Funktor.active_job_handler_middleware).to be_a(Funktor::MiddlewareChain)
     end
     it 'is persistent' do
-      expect(Funktor.active_job_handler_middleware.entries.count).to eq(0)
+      expect(Funktor.active_job_handler_middleware.entries.count).to eq(1)
       Funktor.active_job_handler_middleware do |chain|
         chain.add EmptyMiddleware
       end
-      expect(Funktor.active_job_handler_middleware.entries.count).to eq(1)
+      expect(Funktor.active_job_handler_middleware.entries.count).to eq(2)
     end
   end
 end

@@ -13,7 +13,7 @@ RSpec.describe Funktor::ActiveJobHandler, type: :handler do
 
   describe 'call' do
     it "calls perform on a worker" do
-      expect_any_instance_of(HelloWorker).to receive(:perform).and_return(nil)
+      expect_any_instance_of(HelloWorker).to receive(:perform).and_call_original
       Funktor::ActiveJobHandler.new.call(event: single_job_event, context: {})
     end
     it "calls dispatch twice for two jobs" do
