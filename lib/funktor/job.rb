@@ -1,37 +1,41 @@
 module Funktor
   class Job
     attr_accessor :job_string
+    attr_accessor :job_data
     def initialize(job_string)
       @job_string = job_string
-      @job_data = Funktor.parse_json(job_string)
+    end
+
+    def job_data
+      @job_data ||= Funktor.parse_json(job_string)
     end
 
     def worker_class_name
-      @job_data["worker"]
+      job_data["worker"]
     end
 
     def job_id
-      @job_data["job_id"]
+      job_data["job_id"]
     end
 
     def worker_params
-      @job_data["worker_params"]
+      job_data["worker_params"]
     end
 
     def retries
-      @job_data["retries"] || 0
+      job_data["retries"] || 0
     end
 
     def retries=(retries)
-      @job_data["retries"] = retries
+      job_data["retries"] = retries
     end
 
     def delay
-      @job_data["delay"]
+      job_data["delay"]
     end
 
     def delay=(delay)
-      @job_data["delay"] = delay
+      job_data["delay"] = delay
     end
 
     def execute
@@ -54,7 +58,7 @@ module Funktor
     end
 
     def to_json(arg = nil)
-      Funktor.dump_json(@job_data)
+      Funktor.dump_json(job_data)
     end
 
     def retry_limit
