@@ -1,8 +1,5 @@
 require 'json'
 require 'aws-sdk-sqs'
-require_relative './job'
-require_relative './aws/sqs/event'
-#require_relative './activity_helper'
 
 module Funktor
   class ActiveJobHandler
