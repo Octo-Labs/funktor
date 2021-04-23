@@ -12,6 +12,10 @@ module Funktor
   class Error < StandardError; end
   # Your code goes here...
 
+  def self.configure_job_pusher
+    yield self
+  end
+
   def self.job_pusher_middleware
     @job_pusher_chain ||= MiddlewareChain.new
     yield @job_pusher_chain if block_given?
