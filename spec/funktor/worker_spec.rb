@@ -3,7 +3,7 @@ RSpec.describe Funktor::Worker, type: :worker do
   let(:custom_queue_url){ 'http://some-queue-url/' }
   class LambdaTestWorker
     include Funktor::Worker
-    funktor_queue_url 'http://some-queue-url/'
+    funktor_options queue_url: 'http://some-queue-url/'
   end
 
   let(:params) do

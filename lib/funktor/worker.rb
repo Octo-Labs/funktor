@@ -10,14 +10,22 @@ module Funktor::Worker
   def self.included(base)
     base.extend ClassMethods
     base.class_eval do
-      cattr_accessor :custom_queue_url
+      cattr_accessor :funktor_options_hash
       #alias_method :perform_later, :perform_async
     end
   end
 
   module ClassMethods
-    def funktor_queue_url(queue_url)
-      self.custom_queue_url = queue_url
+    def funktor_options(options = {})
+      self.funktor_options_hash = options
+    end
+
+    def get_funktor_options
+      self.funktor_options_hash || {}
+    end
+
+    def custom_queue_url
+      get_funktor_options[:queue_url]
     end
 
     def queue_url
