@@ -16,7 +16,7 @@ end
 
 module JobSpecHelpers
   def build_payload(worker_class)
-    { "body": worker_class.build_job_payload({}, 'fake-job-id', 0).to_json }
+    { "body": worker_class.build_job_payload('fake-job-id', 0, {}).to_json }
   end
 
   def create_event(worker_classes = [HelloWorker, HelloWorker])

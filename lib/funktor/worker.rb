@@ -34,11 +34,11 @@ module Funktor::Worker
       custom_queue_url || ENV['FUNKTOR_INCOMING_JOB_QUEUE']
     end
 
-    def perform_async(worker_params)
+    def perform_async(*worker_params)
       self.perform_in(0, worker_params)
     end
 
-    def perform_at(time, worker_params)
+    def perform_at(time, *worker_params)
       delay = (time.utc - Time.now.utc).round
       if delay < 0
         delay = 0
@@ -46,16 +46,16 @@ module Funktor::Worker
       self.perform_in(delay, worker_params)
     end
 
-    def perform_in(delay, worker_params)
+    def perform_in(delay, *worker_params)
       if delay > max_delay
         raise Funktor::DelayTooLongError.new("The delay can't be longer than #{max_delay} seconds. This is a limitation of SQS. Funktor Pro has mechanisms to work around this limitation.")
       end
       self.push_to_active_job_queue_with_queue_based_delay(delay, worker_params)
     end
 
-    def push_to_active_job_queue_with_queue_based_delay(delay, worker_params)
+    def push_to_active_job_queue_with_queue_based_delay(delay, *worker_params)
       job_id = SecureRandom.uuid
-      payload = build_job_payload(worker_params, job_id, delay)
+      payload = build_job_payload(job_id, delay, worker_params)
       client.send_message({
         queue_url: queue_url,
         message_body: Funktor.dump_json(payload), delay_seconds: delay.to_i
@@ -70,7 +70,7 @@ module Funktor::Worker
       @client ||= Aws::SQS::Client.new
     end
 
-    def build_job_payload(worker_params, job_id, delay)
+    def build_job_payload(job_id, delay, *worker_params)
       {
         worker: self.name,
         worker_params: worker_params,
