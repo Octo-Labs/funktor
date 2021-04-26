@@ -56,7 +56,8 @@ module Funktor::Worker
     def push_to_active_job_queue_with_queue_based_delay(delay, *worker_params)
       job_id = SecureRandom.uuid
       payload = build_job_payload(job_id, delay, *worker_params)
-      Funktor.job_pusher_middleware.invoke(payload) do
+      # TODO - This lost of things to yield to the middleware chain here could use some work
+      Funktor.job_pusher_middleware.invoke(self, payload) do
         client.send_message({
           queue_url: queue_url,
           message_body: Funktor.dump_json(payload), delay_seconds: delay.to_i
