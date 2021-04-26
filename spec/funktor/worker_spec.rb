@@ -10,9 +10,6 @@ RSpec.describe Funktor::Worker, type: :worker do
     {}
   end
 
-  let(:job_params) do
-    [params]
-  end
   describe 'queue_url' do
     it 'can be set at the class level' do
       expect(LambdaTestWorker.queue_url).to eq(custom_queue_url)
@@ -21,14 +18,14 @@ RSpec.describe Funktor::Worker, type: :worker do
 
   describe 'perform_async' do
     it 'delegates to perform_in' do
-      expect(LambdaTestWorker).to receive(:perform_in).with(0, job_params).and_return(nil)
+      expect(LambdaTestWorker).to receive(:perform_in).with(0, params).and_return(nil)
       LambdaTestWorker.perform_async(params)
     end
   end
 
   describe 'perform_at' do
     it 'delegates to perform_in' do
-      expect(LambdaTestWorker).to receive(:perform_in).with(0, job_params).and_return(nil)
+      expect(LambdaTestWorker).to receive(:perform_in).with(0, params).and_return(nil)
       LambdaTestWorker.perform_at(Time.now - 5*60, params)
     end
   end
