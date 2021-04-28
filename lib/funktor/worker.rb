@@ -78,7 +78,8 @@ module Funktor::Worker
         worker: self.name,
         worker_params: worker_params,
         job_id: job_id,
-        delay: delay
+        delay: delay,
+        funktor_options: get_funktor_options
       }
     end
   end
