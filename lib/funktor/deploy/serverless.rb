@@ -10,7 +10,7 @@ module Funktor
       end
 
       def call
-        puts "deploying file #{file} via tmp_dir_prefix #{tmp_dir_prefix} for stage #{stage}"
+        #puts "deploying file #{file} via tmp_dir_prefix #{tmp_dir_prefix} for stage #{stage}"
         make_tmp_dir
         create_serverless_file
       end
@@ -38,8 +38,8 @@ module Funktor
       end
 
       def create_serverless_file
-        puts "funktor_data = "
-        puts funktor_data
+        #puts "funktor_data = "
+        #puts funktor_data
         template_source = File.open(serverless_file_source).read
         file_content = template_source % funktor_data
         File.open(serverless_file_destination, 'w') { |file| file.write(file_content) }
