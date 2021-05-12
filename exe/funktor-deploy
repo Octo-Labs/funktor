@@ -1,0 +1,8 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/funktor/deploy/cli'
+
+cli = Funktor::Deploy::CLI.new
+cli.parse
+cli.run
+
