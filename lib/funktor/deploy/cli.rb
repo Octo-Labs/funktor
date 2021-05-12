@@ -25,7 +25,7 @@ module Funktor
             options[:tmp_dir] = tmp_dir
           end
           opts.on('-h') { puts opts; exit }
-          opts.parse!
+          opts.parse!(argv)
         end
       end
 
