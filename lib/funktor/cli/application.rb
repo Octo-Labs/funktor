@@ -11,7 +11,7 @@ module Funktor
         true
       end
 
-      register(Funktor::CLI::Init, "init", "init [DIRECTORY]", "Initialize a new funktor directory")
+      register(Funktor::CLI::Init, "init", "init [FRAMEWORK] [options]", "Initialize a new funktor directory")
       register(Funktor::CLI::Generate::Base, "generate", "generate GENERATOR [args] [options]", "Generate new resources")
 
       # Set up an alias so that "funktor g" is the same as "funktor generate"
