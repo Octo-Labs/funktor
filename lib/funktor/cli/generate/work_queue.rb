@@ -3,8 +3,10 @@ module Funktor
     module Generate
       class WorkQueue < Thor::Group
 
+        argument :name, :desc => "The name of the queue to generate"#, :default => "default"
+
         def resource_yml
-          puts "queue-name.yml"
+          puts "queue-name.yml #{name}"
         end
 
         def lambda_handler

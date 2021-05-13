@@ -2,8 +2,10 @@ module Funktor
   module CLI
     class Init < Thor::Group
 
+      argument :directory, :desc => "The directory to initialize", :default => "funktor"
+
       def serverless_yml
-        puts "serverless.yml"
+        puts "#{directory}/serverless.yml"
       end
 
       def package_json
