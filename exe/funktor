@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+require_relative "../lib/funktor/cli/application"
+
+# Scratch pad:
+#
+# funktor init => serverless.yml Gemfile Dockerfile a few resources (default queue)
+# funktor init --dir=some_dir => serverless.yml Gemfile Dockerfile a few resources (default queue)
+# funktor generate work_queue --name=high_priority => resource + handler for a work queue
+# funktor deploy ????
+#
+# funktor-pro init => additional resources + handler
+
+Funktor::CLI::Application.start(ARGV)
