@@ -9,7 +9,7 @@ module Funktor
         :type => :string, :desc => "The directory to initialize",
         :default => "funktor"
 
-      desc <<-DESC
+      desc <<~DESC
         Description:
           Initialize a new funktor deployment directory.
       DESC

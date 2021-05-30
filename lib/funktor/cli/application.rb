@@ -1,5 +1,6 @@
 require "thor"
 
+require_relative "./bootstrap"
 require_relative "./init"
 require_relative "./generate/base"
 
@@ -11,6 +12,7 @@ module Funktor
         true
       end
 
+      register(Funktor::CLI::Bootstrap, "bootstrap", "bootstrap [options]", "Bootstrap a new funktor application")
       register(Funktor::CLI::Init, "init", "init [FRAMEWORK] [options]", "Initialize a new funktor directory")
       register(Funktor::CLI::Generate::Base, "generate", "generate GENERATOR [args] [options]", "Generate new resources")
 
