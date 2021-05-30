@@ -2,7 +2,9 @@ module Funktor
   module CLI
     class Init < Thor::Group
 
-      argument :framework, :desc => "The deployment/provisioning framework to use. Defaults to 'serverless'", :default => "serverless"
+      class_option :framework, :aliases => "-f",
+        :type => :string, :desc => "The deployment/provisioning framework to use.",
+        :default => "serverless"
       class_option :directory, :aliases => "-d",
         :type => :string, :desc => "The directory to initialize",
         :default => "funktor"
@@ -17,23 +19,23 @@ module Funktor
       end
 
       def package_json
-        puts "package.json"
+        puts "#{options[:directory]}/package.json"
       end
 
       def gemfile
-        puts "Gemfile"
+        puts "#{options[:directory]}/Gemfile"
       end
 
       def dockerfile
-        puts "Dockerfile"
+        puts "#{options[:directory]}/Dockerfile"
       end
 
       def build_image_rb
-        puts "build_image.rb"
+        puts "#{options[:directory]}/build_image.rb"
       end
 
       def image_console_rb
-        puts "image_console.rb"
+        puts "#{options[:directory]}/image_console.rb"
       end
 
     end
