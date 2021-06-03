@@ -50,6 +50,17 @@ module Funktor
         template File.join("resources", "cloudwatch_dashboard.yml"), File.join(options[:directory], "resources", "cloudwatch_dashboard.yml")
       end
 
+      def iam_permissions
+        template File.join("iam_permissions", "ssm.yml"), File.join(options[:directory], "iam_permissions", "ssm.yml")
+        template File.join("iam_permissions", "incoming_job_queue.yml"), File.join(options[:directory], "iam_permissions", "incoming_job_queue.yml")
+        template File.join("iam_permissions", "active_job_queue.yml"), File.join(options[:directory], "iam_permissions", "active_job_queue.yml")
+      end
+
+      def function_definitions
+        template File.join("function_definitions", "active_job_handler.yml"), File.join(options[:directory], "function_definitions", "active_job_handler.yml")
+        template File.join("function_definitions", "incoming_job_handler.yml"), File.join(options[:directory], "function_definitions", "incoming_job_handler.yml")
+      end
+
       def lambda_handlers
         template File.join("handlers", "active_job_handler.rb"), File.join(options[:directory], "handlers", "active_job_handler.rb")
         template File.join("handlers", "incoming_job_handler.rb"), File.join(options[:directory], "handlers", "incoming_job_handler.rb")

@@ -1,0 +1,8 @@
+handler: handlers/incoming_job_handler.call
+timeout: 20
+events:
+  - sqs:
+      arn:
+        Fn::GetAtt:
+          - IncomingJobQueue
+          - Arn

@@ -16,6 +16,10 @@ service: yourapp-funktor
 #app: your-app-name
 #org: your-org-name
 
+# This causes serverless to throw an error early if the config is bad, instead of
+# waiting for CloudFormation to try and fail to deploy it.
+configValidationMode: error
+
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
 frameworkVersion: '2'
@@ -30,27 +34,9 @@ provider:
     FUNKTOR_ACTIVE_JOB_QUEUE:
       Ref: ActiveJobQueue
   iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - ssm:Get*
-      Resource:
-        - '*' # TODO : This should probably be more selective...
-    - Effect: Allow
-      Action:
-        - sqs:ReceiveMessage
-        - sqs:DeleteMessage
-        - sqs:SendMessage
-        - sqs:GetQueueAttributes
-      Resource:
-        - "Fn::GetAtt": [ ActiveJobQueue, Arn ]
-    - Effect: Allow
-      Action:
-        - sqs:ReceiveMessage
-        - sqs:DeleteMessage
-        - sqs:SendMessage
-        - sqs:GetQueueAttributes
-      Resource:
-        - "Fn::GetAtt": [ IncomingJobQueue, Arn ]
+    - ${file(iam_permissions/ssm.yml)}
+    - ${file(iam_permissions/active_job_queue.yml)}
+    - ${file(iam_permissions/incoming_job_queue.yml)}
 
 custom:
   # Our stage is based on what is passed in when running serverless
@@ -65,11 +51,6 @@ custom:
   deadJobQueueName: ${self:service}-${self:custom.stage}-dead-jobs
   dashboardName: ${self:service}-${self:custom.stage}-dashboard
 
-  # Set our DynamoDB throughput for prod and all other non-prod stages.
-  #tableThroughputs:
-    #prod: 5
-    #default: 20
-  #tableThroughput: ${self:custom.tableThroughputs.${self:custom.stage}, self:custom.tableThroughputs.default}
   #rubyLayer:
     #use_docker: true
     #docker_yums:
@@ -82,9 +63,6 @@ custom:
       #- /usr/lib64/libssl3.so
       #- /usr/lib64/libsmime3.so
       #- /usr/lib64/libnss3.so
-# you can overwrite defaults here
-#  stage: dev
-#  region: us-east-1
 
 package:
   include:
@@ -98,24 +76,8 @@ package:
 #    - workers/excluded_worker.rb
 
 functions:
-  incoming_job_handler:
-    handler: handlers/incoming_job_handler.call
-    timeout: 20
-    events:
-      - sqs:
-          arn:
-            Fn::GetAtt:
-              - IncomingJobQueue
-              - Arn
-  active_job_handler:
-    handler: handlers/active_job_handler.call
-    timeout: 300
-    events:
-      - sqs:
-          arn:
-            Fn::GetAtt:
-              - ActiveJobQueue
-              - Arn
+  incomingJobHandler: ${file(function_definitions/incoming_job_handler.yml)}
+  activeJobHandler: ${file(function_definitions/active_job_handler.yml)}
 
 resources:
   - ${file(resources/active_job_queue.yml)}

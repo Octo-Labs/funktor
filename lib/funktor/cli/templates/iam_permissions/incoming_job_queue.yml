@@ -1,0 +1,8 @@
+Effect: Allow
+Action:
+  - sqs:ReceiveMessage
+  - sqs:DeleteMessage
+  - sqs:SendMessage
+  - sqs:GetQueueAttributes
+Resource:
+  - "Fn::GetAtt": [ IncomingJobQueue, Arn ]
