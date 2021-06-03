@@ -26,18 +26,6 @@ module Funktor
         puts "#{options[:directory]}/Gemfile"
       end
 
-      def dockerfile
-        puts "#{options[:directory]}/Dockerfile"
-      end
-
-      def build_image_rb
-        puts "#{options[:directory]}/build_image.rb"
-      end
-
-      def image_console_rb
-        puts "#{options[:directory]}/image_console.rb"
-      end
-
     end
   end
 end
