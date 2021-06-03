@@ -39,6 +39,10 @@ module Funktor
         template "Gemfile", File.join(options[:directory], "Gemfile")
       end
 
+      def gitignore
+        template "gitignore", File.join(options[:directory], ".gitignore")
+      end
+
       def resources
         template File.join("resources", "incoming_job_queue.yml"), File.join(options[:directory], "resources", "incoming_job_queue.yml")
         template File.join("resources", "incoming_job_queue_user.yml"), File.join(options[:directory], "resources", "incoming_job_queue_user.yml")

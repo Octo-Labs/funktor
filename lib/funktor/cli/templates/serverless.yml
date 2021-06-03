@@ -51,11 +51,6 @@ provider:
         - sqs:GetQueueAttributes
       Resource:
         - "Fn::GetAtt": [ IncomingJobQueue, Arn ]
-    - Effect: Allow
-      Action:
-        - dynamodb:*
-      Resource:
-        - "Fn::GetAtt": [ StatsTable, Arn ]
 
 custom:
   # Our stage is based on what is passed in when running serverless
@@ -68,7 +63,6 @@ custom:
   activityQueueName: ${self:service}-${self:custom.stage}-activity
   activityDeadQueueName: ${self:service}-${self:custom.stage}-activity-dead
   deadJobQueueName: ${self:service}-${self:custom.stage}-dead-jobs
-  statsTableName: ${self:service}-${self:custom.stage}-stats
   dashboardName: ${self:service}-${self:custom.stage}-dashboard
 
   # Set our DynamoDB throughput for prod and all other non-prod stages.
