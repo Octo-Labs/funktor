@@ -42,7 +42,7 @@ code to Lambda.
 `funktor/resources` contains a few files that provision some AWS resources that are used by `funktor`.
 * An SQS Queue for the "incoming jobs queue"
 * A Dynamo DB table to allow queueing of jobs more than 15 minutes in the future (Funktor Pro)
-* One or more SQS Queues for active jobs
+* One or more SQS Queues for active jobs (currently there is only the default queue, support for additional queues is coming soon)
 * An IAM User with permission to push jobs to the incoming jobs queue
 * A CloudWatch dashboard to let you keep tabs on your application
 
