@@ -2,7 +2,7 @@ Resources:
   IncomingJobQueue:
     Type: AWS::SQS::Queue
     Properties:
-      QueueName: ${self:custom.incomingJobQueueName}
+      QueueName: ${self:custom.funktor.incomingJobQueueName}
       VisibilityTimeout: 300
       RedrivePolicy:
         deadLetterTargetArn:
@@ -11,7 +11,7 @@ Resources:
   IncomingJobDeadLetterQueue:
     Type: AWS::SQS::Queue
     Properties:
-      QueueName: ${self:custom.incomingDeadJobQueueName}
+      QueueName: ${self:custom.funktor.incomingDeadJobQueueName}
 
 Outputs:
   IncomingJobQueueUrl:

@@ -1,0 +1,4 @@
+FUNKTOR_INCOMING_JOB_QUEUE:
+  Ref: IncomingJobQueue
+FUNKTOR_ACTIVE_JOB_QUEUE:
+  Ref: ActiveJobQueue

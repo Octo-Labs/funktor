@@ -2,7 +2,7 @@ Resources:
   FunktorDashboard:
     Type: AWS::CloudWatch::Dashboard
     Properties:
-      DashboardName: ${self:custom.dashboardName}
+      DashboardName: ${self:custom.funktor.dashboardName}
       DashboardBody: >
         {
             "widgets": [
@@ -14,10 +14,10 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "AWS/SQS", "NumberOfMessagesReceived", "QueueName", "${self:custom.incomingJobQueueName}", { "label": "Received" } ],
+                            [ "AWS/SQS", "NumberOfMessagesReceived", "QueueName", "${self:custom.funktor.incomingJobQueueName}", { "label": "Received" } ],
                             [ ".", "NumberOfMessagesDeleted", ".", ".", { "label": "Handled" } ],
                             [ "AWS/Lambda", "Invocations", "FunctionName", "${self:service}-${self:provider.stage}-incoming_job_handler", "Resource", "${self:service}-${self:provider.stage}-incoming_job_handler", { "label": "Handler Invocations" } ],
-                            [ "AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${self:custom.incomingJobQueueName}", { "label": "Pending?" } ],
+                            [ "AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${self:custom.funktor.incomingJobQueueName}", { "label": "Pending?" } ],
                             [ ".", "ApproximateNumberOfMessagesNotVisible", ".", ".", { "label": "Backlog?" } ],
                             [ ".", "NumberOfMessagesSent", ".", ".", { "label": "Sent" } ],
                             [ ".", "ApproximateNumberOfMessagesDelayed", ".", ".", { "label": "Delayed" } ]
@@ -40,10 +40,10 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "AWS/SQS", "NumberOfMessagesReceived", "QueueName", "${self:service}-${self:custom.stage}-active-jobs", { "label": "Received" } ],
+                            [ "AWS/SQS", "NumberOfMessagesReceived", "QueueName", "${self:custom.funktor.activeJobQueueName}", { "label": "Received" } ],
                             [ ".", "NumberOfMessagesDeleted", ".", ".", { "label": "Handled" } ],
-                            [ "AWS/Lambda", "Invocations", "FunctionName", "${self:service}-${self:provider.stage}-active_job_handler", "Resource", "${self:service}-${self:provider.stage}-active_job_handler", { "label": "Handler Invocations" } ],
-                            [ "AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${self:service}-${self:custom.stage}-active-jobs", { "label": "Pending?" } ],
+                            [ "AWS/Lambda", "Invocations", "FunctionName", "${self:service}-${self:provider.stage}-activeJobHandler", "Resource", "${self:service}-${self:provider.stage}-activeJobHandler", { "label": "Handler Invocations" } ],
+                            [ "AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${self:custom.funktor.activeJobQueueName}", { "label": "Pending?" } ],
                             [ ".", "ApproximateNumberOfMessagesNotVisible", ".", ".", { "label": "Backlog?" } ],
                             [ ".", "NumberOfMessagesSent", ".", ".", { "label": "Sent" } ],
                             [ ".", "ApproximateNumberOfMessagesDelayed", ".", ".", { "label": "Delayed" } ]
@@ -368,7 +368,7 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "AWS/SQS", "NumberOfMessagesReceived", "QueueName", "${self:custom.incomingJobQueueName}", { "label": "Messages Per Minute" } ]
+                            [ "AWS/SQS", "NumberOfMessagesReceived", "QueueName", "${self:custom.funktor.incomingJobQueueName}", { "label": "Messages Per Minute" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",

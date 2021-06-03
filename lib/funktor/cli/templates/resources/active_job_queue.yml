@@ -2,7 +2,7 @@ Resources:
   ActiveJobQueue:
     Type: AWS::SQS::Queue
     Properties:
-      QueueName: ${self:custom.activeJobQueueName}
+      QueueName: ${self:custom.funktor.activeJobQueueName}
       VisibilityTimeout: 300
       RedrivePolicy:
         deadLetterTargetArn:
@@ -11,7 +11,7 @@ Resources:
   ActiveJobDeadLetterQueue:
     Type: AWS::SQS::Queue
     Properties:
-      QueueName: ${self:custom.deadJobQueueName}
+      QueueName: ${self:custom.funktor.deadJobQueueName}
 
 Outputs:
   ActiveJobQueueUrl:

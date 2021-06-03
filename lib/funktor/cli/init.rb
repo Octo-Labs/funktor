@@ -28,7 +28,11 @@ module Funktor
       end
 
       def funktor_config_yml
-        template "funktor_config.yml", File.join(options[:directory], "funktor_config.yml")
+        #template "funktor_config.yml", File.join(options[:directory], "funktor_config.yml")
+        template File.join("config", "funktor.yml"), File.join(options[:directory], "config", "funktor.yml")
+        template File.join("config", "ruby_layer.yml"), File.join(options[:directory], "config", "ruby_layer.yml")
+        template File.join("config", "package.yml"), File.join(options[:directory], "config", "package.yml")
+        template File.join("config", "environment.yml"), File.join(options[:directory], "config", "environment.yml")
       end
 
       def package_json

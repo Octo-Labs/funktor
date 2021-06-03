@@ -1,79 +1,44 @@
-# Welcome to Serverless!
+# Welcome to Funktor & Serverless!
 #
 # This file is the main config file for your service.
-# It's very minimal at this point and uses default values.
-# You can always add more config options for more control.
-# We've included some commented out config examples here.
-# Just uncomment any of them to get that config option.
+# It's already configured to run Funktor, you just have to deploy it.
 #
-# For full config options, check the docs:
+# For more info about Funktor:
+#    TODO
+#
+# For more about serverless, check their docs:
 #    docs.serverless.com
 #
 # Happy Coding!
 
+# The name of your service. All your AWS resources will contain this name.
 service: yourapp-funktor
-# app and org for use with dashboard.serverless.com
-#app: your-app-name
-#org: your-org-name
 
-# This causes serverless to throw an error early if the config is bad, instead of
-# waiting for CloudFormation to try and fail to deploy it.
+# This causes serverless to throw an error early if the config is bad, instead of waiting for CloudFormation to try and fail to deploy it.
 configValidationMode: error
 
-# You can pin your service to only deploy with a specific Serverless version
-# Check out our docs for more details
+# Pin the serverless framework to the 2.x line
 frameworkVersion: '2'
 
 provider:
   name: aws
   runtime: ruby2.7
   lambdaHashingVersion: 20201221
-  environment:
-    FUNKTOR_INCOMING_JOB_QUEUE:
-      Ref: IncomingJobQueue
-    FUNKTOR_ACTIVE_JOB_QUEUE:
-      Ref: ActiveJobQueue
+  environment: ${file(config/environment.yml)}
   iamRoleStatements:
     - ${file(iam_permissions/ssm.yml)}
     - ${file(iam_permissions/active_job_queue.yml)}
     - ${file(iam_permissions/incoming_job_queue.yml)}
 
+
 custom:
   # Our stage is based on what is passed in when running serverless
   # commands. Or fallsback to what we have set in the provider section.
   stage: ${self:provider.stage, 'dev'}
-  incomingJobQueueName: ${self:service}-${self:custom.stage}-incoming-jobs
-  incomingJobQueueAccessPolicyName: ${self:service}-${self:custom.stage}-incoming-job-queue-access
-  incomingDeadJobQueueName: ${self:service}-${self:custom.stage}-incoming-dead-jobs
-  activeJobQueueName: ${self:service}-${self:custom.stage}-active-jobs
-  activityQueueName: ${self:service}-${self:custom.stage}-activity
-  activityDeadQueueName: ${self:service}-${self:custom.stage}-activity-dead
-  deadJobQueueName: ${self:service}-${self:custom.stage}-dead-jobs
-  dashboardName: ${self:service}-${self:custom.stage}-dashboard
+  funktor: ${file(config/funktor.yml)}
+  rubyLayer: ${file(config/ruby_layer.yml)}
 
-  #rubyLayer:
-    #use_docker: true
-    #docker_yums:
-      #- postgresql-devel
-    #native_libs:
-      #- /usr/lib64/libpq.so.5
-      #- /usr/lib64/libldap_r-2.4.so.2
-      #- /usr/lib64/liblber-2.4.so.2
-      #- /usr/lib64/libsasl2.so.3
-      #- /usr/lib64/libssl3.so
-      #- /usr/lib64/libsmime3.so
-      #- /usr/lib64/libnss3.so
-
-package:
-  include:
-    - Gemfile
-    - Gemfile.lock
-    - handlers/**
-    - workers/**
-# Evertyting is excluded by default with serverless-ruby-layer, but you could use
-# the lines below to exlude files that are inside an include path.
-#  exclude:
-#    - workers/excluded_worker.rb
+package: ${file(config/package.yml)}
 
 functions:
   incomingJobHandler: ${file(function_definitions/incoming_job_handler.yml)}

@@ -1,0 +1,9 @@
+include:
+  - Gemfile
+  - Gemfile.lock
+  - handlers/**
+  - workers/**
+# Evertyting is excluded by default with serverless-ruby-layer, but you could use
+# the lines below to exlude files that are inside an include path.
+#exclude:
+#  - workers/excluded_worker.rb

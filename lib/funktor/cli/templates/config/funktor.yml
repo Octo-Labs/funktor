@@ -1,0 +1,11 @@
+
+# You won't need to mess with these under most circumstances. But you could if you want to change
+# the name of some of your resources in AWS.
+incomingJobQueueName: ${self:service}-${self:custom.stage}-incoming-jobs
+incomingJobQueueAccessPolicyName: ${self:service}-${self:custom.stage}-incoming-job-queue-access
+incomingDeadJobQueueName: ${self:service}-${self:custom.stage}-incoming-dead-jobs
+activeJobQueueName: ${self:service}-${self:custom.stage}-active-jobs
+activityQueueName: ${self:service}-${self:custom.stage}-activity
+activityDeadQueueName: ${self:service}-${self:custom.stage}-activity-dead
+deadJobQueueName: ${self:service}-${self:custom.stage}-dead-jobs
+dashboardName: ${self:service}-${self:custom.stage}-dashboard
