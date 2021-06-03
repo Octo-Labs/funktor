@@ -50,17 +50,17 @@ module Funktor::Worker
       if delay > max_delay
         raise Funktor::DelayTooLongError.new("The delay can't be longer than #{max_delay} seconds. This is a limitation of SQS. Funktor Pro has mechanisms to work around this limitation.")
       end
-      self.push_to_active_job_queue_with_queue_based_delay(delay, *worker_params)
+      self.push_to_incoming_job_queue(delay, *worker_params)
     end
 
-    def push_to_active_job_queue_with_queue_based_delay(delay, *worker_params)
+    def push_to_incoming_job_queue(delay, *worker_params)
       job_id = SecureRandom.uuid
       payload = build_job_payload(job_id, delay, *worker_params)
-      # TODO - This lost of things to yield to the middleware chain here could use some work
+
       Funktor.job_pusher_middleware.invoke(self, payload) do
         client.send_message({
           queue_url: queue_url,
-          message_body: Funktor.dump_json(payload), delay_seconds: delay.to_i
+          message_body: Funktor.dump_json(payload)
         })
       end
     end
