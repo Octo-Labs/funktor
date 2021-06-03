@@ -37,7 +37,7 @@ your aws tools via `~/.aws/credentials` you should be ready to deploy.
 Funktor uses [serverless](https://www.serverless.com/) to provision AWS resources and to deploy your
 code to Lambda.
 
-`funktor/serverless.yml` is the main files you should use to configure your AWS resources and functions.
+`funktor/serverless.yml` is the main file you should use to configure your AWS resources and functions.
 
 `funktor/resources` contains a few files that provision some AWS resources that are used by `funktor`.
 * An SQS Queue for the "incoming jobs queue"
@@ -56,6 +56,7 @@ do various things:
 
 `funktor/Gemfile` is the `Gemfile` that contains the gems that are needed for your workers to execute
 jobs. This should be the minimal set of gems you can get away with so that cold start times remain reasonable.
+This file will already contain `funktor`. (Don't remove it or `funktor` won't work!)
 
 ## Deploying
 
