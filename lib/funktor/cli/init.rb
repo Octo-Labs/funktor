@@ -18,6 +18,10 @@ module Funktor
         puts "#{options[:directory]}/serverless.yml"
       end
 
+      def funktor_config_yml
+        puts "#{options[:directory]}/funktor_config.yml"
+      end
+
       def package_json
         puts "#{options[:directory]}/package.json"
       end
@@ -27,10 +31,10 @@ module Funktor
       end
 
       def resources
-        puts "#{options[:directory]}/resources/incoming-job-queue.yml"
-        puts "#{options[:directory]}/resources/incoming-job-queue-user.yml"
-        puts "#{options[:directory]}/resources/active-job-queue.yml"
-        puts "#{options[:directory]}/resources/cloudwatch-dashboard.yml"
+        puts "#{options[:directory]}/resources/incoming_job_queue.yml"
+        puts "#{options[:directory]}/resources/incoming_job_queue_user.yml"
+        puts "#{options[:directory]}/resources/active_job_queue.yml"
+        puts "#{options[:directory]}/resources/cloudwatch_dashboard.yml"
       end
 
       def lambda_handlers
