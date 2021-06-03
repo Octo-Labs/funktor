@@ -29,10 +29,6 @@ provider:
       Ref: IncomingJobQueue
     FUNKTOR_ACTIVE_JOB_QUEUE:
       Ref: ActiveJobQueue
-    FUNKTOR_DELAYED_JOB_TABLE:
-      Ref: DelayedJobTable
-    delayedJobTable:
-      Ref: DelayedJobTable
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -57,44 +53,24 @@ provider:
         - "Fn::GetAtt": [ IncomingJobQueue, Arn ]
     - Effect: Allow
       Action:
-        - sqs:ReceiveMessage
-        - sqs:DeleteMessage
-        - sqs:SendMessage
-        - sqs:GetQueueAttributes
-      Resource:
-        - "Fn::GetAtt": [ ActivityQueue, Arn ]
-    - Effect: Allow
-      Action:
-        - dynamodb:PutItem
-        - dynamodb:DeleteItem
-      Resource:
-        - "Fn::GetAtt": [ DelayedJobTable, Arn ]
-    - Effect: Allow
-      Action:
         - dynamodb:*
       Resource:
         - "Fn::GetAtt": [ StatsTable, Arn ]
-    - Effect: Allow
-      Action:
-        - dynamodb:Query
-      Resource:
-        Fn::Join:
-          - ""
-          - - "Fn::GetAtt": [ DelayedJobTable, Arn ]
-            - "/index/performAtIndex"
 
 custom:
   # Our stage is based on what is passed in when running serverless
   # commands. Or fallsback to what we have set in the provider section.
-  stage: ${opt:stage, 'dev'}
-  incomingJobQueueName: ruby-lambda-experiment-${self:custom.stage}-incoming-jobs
-  incomingDeadJobQueueName: ruby-lambda-experiment-${self:custom.stage}-incoming-dead-jobs
-  activeJobQueueName: ruby-lambda-experiment-${self:custom.stage}-active-jobs
-  activityQueueName: ruby-lambda-experiment-${self:custom.stage}-activity
-  activityDeadQueueName: ruby-lambda-experiment-${self:custom.stage}-activity-dead
-  deadJobQueueName: ruby-lambda-experiment-${self:custom.stage}-dead-jobs
-  delayedJobTableName: ruby-lambda-experiment-${self:custom.stage}-delayed-jobs
-  statsTableName: ruby-lambda-experiment-${self:custom.stage}-stats
+  stage: ${self:provider.stage, 'dev'}
+  incomingJobQueueName: ${self:service}-${self:custom.stage}-incoming-jobs
+  incomingJobQueueAccessPolicyName: ${self:service}-${self:custom.stage}-incoming-job-queue-access
+  incomingDeadJobQueueName: ${self:service}-${self:custom.stage}-incoming-dead-jobs
+  activeJobQueueName: ${self:service}-${self:custom.stage}-active-jobs
+  activityQueueName: ${self:service}-${self:custom.stage}-activity
+  activityDeadQueueName: ${self:service}-${self:custom.stage}-activity-dead
+  deadJobQueueName: ${self:service}-${self:custom.stage}-dead-jobs
+  statsTableName: ${self:service}-${self:custom.stage}-stats
+  dashboardName: ${self:service}-${self:custom.stage}-dashboard
+
   # Set our DynamoDB throughput for prod and all other non-prod stages.
   #tableThroughputs:
     #prod: 5
@@ -148,9 +124,10 @@ functions:
               - Arn
 
 resources:
-  - ${file(resources/sqs-queue.yml)}
-  - ${file(resources/sqs-incoming-user.yml)}
-  - ${file(resources/dynamodb-table.yml)}
+  - ${file(resources/active_job_queue.yml)}
+  - ${file(resources/incoming_job_queue.yml)}
+  - ${file(resources/incoming_job_queue_user.yml)}
+  - ${file(resources/cloudwatch_dashboard.yml)}
 
 plugins:
   - /Users/jgreen/projects/serverless-ruby-layer

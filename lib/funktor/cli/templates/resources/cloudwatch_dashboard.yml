@@ -16,7 +16,7 @@ Resources:
                         "metrics": [
                             [ "AWS/SQS", "NumberOfMessagesReceived", "QueueName", "${self:custom.incomingJobQueueName}", { "label": "Received" } ],
                             [ ".", "NumberOfMessagesDeleted", ".", ".", { "label": "Handled" } ],
-                            [ "AWS/Lambda", "Invocations", "FunctionName", "${self:service}-${opt:stage}-incoming_job_handler", "Resource", "${self:service}-${opt:stage}-incoming_job_handler", { "label": "Handler Invocations" } ],
+                            [ "AWS/Lambda", "Invocations", "FunctionName", "${self:service}-${self:provider.stage}-incoming_job_handler", "Resource", "${self:service}-${self:provider.stage}-incoming_job_handler", { "label": "Handler Invocations" } ],
                             [ "AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${self:custom.incomingJobQueueName}", { "label": "Pending?" } ],
                             [ ".", "ApproximateNumberOfMessagesNotVisible", ".", ".", { "label": "Backlog?" } ],
                             [ ".", "NumberOfMessagesSent", ".", ".", { "label": "Sent" } ],
@@ -42,7 +42,7 @@ Resources:
                         "metrics": [
                             [ "AWS/SQS", "NumberOfMessagesReceived", "QueueName", "${self:service}-${self:custom.stage}-active-jobs", { "label": "Received" } ],
                             [ ".", "NumberOfMessagesDeleted", ".", ".", { "label": "Handled" } ],
-                            [ "AWS/Lambda", "Invocations", "FunctionName", "${self:service}-${opt:stage}-active_job_handler", "Resource", "${self:service}-${opt:stage}-active_job_handler", { "label": "Handler Invocations" } ],
+                            [ "AWS/Lambda", "Invocations", "FunctionName", "${self:service}-${self:provider.stage}-active_job_handler", "Resource", "${self:service}-${self:provider.stage}-active_job_handler", { "label": "Handler Invocations" } ],
                             [ "AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${self:service}-${self:custom.stage}-active-jobs", { "label": "Pending?" } ],
                             [ ".", "ApproximateNumberOfMessagesNotVisible", ".", ".", { "label": "Backlog?" } ],
                             [ ".", "NumberOfMessagesSent", ".", ".", { "label": "Sent" } ],
@@ -131,7 +131,7 @@ Resources:
                     "properties": {
                         "period": 60,
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:service}-${opt:stage}-incoming_job_handler", { "stat": "Minimum" } ],
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:service}-${self:provider.stage}-incoming_job_handler", { "stat": "Minimum" } ],
                             [ "...", { "stat": "Average" } ],
                             [ "...", { "stat": "Maximum" } ]
                         ],
@@ -151,7 +151,7 @@ Resources:
                     "properties": {
                         "period": 60,
                         "metrics": [
-                            [ "AWS/Lambda", "Errors", "FunctionName", "${self:service}-${opt:stage}-incoming_job_handler", { "id": "errors", "stat": "Sum", "color": "#d13212" } ],
+                            [ "AWS/Lambda", "Errors", "FunctionName", "${self:service}-${self:provider.stage}-incoming_job_handler", { "id": "errors", "stat": "Sum", "color": "#d13212" } ],
                             [ ".", "Invocations", ".", ".", { "id": "invocations", "stat": "Sum", "visible": false } ],
                             [ { "expression": "100 - 100 * errors / MAX([errors, invocations])", "label": "Success rate (%)", "id": "availability", "yAxis": "right", "region": "us-east-1" } ]
                         ],
@@ -176,7 +176,7 @@ Resources:
                     "properties": {
                         "period": 60,
                         "metrics": [
-                            [ "AWS/Lambda", "ConcurrentExecutions", "FunctionName", "${self:service}-${opt:stage}-incoming_job_handler", { "stat": "Maximum" } ]
+                            [ "AWS/Lambda", "ConcurrentExecutions", "FunctionName", "${self:service}-${self:provider.stage}-incoming_job_handler", { "stat": "Maximum" } ]
                         ],
                         "region": "us-east-1",
                         "title": "Incoming Job Handler Concurrent Executions",
@@ -194,7 +194,7 @@ Resources:
                     "properties": {
                         "period": 60,
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:service}-${opt:stage}-active_job_handler", { "stat": "Minimum" } ],
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:service}-${self:provider.stage}-active_job_handler", { "stat": "Minimum" } ],
                             [ "...", { "stat": "Average" } ],
                             [ "...", { "stat": "Maximum" } ]
                         ],
@@ -214,7 +214,7 @@ Resources:
                     "properties": {
                         "period": 60,
                         "metrics": [
-                            [ "AWS/Lambda", "Errors", "FunctionName", "${self:service}-${opt:stage}-active_job_handler", { "id": "errors", "stat": "Sum", "color": "#d13212" } ],
+                            [ "AWS/Lambda", "Errors", "FunctionName", "${self:service}-${self:provider.stage}-active_job_handler", { "id": "errors", "stat": "Sum", "color": "#d13212" } ],
                             [ ".", "Invocations", ".", ".", { "id": "invocations", "stat": "Sum", "visible": false } ],
                             [ { "expression": "100 - 100 * errors / MAX([errors, invocations])", "label": "Success rate (%)", "id": "availability", "yAxis": "right", "region": "us-east-1" } ]
                         ],
@@ -239,7 +239,7 @@ Resources:
                     "properties": {
                         "period": 60,
                         "metrics": [
-                            [ "AWS/Lambda", "ConcurrentExecutions", "FunctionName", "${self:service}-${opt:stage}-active_job_handler", { "stat": "Maximum" } ]
+                            [ "AWS/Lambda", "ConcurrentExecutions", "FunctionName", "${self:service}-${self:provider.stage}-active_job_handler", { "stat": "Maximum" } ]
                         ],
                         "region": "us-east-1",
                         "title": "Active Job Handler Concurrent executions",
@@ -257,7 +257,7 @@ Resources:
                     "properties": {
                         "period": 60,
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:service}-${opt:stage}-delayed_job_scheduler", { "stat": "Minimum" } ],
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:service}-${self:provider.stage}-delayed_job_scheduler", { "stat": "Minimum" } ],
                             [ "...", { "stat": "Average" } ],
                             [ "...", { "stat": "Maximum" } ]
                         ],
@@ -277,7 +277,7 @@ Resources:
                     "properties": {
                         "period": 60,
                         "metrics": [
-                            [ "AWS/Lambda", "Errors", "FunctionName", "${self:service}-${opt:stage}-delayed_job_scheduler", { "id": "errors", "stat": "Sum", "color": "#d13212" } ],
+                            [ "AWS/Lambda", "Errors", "FunctionName", "${self:service}-${self:provider.stage}-delayed_job_scheduler", { "id": "errors", "stat": "Sum", "color": "#d13212" } ],
                             [ ".", "Invocations", ".", ".", { "id": "invocations", "stat": "Sum", "visible": false } ],
                             [ { "expression": "100 - 100 * errors / MAX([errors, invocations])", "label": "Success rate (%)", "id": "availability", "yAxis": "right", "region": "us-east-1" } ]
                         ],
@@ -302,7 +302,7 @@ Resources:
                     "properties": {
                         "period": 60,
                         "metrics": [
-                            [ "AWS/Lambda", "ConcurrentExecutions", "FunctionName", "${self:service}-${opt:stage}-delayed_job_scheduler", { "stat": "Maximum" } ]
+                            [ "AWS/Lambda", "ConcurrentExecutions", "FunctionName", "${self:service}-${self:provider.stage}-delayed_job_scheduler", { "stat": "Maximum" } ]
                         ],
                         "region": "us-east-1",
                         "title": "Delayd Job Schedule Concurrent executions",
@@ -402,7 +402,7 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:service}-${opt:stage}-incoming_job_handler", "Resource", "${self:service}-${opt:stage}-incoming_job_handler", { "label": "p10" } ],
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:service}-${self:provider.stage}-incoming_job_handler", "Resource", "${self:service}-${self:provider.stage}-incoming_job_handler", { "label": "p10" } ],
                             [ "...", { "label": "p50", "stat": "p50" } ],
                             [ "...", { "label": "p99", "stat": "p99" } ],
                             [ "...", { "label": "Average", "stat": "Average" } ]
@@ -422,7 +422,7 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:service}-${opt:stage}-active_job_handler", "Resource", "${self:service}-${opt:stage}-active_job_handler", { "label": "p10" } ],
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:service}-${self:provider.stage}-active_job_handler", "Resource", "${self:service}-${self:provider.stage}-active_job_handler", { "label": "p10" } ],
                             [ "...", { "label": "p50", "stat": "p50" } ],
                             [ "...", { "label": "p99", "stat": "p99" } ],
                             [ "...", { "label": "Average", "stat": "Average" } ]
@@ -459,7 +459,7 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:service}-${opt:stage}-delayed_job_scheduler", "Resource", "${self:service}-${opt:stage}-delayed_job_scheduler", { "label": "p10" } ],
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:service}-${self:provider.stage}-delayed_job_scheduler", "Resource", "${self:service}-${self:provider.stage}-delayed_job_scheduler", { "label": "p10" } ],
                             [ "...", { "label": "p50", "stat": "p50" } ],
                             [ "...", { "label": "p99", "stat": "p99" } ],
                             [ "...", { "label": "Average", "stat": "Average" } ]
