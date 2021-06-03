@@ -26,10 +26,6 @@ module Funktor
       ENV['FUNKTOR_ACTIVE_JOB_QUEUE']
     end
 
-    def delayed_job_table
-      ENV['FUNKTOR_DELAYED_JOB_TABLE']
-    end
-
     def push_to_active_job_queue(job)
       sqs_client.send_message({
         # TODO : How to get this URL...
