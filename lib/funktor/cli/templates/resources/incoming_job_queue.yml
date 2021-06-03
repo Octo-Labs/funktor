@@ -1,0 +1,22 @@
+Resources:
+  IncomingJobQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: ${self:custom.incomingJobQueueName}
+      VisibilityTimeout: 300
+      RedrivePolicy:
+        deadLetterTargetArn:
+          "Fn::GetAtt": [ IncomingJobDeadLetterQueue, Arn ]
+        maxReceiveCount: 5
+  IncomingJobDeadLetterQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: ${self:custom.incomingDeadJobQueueName}
+
+Outputs:
+  IncomingJobQueueUrl:
+    Value:
+      Ref: IncomingJobQueue
+  IncomingJobDeadLetterQueueUrl:
+    Value:
+      Ref: IncomingJobDeadLetterQueue

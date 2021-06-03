@@ -1,0 +1,258 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: rails-lambda-experiment
+# app and org for use with dashboard.serverless.com
+#app: your-app-name
+#org: your-org-name
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: ruby2.7
+  lambdaHashingVersion: 20201221
+  environment:
+    NEW_RELIC_ENV: production
+    FUNKTOR_INCOMING_JOB_QUEUE:
+      Ref: IncomingJobQueue
+    FUNKTOR_ACTIVE_JOB_QUEUE:
+      Ref: ActiveJobQueue
+    FUNKTOR_DELAYED_JOB_TABLE:
+      Ref: DelayedJobTable
+    delayedJobTable:
+      Ref: DelayedJobTable
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - ssm:Get*
+      Resource:
+        - '*' # TODO : This should probably be more selective...
+    - Effect: Allow
+      Action:
+        - sqs:ReceiveMessage
+        - sqs:DeleteMessage
+        - sqs:SendMessage
+        - sqs:GetQueueAttributes
+      Resource:
+        - "Fn::GetAtt": [ ActiveJobQueue, Arn ]
+    - Effect: Allow
+      Action:
+        - sqs:ReceiveMessage
+        - sqs:DeleteMessage
+        - sqs:SendMessage
+        - sqs:GetQueueAttributes
+      Resource:
+        - "Fn::GetAtt": [ IncomingJobQueue, Arn ]
+    - Effect: Allow
+      Action:
+        - sqs:ReceiveMessage
+        - sqs:DeleteMessage
+        - sqs:SendMessage
+        - sqs:GetQueueAttributes
+      Resource:
+        - "Fn::GetAtt": [ ActivityQueue, Arn ]
+    - Effect: Allow
+      Action:
+        - dynamodb:PutItem
+        - dynamodb:DeleteItem
+      Resource:
+        - "Fn::GetAtt": [ DelayedJobTable, Arn ]
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource:
+        - "Fn::GetAtt": [ StatsTable, Arn ]
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+      Resource:
+        Fn::Join:
+          - ""
+          - - "Fn::GetAtt": [ DelayedJobTable, Arn ]
+            - "/index/performAtIndex"
+
+custom:
+  # Our stage is based on what is passed in when running serverless
+  # commands. Or fallsback to what we have set in the provider section.
+  stage: ${opt:stage, 'dev'}
+  incomingJobQueueName: ruby-lambda-experiment-${self:custom.stage}-incoming-jobs
+  incomingDeadJobQueueName: ruby-lambda-experiment-${self:custom.stage}-incoming-dead-jobs
+  activeJobQueueName: ruby-lambda-experiment-${self:custom.stage}-active-jobs
+  activityQueueName: ruby-lambda-experiment-${self:custom.stage}-activity
+  activityDeadQueueName: ruby-lambda-experiment-${self:custom.stage}-activity-dead
+  deadJobQueueName: ruby-lambda-experiment-${self:custom.stage}-dead-jobs
+  delayedJobTableName: ruby-lambda-experiment-${self:custom.stage}-delayed-jobs
+  statsTableName: ruby-lambda-experiment-${self:custom.stage}-stats
+  # Set our DynamoDB throughput for prod and all other non-prod stages.
+  #tableThroughputs:
+    #prod: 5
+    #default: 20
+  #tableThroughput: ${self:custom.tableThroughputs.${self:custom.stage}, self:custom.tableThroughputs.default}
+  #rubyLayer:
+    #use_docker: true
+    #docker_yums:
+      #- postgresql-devel
+    #native_libs:
+      #- /usr/lib64/libpq.so.5
+      #- /usr/lib64/libldap_r-2.4.so.2
+      #- /usr/lib64/liblber-2.4.so.2
+      #- /usr/lib64/libsasl2.so.3
+      #- /usr/lib64/libssl3.so
+      #- /usr/lib64/libsmime3.so
+      #- /usr/lib64/libnss3.so
+# you can overwrite defaults here
+#  stage: dev
+#  region: us-east-1
+
+# you can add statements to the Lambda function's IAM Role here
+#  iamRoleStatements:
+#    - Effect: "Allow"
+#      Action:
+#        - "s3:ListBucket"
+#      Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
+#    - Effect: "Allow"
+#      Action:
+#        - "s3:PutObject"
+#      Resource:
+#        Fn::Join:
+#          - ""
+#          - - "arn:aws:s3:::"
+#            - "Ref" : "ServerlessDeploymentBucket"
+#            - "/*"
+
+# you can define service wide environment variables here
+#  environment:
+#    variable1: value1
+
+# you can add packaging information here
+package:
+  include:
+    - Gemfile
+    - Gemfile.lock
+    - ../app/**
+    - ../config/**
+    - ../lambda_handlers/**
+    #- include-me-dir/**
+#  exclude:
+#    - exclude-me.py
+#    - exclude-me-dir/**
+
+functions:
+  http_handler:
+    handler: lambda_handlers/http_handler.call
+    events:
+      - http:
+          path: hello
+          method: post
+  random_job_generator:
+    handler: lambda_handlers/random_job_generator.RandomJobGenerator.call
+    timeout: 170
+    reservedConcurrency: 0
+    events:
+      - schedule: rate(1 minute)
+
+  delayed_job_scheduler:
+    handler: lambda_handlers/delayed_job_scheduler.call
+    timeout: 300
+    #reservedConcurrency: 1
+    events:
+      - schedule: rate(1 minute)
+
+  incoming_job_handler:
+    handler: lambda_handlers/incoming_job_handler.call
+    timeout: 20
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - IncomingJobQueue
+              - Arn
+
+  activity_handler:
+    handler: lambda_handlers/activity_handler.ActivityHandler.call
+    timeout: 200
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - ActivityQueue
+              - Arn
+  sqs_handler:
+    handler: lambda_handlers/active_job_handler.call
+    timeout: 300
+    events:
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - ActiveJobQueue
+              - Arn
+#    The following are a few example events you can configure
+#    NOTE: Please make sure to change your handler code to work with those events
+#    Check the event documentation for details
+#    events:
+#      - httpApi:
+#          path: /users/create
+#          method: get
+#      - websocket: $connect
+#      - s3: ${env:BUCKET}
+#      - schedule: rate(10 minutes)
+#      - sns: greeter-topic
+#      - stream: arn:aws:dynamodb:region:XXXXXX:table/foo/stream/1970-01-01T00:00:00.000
+#      - alexaSkill: amzn1.ask.skill.xx-xx-xx-xx
+#      - alexaSmartHome: amzn1.ask.skill.xx-xx-xx-xx
+#      - iot:
+#          sql: "SELECT * FROM 'some_topic'"
+#      - cloudwatchEvent:
+#          event:
+#            source:
+#              - "aws.ec2"
+#            detail-type:
+#              - "EC2 Instance State-change Notification"
+#            detail:
+#              state:
+#                - pending
+#      - cloudwatchLog: '/aws/lambda/hello'
+#      - cognitoUserPool:
+#          pool: MyUserPool
+#          trigger: PreSignUp
+#      - alb:
+#          listenerArn: arn:aws:elasticloadbalancing:us-east-1:XXXXXX:listener/app/my-load-balancer/50dc6c495c0c9188/
+#          priority: 1
+#          conditions:
+#            host: example.com
+#            path: /hello
+
+#    Define function environment variables here
+#    environment:
+#      variable2: value2
+
+# you can add CloudFormation resource templates here
+resources:
+  - ${file(resources/sqs-queue.yml)}
+  - ${file(resources/sqs-incoming-user.yml)}
+  - ${file(resources/dynamodb-table.yml)}
+#  Resources:
+#    NewResource:
+#      Type: AWS::S3::Bucket
+#      Properties:
+#        BucketName: my-new-bucket
+#  Outputs:
+#     NewOutput:
+#       Description: "Description for the output"
+#       Value: "Some output value"
+
+plugins:
+  - /Users/jgreen/projects/serverless-ruby-layer

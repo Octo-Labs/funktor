@@ -1,0 +1,26 @@
+Resources:
+  IncomingJobQueueUser:
+    Type: AWS::IAM::User
+    Properties:
+      Policies:
+        - PolicyName: incoming-job-queue-access
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+            - Effect: Allow
+              Action:
+              - sqs:*
+              Resource:
+                - "Fn::GetAtt": [ IncomingJobQueue, Arn ]
+
+  IncomingJobQueueUserAccessKey:
+    Type: AWS::IAM::AccessKey
+    Properties:
+      UserName: !Ref IncomingJobQueueUser
+
+
+Outputs:
+  AccessKeyID:
+    Value: !Ref IncomingJobQueueUserAccessKey
+  SecretAccessKey:
+    Value: !GetAtt IncomingJobQueueUserAccessKey.SecretAccessKey

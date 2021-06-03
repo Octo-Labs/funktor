@@ -1,6 +1,7 @@
 module Funktor
   module CLI
     class Init < Thor::Group
+      include Thor::Actions
 
       class_option :framework, :aliases => "-f",
         :type => :string, :desc => "The deployment/provisioning framework to use.",
@@ -14,36 +15,44 @@ module Funktor
           Initialize a new funktor deployment directory.
       DESC
 
+      def self.source_root
+        File.join File.dirname(__FILE__), 'templates'
+      end
+
+      def self.destination_root
+        options[:directory]
+      end
+
       def serverless_yml
-        puts "#{options[:directory]}/serverless.yml"
+        template "serverless.yml", File.join(options[:directory], "serverless.yml")
       end
 
       def funktor_config_yml
-        puts "#{options[:directory]}/funktor_config.yml"
+        template "funktor_config.yml", File.join(options[:directory], "funktor_config.yml")
       end
 
       def package_json
-        puts "#{options[:directory]}/package.json"
+        template "package.json", File.join(options[:directory], "package.json")
       end
 
       def gemfile
-        puts "#{options[:directory]}/Gemfile"
+        template "Gemfile", File.join(options[:directory], "Gemfile")
       end
 
       def resources
-        puts "#{options[:directory]}/resources/incoming_job_queue.yml"
-        puts "#{options[:directory]}/resources/incoming_job_queue_user.yml"
-        puts "#{options[:directory]}/resources/active_job_queue.yml"
-        puts "#{options[:directory]}/resources/cloudwatch_dashboard.yml"
+        template File.join("resources", "incoming_job_queue.yml"), File.join(options[:directory], "resources", "incoming_job_queue.yml")
+        template File.join("resources", "incoming_job_queue_user.yml"), File.join(options[:directory], "resources", "incoming_job_queue_user.yml")
+        template File.join("resources", "active_job_queue.yml"), File.join(options[:directory], "resources", "active_job_queue.yml")
+        template File.join("resources", "cloudwatch_dashboard.yml"), File.join(options[:directory], "resources", "cloudwatch_dashboard.yml")
       end
 
       def lambda_handlers
-        puts "#{options[:directory]}/handlers/incoming_job_handler.rb"
-        puts "#{options[:directory]}/handlers/active_job_handler.rb"
+        template File.join("handlers", "active_job_handler.rb"), File.join(options[:directory], "handlers", "active_job_handler.rb")
+        template File.join("handlers", "incoming_job_handler.rb"), File.join(options[:directory], "handlers", "incoming_job_handler.rb")
       end
 
       def workers
-        puts "#{options[:directory]}/workers/hello_worker.rb"
+        template File.join("workers", "hello_worker.rb"), File.join(options[:directory], "workers", "hello_worker.rb")
       end
     end
   end
