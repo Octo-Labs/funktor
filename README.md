@@ -46,6 +46,17 @@ code to Lambda.
 * An IAM User with permission to push jobs to the incoming jobs queue
 * A CloudWatch dashboard to let you keep tabs on your application
 
+`funktor/lambda_handlers` contains some scripts that receive events from Lambda, then invoke `funktor` to
+do various things:
+* `active_job_handler.rb` executes your jobs
+* `delayed_job_scheduler.rb` (Funktor Pro) pulls delayed jobs out of DynamoDB and places them on the active job queue.
+* `incoming_job_handler.rb` receives incoming jobs and pushes them to DynamoDB for delayed execution or to the active job queue as appropriate.
+
+`funktor/workers` is where your workers will live.
+
+`funktor/Gemfile` is the `Gemfile` that contains the gems that are needed for your workers to execute
+jobs. This should be the minimal set of gems you can get away with so that cold start times remain reasonable.
+
 ## Deploying
 
 After initialiing your app you can deploy it by `cd`ing into the `funktor` directory and using
