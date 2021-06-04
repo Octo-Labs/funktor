@@ -42,7 +42,7 @@ funktor init
 This will create a `funktor` directory that is ready to deploy to AWS. If you've already configured
 your aws tools via `~/.aws/credentials` you should be ready to deploy.
 
-`funktor/serverless.yml` is the main file you should use to configure your AWS resources and functions.
+`funktor/serverless.yml` is the main file that ties everything together.
 
 `funktor/config` contains a few files that you can use to configure your `funktor` application.
 
