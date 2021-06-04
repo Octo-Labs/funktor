@@ -25,7 +25,15 @@ Or install it yourself as:
 
 ## Initializing a new `funktor` app
 
-Describe how/why to structure the project as a sub folder of your rails app.
+Funktor uses [serverless](https://www.serverless.com/) to provision AWS resources and to deploy your
+code to Lambda. You can install serverless by doing:
+
+```
+npm install -g serverless
+```
+
+Then you can initialize a new app by doing:
+
 
 ```bash
 funktor init
@@ -34,10 +42,9 @@ funktor init
 This will create a `funktor` directory that is ready to deploy to AWS. If you've already configured
 your aws tools via `~/.aws/credentials` you should be ready to deploy.
 
-Funktor uses [serverless](https://www.serverless.com/) to provision AWS resources and to deploy your
-code to Lambda.
-
 `funktor/serverless.yml` is the main file you should use to configure your AWS resources and functions.
+
+`funktor/config` contains a few files that you can use to configure your `funktor` application.
 
 `funktor/resources` contains a few files that provision some AWS resources that are used by `funktor`.
 * An SQS Queue for the "incoming jobs queue"
@@ -52,6 +59,11 @@ do various things:
 * `delayed_job_scheduler.rb` (Funktor Pro) pulls delayed jobs out of DynamoDB and places them on the active job queue.
 * `incoming_job_handler.rb` receives incoming jobs and pushes them to DynamoDB for delayed execution or to the active job queue as appropriate.
 
+`funktor/function_definitions` contains details about hooking up the `lambda_handlers` to events.
+
+`funktor/iam_permissions` contains some details about giving your lambda functions the appropriate permissions
+to interact with SQS.
+
 `funktor/workers` is where your workers will live.
 
 `funktor/Gemfile` is the `Gemfile` that contains the gems that are needed for your workers to execute
@@ -65,17 +77,41 @@ After initialiing your app you can deploy it by `cd`ing into the `funktor` direc
 
 ```
 cd funktor
-serverless deploy
+serverless deploy --verbose
 ```
 
 This will deploy to the `dev` stage. To deploy to a differnt stage you can use the `--stage` flag:
 
 ```
-serverless deploy --stage production
+serverless deploy --stage production --verbose
+```
+
+After your app is deployed you'll see some outputs containing details about your AWS resources. The
+primary ones you should look for are `IncomingJobQueueUrl`, `AccessKeyID`, and `SecretAccessKey`.
+Those three pieces of info represent the primary interface to your `funktor` app from the outside world.
+
+To push your first job to `funktor` you can make note of those values and then do something like this
+in a `rails console`.
+
+```ruby
+ENV['FUNKTOR_INCOMING_JOB_QUEUE'] = "<Your IncomingJobQueueUrl>"
+ENV['AWS_ACCESS_KEY_ID'] = "<Your AccessKeyID>"
+ENV['AWS_SECRET_ACCESS_KEY'] = "<Your SecretAccessKey>"
+ENV['AWS_REGION'] = "<Your AWS Region>" # 'us-east-1' by default
+
+require_relative 'funktor/workers/hello_worker'
+HelloWorker.perform_async
+```
+
+If everythin went well you should see something like this:
+
+```
+=> #<struct Aws::SQS::Types::SendMessageResult md5_of_message_body="...",
+  md5_of_message_attributes=nil, md5_of_message_system_attributes=nil,
+  message_id="...", sequence_number=nil>
 ```
 
 ## Writing Workers
-
 
 ```ruby
 class HelloWorker
@@ -86,6 +122,10 @@ class HelloWorker
   end
 end
 ```
+
+The arguments to your `perform` methos must be plain Ruby objects, and not complex objects like ActiveRecord
+models. Funktor will dump the arguments to JSON when pushing the job onto the queue, so you need to make sure
+that your arguments can be dumped to JSON and loaded back again without losing any information.
 
 ## Calling Workers
 
