@@ -12,7 +12,7 @@
 # Happy Coding!
 
 # The name of your service. All your AWS resources will contain this name.
-service: yourapp-funktor
+service: <%= name %>
 
 # This causes serverless to throw an error early if the config is bad, instead of waiting for CloudFormation to try and fail to deploy it.
 configValidationMode: error
