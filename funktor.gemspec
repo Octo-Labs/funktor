@@ -10,14 +10,14 @@ Gem::Specification.new do |spec|
 
   spec.summary       = %q{Background processing in AWS Lambda.}
   spec.description   = %q{Background processing in AWS Lambda.}
-  #spec.homepage      = "TODO: Put your gem's website or public repo URL here."
-  #spec.license       = "MIT"
+  spec.homepage      = "https://github.com/Octo-Labs/funktor"
+  spec.license       = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
 
-  spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
+  #spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
 
-  #spec.metadata["homepage_uri"] = spec.homepage
-  #spec.metadata["source_code_uri"] = "TODO: Put your gem's public repo URL here."
+  spec.metadata["homepage_uri"] = spec.homepage
+  spec.metadata["source_code_uri"] = "https://github.com/Octo-Labs/funktor"
   #spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
 
   # Specify which files should be added to the gem when it is released.
