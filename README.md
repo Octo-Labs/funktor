@@ -105,7 +105,7 @@ HelloWorker.perform_async
 
 If everything went well you should see something like this:
 
-```
+```ruby
 => #<struct Aws::SQS::Types::SendMessageResult md5_of_message_body="...",
   md5_of_message_attributes=nil, md5_of_message_system_attributes=nil,
   message_id="...", sequence_number=nil>
