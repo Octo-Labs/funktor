@@ -103,7 +103,7 @@ require_relative 'funktor/workers/hello_worker'
 HelloWorker.perform_async
 ```
 
-If everythin went well you should see something like this:
+If everything went well you should see something like this:
 
 ```
 => #<struct Aws::SQS::Types::SendMessageResult md5_of_message_body="...",
