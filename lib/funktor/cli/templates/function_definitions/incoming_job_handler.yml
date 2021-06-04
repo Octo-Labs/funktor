@@ -1,5 +1,8 @@
 handler: handlers/incoming_job_handler.call
-timeout: 20
+timeout: ${self:custom.funktor.incomingJobHandler.timeout, 30}
+reservedConcurrency: ${self:custom.funktor.incomingJobHandler.reservedConcurrency, null}
+provisionedConcurrency: ${self:custom.funktor.incomingJobHandler.provisionedConcurrency, null}
+memorySize: ${self:custom.funktor.incomingJobHandler.memorySize, 256}
 events:
   - sqs:
       arn:
