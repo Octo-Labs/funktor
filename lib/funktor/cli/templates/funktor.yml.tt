@@ -2,50 +2,54 @@
 # When you make changes to this file you should run `funktor init` again to propagate the changes to the 'active' configuration files.
 runtime: ruby2.7
 
+# These values will be applied to any funktor handlers that don't specify custom values.
+handler_defaults:
+  # timeout is how long the handler can possibly run. Up to 10 messages may be delivered
+  # to a handler at one time, so you'll want this to be at least 10x the maximum time you
+  # expect to spend for one message. We default to a high number here to allow for the
+  # times when things go weird.
+  timeout: 900
+  # reservedConcurrency represents the maximum number of concurrent executions.
+  # Usually you'll want to leave this as null so that handlers can scale infinitely
+  # (within your account limits). If you need to restrict concurrency to prevent
+  # resource exhaustion you should do it at the queue level.
+  reservedConcurrency: null
+  # provisionedConcurrency represents the number of lambda functions that will always
+  # be available. You probably want to set this on individual queues if you're going
+  # to use it.
+  provisionedConcurrency: null
+  # Use memory_size to adjust the reousrces (both memory and CPU) available.
+  # We default to 256 as a reasonable trade off on saving money but getting
+  # reasonable performance.
+  memorySize: 256
+  # You can set the batch size. Max of 10_000 for normal queues, 10 for FIFO.
+  batchSize: 10
+  # How many seconds should AWS wait for a batch to fill up before executing lambda?
+  # For immediate execution set the batch size to 1.
+  maximumBatchingWindow : 1
+  # Visibility timeout should only come into play in the case of Funktor errors.
+  # Application level errors should be handled by Funktor retry mechanisms.
+  # The visibility timeout should be at least as long as the function timeout, and up to 6 times larger.
+  visibilityTimeout: 900
+
 # Incoming Job Handler
 incoming_job_handler:
-  # Use memory_size to adjust the reousrces (both memory and CPU) available
-  # memory_size: 512
-  timeout_in_seconds: 20 # This handler might have to handle several incoming jobs at once
-  # WARNING : You probably don't want to limit concurrency on incoming jobs.
-  # concurrency: 100
-
-# Delayed Job Activator
-delayed_job_activator:
-  # Use memory_size to adjust the reousrces (both memory and CPU) available
-  # memory_size: 512
-  execution_schedule: rate(1 minute)
-  activation_window_in_seconds: 120 # Activate any jobs scheduled for the next two minutes
-  timeout_in_seconds: 300 # Allow an activation job to run for up to 5 minutes
-  concurrency: 1
-
+  # If your jobs are bursty AND time-sensitive you might want to have some lambdas pre-provisioned
+  # to quickly handle jobs at the beginning of a burst. Uncomment the line below if so.
+  # provisionedConcurrency: 4
 
 queues:
-  default:
-    # Use memory_size to adjust the reousrces (both memory and CPU) available
-    # memory_size: 512
-    # You can set the batch size. Max of 10_000 for normal queues, 10 for FIFO.
-    # batch_size: 10
-    # How many seconds should AWS wait for a batch to fill up before executing lambda?
-    # For immediate execution set the batch size to 1.
-    # maximumBatchingWindow : 1
-    # A single handler can receive up to batch_size jobs at a time. Make sure timeout is long enough.
-    timeout_in_seconds: 300
-    # You might want to limit concurrency of executing jobs to stay within resource limits (like DB connections).
-    # concurrency: 10
-    # Visibility timeout should only come into play in the case of Funktor errors.
-    # Application level errors should be handled by Funktor retry mechanisms.
-    # The visibility timeout should be at least as long as the function timeout, and up to 6 times larger.
-    # visibility_timeout: 300
-    # TODO - Is it advisable to use FIFO queuues with Funktor?
-    # TODO - Maybe this isn't really even supported by CloudFormation?
-    # fifo: false
+  - default:
+      # Set queue specific config options here
+      # memorySize: 512
+      # TODO - Is it advisable to use FIFO queuues with Funktor?
+      # TODO - Maybe this isn't really even supported by CloudFormation?
+      # fifo: false
 
 # TODO - Maybe this is handled in the Dockerfile?
 package:
   patterns:
     - Gemfile
     - Gemfile.lock
-    - ../app/**
-    - ../config/**
-    - ../lambda_handlers/**
+    - app/**
+    - config/**
