@@ -1,3 +1,5 @@
+# TODO - Figure out how to allow individual packaging to work out of the box.
+individually: false
 include:
   - Gemfile
   - Gemfile.lock

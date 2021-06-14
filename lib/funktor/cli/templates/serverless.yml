@@ -25,6 +25,7 @@ provider:
   runtime: ruby2.7
   lambdaHashingVersion: 20201221
   environment: ${file(config/environment.yml)}
+  versionFunctions: false # Reduces the amount of storage used since all Lambdas together are limited to 75GB
   iamRoleStatements:
     - ${file(iam_permissions/ssm.yml)}
     - ${file(iam_permissions/active_job_queue.yml)}
