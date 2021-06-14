@@ -54,23 +54,40 @@ module Funktor
         template File.join("config", "resources", "incoming_job_queue.yml"), File.join("config", "resources", "incoming_job_queue.yml")
         template File.join("config", "resources", "incoming_job_queue_user.yml"), File.join("config", "resources", "incoming_job_queue_user.yml")
         template File.join("config", "resources", "active_job_queue.yml"), File.join("config", "resources", "active_job_queue.yml")
+        # TODO - Figure out how to make the dashboard aware of various queues...
         template File.join("config", "resources", "cloudwatch_dashboard.yml"), File.join("config", "resources", "cloudwatch_dashboard.yml")
+        # TODO Finish this...
+        queues.each do |queue|
+
+        end
       end
 
       def iam_permissions
         template File.join("config", "iam_permissions", "ssm.yml"), File.join("config", "iam_permissions", "ssm.yml")
         template File.join("config", "iam_permissions", "incoming_job_queue.yml"), File.join("config", "iam_permissions", "incoming_job_queue.yml")
         template File.join("config", "iam_permissions", "active_job_queue.yml"), File.join("config", "iam_permissions", "active_job_queue.yml")
+        # TODO Finish this...
+        queues.each do |queue|
+
+        end
       end
 
       def function_definitions
         template File.join("config", "function_definitions", "active_job_handler.yml"), File.join("config", "function_definitions", "active_job_handler.yml")
         template File.join("config", "function_definitions", "incoming_job_handler.yml"), File.join("config", "function_definitions", "incoming_job_handler.yml")
+        # TODO Finish this...
+        queues.each do |queue|
+
+        end
       end
 
       def lambda_handlers
         template File.join("app", "handlers", "active_job_handler.rb"), File.join("app", "handlers", "active_job_handler.rb")
         template File.join("app", "handlers", "incoming_job_handler.rb"), File.join("app", "handlers", "incoming_job_handler.rb")
+        # TODO Finish this...
+        queues.each do |queue|
+
+        end
       end
 
       def workers
@@ -88,6 +105,11 @@ module Funktor
 
       def runtime
         funktor_config["runtime"]
+      end
+
+      def queues
+        funktor_config["queues"]
+      end
       end
     end
   end
