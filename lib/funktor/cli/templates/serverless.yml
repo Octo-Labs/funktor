@@ -22,14 +22,14 @@ frameworkVersion: '2'
 
 provider:
   name: aws
-  runtime: ruby2.7
+  runtime: <%= runtime %>
   lambdaHashingVersion: 20201221
   environment: ${file(config/environment.yml)}
   versionFunctions: false # Reduces the amount of storage used since all Lambdas together are limited to 75GB
   iamRoleStatements:
-    - ${file(iam_permissions/ssm.yml)}
-    - ${file(iam_permissions/active_job_queue.yml)}
-    - ${file(iam_permissions/incoming_job_queue.yml)}
+    - ${file(config/iam_permissions/ssm.yml)}
+    - ${file(config/iam_permissions/active_job_queue.yml)}
+    - ${file(config/iam_permissions/incoming_job_queue.yml)}
 
 
 custom:
@@ -42,14 +42,14 @@ custom:
 package: ${file(config/package.yml)}
 
 functions:
-  incomingJobHandler: ${file(function_definitions/incoming_job_handler.yml)}
-  activeJobHandler: ${file(function_definitions/active_job_handler.yml)}
+  incomingJobHandler: ${file(config/function_definitions/incoming_job_handler.yml)}
+  activeJobHandler: ${file(config/function_definitions/active_job_handler.yml)}
 
 resources:
-  - ${file(resources/active_job_queue.yml)}
-  - ${file(resources/incoming_job_queue.yml)}
-  - ${file(resources/incoming_job_queue_user.yml)}
-  - ${file(resources/cloudwatch_dashboard.yml)}
+  - ${file(config/resources/active_job_queue.yml)}
+  - ${file(config/resources/incoming_job_queue.yml)}
+  - ${file(config/resources/incoming_job_queue_user.yml)}
+  - ${file(config/resources/cloudwatch_dashboard.yml)}
 
 plugins:
-  - /Users/jgreen/projects/serverless-ruby-layer
+  - serverless-ruby-layer

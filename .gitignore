@@ -10,6 +10,6 @@
 # rspec failure tracking
 .rspec_status
 
-# The funktor dir isn't a real part of the gem, it's where things
+# The funktor app dir isn't a real part of the gem, it's where things
 # get generated as I'm testing the gem locally. It doesn't need to be in git.
-/funktor/
+/myapp-funktor/

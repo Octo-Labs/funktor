@@ -3,7 +3,7 @@ incomingJobHandler:
   # to a handler at one time, so you'll want this to be at least 10x the maximum time you
   # expect to spend for one message. The incoming job handler usually will be pretty fast,
   # but we default to a high number here to allow for the times when things go weird.
-  timeout: 900
+  timeout: 300
   # reservedConcurrency represents the maximum number of concurrent executions.
   # For the incoming job handler you probably don't want to limit it because you
   # want to get things onto work queues as quickly as possible.
@@ -22,7 +22,7 @@ activeJobHandler:
   # to a handler at one time, so you'll want this to be at least 10x the maximum time you
   # expect to spend for one message. The active job handler may be slow if your jobs are
   # doing a lot of work, so we default to the maximum here.
-  timeout: 900
+  timeout: 300
   # reservedConcurrency represents the maximum number of concurrent executions.
   # For the active job handler you may want to limit it if you have resource limitations
   # like database connections that you need to avoid exhausting.
