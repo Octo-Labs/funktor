@@ -6,6 +6,11 @@ RSpec.describe Funktor::Worker, type: :worker do
     funktor_options queue_url: 'http://some-queue-url/'
   end
 
+  class CustomQueueWorker
+    include Funktor::Worker
+    funktor_options queue: :custom
+  end
+
   let(:params) do
     {}
   end
@@ -42,6 +47,17 @@ RSpec.describe Funktor::Worker, type: :worker do
       expect {
         LambdaTestWorker.perform_in(901, {})
       }.to raise_error(Funktor::DelayTooLongError)
+    end
+  end
+
+  describe 'build_job_payload' do
+    it "defaults to 'default'" do
+      payload = LambdaTestWorker.build_job_payload('fake-id', 0)
+      expect(payload[:queue]).to eq 'default'
+    end
+    it "can be set by a worker" do
+      payload = CustomQueueWorker.build_job_payload('fake-id', 0)
+      expect(payload[:queue]).to eq 'custom'
     end
   end
 end

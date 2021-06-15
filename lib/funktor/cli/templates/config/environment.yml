@@ -1,4 +1,6 @@
 FUNKTOR_INCOMING_JOB_QUEUE:
   Ref: IncomingJobQueue
-FUNKTOR_ACTIVE_JOB_QUEUE:
-  Ref: ActiveJobQueue
+<%- queue_names.each do |queue_name| -%>
+FUNKTOR_<%= queue_name.underscore.upcase %>_QUEUE:
+  Ref: <%= queue_name.camelize %>Queue
+<%- end -%>

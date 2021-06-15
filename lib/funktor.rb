@@ -11,7 +11,6 @@ require 'json'
 
 module Funktor
   class Error < StandardError; end
-  # Your code goes here...
 
   def self.configure_job_pusher
     yield self

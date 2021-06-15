@@ -28,6 +28,10 @@ module Funktor::Worker
       get_funktor_options[:queue_url]
     end
 
+    def custom_queue
+      get_funktor_options[:queue]
+    end
+
     def queue_url
       # TODO : Should this default to FUNKTOR_ACTIVE_JOB_QUEUE?
       # Depends how e handle this in pro...?
@@ -73,10 +77,15 @@ module Funktor::Worker
       @client ||= Aws::SQS::Client.new
     end
 
+    def work_queue
+      (self.custom_queue || 'default').to_s
+    end
+
     def build_job_payload(job_id, delay, *worker_params)
       {
         worker: self.name,
         worker_params: worker_params,
+        queue: self.work_queue,
         job_id: job_id,
         delay: delay,
         funktor_options: get_funktor_options

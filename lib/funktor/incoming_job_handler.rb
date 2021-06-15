@@ -1,4 +1,5 @@
 require 'aws-sdk-sqs'
+require 'active_support/core_ext/string/inflections'
 
 module Funktor
   class IncomingJobHandler
@@ -26,10 +27,17 @@ module Funktor
       ENV['FUNKTOR_ACTIVE_JOB_QUEUE']
     end
 
+    def queue_for_job(job)
+      queue_name = job.queue || 'default'
+      queue_constant = "FUNKTOR_#{queue_name.underscore.upcase}_QUEUE"
+      ENV[queue_constant] || ENV['FUNKTOR_DEFAULT_QUEUE']
+    end
+
     def push_to_active_job_queue(job)
+      puts "job = #{job.to_json}"
       sqs_client.send_message({
         # TODO : How to get this URL...
-        queue_url: active_job_queue,
+        queue_url: queue_for_job(job),
         message_body: job.to_json,
         delay_seconds: job.delay
       })

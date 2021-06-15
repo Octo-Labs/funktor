@@ -10,6 +10,10 @@ module Funktor
       @job_data ||= Funktor.parse_json(job_string)
     end
 
+    def queue
+      job_data["queue"]
+    end
+
     def worker_class_name
       job_data["worker"]
     end
