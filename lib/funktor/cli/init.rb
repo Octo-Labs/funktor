@@ -1,9 +1,13 @@
 require 'yaml'
+require 'active_support/core_ext/string/inflections'
 
 module Funktor
   module CLI
     class Init < Thor::Group
       include Thor::Actions
+
+      attr_accessor :work_queue_name
+      attr_accessor :work_queue_config
 
       class_option :deployment_framework, :aliases => "-d",
         :type => :string, :desc => "The deployment/provisioning framework to use.",
@@ -53,12 +57,12 @@ module Funktor
       def resources
         template File.join("config", "resources", "incoming_job_queue.yml"), File.join("config", "resources", "incoming_job_queue.yml")
         template File.join("config", "resources", "incoming_job_queue_user.yml"), File.join("config", "resources", "incoming_job_queue_user.yml")
-        template File.join("config", "resources", "active_job_queue.yml"), File.join("config", "resources", "active_job_queue.yml")
         # TODO - Figure out how to make the dashboard aware of various queues...
         template File.join("config", "resources", "cloudwatch_dashboard.yml"), File.join("config", "resources", "cloudwatch_dashboard.yml")
-        # TODO Finish this...
-        queues.each do |queue|
-
+        queues.each do |queue_details|
+          @work_queue_name = queue_details.keys.first
+          @work_queue_config = queue_details.values.first
+          template File.join("config", "resources", "work_queue.yml"), File.join("config", "resources", "#{work_queue_name.underscore}_queue.yml")
         end
       end
 
@@ -110,7 +114,15 @@ module Funktor
       def queues
         funktor_config["queues"]
       end
+
+      def work_queue_name
+        @work_queue_name
       end
+
+      def work_queue_config
+        @work_queue_config
+      end
+
     end
   end
 end
