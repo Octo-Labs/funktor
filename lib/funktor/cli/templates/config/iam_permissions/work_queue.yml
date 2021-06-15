@@ -5,4 +5,4 @@ Action:
   - sqs:SendMessage
   - sqs:GetQueueAttributes
 Resource:
-  - "Fn::GetAtt": [ ActiveJobQueue, Arn ]
+  - "Fn::GetAtt": [ <%= work_queue_name.camelize %>Queue, Arn ]

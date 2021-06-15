@@ -69,28 +69,28 @@ module Funktor
       def iam_permissions
         template File.join("config", "iam_permissions", "ssm.yml"), File.join("config", "iam_permissions", "ssm.yml")
         template File.join("config", "iam_permissions", "incoming_job_queue.yml"), File.join("config", "iam_permissions", "incoming_job_queue.yml")
-        template File.join("config", "iam_permissions", "active_job_queue.yml"), File.join("config", "iam_permissions", "active_job_queue.yml")
-        # TODO Finish this...
-        queues.each do |queue|
-
+        queues.each do |queue_details|
+          @work_queue_name = queue_details.keys.first
+          @work_queue_config = queue_details.values.first
+          template File.join("config", "iam_permissions", "work_queue.yml"), File.join("config", "iam_permissions", "#{work_queue_name.underscore}_queue.yml")
         end
       end
 
       def function_definitions
-        template File.join("config", "function_definitions", "active_job_handler.yml"), File.join("config", "function_definitions", "active_job_handler.yml")
         template File.join("config", "function_definitions", "incoming_job_handler.yml"), File.join("config", "function_definitions", "incoming_job_handler.yml")
-        # TODO Finish this...
-        queues.each do |queue|
-
+        queues.each do |queue_details|
+          @work_queue_name = queue_details.keys.first
+          @work_queue_config = queue_details.values.first
+          template File.join("config", "function_definitions", "work_queue_handler.yml"), File.join("config", "function_definitions", "#{work_queue_name.underscore}_queue_handler.yml")
         end
       end
 
       def lambda_handlers
-        template File.join("app", "handlers", "active_job_handler.rb"), File.join("app", "handlers", "active_job_handler.rb")
         template File.join("app", "handlers", "incoming_job_handler.rb"), File.join("app", "handlers", "incoming_job_handler.rb")
-        # TODO Finish this...
-        queues.each do |queue|
-
+        queues.each do |queue_details|
+          @work_queue_name = queue_details.keys.first
+          @work_queue_config = queue_details.values.first
+          template File.join("app", "handlers", "work_queue_handler.rb"), File.join("app", "handlers", "#{work_queue_name.underscore}_queue_handler.rb")
         end
       end
 
@@ -113,6 +113,10 @@ module Funktor
 
       def queues
         funktor_config["queues"]
+      end
+
+      def queue_names
+        funktor_config["queues"].map{|queue_details| queue_details.keys.first }
       end
 
       def work_queue_name

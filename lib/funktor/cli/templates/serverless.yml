@@ -28,8 +28,10 @@ provider:
   versionFunctions: false # Reduces the amount of storage used since all Lambdas together are limited to 75GB
   iamRoleStatements:
     - ${file(config/iam_permissions/ssm.yml)}
-    - ${file(config/iam_permissions/active_job_queue.yml)}
     - ${file(config/iam_permissions/incoming_job_queue.yml)}
+    <%- queue_names.each do |queue_name| -%>
+    - ${file(config/iam_permissions/<%= queue_name.underscore %>_queue.yml)}
+    <%- end -%>
 
 
 custom:
@@ -43,13 +45,17 @@ package: ${file(config/package.yml)}
 
 functions:
   incomingJobHandler: ${file(config/function_definitions/incoming_job_handler.yml)}
-  activeJobHandler: ${file(config/function_definitions/active_job_handler.yml)}
+  <%- queue_names.each do |queue_name| -%>
+  <%= queue_name.camelize %>QueueHandler: ${file(config/function_definitions/<%= queue_name.underscore %>_queue_handler.yml)}
+  <%- end -%>
 
 resources:
-  - ${file(config/resources/active_job_queue.yml)}
   - ${file(config/resources/incoming_job_queue.yml)}
   - ${file(config/resources/incoming_job_queue_user.yml)}
   - ${file(config/resources/cloudwatch_dashboard.yml)}
+  <%- queue_names.each do |queue_name| -%>
+  - ${file(config/resources/<%= queue_name.underscore %>_queue.yml)}
+  <%- end -%>
 
 plugins:
   - serverless-ruby-layer
