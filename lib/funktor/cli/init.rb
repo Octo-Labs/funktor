@@ -127,6 +127,29 @@ module Funktor
         @work_queue_config
       end
 
+      def queue_config(queue_name)
+        funktor_config["queues"].each do |queue_details|
+          if queue_details.keys.first == queue_name
+            return queue_details.values.first
+          end
+        end
+        return nil
+      end
+
+      def incoming_config_value(config_name)
+        funktor_config.dig("incomingJobHandler", config_name) ||
+          funktor_config.dig("handlerDefaults", config_name) ||
+          "null" # When we parse yaml 'null' gets turned to nil, which comes out as an empty string in the template
+      end
+
+      def queue_config_value(queue_name, config_name)
+        puts funktor_config
+        queue_config(queue_name)&.dig(config_name) ||
+          funktor_config.dig("handlerDefaults", config_name) ||
+          "null" # When we parse yaml 'null' gets turned to nil, which comes out as an empty string in the template
+
+      end
+
     end
   end
 end

@@ -3,19 +3,23 @@ incomingJobHandler:
   # to a handler at one time, so you'll want this to be at least 10x the maximum time you
   # expect to spend for one message. The incoming job handler usually will be pretty fast,
   # but we default to a high number here to allow for the times when things go weird.
-  timeout: 300
+  timeout: <%= incoming_config_value 'timeout' %>
   # reservedConcurrency represents the maximum number of concurrent executions.
   # For the incoming job handler you probably don't want to limit it because you
   # want to get things onto work queues as quickly as possible.
-  reservedConcurrency: null
+  reservedConcurrency: <%= incoming_config_value 'reservedConcurrency' %>
   # provisionedConcurrency represents the number of lambda functions that will always
   # be available. For the incoming jobs handler you probably don't need to set this
   # unless your jobs are very bursty AND very time sensitive.
-  provisionedConcurrency: null
+  provisionedConcurrency: <%= incoming_config_value 'provisionedConcurrency' %>
   # Use memory_size to adjust the reousrces (both memory and CPU) available.
   # For the incoming jobs handler you probably don't need this to be too large,
   # but if you're seeing large delays at this stage it might help to bump it up.
-  memorySize: 256
+  memorySize: <%= incoming_config_value 'memorySize' %>
+  batchSize: <%= incoming_config_value 'batchSize' %>
+  maximumBatchingWindow: <%= incoming_config_value 'maximumBatchingWindow' %>
+  visibilityTimeout: <%= incoming_config_value 'visibilityTimeout' %>
+  logRetentionInDays: <%= incoming_config_value 'logRetentionInDays' %>
 
 <%- queue_names.each do |queue_name| -%>
 <%= queue_name.camelize %>QueueHandler:
@@ -23,23 +27,25 @@ incomingJobHandler:
   # to a handler at one time, so you'll want this to be at least 10x the maximum time you
   # expect to spend for one message. The active job handler may be slow if your jobs are
   # doing a lot of work, so we default to the maximum here.
-  timeout: 300 # TODO pull this (and other values) from funktor_init.yml
+  timeout: <%= queue_config_value queue_name, 'timeout' %>
   # reservedConcurrency represents the maximum number of concurrent executions.
   # For the active job handler you may want to limit it if you have resource limitations
   # like database connections that you need to avoid exhausting.
-  reservedConcurrency: null
+  reservedConcurrency: <%= queue_config_value queue_name, 'reservedConcurrency' %>
   # provisionedConcurrency represents the number of lambda functions that will always
   # be available. For the active job handler you probably don't need to set this
   # unless your jobs are very bursty AND very time sensitive.
-  provisionedConcurrency: null
+  provisionedConcurrency: <%= queue_config_value queue_name, 'provisionedConcurrency' %>
   # Use memory_size to adjust the reousrces (both memory and CPU) available.
   # For the active jobs handler you'll want this to be at least as large as the memory
   # required to actually do your jobs. You can choose an even higher number to increase
   # the available CPU to make the jobs run faster.
-  memorySize: 256
+  memorySize: <%= queue_config_value queue_name, 'memorySize' %>
+  batchSize: <%= queue_config_value queue_name, 'batchSize' %>
+  maximumBatchingWindow: <%= queue_config_value queue_name, 'maximumBatchingWindow' %>
+  visibilityTimeout: <%= queue_config_value queue_name, 'visibilityTimeout' %>
+  logRetentionInDays: <%= queue_config_value queue_name, 'logRetentionInDays' %>
 <%- end -%>
-
-
 
 
 # You shouldn't need to mess with these under most circumstances. But you could if you want to change

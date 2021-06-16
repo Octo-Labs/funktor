@@ -5,12 +5,12 @@ runtime: ruby2.7
 
 # These values will be applied to any funktor handlers that don't specify custom values.
 # TODO - These still need to be wired up to do anything.
-handler_defaults:
+handlerDefaults:
   # timeout is how long the handler can possibly run. Up to 10 messages may be delivered
   # to a handler at one time, so you'll want this to be at least 10x the maximum time you
   # expect to spend for one message. We default to a high number here to allow for the
   # times when things go weird.
-  timeout: 900
+  timeout: 300
 
   # reservedConcurrency represents the maximum number of concurrent executions.
   # Usually you'll want to leave this as null so that handlers can scale infinitely
@@ -44,20 +44,17 @@ handler_defaults:
   logRetentionInDays: 30
 
 # Incoming Job Handler
-# TODO - These still need to be wired up to do anything.
-incoming_job_handler:
+incomingJobHandler:
   # If your jobs are bursty AND time-sensitive you might want to have some lambdas pre-provisioned
   # to quickly handle jobs at the beginning of a burst. Uncomment the line below if so.
   # provisionedConcurrency: 4
 
 
-# TODO - These still need to be wired up to do anything.
 queues:
   - default:
       # Set queue specific config options here
       # memorySize: 512
-      # TODO - Is it advisable to use FIFO queuues with Funktor?
-      # TODO - Maybe this isn't really even supported by CloudFormation?
+      # TODO - Is it advisable to use FIFO queuues with Funktor? Maybe this isn't really even supported by CloudFormation?
       # fifo: false
   - singleThread:
       reservedConcurrency: 1
