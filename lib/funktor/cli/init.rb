@@ -15,7 +15,7 @@ module Funktor
 
       class_option :file, :aliases => "-f",
         :type => :string, :desc => "The funktor init file.",
-        :default => "funktor.yml"
+        :default => "funktor_init.yml"
 
       desc <<~DESC
         Description:

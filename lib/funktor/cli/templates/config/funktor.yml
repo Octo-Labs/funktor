@@ -45,6 +45,7 @@ incomingJobHandler:
   maximumBatchingWindow: <%= queue_config_value queue_name, 'maximumBatchingWindow' %>
   visibilityTimeout: <%= queue_config_value queue_name, 'visibilityTimeout' %>
   logRetentionInDays: <%= queue_config_value queue_name, 'logRetentionInDays' %>
+
 <%- end -%>
 
 
