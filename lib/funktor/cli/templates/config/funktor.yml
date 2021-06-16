@@ -17,12 +17,13 @@ incomingJobHandler:
   # but if you're seeing large delays at this stage it might help to bump it up.
   memorySize: 256
 
-activeJobHandler:
+<%- queue_names.each do |queue_name| -%>
+<%= queue_name.camelize %>QueueHandler:
   # timeout is how long the handler can possibly run. Up to 10 messages may be delivered
   # to a handler at one time, so you'll want this to be at least 10x the maximum time you
   # expect to spend for one message. The active job handler may be slow if your jobs are
   # doing a lot of work, so we default to the maximum here.
-  timeout: 300
+  timeout: 300 # TODO pull this (and other values) from funktor_init.yml
   # reservedConcurrency represents the maximum number of concurrent executions.
   # For the active job handler you may want to limit it if you have resource limitations
   # like database connections that you need to avoid exhausting.
@@ -36,16 +37,20 @@ activeJobHandler:
   # required to actually do your jobs. You can choose an even higher number to increase
   # the available CPU to make the jobs run faster.
   memorySize: 256
+<%- end -%>
+
 
 
 
 # You shouldn't need to mess with these under most circumstances. But you could if you want to change
 # the name of some of your resources in AWS.
 incomingJobQueueName: ${self:service}-${self:custom.stage}-incoming-jobs
+incomingDeadJobQueueName: ${self:service}-${self:custom.stage}-incoming-dead
 incomingJobQueueAccessPolicyName: ${self:service}-${self:custom.stage}-incoming-job-queue-access
-incomingDeadJobQueueName: ${self:service}-${self:custom.stage}-incoming-dead-jobs
-activeJobQueueName: ${self:service}-${self:custom.stage}-active-jobs
-activityQueueName: ${self:service}-${self:custom.stage}-activity
-activityDeadQueueName: ${self:service}-${self:custom.stage}-activity-dead
-deadJobQueueName: ${self:service}-${self:custom.stage}-dead-jobs
 dashboardName: ${self:service}-${self:custom.stage}-dashboard
+<%- queue_names.each do |queue_name| -%>
+<%= queue_name.camelize %>QueueName: ${self:service}-${self:custom.stage}-<%= queue_name.underscore.dasherize %>
+<%= queue_name.camelize %>DeadJobQueueName: ${self:service}-${self:custom.stage}-<%= queue_name.underscore.dasherize %>-dead
+<%- end -%>
+
+

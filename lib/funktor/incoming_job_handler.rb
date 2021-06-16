@@ -30,6 +30,8 @@ module Funktor
     def queue_for_job(job)
       queue_name = job.queue || 'default'
       queue_constant = "FUNKTOR_#{queue_name.underscore.upcase}_QUEUE"
+      puts "queue_constant = #{queue_constant}"
+      puts "ENV value = #{ENV[queue_constant]}"
       ENV[queue_constant] || ENV['FUNKTOR_DEFAULT_QUEUE']
     end
 

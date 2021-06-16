@@ -40,10 +40,10 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "AWS/SQS", "NumberOfMessagesReceived", "QueueName", "${self:custom.funktor.activeJobQueueName}", { "label": "Received" } ],
+                            [ "AWS/SQS", "NumberOfMessagesReceived", "QueueName", "${self:custom.funktor.DefaultQueueName}", { "label": "Received" } ],
                             [ ".", "NumberOfMessagesDeleted", ".", ".", { "label": "Handled" } ],
-                            [ "AWS/Lambda", "Invocations", "FunctionName", "${self:service}-${self:provider.stage}-activeJobHandler", "Resource", "${self:service}-${self:provider.stage}-activeJobHandler", { "label": "Handler Invocations" } ],
-                            [ "AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${self:custom.funktor.activeJobQueueName}", { "label": "Pending?" } ],
+                            [ "AWS/Lambda", "Invocations", "FunctionName", "${self:service}-${self:provider.stage}-DefaultQueueHandler", "Resource", "${self:service}-${self:provider.stage}-DefaultQueueHandler", { "label": "Handler Invocations" } ],
+                            [ "AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${self:custom.funktor.DefaultQueueName}", { "label": "Pending?" } ],
                             [ ".", "ApproximateNumberOfMessagesNotVisible", ".", ".", { "label": "Backlog?" } ],
                             [ ".", "NumberOfMessagesSent", ".", ".", { "label": "Sent" } ],
                             [ ".", "ApproximateNumberOfMessagesDelayed", ".", ".", { "label": "Delayed" } ]
