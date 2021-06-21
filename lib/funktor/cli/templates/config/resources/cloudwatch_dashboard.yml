@@ -17,6 +17,44 @@ Resources:
                         "markdown": "\n# Incoming Jobs\n"
                     }
                 },
+                { <% "Incoming Job Queue Messages per minute" %>
+                    "height": 3,
+                    "width": 3,
+                    "y": 0,
+                    "x": 6,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "AWS/SQS", "NumberOfMessagesReceived", "QueueName", "${self:custom.funktor.incomingJobQueueName}", { "label": "Messages Per Minute" } ]
+                        ],
+                        "view": "singleValue",
+                        "region": "us-east-1",
+                        "stat": "Sum",
+                        "period": 60,
+                        "title": "Messages Per Minute"
+                    }
+                },
+                { <% "Incoming Job Handler Duration" %>
+                    "height": 3,
+                    "width": 15,
+                    "y": 0,
+                    "x": 9,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:service}-${self:provider.stage}-incoming_job_handler", "Resource", "${self:service}-${self:provider.stage}-incoming_job_handler", { "label": "p10" } ],
+                            [ "...", { "label": "p50", "stat": "p50" } ],
+                            [ "...", { "label": "p99", "stat": "p99" } ],
+                            [ "...", { "label": "Average", "stat": "Average" } ]
+                        ],
+                        "view": "singleValue",
+                        "region": "us-east-1",
+                        "stat": "p10",
+                        "period": 60,
+                        "title": "Handler Duration"
+                    }
+                },
+
                 { <% "Incoming Job Queue (Async & scheduled jobs land here first)" %>
                     "height": 6,
                     "width": 9,
@@ -88,6 +126,8 @@ Resources:
                         "liveData": true
                     }
                 },
+
+
                 { <% "Incoming Job Handler Concurrent Executions" %>
                     "height": 3,
                     "width": 6,
@@ -106,15 +146,31 @@ Resources:
                         "liveData": true
                     }
                 },
-                { <% "Incoming Job Queue Messages per minute" %>
+
+
+
+                <% current_y = 9 %>
+                <%- queue_names.each do |queue_name| -%>
+                { <% "Active Jobs" %>
+                    "height": 3,
+                    "width": 6,
+                    "y": <%= current_y %>,
+                    "x": 0,
+                    "type": "text",
+                    "properties": {
+                        "markdown": "\n# <%= queue_name.camelize %> Queue\n"
+                    }
+                },
+                { <% "Active Jobs messages per minut" %>
                     "height": 3,
                     "width": 3,
-                    "y": 0,
+                    "y": <%= current_y %>,
                     "x": 6,
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "AWS/SQS", "NumberOfMessagesReceived", "QueueName", "${self:custom.funktor.incomingJobQueueName}", { "label": "Messages Per Minute" } ]
+                            [ "AWS/SQS", "NumberOfMessagesReceived", "QueueName",
+                              "${self:custom.funktor.<%= queue_name.camelize %>QueueName}", { "label": "Messages Per Minute" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
@@ -123,15 +179,17 @@ Resources:
                         "title": "Messages Per Minute"
                     }
                 },
-                { <% "Incoming Job Handler Duration" %>
+                { <% "Active Job Handler Duration" %>
                     "height": 3,
                     "width": 15,
-                    "y": 0,
+                    "y": <%= current_y %>,
                     "x": 9,
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:service}-${self:provider.stage}-incoming_job_handler", "Resource", "${self:service}-${self:provider.stage}-incoming_job_handler", { "label": "p10" } ],
+                            [ "AWS/Lambda", "Duration", "FunctionName",
+                              "${self:custom.funktor.<%= queue_name.camelize %>QueueHandlerName}", "Resource",
+                              "${self:custom.funktor.<%= queue_name.camelize %>QueueHandlerName}", { "label": "p10" } ],
                             [ "...", { "label": "p50", "stat": "p50" } ],
                             [ "...", { "label": "p99", "stat": "p99" } ],
                             [ "...", { "label": "Average", "stat": "Average" } ]
@@ -143,24 +201,10 @@ Resources:
                         "title": "Handler Duration"
                     }
                 },
-
-
-
-                <%- queue_names.each do |queue_name| -%>
-                { <% "Active Jobs" %>
-                    "height": 3,
-                    "width": 6,
-                    "y": 9,
-                    "x": 0,
-                    "type": "text",
-                    "properties": {
-                        "markdown": "\n# <%= queue_name.camelize %> Queue\n"
-                    }
-                },
                 { <% "Active Job Queue" %>
                     "height": 6,
                     "width": 9,
-                    "y": 12,
+                    "y": <%= current_y + 3 %>,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -190,7 +234,7 @@ Resources:
                 { <% "Active Job Handler Duration in Milliseconds" %>
                     "height": 6,
                     "width": 9,
-                    "y": 12,
+                    "y": <%= current_y + 3 %>,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -210,7 +254,7 @@ Resources:
                 { <% "Active Job HandlerError count and success rate (%)" %>
                     "height": 3,
                     "width": 6,
-                    "y": 12,
+                    "y": <%= current_y + 3 %>,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -236,7 +280,7 @@ Resources:
                 { <% "Active Job Handler Concurrent executions" %>
                     "height": 3,
                     "width": 6,
-                    "y": 15,
+                    "y": <%= current_y + 6 %>,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -252,35 +296,69 @@ Resources:
                         "liveData": true
                     }
                 },
-                { <% "Active Jobs messages per minut" %>
+
+                <% current_y += 9 %>
+                <%- end -%>
+
+                { <% "Job Duration By Worker" %>
+                    "height": 6,
+                    "width": 24,
+                    "y": <%= current_y %>,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "rails-lambda-experiment", "Duration", "WorkerClassName", "HelloWorker" ],
+                            [ "...", { "stat": "p99" } ],
+                            [ "...", "HelloLaterWorker" ],
+                            [ "...", { "stat": "p99" } ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "Average",
+                        "period": 60,
+                        "title": "Job Duration by Worker"
+                    }
+                },
+                <% current_y += 6 %>
+
+                { <% "Delayed Jobs" %>
+                    "height": 3,
+                    "width": 6,
+                    "y": <%= current_y %>,
+                    "x": 0,
+                    "type": "text",
+                    "properties": {
+                        "markdown": "\n# Delayed Jobs\n"
+                    }
+                },
+                { <% "Messages To Be Scheduled" %>
                     "height": 3,
                     "width": 3,
-                    "y": 9,
+                    "y": <%= current_y %>,
                     "x": 6,
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "AWS/SQS", "NumberOfMessagesReceived", "QueueName",
-                              "${self:custom.funktor.<%= queue_name.camelize %>QueueName}", { "label": "Messages Per Minute" } ]
+                            [ "AWS/DynamoDB", "ReturnedItemCount", "TableName", "${self:service}-${self:custom.stage}-delayed-jobs", "Operation", "Query" ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
-                        "stat": "Sum",
+                        "stat": "Average",
                         "period": 60,
-                        "title": "Messages Per Minute"
+                        "title": "Messages To Be Scheduled"
                     }
                 },
-                { <% "Active Job Handler Duration" %>
+                { <% "Delayed Job Scheduler Duration" %>
                     "height": 3,
                     "width": 15,
-                    "y": 9,
+                    "y": <%= current_y %>,
                     "x": 9,
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName",
-                              "${self:custom.funktor.<%= queue_name.camelize %>QueueHandlerName}", "Resource",
-                              "${self:custom.funktor.<%= queue_name.camelize %>QueueHandlerName}", { "label": "p10" } ],
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:service}-${self:provider.stage}-delayed_job_scheduler", "Resource", "${self:service}-${self:provider.stage}-delayed_job_scheduler", { "label": "p10" } ],
                             [ "...", { "label": "p50", "stat": "p50" } ],
                             [ "...", { "label": "p99", "stat": "p99" } ],
                             [ "...", { "label": "Average", "stat": "Average" } ]
@@ -292,15 +370,81 @@ Resources:
                         "title": "Handler Duration"
                     }
                 },
-                <%- end -%>
 
 
 
+                <% current_y += 3 %>
+                { <% "Delayed Job SchedulerError count and success rate (%)" %>
+                    "height": 3,
+                    "width": 6,
+                    "y": <%= current_y %>,
+                    "x": 18,
+                    "type": "metric",
+                    "properties": {
+                        "period": 60,
+                        "metrics": [
+                            [ "AWS/Lambda", "Errors", "FunctionName", "${self:service}-${self:provider.stage}-delayed_job_scheduler", { "id": "errors", "stat": "Sum", "color": "#d13212" } ],
+                            [ ".", "Invocations", ".", ".", { "id": "invocations", "stat": "Sum", "visible": false } ],
+                            [ { "expression": "100 - 100 * errors / MAX([errors, invocations])", "label": "Success rate (%)", "id": "availability", "yAxis": "right", "region": "us-east-1" } ]
+                        ],
+                        "region": "us-east-1",
+                        "title": "Delayed Job SchedulerError count and success rate (%)",
+                        "yAxis": {
+                            "right": {
+                                "max": 100
+                            }
+                        },
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "liveData": true
+                    }
+                },
+                { <% "Delayed Job Scheduler Duration" %>
+                    "height": 3,
+                    "width": 9,
+                    "y": <%= current_y %>,
+                    "x": 9,
+                    "type": "metric",
+                    "properties": {
+                        "period": 60,
+                        "metrics": [
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:service}-${self:provider.stage}-delayed_job_scheduler", { "stat": "Minimum" } ],
+                            [ "...", { "stat": "Average" } ],
+                            [ "...", { "stat": "Maximum" } ]
+                        ],
+                        "region": "us-east-1",
+                        "title": "Delayed Job Scheduler Duration",
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "liveData": true
+                    }
+                },
+                { <% "Delayed Jobs To Be Executed In The Next 90 Seconds" %>
+                    "height": 3,
+                    "width": 9,
+                    "y": <%= current_y %>,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "AWS/DynamoDB", "ReturnedItemCount", "TableName", "${self:service}-${self:custom.stage}-delayed-jobs", "Operation", "Query" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "Delayed Jobs To Be Executed In The Next 90 Seconds",
+                        "period": 60,
+                        "stat": "Average",
+                        "liveData": true
+                    }
+                },
 
+
+                <% current_y += 3 %>
                 { <% "Scheduled Job Table Read Capacity Units" %>
                     "height": 3,
                     "width": 9,
-                    "y": 30,
+                    "y": <%= current_y %>,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -319,10 +463,54 @@ Resources:
                         "liveData": true
                     }
                 },
+                { <% "Delayd Job Schedule Concurrent executions" %>
+                    "height": 3,
+                    "width": 6,
+                    "y": <%= current_y %>,
+                    "x": 18,
+                    "type": "metric",
+                    "properties": {
+                        "period": 60,
+                        "metrics": [
+                            [ "AWS/Lambda", "ConcurrentExecutions", "FunctionName", "${self:service}-${self:provider.stage}-delayed_job_scheduler", { "stat": "Maximum" } ]
+                        ],
+                        "region": "us-east-1",
+                        "title": "Delayd Job Schedule Concurrent executions",
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "liveData": true
+                    }
+                },
+                { <% "Scheduled Job Table Write Capacity Units" %>
+                    "height": 3,
+                    "width": 9,
+                    "y": <%= current_y %>,
+                    "x": 9,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ { "expression": "m4/PERIOD(m4)", "label": "Consumed Read Capacity Units", "id": "e1", "stat": "Sum", "region": "us-east-1" } ],
+                            [ "AWS/DynamoDB", "ConsumedReadCapacityUnits", "TableName", "${self:service}-${self:custom.stage}-delayed-jobs", { "id": "m2", "visible": false } ],
+                            [ ".", "ConsumedWriteCapacityUnits", ".", ".", { "yAxis": "left", "id": "m4", "visible": false } ],
+                            [ ".", "WriteThrottleEvents", ".", ".", { "yAxis": "right", "id": "m5", "visible": false } ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "Scheduled Job Table Write Capacity Units",
+                        "period": 60,
+                        "stat": "Sum",
+                        "liveData": true
+                    }
+                },
+
+
+
+                <% current_y += 3 %>
                 { <% "Scheduled Job Table Latency" %>
                     "height": 3,
                     "width": 18,
-                    "y": 33,
+                    "y": <%= current_y %>,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -345,7 +533,7 @@ Resources:
                 { <% "Scheduled Job Table Throttled Operations" %>
                     "height": 3,
                     "width": 6,
-                    "y": 33,
+                    "y": <%= current_y %>,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -361,178 +549,7 @@ Resources:
                         "title": "Scheduled Job Table Throttled Operations",
                         "liveData": true
                     }
-                },
-                { <% "Delayed Job Scheduler Duration" %>
-                    "height": 3,
-                    "width": 9,
-                    "y": 27,
-                    "x": 9,
-                    "type": "metric",
-                    "properties": {
-                        "period": 60,
-                        "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:service}-${self:provider.stage}-delayed_job_scheduler", { "stat": "Minimum" } ],
-                            [ "...", { "stat": "Average" } ],
-                            [ "...", { "stat": "Maximum" } ]
-                        ],
-                        "region": "us-east-1",
-                        "title": "Delayed Job Scheduler Duration",
-                        "view": "timeSeries",
-                        "stacked": false,
-                        "liveData": true
-                    }
-                },
-                { <% "Delayed Job SchedulerError count and success rate (%)" %>
-                    "height": 3,
-                    "width": 6,
-                    "y": 27,
-                    "x": 18,
-                    "type": "metric",
-                    "properties": {
-                        "period": 60,
-                        "metrics": [
-                            [ "AWS/Lambda", "Errors", "FunctionName", "${self:service}-${self:provider.stage}-delayed_job_scheduler", { "id": "errors", "stat": "Sum", "color": "#d13212" } ],
-                            [ ".", "Invocations", ".", ".", { "id": "invocations", "stat": "Sum", "visible": false } ],
-                            [ { "expression": "100 - 100 * errors / MAX([errors, invocations])", "label": "Success rate (%)", "id": "availability", "yAxis": "right", "region": "us-east-1" } ]
-                        ],
-                        "region": "us-east-1",
-                        "title": "Delayed Job SchedulerError count and success rate (%)",
-                        "yAxis": {
-                            "right": {
-                                "max": 100
-                            }
-                        },
-                        "view": "timeSeries",
-                        "stacked": false,
-                        "liveData": true
-                    }
-                },
-                { <% "Delayd Job Schedule Concurrent executions" %>
-                    "height": 3,
-                    "width": 6,
-                    "y": 30,
-                    "x": 18,
-                    "type": "metric",
-                    "properties": {
-                        "period": 60,
-                        "metrics": [
-                            [ "AWS/Lambda", "ConcurrentExecutions", "FunctionName", "${self:service}-${self:provider.stage}-delayed_job_scheduler", { "stat": "Maximum" } ]
-                        ],
-                        "region": "us-east-1",
-                        "title": "Delayd Job Schedule Concurrent executions",
-                        "view": "timeSeries",
-                        "stacked": false,
-                        "liveData": true
-                    }
-                },
-                { <% "Delayed Jobs To Be Executed In The Next 90 Seconds" %>
-                    "height": 3,
-                    "width": 9,
-                    "y": 27,
-                    "x": 0,
-                    "type": "metric",
-                    "properties": {
-                        "metrics": [
-                            [ "AWS/DynamoDB", "ReturnedItemCount", "TableName", "${self:service}-${self:custom.stage}-delayed-jobs", "Operation", "Query" ]
-                        ],
-                        "view": "timeSeries",
-                        "stacked": false,
-                        "region": "us-east-1",
-                        "title": "Delayed Jobs To Be Executed In The Next 90 Seconds",
-                        "period": 60,
-                        "stat": "Average",
-                        "liveData": true
-                    }
-                },
-                { <% "Delayed Jobs" %>
-                    "height": 3,
-                    "width": 6,
-                    "y": 24,
-                    "x": 0,
-                    "type": "text",
-                    "properties": {
-                        "markdown": "\n# Delayed Jobs\n"
-                    }
-                },
-                { <% "Messages To Be Scheduled" %>
-                    "height": 3,
-                    "width": 3,
-                    "y": 24,
-                    "x": 6,
-                    "type": "metric",
-                    "properties": {
-                        "metrics": [
-                            [ "AWS/DynamoDB", "ReturnedItemCount", "TableName", "${self:service}-${self:custom.stage}-delayed-jobs", "Operation", "Query" ]
-                        ],
-                        "view": "singleValue",
-                        "region": "us-east-1",
-                        "stat": "Average",
-                        "period": 60,
-                        "title": "Messages To Be Scheduled"
-                    }
-                },
-                { <% "Delayed Job Scheduler Duration" %>
-                    "height": 3,
-                    "width": 15,
-                    "y": 24,
-                    "x": 9,
-                    "type": "metric",
-                    "properties": {
-                        "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:service}-${self:provider.stage}-delayed_job_scheduler", "Resource", "${self:service}-${self:provider.stage}-delayed_job_scheduler", { "label": "p10" } ],
-                            [ "...", { "label": "p50", "stat": "p50" } ],
-                            [ "...", { "label": "p99", "stat": "p99" } ],
-                            [ "...", { "label": "Average", "stat": "Average" } ]
-                        ],
-                        "view": "singleValue",
-                        "region": "us-east-1",
-                        "stat": "p10",
-                        "period": 60,
-                        "title": "Handler Duration"
-                    }
-                },
-                { <% "Scheduled Job Table Write Capacity Units" %>
-                    "height": 3,
-                    "width": 9,
-                    "y": 30,
-                    "x": 9,
-                    "type": "metric",
-                    "properties": {
-                        "metrics": [
-                            [ { "expression": "m4/PERIOD(m4)", "label": "Consumed Read Capacity Units", "id": "e1", "stat": "Sum", "region": "us-east-1" } ],
-                            [ "AWS/DynamoDB", "ConsumedReadCapacityUnits", "TableName", "${self:service}-${self:custom.stage}-delayed-jobs", { "id": "m2", "visible": false } ],
-                            [ ".", "ConsumedWriteCapacityUnits", ".", ".", { "yAxis": "left", "id": "m4", "visible": false } ],
-                            [ ".", "WriteThrottleEvents", ".", ".", { "yAxis": "right", "id": "m5", "visible": false } ]
-                        ],
-                        "view": "timeSeries",
-                        "stacked": false,
-                        "region": "us-east-1",
-                        "title": "Scheduled Job Table Write Capacity Units",
-                        "period": 60,
-                        "stat": "Sum",
-                        "liveData": true
-                    }
-                },
-                { <% "Job Duration By Worker" %>
-                    "height": 6,
-                    "width": 24,
-                    "y": 18,
-                    "x": 0,
-                    "type": "metric",
-                    "properties": {
-                        "metrics": [
-                            [ "rails-lambda-experiment", "Duration", "WorkerClassName", "HelloWorker" ],
-                            [ "...", { "stat": "p99" } ],
-                            [ "...", "HelloLaterWorker" ],
-                            [ "...", { "stat": "p99" } ]
-                        ],
-                        "view": "timeSeries",
-                        "stacked": false,
-                        "region": "us-east-1",
-                        "stat": "Average",
-                        "period": 60,
-                        "title": "Job Duration by Worker"
-                    }
                 }
+
             ]
         }
