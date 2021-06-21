@@ -30,9 +30,7 @@ module Funktor
         name
       end
 
-      def serverless_yml
-        template "serverless.yml", File.join("serverless.yml")
-      end
+      
 
       def funktor_config_yml
         #template "funktor_config.yml", File.join("funktor_config.yml")
@@ -52,6 +50,10 @@ module Funktor
 
       def gitignore
         template "gitignore", File.join(".gitignore")
+      end
+
+      def workers
+        template File.join("app", "workers", "hello_worker.rb"), File.join("app", "workers", "hello_worker.rb")
       end
 
       def resources
@@ -94,16 +96,31 @@ module Funktor
         end
       end
 
-      def workers
-        template File.join("app", "workers", "hello_worker.rb"), File.join("app", "workers", "hello_worker.rb")
+      def serverless_yml
+        template "serverless.yml", File.join("serverless.yml")
       end
 
       private
+
+      def app_worker_names
+        app_worker_files.map do |file|
+          File.basename(file, ".rb").camelize
+        end
+      end
+
+      def app_worker_files
+        Dir.glob(File.join('app', 'workers', '**.rb'))
+      end
+
       def funktor_config
         @funktor_config ||= YAML.load_file options[:file]
       end
 
       def name
+        funktor_config["appName"]
+      end
+
+      def app_name
         funktor_config["appName"]
       end
 
