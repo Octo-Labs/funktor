@@ -308,10 +308,10 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            <% app_worker_names.each do |worker_name| %>
+                            <%- app_worker_names.each do |worker_name| -%>
                             [ "<%= app_name %>", "Duration", "WorkerClassName", "<%= worker_name %>" ],
-                            [ "...", { "stat": "p99" } ],
-                            <% end %>
+                            [ "...", { "stat": "p99" } ]<%= worker_name == app_worker_names.last ? "" : "," %>
+                            <%- end -%>
                         ],
                         "view": "timeSeries",
                         "stacked": false,
