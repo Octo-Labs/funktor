@@ -112,6 +112,18 @@ module Funktor
         Dir.glob(File.join('app', 'workers', '**.rb'))
       end
 
+      def all_iam_permissions
+        Dir.glob(File.join('config', 'iam_permissions', '**.yml'))
+      end
+
+      def all_function_definitions
+        Dir.glob(File.join('config', 'function_definitions', '**.yml'))
+      end
+
+      def all_resources
+        Dir.glob(File.join('config', 'resources', '**.yml'))
+      end
+
       def funktor_config
         @funktor_config ||= YAML.load_file options[:file]
       end
