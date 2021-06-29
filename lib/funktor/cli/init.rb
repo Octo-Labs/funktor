@@ -88,11 +88,11 @@ module Funktor
       end
 
       def lambda_handlers
-        template File.join("app", "handlers", "incoming_job_handler.rb"), File.join("app", "handlers", "incoming_job_handler.rb")
+        template File.join("lambda_event_handlers", "incoming_job_handler.rb"), File.join("lambda_event_handlers", "incoming_job_handler.rb")
         queues.each do |queue_details|
           @work_queue_name = queue_details.keys.first
           @work_queue_config = queue_details.values.first
-          template File.join("app", "handlers", "work_queue_handler.rb"), File.join("app", "handlers", "#{work_queue_name.underscore}_queue_handler.rb")
+          template File.join("lambda_event_handlers", "work_queue_handler.rb"), File.join("lambda_event_handlers", "#{work_queue_name.underscore}_queue_handler.rb")
         end
       end
 
