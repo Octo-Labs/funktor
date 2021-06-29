@@ -171,7 +171,6 @@ module Funktor
       end
 
       def queue_config_value(queue_name, config_name)
-        puts funktor_config
         queue_config(queue_name)&.dig(config_name) ||
           funktor_config.dig("handlerDefaults", config_name) ||
           "null" # When we parse yaml 'null' gets turned to nil, which comes out as an empty string in the template
