@@ -1,3 +1,4 @@
+FUNKTOR_APP_NAME: <%= app_name %>
 FUNKTOR_INCOMING_JOB_QUEUE:
   Ref: IncomingJobQueue
 <%- queue_names.each do |queue_name| -%>

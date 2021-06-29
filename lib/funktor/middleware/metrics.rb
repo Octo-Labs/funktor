@@ -19,7 +19,7 @@ module Funktor
             "Timestamp": Time.now.strftime('%s%3N').to_i,
             "CloudWatchMetrics": [
               {
-                "Namespace": "rails-lambda-experiment", # TODO - We should get this from config or someting
+                "Namespace": ENV['FUNKTOR_APP_NAME'], # TODO - We should get this from config or someting
                 "Dimensions": [["WorkerClassName"]],
                 "Metrics": [ # CPU, Memory, Duration, etc...
                              {
