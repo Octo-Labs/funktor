@@ -2,7 +2,7 @@ Resources:
   FunktorDashboard:
     Type: AWS::CloudWatch::Dashboard
     Properties:
-      DashboardName: ${self:custom.funktor.dashboardName}
+      DashboardName: ${self:custom.funktor.DashboardName}
       DashboardBody: >
         {
             "widgets": [
@@ -42,7 +42,7 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:service}-${self:provider.stage}-incoming_job_handler", "Resource", "${self:service}-${self:provider.stage}-incoming_job_handler", { "label": "p10" } ],
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.IncomingJobHandlerName}", "Resource", "${self:custom.funktor.IncomingJobHandlerName}", { "label": "p10" } ],
                             [ "...", { "label": "p50", "stat": "p50" } ],
                             [ "...", { "label": "p99", "stat": "p99" } ],
                             [ "...", { "label": "Average", "stat": "Average" } ]
@@ -65,7 +65,7 @@ Resources:
                         "metrics": [
                             [ "AWS/SQS", "NumberOfMessagesReceived", "QueueName", "${self:custom.funktor.IncomingJobQueueName}", { "label": "Received" } ],
                             [ ".", "NumberOfMessagesDeleted", ".", ".", { "label": "Handled" } ],
-                            [ "AWS/Lambda", "Invocations", "FunctionName", "${self:service}-${self:provider.stage}-incoming_job_handler", "Resource", "${self:service}-${self:provider.stage}-incoming_job_handler", { "label": "Handler Invocations" } ],
+                            [ "AWS/Lambda", "Invocations", "FunctionName", "${self:custom.funktor.IncomingJobHandlerName}", "Resource", "${self:custom.funktor.IncomingJobHandlerName}", { "label": "Handler Invocations" } ],
                             [ "AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${self:custom.funktor.IncomingJobQueueName}", { "label": "Pending?" } ],
                             [ ".", "ApproximateNumberOfMessagesNotVisible", ".", ".", { "label": "Backlog?" } ],
                             [ ".", "NumberOfMessagesSent", ".", ".", { "label": "Sent" } ],
@@ -90,7 +90,7 @@ Resources:
                     "properties": {
                         "period": 60,
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:service}-${self:provider.stage}-incoming_job_handler", { "stat": "Minimum" } ],
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.IncomingJobHandlerName}", { "stat": "Minimum" } ],
                             [ "...", { "stat": "Average" } ],
                             [ "...", { "stat": "Maximum" } ]
                         ],
@@ -110,7 +110,7 @@ Resources:
                     "properties": {
                         "period": 60,
                         "metrics": [
-                            [ "AWS/Lambda", "Errors", "FunctionName", "${self:service}-${self:provider.stage}-incoming_job_handler", { "id": "errors", "stat": "Sum", "color": "#d13212" } ],
+                            [ "AWS/Lambda", "Errors", "FunctionName", "${self:custom.funktor.IncomingJobHandlerName}", { "id": "errors", "stat": "Sum", "color": "#d13212" } ],
                             [ ".", "Invocations", ".", ".", { "id": "invocations", "stat": "Sum", "visible": false } ],
                             [ { "expression": "100 - 100 * errors / MAX([errors, invocations])", "label": "Success rate (%)", "id": "availability", "yAxis": "right", "region": "us-east-1" } ]
                         ],
@@ -137,7 +137,7 @@ Resources:
                     "properties": {
                         "period": 60,
                         "metrics": [
-                            [ "AWS/Lambda", "ConcurrentExecutions", "FunctionName", "${self:service}-${self:provider.stage}-incoming_job_handler", { "stat": "Maximum" } ]
+                            [ "AWS/Lambda", "ConcurrentExecutions", "FunctionName", "${self:custom.funktor.IncomingJobHandlerName}", { "stat": "Maximum" } ]
                         ],
                         "region": "us-east-1",
                         "title": "Incoming Job Handler Concurrent Executions",

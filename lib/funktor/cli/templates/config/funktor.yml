@@ -53,7 +53,7 @@ IncomingJobHandler:
 # the name of some of your resources in AWS.
 IncomingJobQueueName: ${self:service}-${self:custom.stage}-incoming-jobs
 IncomingDeadJobQueueName: ${self:service}-${self:custom.stage}-incoming-dead
-IncomingJobQueueHandlerName: ${self:service}-${self:custom.stage}-IncomingJobQueueHandler
+IncomingJobHandlerName: ${self:service}-${self:custom.stage}-IncomingJobHandler
 IncomingJobQueueAccessPolicyName: ${self:service}-${self:custom.stage}-incoming-job-queue-access
 DashboardName: ${self:service}-${self:custom.stage}-dashboard
 <%- queue_names.each do |queue_name| -%>
