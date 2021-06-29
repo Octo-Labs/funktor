@@ -30,14 +30,13 @@ module Funktor
         name
       end
 
-      
-
       def funktor_config_yml
         #template "funktor_config.yml", File.join("funktor_config.yml")
         template File.join("config", "funktor.yml"), File.join("config", "funktor.yml")
         template File.join("config", "ruby_layer.yml"), File.join("config", "ruby_layer.yml")
         template File.join("config", "package.yml"), File.join("config", "package.yml")
         template File.join("config", "environment.yml"), File.join("config", "environment.yml")
+        template File.join("config", "boot.rb"), File.join("config", "boot.rb")
       end
 
       def package_json

@@ -1,4 +1,4 @@
-require 'funktor'
+require_relative '../config/boot'
 
 $handler = Funktor::IncomingJobHandler.new
 
