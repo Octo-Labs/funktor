@@ -34,41 +34,20 @@ npm install -g serverless
 
 Then you can initialize a new app by doing:
 
-
 ```bash
+funktor bootstrap my-funktor-app
+cd my-funktor-app
 funktor init
 ```
+
+Then you sh
 
 This will create a `funktor` directory that is ready to deploy to AWS. If you've already configured
 your aws tools via `~/.aws/credentials` you should be ready to deploy.
 
-`funktor/serverless.yml` is the main file that ties everything together.
-
-`funktor/config` contains a few files that you can use to configure your `funktor` application.
-
-`funktor/resources` contains a few files that provision some AWS resources that are used by `funktor`.
-* An SQS Queue for the "incoming jobs queue"
-* A Dynamo DB table to allow queueing of jobs more than 15 minutes in the future (Funktor Pro)
-* One or more SQS Queues for active jobs (currently there is only the default queue, support for additional queues is coming soon)
-* An IAM User with permission to push jobs to the incoming jobs queue
-* A CloudWatch dashboard to let you keep tabs on your application
-
-`funktor/lambda_handlers` contains some scripts that receive events from Lambda, then invoke `funktor` to
-do various things:
-* `active_job_handler.rb` executes your jobs
-* `delayed_job_scheduler.rb` (Funktor Pro) pulls delayed jobs out of DynamoDB and places them on the active job queue.
-* `incoming_job_handler.rb` receives incoming jobs and pushes them to DynamoDB for delayed execution or to the active job queue as appropriate.
-
-`funktor/function_definitions` contains details about hooking up the `lambda_handlers` to events.
-
-`funktor/iam_permissions` contains some details about giving your lambda functions the appropriate permissions
-to interact with SQS.
-
-`funktor/workers` is where your workers will live.
-
-`funktor/Gemfile` is the `Gemfile` that contains the gems that are needed for your workers to execute
-jobs. This should be the minimal set of gems you can get away with so that cold start times remain reasonable.
-This file will already contain `funktor`. (Don't remove it or `funktor` won't work!)
+See the [wiki](https://github.com/Octo-Labs/funktor/wiki)
+for more info, especially the
+[section about getting started in a stand alone project](https://github.com/Octo-Labs/funktor/wiki/Getting-started-in-a-stand-alone-project).
 
 ## Deploying
 
