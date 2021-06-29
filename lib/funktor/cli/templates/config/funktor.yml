@@ -1,4 +1,4 @@
-incomingJobHandler:
+IncomingJobHandler:
   # timeout is how long the handler can possibly run. Up to 10 messages may be delivered
   # to a handler at one time, so you'll want this to be at least 10x the maximum time you
   # expect to spend for one message. The incoming job handler usually will be pretty fast,
@@ -51,10 +51,11 @@ incomingJobHandler:
 
 # You shouldn't need to mess with these under most circumstances. But you could if you want to change
 # the name of some of your resources in AWS.
-incomingJobQueueName: ${self:service}-${self:custom.stage}-incoming-jobs
-incomingDeadJobQueueName: ${self:service}-${self:custom.stage}-incoming-dead
-incomingJobQueueAccessPolicyName: ${self:service}-${self:custom.stage}-incoming-job-queue-access
-dashboardName: ${self:service}-${self:custom.stage}-dashboard
+IncomingJobQueueName: ${self:service}-${self:custom.stage}-incoming-jobs
+IncomingDeadJobQueueName: ${self:service}-${self:custom.stage}-incoming-dead
+IncomingJobQueueHandlerName: ${self:service}-${self:custom.stage}-IncomingJobQueueHandler
+IncomingJobQueueAccessPolicyName: ${self:service}-${self:custom.stage}-incoming-job-queue-access
+DashboardName: ${self:service}-${self:custom.stage}-dashboard
 <%- queue_names.each do |queue_name| -%>
 <%= queue_name.camelize %>QueueName: ${self:service}-${self:custom.stage}-<%= queue_name.underscore.dasherize %>
 <%= queue_name.camelize %>DeadJobQueueName: ${self:service}-${self:custom.stage}-<%= queue_name.underscore.dasherize %>-dead

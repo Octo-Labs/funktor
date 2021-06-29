@@ -25,7 +25,7 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "AWS/SQS", "NumberOfMessagesReceived", "QueueName", "${self:custom.funktor.incomingJobQueueName}", { "label": "Messages Per Minute" } ]
+                            [ "AWS/SQS", "NumberOfMessagesReceived", "QueueName", "${self:custom.funktor.IncomingJobQueueName}", { "label": "Messages Per Minute" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
@@ -63,10 +63,10 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "AWS/SQS", "NumberOfMessagesReceived", "QueueName", "${self:custom.funktor.incomingJobQueueName}", { "label": "Received" } ],
+                            [ "AWS/SQS", "NumberOfMessagesReceived", "QueueName", "${self:custom.funktor.IncomingJobQueueName}", { "label": "Received" } ],
                             [ ".", "NumberOfMessagesDeleted", ".", ".", { "label": "Handled" } ],
                             [ "AWS/Lambda", "Invocations", "FunctionName", "${self:service}-${self:provider.stage}-incoming_job_handler", "Resource", "${self:service}-${self:provider.stage}-incoming_job_handler", { "label": "Handler Invocations" } ],
-                            [ "AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${self:custom.funktor.incomingJobQueueName}", { "label": "Pending?" } ],
+                            [ "AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName", "${self:custom.funktor.IncomingJobQueueName}", { "label": "Pending?" } ],
                             [ ".", "ApproximateNumberOfMessagesNotVisible", ".", ".", { "label": "Backlog?" } ],
                             [ ".", "NumberOfMessagesSent", ".", ".", { "label": "Sent" } ],
                             [ ".", "ApproximateNumberOfMessagesDelayed", ".", ".", { "label": "Delayed" } ]
