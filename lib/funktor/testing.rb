@@ -57,7 +57,7 @@ module Funktor
 
   class InlineJobPusherMiddleware
     def call(worker, payload)
-      worker.new.perform(payload[:worker_params])
+      worker.new.perform(*payload[:worker_params])
     end
   end
 

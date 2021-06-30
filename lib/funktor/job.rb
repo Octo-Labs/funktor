@@ -43,7 +43,7 @@ module Funktor
     end
 
     def execute
-      worker_class.new.perform(worker_params)
+      worker_class.new.perform(*worker_params)
     end
 
     def worker_class

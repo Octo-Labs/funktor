@@ -2,21 +2,21 @@ require 'funktor/worker'
 
 class HelloWorker
   include Funktor::Worker
-  def perform(params)
+  def perform(params_one = nil, param_two = nil)
     puts "hello"
   end
 end
 
 class FailWorker
   include Funktor::Worker
-  def perform(params)
+  def perform(param_one = nil, param_two = nil)
     raise "hell"
   end
 end
 
 module JobSpecHelpers
   def build_payload(worker_class, delay = 0)
-    { "body": Funktor.dump_json(worker_class.build_job_payload('fake-job-id', delay, {})) }
+    { "body": Funktor.dump_json(worker_class.build_job_payload('fake-job-id', delay, 1, 'two')) }
   end
 
   def create_event(worker_classes = [HelloWorker, HelloWorker], delay = 0)

@@ -11,4 +11,9 @@ RSpec.describe Funktor::Job do
   it 'returns a worker class name' do
     expect(job.worker_class_name).to eq("HelloWorker")
   end
+
+  it 'can execut the job' do
+    expect_any_instance_of(HelloWorker).to receive(:perform).with(1, 'two')
+    job.execute
+  end
 end
