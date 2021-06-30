@@ -3,6 +3,11 @@ require 'aws-sdk-sqs'
 module Funktor
   class ActiveJobHandler
 
+    def initialize
+      @failed_counter = Funktor::Counter.new('failed')
+      @processed_counter = Funktor::Counter.new('processed')
+    end
+
     def call(event:, context:)
       event = Funktor::Aws::Sqs::Event.new(event)
       puts "event.jobs.count = #{event.jobs.count}"
@@ -20,10 +25,12 @@ module Funktor
         Funktor.active_job_handler_middleware.invoke(job) do
           job.execute
         end
+        @processed_counter.incr(job)
       # rescue Funktor::Job::InvalidJsonError # TODO Make this work
       rescue Exception => e
         puts "Error during processing: #{$!}"
         puts "Backtrace:\n\t#{e.backtrace.join("\n\t")}"
+        @failed_counter.incr(job)
         attempt_retry_or_bail(job)
       end
     end
