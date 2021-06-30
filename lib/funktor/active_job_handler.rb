@@ -50,8 +50,7 @@ module Funktor
       puts job.to_json
       sqs_client.send_message({
         queue_url: job.retry_queue_url,
-        message_body: job.to_json,
-        delay_seconds: job.delay
+        message_body: job.to_json
       })
     end
 
