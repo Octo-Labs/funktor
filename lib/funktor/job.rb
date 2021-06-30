@@ -35,7 +35,11 @@ module Funktor
     end
 
     def delay
-      job_data["delay"]
+      # TODO - In Funktor Pro we need to override this method (or do something else) so that
+      # we can schedule jobs farther in the future than 15 minutes. We do this here in case a
+      # retry sequence goes too long.
+      jdelay = job_data["delay"]
+      return jdelay < 900 ? jdelay : 900
     end
 
     def delay=(delay)
