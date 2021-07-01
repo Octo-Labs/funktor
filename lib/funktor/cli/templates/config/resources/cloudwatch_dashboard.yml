@@ -321,6 +321,29 @@ Resources:
                         "title": "Job Duration by Worker"
                     }
                 },
+
+                <% current_y += 6 %>
+                { <% "Processed/Failed Jobs By Worker" %>
+                    "height": 6,
+                    "width": 24,
+                    "y": <%= current_y %>,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            <%- app_worker_names.each do |worker_name| -%>
+                            [ "<%= app_name %>", "processed", "WorkerClassName", "<%= worker_name %>" ],
+                            [ ".", "failed", ".", "." ]<%= worker_name == app_worker_names.last ? "" : "," %>
+                            <%- end -%>
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "Process/Failed Jobs By Worker",
+                        "period": 60,
+                        "stat": "Sum"
+                  }
+                },
                 <% current_y += 6 %>
 
                 { <% "Delayed Jobs" %>
@@ -550,6 +573,9 @@ Resources:
                         "liveData": true
                     }
                 }
+
+
+                
 
             ]
         }
