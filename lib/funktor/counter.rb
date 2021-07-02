@@ -21,7 +21,7 @@ module Funktor
           "CloudWatchMetrics": [
             {
               "Namespace": ENV['FUNKTOR_APP_NAME'],
-              "Dimensions": [["WorkerClassName"]],
+              "Dimensions": [["WorkerClassName", "Queue"]],
               "Metrics": [ # CPU, Memory, Duration, etc...
                            {
                              "Name": dimension,
@@ -32,6 +32,7 @@ module Funktor
           ]
         },
         "WorkerClassName": job.worker_class_name,
+        "Queue": job.queue,
         "#{dimension}": 1
         #"count": value,
         #"requestId": "989ffbf8-9ace-4817-a57c-e4dd734019ee"
