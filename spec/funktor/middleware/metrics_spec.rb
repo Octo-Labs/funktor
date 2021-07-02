@@ -1,7 +1,7 @@
 require 'funktor/job'
 
 RSpec.describe Funktor::Middleware::Metrics do
-  let(:job_double){ double Funktor::Job, worker_class_name: "MiddlewareTestWorker" }
+  let(:job_double){ double Funktor::Job, worker_class_name: "MiddlewareTestWorker", queue: "default" }
   describe 'call' do
     it 'yields to a block and writes to standard out' do
       block_was_called = false
