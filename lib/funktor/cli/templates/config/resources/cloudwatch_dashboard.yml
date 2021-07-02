@@ -302,7 +302,7 @@ Resources:
 
                 { <% "Job Duration By Worker" %>
                     "height": 6,
-                    "width": 24,
+                    "width": 12,
                     "y": <%= current_y %>,
                     "x": 0,
                     "type": "metric",
@@ -322,12 +322,11 @@ Resources:
                     }
                 },
 
-                <% current_y += 6 %>
                 { <% "Processed/Failed Jobs By Worker" %>
                     "height": 6,
-                    "width": 24,
+                    "width": 12,
                     "y": <%= current_y %>,
-                    "x": 0,
+                    "x": 12,
                     "type": "metric",
                     "properties": {
                         "metrics": [
@@ -344,6 +343,52 @@ Resources:
                         "stat": "Sum"
                   }
                 },
+                <% current_y += 6 %>
+                { <% "Job Duration By Queue" %>
+                    "height": 6,
+                    "width": 12,
+                    "y": <%= current_y %>,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            <%- queue_names.each do |queue_name| -%>
+                            [ "<%= app_name %>", "Duration", "Queue", "<%= queue_name %>" ],
+                            [ "...", { "stat": "p99" } ]<%= queue_name == queue_names.last ? "" : "," %>
+                            <%- end -%>
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "Average",
+                        "period": 60,
+                        "title": "Job Duration by Queue"
+                    }
+                },
+                { <% "Processed/Failed Jobs By Queue" %>
+                    "height": 6,
+                    "width": 12,
+                    "y": <%= current_y %>,
+                    "x": 12,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            <%- queue_names.each do |queue_name| -%>
+                            [ "<%= app_name %>", "processed", "Queue", "<%= queue_name %>" ],
+                            [ ".", "failed", ".", "." ]<%= queue_name == queue_names.last ? "" : "," %>
+                            <%- end -%>
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "Process/Failed Jobs By Queue",
+                        "period": 60,
+                        "stat": "Sum"
+                  }
+                },
+
+
+
                 <% current_y += 6 %>
 
                 { <% "Delayed Jobs" %>
