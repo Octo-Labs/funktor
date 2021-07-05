@@ -2,7 +2,7 @@ module Funktor
   module ErrorHandler
     class Logger
       def call(error, context)
-        Funktor.logger.warn(Funktor.dump_json(context)) unless context.empty?
+        Funktor.logger.warn(Funktor.dump_json(context)) if context
         Funktor.logger.warn("#{error.class.name}: #{error.message}")
         Funktor.logger.warn(error.backtrace.join("\n")) unless error.backtrace.nil?
       end
