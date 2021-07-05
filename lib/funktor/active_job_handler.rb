@@ -2,6 +2,7 @@ require 'aws-sdk-sqs'
 
 module Funktor
   class ActiveJobHandler
+    include Funktor::ErrorHandler
 
     def initialize
       @failed_counter = Funktor::Counter.new('failed')
@@ -28,8 +29,7 @@ module Funktor
         @processed_counter.incr(job)
       # rescue Funktor::Job::InvalidJsonError # TODO Make this work
       rescue Exception => e
-        puts "Error during processing: #{$!}"
-        puts "Backtrace:\n\t#{e.backtrace.join("\n\t")}"
+        handle_error(e, job)
         @failed_counter.incr(job)
         attempt_retry_or_bail(job)
       end

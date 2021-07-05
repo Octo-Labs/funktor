@@ -3,15 +3,20 @@ require 'funktor/aws/sqs/event'
 require 'funktor/aws/sqs/record'
 require 'funktor/counter'
 require 'funktor/job'
+require 'funktor/logger'
 require 'funktor/worker'
 require 'funktor/middleware_chain'
 require 'funktor/incoming_job_handler'
-require 'funktor/active_job_handler'
 
 require 'json'
 
 module Funktor
   class Error < StandardError; end
+
+  DEFAULT_OPTIONS = {
+    error_handlers: [],
+    log_level: Logger::DEBUG # Set a high log level during early, active development
+  }
 
   def self.configure_job_pusher
     yield self
@@ -55,9 +60,41 @@ module Funktor
   def self.dump_json(object)
     JSON.generate(object)
   end
+
+  def self.options
+    @options ||= DEFAULT_OPTIONS.dup
+  end
+
+  def self.options=(opts)
+    @options = opts
+  end
+
+  # Register a proc to handle any error which occurs within the Funktor active job handler.
+  #
+  #   Funktor.error_handlers << proc {|error, context| ErrorsAsAService.notify(error, context) }
+  #
+  # The default error handler logs errors to STDOUT
+  def self.error_handlers
+    options[:error_handlers]
+  end
+
+  def self.logger
+    @logger ||= Funktor::Logger.new($stdout, level: options[:log_level])
+  end
+
+  def self.logger=(logger)
+    if logger.nil?
+      self.logger.level = Logger::FATAL
+      return self.logger
+    end
+
+    @logger = logger
+  end
 end
 
 # TODO - Should we require this by default or let people opt in?
-# Is it a code smell that we need to include it at the bottom, after
+# TODO - Is it a code smell that we need to include these at the bottom, after
 # the main Funktor module is defined?
 require 'funktor/middleware/metrics'
+require 'funktor/error_handler'
+require 'funktor/active_job_handler'
