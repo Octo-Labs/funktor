@@ -3,7 +3,7 @@ individually: false
 include:
   - Gemfile
   - Gemfile.lock
-  - config/boot.rb
+  - funktor_config/boot.rb
   - app/**
 # Evertyting is excluded by default with serverless-ruby-layer, but you could use
 # the lines below to exlude files that are inside an include path.

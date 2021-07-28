@@ -66,4 +66,4 @@ package:
     - Gemfile
     - Gemfile.lock
     - app/**
-    - config/**
+    - funktor_config/**

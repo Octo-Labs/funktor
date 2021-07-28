@@ -24,7 +24,7 @@ provider:
   name: aws
   runtime: <%= runtime %>
   lambdaHashingVersion: 20201221
-  environment: ${file(config/environment.yml)}
+  environment: ${file(funktor_config/environment.yml)}
   versionFunctions: false # Reduces the amount of storage used since all Lambdas together are limited to 75GB
   iamRoleStatements:
     <%- all_iam_permissions.each do |iam_permission| -%>
@@ -36,10 +36,10 @@ custom:
   # Our stage is based on what is passed in when running serverless
   # commands. Or fallsback to what we have set in the provider section.
   stage: ${self:provider.stage, 'dev'}
-  funktor: ${file(config/funktor.yml)}
-  rubyLayer: ${file(config/ruby_layer.yml)}
+  funktor: ${file(funktor_config/funktor.yml)}
+  rubyLayer: ${file(funktor_config/ruby_layer.yml)}
 
-package: ${file(config/package.yml)}
+package: ${file(funktor_config/package.yml)}
 
 functions:
   <%- all_function_definitions.each do |function_definition| -%>
