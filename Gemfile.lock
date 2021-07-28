@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    funktor (0.2.19)
+    funktor (0.3.0)
       activesupport
       aws-sdk-sqs (~> 1.37)
       thor
@@ -81,4 +81,4 @@ DEPENDENCIES
   webmock
 
 BUNDLED WITH
-   2.1.4
+   2.2.24
