@@ -9,6 +9,10 @@ module Funktor
         :type => :string, :desc => "The bootstrap file to generate.",
         :default => "funktor_init.yml"
 
+      class_option :directory, :aliases => "-d",
+        :type => :string, :desc => "The directory in which to place the bootstrap file.",
+        :default => nil
+
       desc <<~DESC
         Description:
           Bootstrap a new funktor application by generating a funktor_init.yml file."
@@ -26,7 +30,11 @@ module Funktor
 
       private
       def funktor_file_target
-        File.join name, options[:file]
+        File.join funktor_directory_target, options[:file]
+      end
+
+      def funktor_directory_target
+        options[:directory] || name
       end
 
     end
