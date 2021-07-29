@@ -1,3 +1,4 @@
+BUNDLE_WITHOUT: development:test
 FUNKTOR_APP_NAME: <%= app_name %>
 FUNKTOR_INCOMING_JOB_QUEUE:
   Ref: IncomingJobQueue
