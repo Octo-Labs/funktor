@@ -112,15 +112,15 @@ module Funktor
       end
 
       def all_iam_permissions
-        Dir.glob(File.join('config', 'iam_permissions', '**.yml'))
+        Dir.glob(File.join('funktor_config', 'iam_permissions', '**.yml'))
       end
 
       def all_function_definitions
-        Dir.glob(File.join('config', 'function_definitions', '**.yml'))
+        Dir.glob(File.join('funktor_config', 'function_definitions', '**.yml'))
       end
 
       def all_resources
-        Dir.glob(File.join('config', 'resources', '**.yml'))
+        Dir.glob(File.join('funktor_config', 'resources', '**.yml'))
       end
 
       def funktor_config
