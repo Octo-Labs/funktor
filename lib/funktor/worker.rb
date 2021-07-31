@@ -1,5 +1,4 @@
 require 'securerandom'
-require 'aws-sdk-sqs'
 require "active_support"
 
 module Funktor
@@ -33,9 +32,7 @@ module Funktor::Worker
     end
 
     def queue_url
-      # TODO : Should this default to FUNKTOR_ACTIVE_JOB_QUEUE?
-      # Depends how e handle this in pro...?
-      custom_queue_url || ENV['FUNKTOR_INCOMING_JOB_QUEUE']
+      custom_queue_url
     end
 
     def perform_async(*worker_params)
@@ -54,39 +51,27 @@ module Funktor::Worker
       if delay > max_delay
         raise Funktor::DelayTooLongError.new("The delay can't be longer than #{max_delay} seconds. This is a limitation of SQS. Funktor Pro has mechanisms to work around this limitation.")
       end
-      self.push_to_incoming_job_queue(delay, *worker_params)
+      self.push(delay, *worker_params)
     end
 
-    def push_to_incoming_job_queue(delay, *worker_params)
-      job_id = SecureRandom.uuid
-      payload = build_job_payload(job_id, delay, *worker_params)
-
-      Funktor.job_pusher_middleware.invoke(self, payload) do
-        client.send_message({
-          queue_url: queue_url,
-          message_body: Funktor.dump_json(payload)
-        })
-      end
+    def push(delay, *worker_params)
+      payload = build_job_payload(delay, *worker_params)
+      Funktor.job_pusher.push(self, payload)
     end
 
     def max_delay
       900
     end
 
-    def client
-      @client ||= Aws::SQS::Client.new
-    end
-
     def work_queue
       (self.custom_queue || 'default').to_s
     end
 
-    def build_job_payload(job_id, delay, *worker_params)
+    def build_job_payload(delay, *worker_params)
       {
         worker: self.name,
         worker_params: worker_params,
         queue: self.work_queue,
-        job_id: job_id,
         delay: delay,
         funktor_options: get_funktor_options
       }

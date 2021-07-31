@@ -3,6 +3,7 @@ require 'funktor/aws/sqs/event'
 require 'funktor/aws/sqs/record'
 require 'funktor/counter'
 require 'funktor/job'
+require 'funktor/job_pusher'
 require 'funktor/logger'
 require 'funktor/worker'
 require 'funktor/middleware_chain'
@@ -20,6 +21,10 @@ module Funktor
 
   def self.configure_job_pusher
     yield self
+  end
+
+  def self.job_pusher
+    @job_pusher ||= JobPusher.new
   end
 
   def self.job_pusher_middleware

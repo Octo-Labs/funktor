@@ -16,7 +16,7 @@ end
 
 module JobSpecHelpers
   def build_payload(worker_class, delay = 0)
-    { "body": Funktor.dump_json(worker_class.build_job_payload('fake-job-id', delay, 1, 'two')) }
+    { "body": Funktor.dump_json(worker_class.build_job_payload(delay, 1, 'two')) }
   end
 
   def create_event(worker_classes = [HelloWorker, HelloWorker], delay = 0)
