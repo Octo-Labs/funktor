@@ -103,3 +103,5 @@ end
 require 'funktor/middleware/metrics'
 require 'funktor/error_handler'
 require 'funktor/active_job_handler'
+
+require 'funktor/rails' if defined?(::Rails::Engine)
