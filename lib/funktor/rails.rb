@@ -11,12 +11,6 @@ module Funktor
         require 'active_job/queue_adapters/funktor_adapter'
       end
     end
-
-    initializer "funktor.active_job_integration" do
-      ActiveSupport.on_load(:active_job) do
-        include ::Sidekiq::Worker unless respond_to?(:sidekiq_options)
-      end
-    end
   end if defined?(::Rails)
 
   if defined?(::Rails) && ::Rails::VERSION::MAJOR < 5

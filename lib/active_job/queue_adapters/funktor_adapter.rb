@@ -40,11 +40,6 @@ module ActiveJob
   end
 
   class Base
-    class_attribute :funktor_options_hash
-    self.funktor_options_hash = {}
-
-    def self.funktor_options(hsh)
-      self.funktor_options_hash = self.funktor_options_hash.stringify_keys.merge(hsh.stringify_keys)
-    end
+    include Funktor::Worker::FunktorOptions
   end
 end

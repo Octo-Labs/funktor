@@ -1,5 +1,6 @@
 require 'securerandom'
 require "active_support"
+require 'funktor/worker/funktor_options'
 
 module Funktor
   class DelayTooLongError < StandardError; end
@@ -8,6 +9,7 @@ end
 module Funktor::Worker
   def self.included(base)
     base.extend ClassMethods
+    base.include(Funktor::Worker::FunktorOptions)
     base.class_eval do
       cattr_accessor :funktor_options_hash
       #alias_method :perform_later, :perform_async
@@ -15,25 +17,6 @@ module Funktor::Worker
   end
 
   module ClassMethods
-    def funktor_options(options = {})
-      self.funktor_options_hash = options
-    end
-
-    def get_funktor_options
-      self.funktor_options_hash || {}
-    end
-
-    def custom_queue_url
-      get_funktor_options[:queue_url]
-    end
-
-    def custom_queue
-      get_funktor_options[:queue]
-    end
-
-    def queue_url
-      custom_queue_url
-    end
 
     def perform_async(*worker_params)
       self.perform_in(0, *worker_params)
@@ -61,10 +44,6 @@ module Funktor::Worker
 
     def max_delay
       900
-    end
-
-    def work_queue
-      (self.custom_queue || 'default').to_s
     end
 
     def build_job_payload(delay, *worker_params)
