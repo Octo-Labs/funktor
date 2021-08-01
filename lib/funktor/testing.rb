@@ -17,8 +17,8 @@ module Funktor
 
       def work_all_jobs
         while jobs.any?
-          job_data = jobs.shift
-          worker = job_data[:worker]
+          job_data = jobs.shift.with_indifferent_access
+          worker = Object.const_get job_data[:payload][:worker]
           worker_params = job_data[:payload][:worker_params]
           worker.new.perform(worker_params)
         end
@@ -56,14 +56,16 @@ module Funktor
   end
 
   class InlineJobPusherMiddleware
-    def call(worker, payload)
-      worker.new.perform(*payload[:worker_params])
+    def call(payload)
+      payload = payload.with_indifferent_access
+      worker = Object.const_get payload["worker"]
+      worker.new.perform(*payload["worker_params"])
     end
   end
 
   class FakeJobPusherMiddleware
-    def call(worker, payload)
-      Funktor::FakeJobQueue.push(worker, payload)
+    def call(payload)
+      Funktor::FakeJobQueue.push(payload)
     end
   end
 end

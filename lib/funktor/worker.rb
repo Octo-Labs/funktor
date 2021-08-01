@@ -10,10 +10,6 @@ module Funktor::Worker
   def self.included(base)
     base.extend ClassMethods
     base.include(Funktor::Worker::FunktorOptions)
-    base.class_eval do
-      cattr_accessor :funktor_options_hash
-      #alias_method :perform_later, :perform_async
-    end
   end
 
   module ClassMethods
@@ -39,7 +35,7 @@ module Funktor::Worker
 
     def push(delay, *worker_params)
       payload = build_job_payload(delay, *worker_params)
-      Funktor.job_pusher.push(self, payload)
+      Funktor.job_pusher.push(payload)
     end
 
     def max_delay
@@ -51,6 +47,7 @@ module Funktor::Worker
         worker: self.name,
         worker_params: worker_params,
         queue: self.work_queue,
+        incoming_job_queue_url: self.queue_url,
         delay: delay,
         funktor_options: get_funktor_options
       }

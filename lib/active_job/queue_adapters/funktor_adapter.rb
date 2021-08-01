@@ -11,22 +11,22 @@ module ActiveJob
     #   Rails.application.config.active_job.queue_adapter = :funktor
     class FunktorAdapter
       def enqueue(job) # :nodoc:
-        JobWrapper.perform_async(job.serialize)
-        # Funktor::Client does not support symbols as keys
-        #job.provider_job_id = Funktor::Client.push \
-          #"class"   => JobWrapper,
-          #"wrapped" => job.class,
-          #"queue"   => job.queue_name,
-          #"args"    => [ job.serialize ]
+        job.provider_job_id = Funktor.job_pusher.push({
+          "worker"  => JobWrapper.to_s,
+          "wrapped" => job.class,
+          "queue"   => job.class.work_queue,
+          "worker_params"    => [ job.serialize ]
+        })
       end
 
       def enqueue_at(job, timestamp) # :nodoc:
-        job.provider_job_id = Funktor::Client.push \
-          "class"   => JobWrapper,
+        job.provider_job_id = Funktor.job_pusher.push({
+          "worker"  => JobWrapper.to_s,
           "wrapped" => job.class,
-          "queue"   => job.queue_name,
-          "args"    => [ job.serialize ],
+          "queue"   => job.class.work_queue,
+          "worker_params"    => [ job.serialize ],
           "at"      => timestamp
+        })
       end
 
       class JobWrapper #:nodoc:

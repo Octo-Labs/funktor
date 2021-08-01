@@ -26,7 +26,7 @@ RSpec.describe ActiveJob::QueueAdapters::FunktorAdapter, type: :adapter do
   class ActiveJobTestMiddleware
     cattr_accessor :middleware_count
     @@middleware_count = 0
-    def call(worker, payload)
+    def call(payload)
       self.class.middleware_count += 1
       yield
     end
@@ -69,30 +69,13 @@ RSpec.describe ActiveJob::QueueAdapters::FunktorAdapter, type: :adapter do
     Funktor.job_pusher_middleware.remove(ActiveJobTestMiddleware)
   end
 
-  #it 'uses funktor_options to select the right queue' do
-    #TestJobWithOptions.perform_later(42)
-    #expect(ActiveJob::QueueAdapters::FunktorAdapter::JobWrapper.jobs.size).to eq(1)
-    #job = ActiveJob::QueueAdapters::FunktorAdapter::JobWrapper.jobs.first
-    #expect(job[:payload][:queue]).to eq("custom")
-  #end
+  it 'uses funktor_options to select the right queue' do
+    TestJobWithOptions.perform_later(42)
+    expect(ActiveJob::QueueAdapters::FunktorAdapter::JobWrapper.jobs.size).to eq(1)
+    job = ActiveJob::QueueAdapters::FunktorAdapter::JobWrapper.jobs.first
+    puts "job ==========="
+    pp job
+    expect(job[:payload]["queue"]).to eq("custom")
+  end
 end
 
-    #it 'can pass along options' do
-      ## funktor_options is not thread-safe; this is not a recommended pattern to use
-      ## in production, set options in the ActiveJob class definition only
-      #TestJob.funktor_options({})
-      #TestJob.perform_later(123)
-
-      #TestJob.funktor_options(retry: 9)
-      #TestJob.perform_later(123)
-
-      #TestJob.funktor_options(retry: 9, unique_for: 10)
-      #TestJob.perform_later(123)
-
-      #job = ActiveJob::QueueAdapters::FunktorAdapter::JobWrapper.jobs.last
-      #assert_equal 9, job["retry"]
-      #assert_equal 10, job["custom"]["unique_for"]
-      #assert_equal "FunktorAdapterTest::TestJob", job["custom"]["wrapped"]
-    #end
-
-    
