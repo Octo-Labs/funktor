@@ -40,8 +40,12 @@ module ActiveJob
 
         def perform(job_data)
           puts "job_data = #{job_data.class} #{job_data}"
-          puts job_data
-          Base.execute *job_data
+          if job_data.is_a?(Array)
+            puts "it's an array"
+            job_data = job_data.first
+            puts "job_data = #{job_data.class} #{job_data}"
+          end
+          Base.execute job_data
         end
       end
     end
