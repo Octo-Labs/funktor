@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'active_job'
+require "funktor/worker/funktor_options"
 
 module ActiveJob
   module QueueAdapters

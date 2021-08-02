@@ -7,7 +7,6 @@ module Funktor
     # config/initializers/*.rb.
     config.before_configuration do
       if defined?(::ActiveJob)
-        require "sidekiq/worker"
         require 'active_job/queue_adapters/funktor_adapter'
       end
     end
