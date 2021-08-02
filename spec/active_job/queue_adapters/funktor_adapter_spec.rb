@@ -75,7 +75,7 @@ RSpec.describe ActiveJob::QueueAdapters::FunktorAdapter, type: :adapter do
     job = ActiveJob::QueueAdapters::FunktorAdapter::JobWrapper.jobs.first
     puts "job ==========="
     pp job
-    expect(job[:payload]["queue"]).to eq("custom")
+    expect(job["queue"]).to eq("custom")
   end
 end
 

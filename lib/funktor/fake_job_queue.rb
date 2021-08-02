@@ -4,7 +4,7 @@ module Funktor
   module FakeJobQueue
     def self.push(payload)
       payload = payload.with_indifferent_access
-      jobs[payload["worker"].to_s].push({payload: payload})
+      jobs[payload["worker"].to_s].push(payload)
     end
 
     def self.jobs

@@ -18,8 +18,8 @@ module Funktor
       def work_all_jobs
         while jobs.any?
           job_data = jobs.shift.with_indifferent_access
-          worker = Object.const_get job_data[:payload][:worker]
-          worker_params = job_data[:payload][:worker_params]
+          worker = Object.const_get job_data[:worker]
+          worker_params = job_data[:worker_params]
           worker.new.perform(worker_params)
         end
       end
