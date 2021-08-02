@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    funktor (0.4.4)
+    funktor (0.4.5)
       activesupport
       aws-sdk-sqs (~> 1.37)
       thor
