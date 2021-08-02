@@ -17,7 +17,7 @@ module ActiveJob
           "wrapped" => job.class,
           "queue"   => job.class.work_queue,
           "delay"   => 0,
-          "worker_params"    => [ job.serialize ]
+          "worker_params"    => job.serialize
         })
       end
 
@@ -31,7 +31,7 @@ module ActiveJob
           "wrapped" => job.class,
           "queue"   => job.class.work_queue,
           "delay"   => delay,
-          "worker_params"    => [ job.serialize ]
+          "worker_params"    => job.serialize
         })
       end
 
@@ -39,7 +39,9 @@ module ActiveJob
         include Funktor::Worker
 
         def perform(job_data)
-          Base.execute job_data.first
+          puts "job_data = #{job_data.class}"
+          puts job_data
+          Base.execute job_data
         end
       end
     end
