@@ -47,6 +47,12 @@ RSpec.describe ActiveJob::QueueAdapters::FunktorAdapter, type: :adapter do
     expect(ActiveJob::QueueAdapters::FunktorAdapter::JobWrapper.jobs.size).to eq(1)
   end
 
+  it 'queues a job with a delay' do
+    expect(ActiveJob::QueueAdapters::FunktorAdapter::JobWrapper.jobs.size).to eq(0)
+    TestJob.set(wait: 30.seconds).perform_later(42)
+    expect(ActiveJob::QueueAdapters::FunktorAdapter::JobWrapper.jobs.size).to eq(1)
+  end
+
   it 'can perform a job' do
     TestJob.perform_later(42)
     ActiveJob::QueueAdapters::FunktorAdapter::JobWrapper.work_all_jobs

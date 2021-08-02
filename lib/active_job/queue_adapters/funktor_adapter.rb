@@ -22,7 +22,7 @@ module ActiveJob
       end
 
       def enqueue_at(job, timestamp) # :nodoc:
-        delay = (timestamp.utc - Time.now.utc).round
+        delay = (Time.at(timestamp).utc - Time.now.utc).round
         if delay < 0
           delay = 0
         end
