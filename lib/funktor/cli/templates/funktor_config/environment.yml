@@ -1,4 +1,6 @@
-BUNDLE_WITHOUT: development:test
+BUNDLE_WITHOUT: development:test:assets
+BUNDLE_PLUGINS: false
+BUNDLE_FROZEN: true
 SERVERLESS_STAGE: ${self:custom.stage}
 FUNKTOR_APP_NAME: <%= app_name %>
 FUNKTOR_INCOMING_JOB_QUEUE:
