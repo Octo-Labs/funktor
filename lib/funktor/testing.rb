@@ -2,6 +2,7 @@ require 'funktor/worker'
 require 'funktor/fake_job_queue'
 
 module Funktor
+
   module Worker
     def self.clear_all
       Funktor::FakeJobQueue.clear_all
@@ -25,67 +26,68 @@ module Funktor
       end
     end
   end
-  class Testing
 
-    # TODO : We probably shouldn't use middleware for this. We should alter the behavior
-    # of the JobPusher in the testing module isntead.
-    def self.inline!(&block)
-      unless block_given?
-        raise "Funktor inline testing mode can only be called in block form."
+  class Testing
+    class << self
+      attr_accessor :mode
+
+      def inline?
+        mode == :inline
       end
-      Funktor.configure_job_pusher do |config|
-        config.job_pusher_middleware do |chain|
-          chain.add Funktor::InlineJobPusherMiddleware
+
+      def fake?
+        mode == :fake
+      end
+
+      def inline!(&block)
+        unless block_given?
+          raise "Funktor inline testing mode can only be called in block form."
         end
+        set_mode(:inline, &block)
       end
-      yield
-      Funktor.configure_job_pusher do |config|
-        config.job_pusher_middleware do |chain|
-          chain.remove Funktor::InlineJobPusherMiddleware
+
+      def fake!(&block)
+        set_mode(:fake, &block)
+      end
+
+      def disable!
+        set_mode(:disabled)
+      end
+
+      def set_mode(new_mode, &block)
+        if block_given?
+          original_mode = mode
+          self.mode = new_mode
+          begin
+            yield
+          ensure
+            self.mode = original_mode
+          end
+        else
+          self.mode = new_mode
         end
       end
     end
-    def self.fake!(&block)
-      if block_given?
-        Funktor.configure_job_pusher do |config|
-          config.job_pusher_middleware do |chain|
-            chain.add Funktor::FakeJobPusherMiddleware
-          end
+  end
+
+  module TestingPusher
+    def push(payload)
+      if Funktor::Testing.inline?
+        Funktor.job_pusher_middleware.invoke(payload) do
+          payload = payload.with_indifferent_access
+          worker = Object.const_get payload["worker"]
+          worker.new.perform(*payload["worker_params"])
         end
-        yield
-        Funktor.configure_job_pusher do |config|
-          config.job_pusher_middleware do |chain|
-            chain.remove Funktor::FakeJobPusherMiddleware
-          end
+      elsif Funktor::Testing.fake?
+        Funktor.job_pusher_middleware.invoke(payload) do
+          Funktor::FakeJobQueue.push(payload)
         end
       else
-        Funktor.configure_job_pusher do |config|
-          config.job_pusher_middleware do |chain|
-            chain.add Funktor::FakeJobPusherMiddleware
-          end
-        end
-      end
-    end
-    def self.disable!
-      Funktor.configure_job_pusher do |config|
-        config.job_pusher_middleware do |chain|
-          chain.remove Funktor::FakeJobPusherMiddleware
-        end
+        super
       end
     end
   end
 
-  class InlineJobPusherMiddleware
-    def call(payload)
-      payload = payload.with_indifferent_access
-      worker = Object.const_get payload["worker"]
-      worker.new.perform(*payload["worker_params"])
-    end
-  end
+  Funktor::JobPusher.prepend TestingPusher
 
-  class FakeJobPusherMiddleware
-    def call(payload)
-      Funktor::FakeJobQueue.push(payload)
-    end
-  end
 end
