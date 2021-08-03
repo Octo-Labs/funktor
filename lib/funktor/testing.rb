@@ -27,6 +27,8 @@ module Funktor
   end
   class Testing
 
+    # TODO : We probably shouldn't use middleware for this. We should alter the behavior
+    # of the JobPusher in the testing module isntead.
     def self.inline!(&block)
       unless block_given?
         raise "Funktor inline testing mode can only be called in block form."
