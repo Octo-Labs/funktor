@@ -28,6 +28,9 @@ module Funktor
   class Testing
 
     def self.inline!(&block)
+      unless block_given?
+        raise "Funktor inline testing mode can only be called in block form."
+      end
       Funktor.configure_job_pusher do |config|
         config.job_pusher_middleware do |chain|
           chain.add Funktor::InlineJobPusherMiddleware
@@ -41,12 +44,27 @@ module Funktor
       end
     end
     def self.fake!(&block)
-      Funktor.configure_job_pusher do |config|
-        config.job_pusher_middleware do |chain|
-          chain.add Funktor::FakeJobPusherMiddleware
+      if block_given?
+        Funktor.configure_job_pusher do |config|
+          config.job_pusher_middleware do |chain|
+            chain.add Funktor::FakeJobPusherMiddleware
+          end
+        end
+        yield
+        Funktor.configure_job_pusher do |config|
+          config.job_pusher_middleware do |chain|
+            chain.remove Funktor::FakeJobPusherMiddleware
+          end
+        end
+      else
+        Funktor.configure_job_pusher do |config|
+          config.job_pusher_middleware do |chain|
+            chain.add Funktor::FakeJobPusherMiddleware
+          end
         end
       end
-      yield
+    end
+    def self.disable!
       Funktor.configure_job_pusher do |config|
         config.job_pusher_middleware do |chain|
           chain.remove Funktor::FakeJobPusherMiddleware
