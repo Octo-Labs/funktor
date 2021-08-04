@@ -27,3 +27,4 @@ end
 # that. If you need to see output for debugging or something you
 # can temporarilly disable this next line.
 Funktor.logger = Logger.new(nil)
+Funktor.raw_logger = Logger.new(nil)
