@@ -22,3 +22,9 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
+
+# Since we log to stdout things get noisy in tests, so we silence
+# that. If you need to see output for debugging or something you
+# can temporarilly disable this next line.
+Funktor.logger = Logger.new(nil)
+Funktor.raw_logger = Logger.new(nil)

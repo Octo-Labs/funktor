@@ -11,7 +11,10 @@ module Funktor
     end
 
     def put_metric_to_stdout(job)
-      puts Funktor.dump_json(metric_hash(job))
+      # NOTE : We use raw puts here instead of Funktor.logger.something to avoid getting extra
+      # timestamps or log level information in the log line. We need this specific format to
+      # be the only thing in the line so that CloudWatch can parse the logs and use the data.
+      Funktor.raw_logger.unknown Funktor.dump_json(metric_hash(job))
     end
 
     def metric_hash(job)

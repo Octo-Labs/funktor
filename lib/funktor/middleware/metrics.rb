@@ -10,7 +10,12 @@ module Funktor
       end
 
       def put_metric_to_stdout(time_diff, job)
-        puts Funktor.dump_json(metric_hash(time_diff, job))
+        # NOTE : We use raw_logger here instead of Funktor.loggert o avoid getting extra
+        # timestamps or log level information in the log line. We need this specific format to
+        # be the only thing in the line so that CloudWatch can parse the logs and use the data.
+        # 'unknown' is a log level that will always be logged, no matter what is set in the
+        # runtime environment as far as log level.
+        Funktor.raw_logger.unknown Funktor.dump_json(metric_hash(time_diff, job))
       end
 
       def metric_hash(time_diff_in_seconds, job)

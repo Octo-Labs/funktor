@@ -11,7 +11,7 @@ module Funktor
 
     def call(event:, context:)
       event = Funktor::Aws::Sqs::Event.new(event)
-      puts "event.jobs.count = #{event.jobs.count}"
+      Funktor.logger.debug "event.jobs.count = #{event.jobs.count}"
       event.jobs.each do |job|
         dispatch(job)
       end
@@ -39,15 +39,15 @@ module Funktor
       if job.can_retry
         trigger_retry(job)
       else
-        puts "We retried max times. We're bailing on this one."
-        puts job.to_json
+        Funktor.logger.error "We retried max times. We're bailing on this one."
+        Funktor.logger.error job.to_json
       end
     end
 
     def trigger_retry(job)
       job.increment_retries
-      puts "scheduling retry # #{job.retries} with delay of #{job.delay}"
-      puts job.to_json
+      Funktor.logger.error "scheduling retry # #{job.retries} with delay of #{job.delay}"
+      Funktor.logger.error job.to_json
       sqs_client.send_message({
         queue_url: job.retry_queue_url,
         message_body: job.to_json

@@ -1,6 +1,6 @@
 require 'securerandom'
-require 'aws-sdk-sqs'
 require "active_support"
+require 'funktor/worker/funktor_options'
 
 module Funktor
   class DelayTooLongError < StandardError; end
@@ -9,34 +9,10 @@ end
 module Funktor::Worker
   def self.included(base)
     base.extend ClassMethods
-    base.class_eval do
-      cattr_accessor :funktor_options_hash
-      #alias_method :perform_later, :perform_async
-    end
+    base.include(Funktor::Worker::FunktorOptions)
   end
 
   module ClassMethods
-    def funktor_options(options = {})
-      self.funktor_options_hash = options
-    end
-
-    def get_funktor_options
-      self.funktor_options_hash || {}
-    end
-
-    def custom_queue_url
-      get_funktor_options[:queue_url]
-    end
-
-    def custom_queue
-      get_funktor_options[:queue]
-    end
-
-    def queue_url
-      # TODO : Should this default to FUNKTOR_ACTIVE_JOB_QUEUE?
-      # Depends how e handle this in pro...?
-      custom_queue_url || ENV['FUNKTOR_INCOMING_JOB_QUEUE']
-    end
 
     def perform_async(*worker_params)
       self.perform_in(0, *worker_params)
@@ -54,39 +30,24 @@ module Funktor::Worker
       if delay > max_delay
         raise Funktor::DelayTooLongError.new("The delay can't be longer than #{max_delay} seconds. This is a limitation of SQS. Funktor Pro has mechanisms to work around this limitation.")
       end
-      self.push_to_incoming_job_queue(delay, *worker_params)
+      self.push(delay, *worker_params)
     end
 
-    def push_to_incoming_job_queue(delay, *worker_params)
-      job_id = SecureRandom.uuid
-      payload = build_job_payload(job_id, delay, *worker_params)
-
-      Funktor.job_pusher_middleware.invoke(self, payload) do
-        client.send_message({
-          queue_url: queue_url,
-          message_body: Funktor.dump_json(payload)
-        })
-      end
+    def push(delay, *worker_params)
+      payload = build_job_payload(delay, *worker_params)
+      Funktor.job_pusher.push(payload)
     end
 
     def max_delay
       900
     end
 
-    def client
-      @client ||= Aws::SQS::Client.new
-    end
-
-    def work_queue
-      (self.custom_queue || 'default').to_s
-    end
-
-    def build_job_payload(job_id, delay, *worker_params)
+    def build_job_payload(delay, *worker_params)
       {
         worker: self.name,
         worker_params: worker_params,
         queue: self.work_queue,
-        job_id: job_id,
+        incoming_job_queue_url: self.queue_url,
         delay: delay,
         funktor_options: get_funktor_options
       }

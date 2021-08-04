@@ -3,6 +3,7 @@ require 'funktor/aws/sqs/event'
 require 'funktor/aws/sqs/record'
 require 'funktor/counter'
 require 'funktor/job'
+require 'funktor/job_pusher'
 require 'funktor/logger'
 require 'funktor/worker'
 require 'funktor/middleware_chain'
@@ -20,6 +21,10 @@ module Funktor
 
   def self.configure_job_pusher
     yield self
+  end
+
+  def self.job_pusher
+    @job_pusher ||= JobPusher.new
   end
 
   def self.job_pusher_middleware
@@ -90,6 +95,23 @@ module Funktor
 
     @logger = logger
   end
+
+  # We have a raw_logger that doesn't add timestamps and what not. This is used to publish
+  # CloudWatch metrics that can be used in dashboards.
+  def self.raw_logger
+    @raw_logger ||= Funktor::Logger.new($stdout, level: options[:log_level], formatter: proc {|severity, datetime, progname, msg|
+      "#{msg}\n"
+    })
+  end
+
+  def self.raw_logger=(raw_logger)
+    if raw_logger.nil?
+      self.raw_logger.level = Logger::FATAL
+      return self.raw_logger
+    end
+
+    @raw_logger = raw_logger
+  end
 end
 
 # TODO - Should we require this by default or let people opt in?
@@ -98,3 +120,5 @@ end
 require 'funktor/middleware/metrics'
 require 'funktor/error_handler'
 require 'funktor/active_job_handler'
+
+require 'funktor/rails' if defined?(::Rails::Engine)

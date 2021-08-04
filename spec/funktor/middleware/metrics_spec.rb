@@ -3,13 +3,12 @@ require 'funktor/job'
 RSpec.describe Funktor::Middleware::Metrics do
   let(:job_double){ double Funktor::Job, worker_class_name: "MiddlewareTestWorker", queue: "default" }
   describe 'call' do
-    it 'yields to a block and writes to standard out' do
+    it 'yields to a block and writes to standard out via Funktor.raw_logger.unknown' do
       block_was_called = false
-      expect{
-        Funktor::Middleware::Metrics.new.call(job_double) do
-          block_was_called = true
-        end
-      }.to output.to_stdout
+      expect(Funktor.raw_logger).to receive(:unknown).and_return(nil)
+      Funktor::Middleware::Metrics.new.call(job_double) do
+        block_was_called = true
+      end
       expect(block_was_called).to be_truthy
     end
   end

@@ -3,7 +3,7 @@ require 'funktor/worker'
 class HelloWorker
   include Funktor::Worker
   def perform(params_one = nil, param_two = nil)
-    puts "hello"
+    Funktor.logger.debug "hello"
   end
 end
 
@@ -16,7 +16,7 @@ end
 
 module JobSpecHelpers
   def build_payload(worker_class, delay = 0)
-    { "body": Funktor.dump_json(worker_class.build_job_payload('fake-job-id', delay, 1, 'two')) }
+    { "body": Funktor.dump_json(worker_class.build_job_payload(delay, 1, 'two')) }
   end
 
   def create_event(worker_classes = [HelloWorker, HelloWorker], delay = 0)

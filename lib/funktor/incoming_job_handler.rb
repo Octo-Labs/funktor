@@ -6,7 +6,7 @@ module Funktor
 
     def call(event:, context:)
       event = Funktor::Aws::Sqs::Event.new(event)
-      puts "event.jobs.count = #{event.jobs.count}"
+      Funktor.logger.debug "event.jobs.count = #{event.jobs.count}"
       event.jobs.each do |job|
         dispatch(job)
       end
@@ -18,7 +18,7 @@ module Funktor
 
     def dispatch(job)
       Funktor.incoming_job_handler_middleware.invoke(job) do
-        puts "pushing to active_job_queue for delay = #{job.delay}"
+        Funktor.logger.debug "pushing to active_job_queue for delay = #{job.delay}"
         push_to_active_job_queue(job)
       end
     end
@@ -30,13 +30,13 @@ module Funktor
     def queue_for_job(job)
       queue_name = job.queue || 'default'
       queue_constant = "FUNKTOR_#{queue_name.underscore.upcase}_QUEUE"
-      puts "queue_constant = #{queue_constant}"
-      puts "ENV value = #{ENV[queue_constant]}"
+      Funktor.logger.debug "queue_constant = #{queue_constant}"
+      Funktor.logger.debug "ENV value = #{ENV[queue_constant]}"
       ENV[queue_constant] || ENV['FUNKTOR_DEFAULT_QUEUE']
     end
 
     def push_to_active_job_queue(job)
-      puts "job = #{job.to_json}"
+      Funktor.logger.debug "job = #{job.to_json}"
       sqs_client.send_message({
         # TODO : How to get this URL...
         queue_url: queue_for_job(job),
