@@ -23,10 +23,6 @@ module Funktor
       end
     end
 
-    def active_job_queue
-      ENV['FUNKTOR_ACTIVE_JOB_QUEUE']
-    end
-
     def queue_for_job(job)
       queue_name = job.queue || 'default'
       queue_constant = "FUNKTOR_#{queue_name.underscore.upcase}_QUEUE"
