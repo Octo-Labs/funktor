@@ -13,7 +13,7 @@ RSpec.describe Funktor::IncomingJobHandler, type: :handler do
 
   describe 'call' do
     describe 'with a short delay' do
-      it 'should send a message to the ActiveJobQueue' do
+      it 'should send a message to the work queue' do
         expect(sqs_client).to receive(:send_message).and_return(nil)
         expect(incoming_job_handler).to receive(:sqs_client).and_return(sqs_client)
         incoming_job_handler.call(event: single_job_event, context: {})
@@ -21,7 +21,7 @@ RSpec.describe Funktor::IncomingJobHandler, type: :handler do
     end
     describe 'with a long delay' do
       let(:delay){ 1800 }
-      it 'should send a message to the ActiveJobQueue' do
+      it 'should send a message to the work queue' do
         expect(sqs_client).to receive(:send_message).and_return(nil)
         expect(incoming_job_handler).to receive(:sqs_client).and_return(sqs_client)
         incoming_job_handler.call(event: single_job_event, context: {})

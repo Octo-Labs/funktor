@@ -18,16 +18,16 @@ RSpec.describe Funktor do
     end
   end
 
-  describe 'active_job_handler_middleware' do
+  describe 'work_queue_handler_middleware' do
     it 'returns a MiddleWareChain' do
-      expect(Funktor.active_job_handler_middleware).to be_a(Funktor::MiddlewareChain)
+      expect(Funktor.work_queue_handler_middleware).to be_a(Funktor::MiddlewareChain)
     end
     it 'is persistent' do
-      expect(Funktor.active_job_handler_middleware.entries.count).to eq(1)
-      Funktor.active_job_handler_middleware do |chain|
+      expect(Funktor.work_queue_handler_middleware.entries.count).to eq(1)
+      Funktor.work_queue_handler_middleware do |chain|
         chain.add EmptyMiddleware
       end
-      expect(Funktor.active_job_handler_middleware.entries.count).to eq(2)
+      expect(Funktor.work_queue_handler_middleware.entries.count).to eq(2)
     end
   end
 end

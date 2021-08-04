@@ -33,14 +33,14 @@ module Funktor
     @job_pusher_chain
   end
 
-  def self.configure_active_job_handler
+  def self.configure_work_queue_handler
     yield self
   end
 
-  def self.active_job_handler_middleware
-    @active_job_handler_chain ||= MiddlewareChain.new
-    yield @active_job_handler_chain if block_given?
-    @active_job_handler_chain
+  def self.work_queue_handler_middleware
+    @work_queue_handler_chain ||= MiddlewareChain.new
+    yield @work_queue_handler_chain if block_given?
+    @work_queue_handler_chain
   end
 
   # TODO - Maybe we don't need this either? Maybe this should be a super dumb thing that also
@@ -119,6 +119,6 @@ end
 # the main Funktor module is defined?
 require 'funktor/middleware/metrics'
 require 'funktor/error_handler'
-require 'funktor/active_job_handler'
+require 'funktor/work_queue_handler'
 
 require 'funktor/rails' if defined?(::Rails::Engine)

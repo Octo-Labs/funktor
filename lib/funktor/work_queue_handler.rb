@@ -1,7 +1,7 @@
 require 'aws-sdk-sqs'
 
 module Funktor
-  class ActiveJobHandler
+  class WorkQueueHandler
     include Funktor::ErrorHandler
 
     def initialize
@@ -23,7 +23,7 @@ module Funktor
 
     def dispatch(job)
       begin
-        Funktor.active_job_handler_middleware.invoke(job) do
+        Funktor.work_queue_handler_middleware.invoke(job) do
           job.execute
         end
         @processed_counter.incr(job)

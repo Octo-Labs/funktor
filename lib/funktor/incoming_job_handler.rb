@@ -18,8 +18,8 @@ module Funktor
 
     def dispatch(job)
       Funktor.incoming_job_handler_middleware.invoke(job) do
-        Funktor.logger.debug "pushing to active_job_queue for delay = #{job.delay}"
-        push_to_active_job_queue(job)
+        Funktor.logger.debug "pushing to work queue for delay = #{job.delay}"
+        push_to_work_queue(job)
       end
     end
 
@@ -35,7 +35,7 @@ module Funktor
       ENV[queue_constant] || ENV['FUNKTOR_DEFAULT_QUEUE']
     end
 
-    def push_to_active_job_queue(job)
+    def push_to_work_queue(job)
       Funktor.logger.debug "job = #{job.to_json}"
       sqs_client.send_message({
         # TODO : How to get this URL...

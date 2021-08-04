@@ -48,8 +48,8 @@ module Funktor
   end
 end
 
-Funktor.configure_active_job_handler do |config|
-  config.active_job_handler_middleware do |chain|
+Funktor.configure_work_queue_handler do |config|
+  config.work_queue_handler_middleware do |chain|
     chain.add Funktor::Middleware::Metrics
   end
 end
