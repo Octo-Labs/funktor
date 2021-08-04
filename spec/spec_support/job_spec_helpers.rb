@@ -3,7 +3,7 @@ require 'funktor/worker'
 class HelloWorker
   include Funktor::Worker
   def perform(params_one = nil, param_two = nil)
-    puts "hello"
+    Funktor.logger.debug "hello"
   end
 end
 

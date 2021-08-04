@@ -24,7 +24,6 @@ module Funktor
 
       def funktor_yml
         # TODO - Should we camelize the app name before writing it into the config? (CloudFormation names get weird with underscores and dashes.)
-        puts funktor_file_target
         template "templates/funktor_init.yml", funktor_file_target
       end
 
