@@ -59,11 +59,3 @@ queues:
   - singleThread:
       reservedConcurrency: 1
 
-# TODO - Maybe this shouldn't be surfaced this early?
-# TODO - This still needs to be wired up to do anything.
-package:
-  patterns:
-    - Gemfile
-    - Gemfile.lock
-    - app/**
-    - funktor_config/**

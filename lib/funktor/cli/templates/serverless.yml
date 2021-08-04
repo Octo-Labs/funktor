@@ -3,8 +3,8 @@
 # This file is the main config file for your service.
 # It's already configured to run Funktor, you just have to deploy it.
 #
-# For more info about Funktor:
-#    TODO
+# For more info about Funktor check the wiki:
+#    https://github.com/Octo-Labs/funktor/wiki
 #
 # For more about serverless, check their docs:
 #    docs.serverless.com

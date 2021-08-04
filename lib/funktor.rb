@@ -114,9 +114,10 @@ module Funktor
   end
 end
 
-# TODO - Should we require this by default or let people opt in?
 # TODO - Is it a code smell that we need to include these at the bottom, after
 # the main Funktor module is defined?
+#
+# TODO - Should we require metrics by default or let people opt in?
 require 'funktor/middleware/metrics'
 require 'funktor/error_handler'
 require 'funktor/work_queue_handler'

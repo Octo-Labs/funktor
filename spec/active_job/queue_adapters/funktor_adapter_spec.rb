@@ -1,7 +1,6 @@
 require 'active_job/queue_adapters/funktor_adapter'
 
-# TODO
-# quiet a lot of AJ noise
+# quiet a lot of ActiveJob noise
 ActiveJob::Base.logger = Logger.new(nil)
 
 RSpec.describe ActiveJob::QueueAdapters::FunktorAdapter, type: :adapter do

@@ -34,7 +34,6 @@ module Funktor
     def push_to_work_queue(job)
       Funktor.logger.debug "job = #{job.to_json}"
       sqs_client.send_message({
-        # TODO : How to get this URL...
         queue_url: queue_for_job(job),
         message_body: job.to_json,
         delay_seconds: job.delay
