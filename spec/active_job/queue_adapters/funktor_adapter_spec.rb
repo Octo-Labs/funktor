@@ -79,8 +79,6 @@ RSpec.describe ActiveJob::QueueAdapters::FunktorAdapter, type: :adapter do
     TestJobWithOptions.perform_later(42)
     expect(ActiveJob::QueueAdapters::FunktorAdapter::JobWrapper.jobs.size).to eq(1)
     job = ActiveJob::QueueAdapters::FunktorAdapter::JobWrapper.jobs.first
-    puts "job ==========="
-    pp job
     expect(job["queue"]).to eq("custom")
   end
 end

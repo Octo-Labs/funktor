@@ -4,8 +4,6 @@ module Funktor
   class JobPusher
 
     def push(payload)
-      puts "payload ============"
-      pp payload
       job_id = SecureRandom.uuid
       payload[:job_id] = job_id
 
