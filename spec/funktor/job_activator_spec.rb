@@ -1,5 +1,4 @@
 require_relative '../spec_support/job_spec_helpers'
-require 'funktor/job_activator'
 require 'active_support/core_ext/hash/keys'
 
 RSpec.describe Funktor::JobActivator, type: :handler do
