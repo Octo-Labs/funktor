@@ -4,6 +4,10 @@ require 'active_support/core_ext/string/inflections'
 module Funktor
   class IncomingJobHandler
 
+    def initialize
+      @tracker = Funktor::ActivityTracker.new
+    end
+
     def call(event:, context:)
       event = Funktor::Aws::Sqs::Event.new(event)
       Funktor.logger.debug "event.jobs.count = #{event.jobs.count}"
@@ -20,6 +24,7 @@ module Funktor
       Funktor.incoming_job_handler_middleware.invoke(job) do
         Funktor.logger.debug "pushing to work queue for delay = #{job.delay}"
         push_to_work_queue(job)
+        @tracker.track(:queued, job)
       end
     end
 

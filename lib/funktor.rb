@@ -8,6 +8,7 @@ require 'funktor/logger'
 require 'funktor/worker'
 require 'funktor/middleware_chain'
 require 'funktor/incoming_job_handler'
+require 'funktor/activity_tracker'
 
 require 'json'
 

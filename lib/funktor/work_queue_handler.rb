@@ -7,6 +7,7 @@ module Funktor
     def initialize
       @failed_counter = Funktor::Counter.new('failed')
       @processed_counter = Funktor::Counter.new('processed')
+      @tracker = Funktor::ActivityTracker.new
     end
 
     def call(event:, context:)
@@ -23,14 +24,17 @@ module Funktor
 
     def dispatch(job)
       begin
+        @tracker.track(:processingStarted, job)
         Funktor.work_queue_handler_middleware.invoke(job) do
           job.execute
         end
         @processed_counter.incr(job)
+        @tracker.track(:processingComplete, job)
       # rescue Funktor::Job::InvalidJsonError # TODO Make this work
       rescue Exception => e
         handle_error(e, job)
         @failed_counter.incr(job)
+        @tracker.track(:processingFailed, job)
         attempt_retry_or_bail(job)
       end
     end
