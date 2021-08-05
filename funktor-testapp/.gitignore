@@ -1,2 +1,7 @@
+.env
 .serverless
 node_modules
+
+# This is our copy of the development stuff
+funktor
+
