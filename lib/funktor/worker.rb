@@ -27,19 +27,12 @@ module Funktor::Worker
     end
 
     def perform_in(delay, *worker_params)
-      if delay > max_delay
-        raise Funktor::DelayTooLongError.new("The delay can't be longer than #{max_delay} seconds. This is a limitation of SQS. Funktor Pro has mechanisms to work around this limitation.")
-      end
       self.push(delay, *worker_params)
     end
 
     def push(delay, *worker_params)
       payload = build_job_payload(delay, *worker_params)
       Funktor.job_pusher.push(payload)
-    end
-
-    def max_delay
-      900
     end
 
     def build_job_payload(delay, *worker_params)
