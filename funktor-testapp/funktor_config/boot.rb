@@ -13,8 +13,5 @@ $LOAD_PATH.unshift 'funktor/lib'
 require 'funktor'
 
 # Load all ruby files in the app directory
-Dir.glob( File.join('..', 'app', '**', '*.rb'), base: File.dirname(__FILE__) ).each do |ruby_file|
-  puts "require_relative #{ruby_file}"
-  require_relative ruby_file
-end
+require_rel File.join('..', 'app')
 

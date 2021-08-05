@@ -1,4 +1,4 @@
-require_relative '../config/boot'
+require_relative '../funktor_config/boot'
 
 
 # This class runs on a schedule (every minute, by default) and generates a series of jobs to be
