@@ -1,0 +1,5 @@
+Effect: Allow
+Action:
+  - ssm:Get*
+Resource:
+  - '*' # TODO : This should probably be more selective...

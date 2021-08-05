@@ -1,0 +1,22 @@
+Resources:
+  DefaultQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: ${self:custom.funktor.DefaultQueueName}
+      VisibilityTimeout: 300
+      RedrivePolicy:
+        deadLetterTargetArn:
+          "Fn::GetAtt": [ DefaultDeadLetterQueue, Arn ]
+        maxReceiveCount: 5
+  DefaultDeadLetterQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: ${self:custom.funktor.DefaultDeadJobQueueName}
+
+Outputs:
+  DefaultQueueUrl:
+    Value:
+      Ref: DefaultQueue
+  DefaultDeadLetterQueueUrl:
+    Value:
+      Ref: DefaultDeadLetterQueue

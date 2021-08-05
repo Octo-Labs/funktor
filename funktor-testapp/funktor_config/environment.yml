@@ -1,0 +1,11 @@
+BUNDLE_WITHOUT: development:test:assets
+BUNDLE_PLUGINS: false
+BUNDLE_FROZEN: true
+SERVERLESS_STAGE: ${self:custom.stage}
+FUNKTOR_APP_NAME: funktor-testapp
+FUNKTOR_INCOMING_JOB_QUEUE:
+  Ref: IncomingJobQueue
+FUNKTOR_DEFAULT_QUEUE:
+  Ref: DefaultQueue
+FUNKTOR_SINGLE_THREAD_QUEUE:
+  Ref: SingleThreadQueue

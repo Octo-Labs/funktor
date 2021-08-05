@@ -1,0 +1,11 @@
+handler: lambda_event_handlers/single_thread_queue_handler.call
+timeout: ${self:custom.funktor.SingleThreadQueueHandler.timeout, 900}
+reservedConcurrency: ${self:custom.funktor.SingleThreadQueueHandler.reservedConcurrency, null}
+provisionedConcurrency: ${self:custom.funktor.SingleThreadQueueHandler.provisionedConcurrency, null}
+memorySize: ${self:custom.funktor.SingleThreadQueueHandler.memorySize, 256}
+events:
+  - sqs:
+      arn:
+        Fn::GetAtt:
+          - SingleThreadQueue
+          - Arn

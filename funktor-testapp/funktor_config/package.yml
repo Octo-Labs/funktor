@@ -1,0 +1,11 @@
+# TODO - Figure out how to allow individual packaging to work out of the box.
+individually: false
+include:
+  - Gemfile
+  - Gemfile.lock
+  - funktor_config/boot.rb
+  - app/**
+# Evertyting is excluded by default with serverless-ruby-layer, but you could use
+# the lines below to exlude files that are inside an include path.
+#exclude:
+#  - workers/excluded_worker.rb
