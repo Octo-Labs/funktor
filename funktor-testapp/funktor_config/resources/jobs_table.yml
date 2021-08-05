@@ -2,8 +2,7 @@ Resources:
   JobsTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      # Generate a name based on the stage
-      TableName: ${self:custom.delayedJobTableName}
+      TableName: ${self:custom.funktor.JobsTableName}
       AttributeDefinitions:
         - AttributeName: performAtDate
           AttributeType: S
