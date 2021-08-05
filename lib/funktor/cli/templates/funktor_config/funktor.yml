@@ -88,4 +88,4 @@ DashboardName: ${self:service}-${self:custom.stage}-dashboard
 <%- end -%>
 JobsTableName: ${self:service}-${self:custom.stage}-jobs
 ActivityTableName: ${self:service}-${self:custom.stage}-activity
-
+JobActivatorName: ${self:service}-${self:custom.stage}-JobActivator

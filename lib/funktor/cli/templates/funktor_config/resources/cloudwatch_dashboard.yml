@@ -438,7 +438,7 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "AWS/DynamoDB", "ReturnedItemCount", "TableName", "${self:service}-${self:custom.stage}-delayed-jobs", "Operation", "Query" ]
+                            [ "AWS/DynamoDB", "ReturnedItemCount", "TableName", "${self:custom.funktor.JobsTableName}", "Operation", "Query" ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
@@ -455,7 +455,7 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:service}-${self:provider.stage}-delayed_job_scheduler", "Resource", "${self:service}-${self:provider.stage}-delayed_job_scheduler", { "label": "p10" } ],
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.JobActivatorName}", "Resource", "${self:custom.funktor.JobActivatorName}", { "label": "p10" } ],
                             [ "...", { "label": "p50", "stat": "p50" } ],
                             [ "...", { "label": "p99", "stat": "p99" } ],
                             [ "...", { "label": "Average", "stat": "Average" } ]
@@ -480,7 +480,7 @@ Resources:
                     "properties": {
                         "period": 60,
                         "metrics": [
-                            [ "AWS/Lambda", "Errors", "FunctionName", "${self:service}-${self:provider.stage}-delayed_job_scheduler", { "id": "errors", "stat": "Sum", "color": "#d13212" } ],
+                            [ "AWS/Lambda", "Errors", "FunctionName", "${self:custom.funktor.JobActivatorName}", { "id": "errors", "stat": "Sum", "color": "#d13212" } ],
                             [ ".", "Invocations", ".", ".", { "id": "invocations", "stat": "Sum", "visible": false } ],
                             [ { "expression": "100 - 100 * errors / MAX([errors, invocations])", "label": "Success rate (%)", "id": "availability", "yAxis": "right", "region": "us-east-1" } ]
                         ],
@@ -505,7 +505,7 @@ Resources:
                     "properties": {
                         "period": 60,
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:service}-${self:provider.stage}-delayed_job_scheduler", { "stat": "Minimum" } ],
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.JobActivatorName}", { "stat": "Minimum" } ],
                             [ "...", { "stat": "Average" } ],
                             [ "...", { "stat": "Maximum" } ]
                         ],
@@ -524,7 +524,7 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "AWS/DynamoDB", "ReturnedItemCount", "TableName", "${self:service}-${self:custom.stage}-delayed-jobs", "Operation", "Query" ]
+                            [ "AWS/DynamoDB", "ReturnedItemCount", "TableName", "${self:custom.funktor.JobsTableName}", "Operation", "Query" ]
                         ],
                         "view": "timeSeries",
                         "stacked": false,
@@ -547,7 +547,7 @@ Resources:
                     "properties": {
                         "metrics": [
                             [ { "expression": "m2/PERIOD(m2)", "label": "Consumed Read Capacity Units", "id": "e1", "stat": "Sum", "region": "us-east-1" } ],
-                            [ "AWS/DynamoDB", "ConsumedReadCapacityUnits", "TableName", "${self:service}-${self:custom.stage}-delayed-jobs", { "id": "m2", "visible": false } ],
+                            [ "AWS/DynamoDB", "ConsumedReadCapacityUnits", "TableName", "${self:custom.funktor.JobsTableName}", { "id": "m2", "visible": false } ],
                             [ ".", "ConsumedWriteCapacityUnits", ".", ".", { "yAxis": "left", "id": "m4", "visible": false } ],
                             [ ".", "WriteThrottleEvents", ".", ".", { "yAxis": "right", "id": "m5", "visible": false } ]
                         ],
@@ -569,7 +569,7 @@ Resources:
                     "properties": {
                         "period": 60,
                         "metrics": [
-                            [ "AWS/Lambda", "ConcurrentExecutions", "FunctionName", "${self:service}-${self:provider.stage}-delayed_job_scheduler", { "stat": "Maximum" } ]
+                            [ "AWS/Lambda", "ConcurrentExecutions", "FunctionName", "${self:custom.funktor.JobActivatorName}", { "stat": "Maximum" } ]
                         ],
                         "region": "us-east-1",
                         "title": "Delayd Job Schedule Concurrent executions",
@@ -587,7 +587,7 @@ Resources:
                     "properties": {
                         "metrics": [
                             [ { "expression": "m4/PERIOD(m4)", "label": "Consumed Read Capacity Units", "id": "e1", "stat": "Sum", "region": "us-east-1" } ],
-                            [ "AWS/DynamoDB", "ConsumedReadCapacityUnits", "TableName", "${self:service}-${self:custom.stage}-delayed-jobs", { "id": "m2", "visible": false } ],
+                            [ "AWS/DynamoDB", "ConsumedReadCapacityUnits", "TableName", "${self:custom.funktor.JobsTableName}", { "id": "m2", "visible": false } ],
                             [ ".", "ConsumedWriteCapacityUnits", ".", ".", { "yAxis": "left", "id": "m4", "visible": false } ],
                             [ ".", "WriteThrottleEvents", ".", ".", { "yAxis": "right", "id": "m5", "visible": false } ]
                         ],
@@ -612,7 +612,7 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "AWS/DynamoDB", "SuccessfulRequestLatency", "TableName", "${self:service}-${self:custom.stage}-delayed-jobs", "Operation", "PutItem", { "yAxis": "left" } ],
+                            [ "AWS/DynamoDB", "SuccessfulRequestLatency", "TableName", "${self:custom.funktor.JobsTableName}", "Operation", "PutItem", { "yAxis": "left" } ],
                             [ "...", "Query" ],
                             [ ".", "ThrottledRequests", ".", ".", ".", "PutItem", { "yAxis": "right", "visible": false } ],
                             [ ".", "SuccessfulRequestLatency", ".", ".", ".", "DeleteItem" ],
@@ -635,7 +635,7 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "AWS/DynamoDB", "ThrottledRequests", "TableName", "${self:service}-${self:custom.stage}-delayed-jobs", "Operation", "DeleteItem" ],
+                            [ "AWS/DynamoDB", "ThrottledRequests", "TableName", "${self:custom.funktor.JobsTableName}", "Operation", "DeleteItem" ],
                             [ "...", "PutItem" ]
                         ],
                         "view": "timeSeries",
