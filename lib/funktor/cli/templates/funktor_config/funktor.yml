@@ -61,5 +61,5 @@ DashboardName: ${self:service}-${self:custom.stage}-dashboard
 <%= queue_name.camelize %>DeadJobQueueName: ${self:service}-${self:custom.stage}-<%= queue_name.underscore.dasherize %>-dead
 <%= queue_name.camelize %>QueueHandlerName: ${self:service}-${self:custom.stage}-<%= queue_name.camelize %>QueueHandler
 <%- end -%>
-
+ActivityTableName: ${self:service}-${self:custom.stage}-activity
 

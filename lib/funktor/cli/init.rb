@@ -65,6 +65,7 @@ module Funktor
           @work_queue_config = queue_details.values.first
           template File.join("funktor_config", "resources", "work_queue.yml"), File.join("funktor_config", "resources", "#{work_queue_name.underscore}_queue.yml")
         end
+        template File.join("funktor_config", "resources", "activity_table.yml"), File.join("funktor_config", "resources", "activity_table.yml")
       end
 
       def iam_permissions
@@ -75,6 +76,7 @@ module Funktor
           @work_queue_config = queue_details.values.first
           template File.join("funktor_config", "iam_permissions", "work_queue.yml"), File.join("funktor_config", "iam_permissions", "#{work_queue_name.underscore}_queue.yml")
         end
+        template File.join("funktor_config", "iam_permissions", "activity_table.yml"), File.join("funktor_config", "iam_permissions", "activity_table.yml")
       end
 
       def function_definitions
