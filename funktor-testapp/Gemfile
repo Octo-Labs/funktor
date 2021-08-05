@@ -3,5 +3,16 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '~> 2.7'
 
-gem 'funktor'
+# We're not using funktor as a regular gem because this is an app for testing funktor
+# during development.
+#
+# gem 'funktor'
+#
+# Instead we're going to recreate the dependencies here so that we can use a local copy
+# of the gem directly. TODO - Figure out if we can have this happen automatically so we
+# don't have to keep things in sync.
+
+gem 'aws-sdk-sqs', '~> 1.37'
+gem "activesupport"
+gem "thor" # Thor drives the CLI TODO - Maybe we don't need it here?
 
