@@ -33,6 +33,7 @@ provider:
     - ${file(funktor_config/iam_permissions/ssm.yml)}
     - ${file(funktor_config/iam_permissions/single_thread_queue.yml)}
     - ${file(funktor_config/iam_permissions/jobs_table.yml)}
+    - ${file(funktor_config/iam_permissions/jobs_table_secondary_index.yml)}
 
 
 custom:
@@ -47,6 +48,7 @@ package: ${file(funktor_config/package.yml)}
 functions:
   IncomingJobHandler: ${file(funktor_config/function_definitions/incoming_job_handler.yml)}
   DefaultQueueHandler: ${file(funktor_config/function_definitions/default_queue_handler.yml)}
+  JobActivator: ${file(funktor_config/function_definitions/job_activator.yml)}
   SingleThreadQueueHandler: ${file(funktor_config/function_definitions/single_thread_queue_handler.yml)}
   RandomJobGenerator: ${file(funktor_config/function_definitions/random_job_generator.yml)}
 
