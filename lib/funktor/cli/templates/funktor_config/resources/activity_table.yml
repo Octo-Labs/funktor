@@ -15,7 +15,6 @@ Resources:
           KeyType: HASH
         - AttributeName: statName
           KeyType: RANGE
-      BillingMode: PAY_PER_REQUEST
 
 Outputs:
   ActivityTable:

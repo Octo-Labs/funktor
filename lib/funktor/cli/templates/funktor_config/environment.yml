@@ -11,3 +11,5 @@ FUNKTOR_<%= queue_name.underscore.upcase %>_QUEUE:
 <%- end -%>
 FUNKTOR_ACTIVITY_TABLE:
   Ref: ActivityTable
+FUNKTOR_JOBS_TABLE:
+  Ref: JobsTable
