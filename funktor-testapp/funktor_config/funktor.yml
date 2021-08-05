@@ -111,4 +111,4 @@ SingleThreadDeadJobQueueName: ${self:service}-${self:custom.stage}-single-thread
 SingleThreadQueueHandlerName: ${self:service}-${self:custom.stage}-SingleThreadQueueHandler
 JobsTableName: ${self:service}-${self:custom.stage}-jobs
 ActivityTableName: ${self:service}-${self:custom.stage}-activity
-
+JobActivatorName: ${self:service}-${self:custom.stage}-JobActivator
