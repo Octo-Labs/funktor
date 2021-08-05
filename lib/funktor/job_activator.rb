@@ -17,7 +17,7 @@ module Funktor
     end
 
     def delayed_job_table
-      ENV['FUNKTOR_DELAYED_JOB_TABLE']
+      ENV['FUNKTOR_JOBS_TABLE']
     end
 
     def jobs_to_activate
@@ -36,7 +36,18 @@ module Funktor
       return resp.items
     end
 
+    def queue_for_job(job)
+      queue_name = job.queue || 'default'
+      queue_constant = "FUNKTOR_#{queue_name.underscore.upcase}_QUEUE"
+      Funktor.logger.debug "queue_constant = #{queue_constant}"
+      Funktor.logger.debug "ENV value = #{ENV[queue_constant]}"
+      ENV[queue_constant] || ENV['FUNKTOR_DEFAULT_QUEUE']
+    end
+
     def handle_item(item)
+      job = Funktor::Job.new(item["payload"])
+      Funktor.logger.debug "we created a job from payload"
+      Funktor.logger.debug item["payload"]
       delay = (Time.parse(item["performAt"]) - Time.now.utc).to_i
       if delay < 0
         delay = 0
@@ -54,7 +65,7 @@ module Funktor
       if response.attributes # this means the record was still there
         sqs_client.send_message({
           # TODO : How to get this URL...
-          queue_url: active_job_queue,
+          queue_url: queue_for_job(job),
           message_body: item["payload"],
           delay_seconds: delay
         })

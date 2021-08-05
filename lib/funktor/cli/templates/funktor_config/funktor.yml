@@ -21,6 +21,31 @@ IncomingJobHandler:
   visibilityTimeout: <%= incoming_config_value 'visibilityTimeout' %>
   logRetentionInDays: <%= incoming_config_value 'logRetentionInDays' %>
 
+JobActivator:
+  # timeout is how long the handler can possibly run. Up to 10 messages may be delivered
+  # to a handler at one time, so you'll want this to be at least 10x the maximum time you
+  # expect to spend for one message. The job activator usually will be pretty fast,
+  # but we default to a high number here to allow for the times when things go weird.
+  timeout: <%= activator_config_value 'timeout' %>
+  # reservedConcurrency represents the maximum number of concurrent executions.
+  # For the job activator you probably don't want to limit it because you
+  # want to get things onto work queues as quickly as possible when they're ready.
+  reservedConcurrency: <%= activator_config_value 'reservedConcurrency' %>
+  # provisionedConcurrency represents the number of lambda functions that will always
+  # be available. For the job activator you probably don't need to set this
+  # since it will be running on a schedule
+  provisionedConcurrency: <%= activator_config_value 'provisionedConcurrency' %>
+  # Use memory_size to adjust the reousrces (both memory and CPU) available.
+  # For the job activator you probably don't need this to be too large,
+  # but if you're seeing large delays at this stage it might help to bump it up.
+  memorySize: <%= activator_config_value 'memorySize' %>
+  batchSize: <%= activator_config_value 'batchSize' %>
+  maximumBatchingWindow: <%= activator_config_value 'maximumBatchingWindow' %>
+  visibilityTimeout: <%= activator_config_value 'visibilityTimeout' %>
+  logRetentionInDays: <%= activator_config_value 'logRetentionInDays' %>
+
+
+
 <%- queue_names.each do |queue_name| -%>
 <%= queue_name.camelize %>QueueHandler:
   # timeout is how long the handler can possibly run. Up to 10 messages may be delivered
