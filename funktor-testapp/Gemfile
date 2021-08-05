@@ -19,6 +19,7 @@ gem 'require_all', '~> 1.0'
 # don't have to keep things in sync.
 
 gem 'aws-sdk-sqs', '~> 1.37'
+gem 'aws-sdk-dynamodb', '~> 1.62'
 gem "activesupport"
 gem "thor" # Thor drives the CLI TODO - Maybe we don't need it here?
 
