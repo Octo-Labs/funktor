@@ -46,6 +46,7 @@ functions:
   IncomingJobHandler: ${file(funktor_config/function_definitions/incoming_job_handler.yml)}
   DefaultQueueHandler: ${file(funktor_config/function_definitions/default_queue_handler.yml)}
   SingleThreadQueueHandler: ${file(funktor_config/function_definitions/single_thread_queue_handler.yml)}
+  RandomJobGenerator: ${file(funktor_config/function_definitions/random_job_generator.yml)}
 
 resources:
   - ${file(funktor_config/resources/incoming_job_queue_user.yml)}
