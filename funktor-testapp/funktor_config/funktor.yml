@@ -84,5 +84,6 @@ DefaultQueueHandlerName: ${self:service}-${self:custom.stage}-DefaultQueueHandle
 SingleThreadQueueName: ${self:service}-${self:custom.stage}-single-thread
 SingleThreadDeadJobQueueName: ${self:service}-${self:custom.stage}-single-thread-dead
 SingleThreadQueueHandlerName: ${self:service}-${self:custom.stage}-SingleThreadQueueHandler
+JobsTableName: ${self:service}-${self:custom.stage}-jobs
 ActivityTableName: ${self:service}-${self:custom.stage}-activity
 

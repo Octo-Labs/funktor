@@ -32,6 +32,7 @@ provider:
     - ${file(funktor_config/iam_permissions/incoming_job_queue.yml)}
     - ${file(funktor_config/iam_permissions/ssm.yml)}
     - ${file(funktor_config/iam_permissions/single_thread_queue.yml)}
+    - ${file(funktor_config/iam_permissions/jobs_table.yml)}
 
 
 custom:
@@ -56,6 +57,7 @@ resources:
   - ${file(funktor_config/resources/default_queue.yml)}
   - ${file(funktor_config/resources/incoming_job_queue.yml)}
   - ${file(funktor_config/resources/single_thread_queue.yml)}
+  - ${file(funktor_config/resources/jobs_table.yml)}
 
 plugins:
   - serverless-ruby-layer
