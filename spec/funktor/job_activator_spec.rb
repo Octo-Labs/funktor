@@ -15,6 +15,10 @@ RSpec.describe Funktor::JobActivator, type: :handler do
   before do
     expect(Aws::SQS::Client).to receive(:new).and_return(sqs_client)
     expect(Aws::DynamoDB::Client).to receive(:new).and_return(dynamodb_client)
+
+    # TODO - Clean this up and really test something...
+    fake_tracker = double(Funktor::ActivityTracker, track: nil)
+    allow(Funktor::ActivityTracker).to receive(:new).and_return(fake_tracker)
   end
 
   describe 'call' do

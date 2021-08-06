@@ -5,24 +5,32 @@ module Funktor
   class ActivityTracker
 
     INCR_KEYS = {
+      incoming: 'incoming',
       queued: 'queued',
+      scheduled: 'scheduled',
       processingStarted: 'processing',
       processingComplete: 'complete',
       processingFailed: 'failed',
       bailingOut: 'failed',
-      retrying: nil,
+      retrying: 'retries',
+      retryActivated: 'queued',
+      scheduledJobActivated: 'queued'
       #scheduledJobPushedToActive: 'active',
       #activeJobPushed: 'active',
       #scheduledJobPushed: 'scheduled'
     }
 
     DECR_KEYS = {
+      incoming: nil,
       queued: nil,
+      scheduled: nil,
       processingStarted: 'queued',
       processingComplete: 'processing',
-      processingFailed: 'processing',
+      processingFailed: nil,
       bailingOut: 'processing',
       retrying: 'processing',
+      retryActivated: 'retries',
+      scheduledJobActivated: 'scheduled'
       #scheduledJobPushedToActive: 'scheduled',
       #activeJobPushed: nil,
       #scheduledJobPushed: nil

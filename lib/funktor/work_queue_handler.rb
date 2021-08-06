@@ -34,17 +34,15 @@ module Funktor
       rescue Exception => e
         handle_error(e, job)
         @failed_counter.incr(job)
+        if job.can_retry
+          trigger_retry(job)
+          @tracker.track(:retrying, job)
+        else
+          @tracker.track(:bailingOut, job)
+          Funktor.logger.error "We retried max times. We're bailing on this one."
+          Funktor.logger.error job.to_json
+        end
         @tracker.track(:processingFailed, job)
-        attempt_retry_or_bail(job)
-      end
-    end
-
-    def attempt_retry_or_bail(job)
-      if job.can_retry
-        trigger_retry(job)
-      else
-        Funktor.logger.error "We retried max times. We're bailing on this one."
-        Funktor.logger.error job.to_json
       end
     end
 

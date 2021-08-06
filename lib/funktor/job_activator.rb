@@ -4,6 +4,10 @@ require 'aws-sdk-sqs'
 module Funktor
   class JobActivator
 
+    def initialize
+      @tracker = Funktor::ActivityTracker.new
+    end
+
     def dynamodb_client
       @dynamodb_client ||= ::Aws::DynamoDB::Client.new
     end
@@ -69,6 +73,11 @@ module Funktor
           message_body: item["payload"],
           delay_seconds: delay
         })
+        if job.is_retry?
+          @tracker.track(:retryActivated, job)
+        else
+          @tracker.track(:scheduledJobActivated, job)
+        end
       end
     end
 

@@ -30,6 +30,10 @@ module Funktor
       job_data["retries"] || 0
     end
 
+    def is_retry?
+      job_data["retries"].present?
+    end
+
     def retries=(retries)
       job_data["retries"] = retries
     end

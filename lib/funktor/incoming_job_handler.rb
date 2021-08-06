@@ -37,6 +37,7 @@ module Funktor
           push_to_jobs_table(job)
           @tracker.track(:scheduled, job)
         end
+        @tracker.track(:incoming, job)
       end
     end
 
