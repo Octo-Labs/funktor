@@ -29,6 +29,8 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
+                            [ "funktor-testapp", "Duration", "WorkerClassName", "AuditWorker" ],
+                            [ "...", { "stat": "p99" } ],
                             [ "funktor-testapp", "Duration", "WorkerClassName", "GreetingsWorker" ],
                             [ "...", { "stat": "p99" } ],
                             [ "funktor-testapp", "Duration", "WorkerClassName", "HelloWorker" ],
@@ -51,6 +53,8 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
+                            [ "funktor-testapp", "processed", "WorkerClassName", "AuditWorker" ],
+                            [ ".", "failed", ".", "." ],
                             [ "funktor-testapp", "processed", "WorkerClassName", "GreetingsWorker" ],
                             [ ".", "failed", ".", "." ],
                             [ "funktor-testapp", "processed", "WorkerClassName", "HelloWorker" ],
