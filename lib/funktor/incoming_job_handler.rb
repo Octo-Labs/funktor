@@ -31,11 +31,19 @@ module Funktor
         if job.delay < 60 # for now we're testing with just one minute * 5 # 5 minutes
           Funktor.logger.debug "pushing to work queue for delay = #{job.delay}"
           push_to_work_queue(job)
-          @tracker.track(:queued, job)
+          if job.is_retry?
+            @tracker.track(:retryActivated, job)
+          else
+            @tracker.track(:queued, job)
+          end
         else
           Funktor.logger.debug "pushing to jobs table for delay = #{job.delay}"
           push_to_jobs_table(job)
-          @tracker.track(:scheduled, job)
+          if job.is_retry?
+            # do nothing for tracking
+          else
+            @tracker.track(:scheduled, job)
+          end
         end
         @tracker.track(:incoming, job)
       end

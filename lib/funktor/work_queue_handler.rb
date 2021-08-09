@@ -35,8 +35,8 @@ module Funktor
         handle_error(e, job)
         @failed_counter.incr(job)
         if job.can_retry
-          trigger_retry(job)
           @tracker.track(:retrying, job)
+          trigger_retry(job)
         else
           @tracker.track(:bailingOut, job)
           Funktor.logger.error "We retried max times. We're bailing on this one."
