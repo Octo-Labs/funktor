@@ -30,6 +30,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency 'aws-sdk-sqs', '~> 1.37'
+  spec.add_dependency 'aws-sdk-dynamodb', '~> 1.62'
   spec.add_dependency "activesupport" # TODO - Can we build our own verison of cattr_accessor to avoid this?
   spec.add_dependency "thor" # Thor drives the CLI
 

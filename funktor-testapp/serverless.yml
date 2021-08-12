@@ -27,10 +27,13 @@ provider:
   environment: ${file(funktor_config/environment.yml)}
   versionFunctions: false # Reduces the amount of storage used since all Lambdas together are limited to 75GB
   iamRoleStatements:
+    - ${file(funktor_config/iam_permissions/activity_table.yml)}
     - ${file(funktor_config/iam_permissions/default_queue.yml)}
     - ${file(funktor_config/iam_permissions/incoming_job_queue.yml)}
     - ${file(funktor_config/iam_permissions/ssm.yml)}
     - ${file(funktor_config/iam_permissions/single_thread_queue.yml)}
+    - ${file(funktor_config/iam_permissions/jobs_table.yml)}
+    - ${file(funktor_config/iam_permissions/jobs_table_secondary_index.yml)}
 
 
 custom:
@@ -45,15 +48,18 @@ package: ${file(funktor_config/package.yml)}
 functions:
   IncomingJobHandler: ${file(funktor_config/function_definitions/incoming_job_handler.yml)}
   DefaultQueueHandler: ${file(funktor_config/function_definitions/default_queue_handler.yml)}
+  JobActivator: ${file(funktor_config/function_definitions/job_activator.yml)}
   SingleThreadQueueHandler: ${file(funktor_config/function_definitions/single_thread_queue_handler.yml)}
   RandomJobGenerator: ${file(funktor_config/function_definitions/random_job_generator.yml)}
 
 resources:
+  - ${file(funktor_config/resources/activity_table.yml)}
   - ${file(funktor_config/resources/incoming_job_queue_user.yml)}
   - ${file(funktor_config/resources/cloudwatch_dashboard.yml)}
   - ${file(funktor_config/resources/default_queue.yml)}
   - ${file(funktor_config/resources/incoming_job_queue.yml)}
   - ${file(funktor_config/resources/single_thread_queue.yml)}
+  - ${file(funktor_config/resources/jobs_table.yml)}
 
 plugins:
   - serverless-ruby-layer

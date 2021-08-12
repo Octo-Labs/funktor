@@ -65,6 +65,8 @@ module Funktor
           @work_queue_config = queue_details.values.first
           template File.join("funktor_config", "resources", "work_queue.yml"), File.join("funktor_config", "resources", "#{work_queue_name.underscore}_queue.yml")
         end
+        template File.join("funktor_config", "resources", "jobs_table.yml"), File.join("funktor_config", "resources", "jobs_table.yml")
+        template File.join("funktor_config", "resources", "activity_table.yml"), File.join("funktor_config", "resources", "activity_table.yml")
       end
 
       def iam_permissions
@@ -75,10 +77,14 @@ module Funktor
           @work_queue_config = queue_details.values.first
           template File.join("funktor_config", "iam_permissions", "work_queue.yml"), File.join("funktor_config", "iam_permissions", "#{work_queue_name.underscore}_queue.yml")
         end
+        template File.join("funktor_config", "iam_permissions", "jobs_table.yml"), File.join("funktor_config", "iam_permissions", "jobs_table.yml")
+        template File.join("funktor_config", "iam_permissions", "jobs_table_secondary_index.yml"), File.join("funktor_config", "iam_permissions", "jobs_table_secondary_index.yml")
+        template File.join("funktor_config", "iam_permissions", "activity_table.yml"), File.join("funktor_config", "iam_permissions", "activity_table.yml")
       end
 
       def function_definitions
         template File.join("funktor_config", "function_definitions", "incoming_job_handler.yml"), File.join("funktor_config", "function_definitions", "incoming_job_handler.yml")
+        template File.join("funktor_config", "function_definitions", "job_activator.yml"), File.join("funktor_config", "function_definitions", "job_activator.yml")
         queues.each do |queue_details|
           @work_queue_name = queue_details.keys.first
           @work_queue_config = queue_details.values.first
@@ -88,6 +94,7 @@ module Funktor
 
       def lambda_handlers
         template File.join("lambda_event_handlers", "incoming_job_handler.rb"), File.join("lambda_event_handlers", "incoming_job_handler.rb")
+        template File.join("lambda_event_handlers", "job_activator.rb"), File.join("lambda_event_handlers", "job_activator.rb")
         queues.each do |queue_details|
           @work_queue_name = queue_details.keys.first
           @work_queue_config = queue_details.values.first
@@ -166,6 +173,12 @@ module Funktor
 
       def incoming_config_value(config_name)
         funktor_config.dig("incomingJobHandler", config_name) ||
+          funktor_config.dig("handlerDefaults", config_name) ||
+          "null" # When we parse yaml 'null' gets turned to nil, which comes out as an empty string in the template
+      end
+
+      def activator_config_value(config_name)
+        funktor_config.dig("jobActivator", config_name) ||
           funktor_config.dig("handlerDefaults", config_name) ||
           "null" # When we parse yaml 'null' gets turned to nil, which comes out as an empty string in the template
       end

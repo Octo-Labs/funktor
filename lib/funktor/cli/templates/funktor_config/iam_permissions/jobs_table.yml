@@ -1,0 +1,5 @@
+Effect: Allow
+Action:
+  - dynamodb:*
+Resource:
+  - "Fn::GetAtt": [ JobsTable, Arn ]

@@ -22,6 +22,11 @@ module Funktor
       job_data["job_id"]
     end
 
+    def shard
+      # TODO - Should the number of shards be configurable?
+      job_data["job_id"].hash % 64
+    end
+
     def worker_params
       job_data["worker_params"]
     end
@@ -30,16 +35,16 @@ module Funktor
       job_data["retries"] || 0
     end
 
+    def is_retry?
+      job_data["retries"].present?
+    end
+
     def retries=(retries)
       job_data["retries"] = retries
     end
 
     def delay
-      # TODO - In Funktor Pro we need to override this method (or do something else) so that
-      # we can schedule jobs farther in the future than 15 minutes. We do this here in case a
-      # retry sequence goes too long.
-      jdelay = job_data["delay"] || 0
-      return jdelay < 900 ? jdelay : 900
+      job_data["delay"] || 0
     end
 
     def delay=(delay)

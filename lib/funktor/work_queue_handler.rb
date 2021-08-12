@@ -7,6 +7,7 @@ module Funktor
     def initialize
       @failed_counter = Funktor::Counter.new('failed')
       @processed_counter = Funktor::Counter.new('processed')
+      @tracker = Funktor::ActivityTracker.new
     end
 
     def call(event:, context:)
@@ -23,24 +24,25 @@ module Funktor
 
     def dispatch(job)
       begin
+        @tracker.track(:processingStarted, job)
         Funktor.work_queue_handler_middleware.invoke(job) do
           job.execute
         end
         @processed_counter.incr(job)
+        @tracker.track(:processingComplete, job)
       # rescue Funktor::Job::InvalidJsonError # TODO Make this work
       rescue Exception => e
         handle_error(e, job)
         @failed_counter.incr(job)
-        attempt_retry_or_bail(job)
-      end
-    end
-
-    def attempt_retry_or_bail(job)
-      if job.can_retry
-        trigger_retry(job)
-      else
-        Funktor.logger.error "We retried max times. We're bailing on this one."
-        Funktor.logger.error job.to_json
+        if job.can_retry
+          @tracker.track(:retrying, job)
+          trigger_retry(job)
+        else
+          @tracker.track(:bailingOut, job)
+          Funktor.logger.error "We retried max times. We're bailing on this one."
+          Funktor.logger.error job.to_json
+        end
+        @tracker.track(:processingFailed, job)
       end
     end
 

@@ -8,6 +8,8 @@ require 'funktor/logger'
 require 'funktor/worker'
 require 'funktor/middleware_chain'
 require 'funktor/incoming_job_handler'
+require 'funktor/job_activator'
+require 'funktor/activity_tracker'
 
 require 'json'
 
@@ -56,6 +58,18 @@ module Funktor
     @incoming_job_handler_chain ||= MiddlewareChain.new
     yield @incoming_job_handler_chain if block_given?
     @incoming_job_handler_chain
+  end
+
+  # TODO - Does this actually make any sense? Should the JobActivator even know about
+  # jobs/classes? Maybe it should be super dumb and just push JSON blobs around?
+  def self.configure_job_activator
+    yield self
+  end
+
+  def self.job_activator_middleware
+    @job_activator_chain ||= MiddlewareChain.new
+    yield @job_activator_chain if block_given?
+    @job_activator_chain
   end
 
   def self.parse_json(string)

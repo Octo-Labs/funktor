@@ -11,6 +11,12 @@ RSpec.describe Funktor::WorkQueueHandler, type: :handler do
   let(:double_job_event){ create_event [HelloWorker, HelloWorker] }
   let(:fail_once_job_event){ create_event [FailWorker] }
 
+  before :each do
+    # TODO - Clean this up and really test something...
+    fake_tracker = double(Funktor::ActivityTracker, track: nil)
+    allow(Funktor::ActivityTracker).to receive(:new).and_return(fake_tracker)
+  end
+
   describe 'call' do
     it "calls perform on a worker" do
       expect_any_instance_of(HelloWorker).to receive(:perform).and_call_original

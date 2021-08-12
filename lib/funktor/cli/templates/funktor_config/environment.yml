@@ -9,3 +9,7 @@ FUNKTOR_INCOMING_JOB_QUEUE:
 FUNKTOR_<%= queue_name.underscore.upcase %>_QUEUE:
   Ref: <%= queue_name.camelize %>Queue
 <%- end -%>
+FUNKTOR_ACTIVITY_TABLE:
+  Ref: ActivityTable
+FUNKTOR_JOBS_TABLE:
+  Ref: JobsTable

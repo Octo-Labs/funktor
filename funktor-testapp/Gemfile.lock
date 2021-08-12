@@ -14,6 +14,9 @@ GEM
       aws-partitions (~> 1, >= 1.239.0)
       aws-sigv4 (~> 1.1)
       jmespath (~> 1.0)
+    aws-sdk-dynamodb (1.62.0)
+      aws-sdk-core (~> 3, >= 3.119.0)
+      aws-sigv4 (~> 1.1)
     aws-sdk-sqs (1.42.0)
       aws-sdk-core (~> 3, >= 3.119.0)
       aws-sigv4 (~> 1.1)
@@ -36,6 +39,7 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport
+  aws-sdk-dynamodb (~> 1.62)
   aws-sdk-sqs (~> 1.37)
   require_all (~> 1.0)
   thor

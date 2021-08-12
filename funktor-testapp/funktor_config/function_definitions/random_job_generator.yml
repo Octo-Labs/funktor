@@ -5,14 +5,13 @@ events:
   - schedule: rate(1 minute)
 environment:
   # MAX_JOB_DELAY_IN_SECONDS controls the maximum delay that will be put on a randomly generated job.
-  # Maximum possible value is 900 (15 minutes) which is the maximum allowed by SQS.
-  MAX_JOB_DELAY_IN_SECONDS: 300
+  MAX_JOB_DELAY_IN_SECONDS: 1200 # 20 minutes
   # These values control how many random jobs will be generated per second. With extremely high values
   # the generator may become limited by how quickly it can push to SQS. If you need to test LOTS of
   # jobs you may want to set the tiemout to be longer and increase reservedConcurrency so that you
   # can have multiple random generators running at one time.
-  MIN_RANDOM_JOBS_PER_MINUTE: 5
-  MAX_RANDOM_JOBS_PER_MINUTE: 60
+  MIN_RANDOM_JOBS_PER_MINUTE: 30
+  MAX_RANDOM_JOBS_PER_MINUTE: 120
   # MAX_JOB_LENGTH_IN_SECONDS controls how long the slowest job will take to execute (by sleeping)
   MAX_JOB_LENGTH_IN_SECONDS: 3
   # ERROR_PERCENTAGE is the percent of requests that should raise an error and be retried.

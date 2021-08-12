@@ -42,12 +42,6 @@ RSpec.describe Funktor::Worker, type: :worker do
       expect(Aws::SQS::Client).to receive(:new).and_return(sqs_client)
       LambdaTestWorker.perform_in(0, {})
     end
-
-    it 'raises an error if the delay is too long' do
-      expect {
-        LambdaTestWorker.perform_in(901, {})
-      }.to raise_error(Funktor::DelayTooLongError)
-    end
   end
 
   describe 'build_job_payload' do

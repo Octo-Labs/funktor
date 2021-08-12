@@ -49,6 +49,8 @@ incomingJobHandler:
   # to quickly handle jobs at the beginning of a burst. Uncomment the line below if so.
   # provisionedConcurrency: 4
 
+jobActivator:
+  # You probably don't need to adjust the defaults for this one.
 
 queues:
   - default:
