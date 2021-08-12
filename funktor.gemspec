@@ -32,10 +32,11 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'aws-sdk-sqs', '~> 1.37'
   spec.add_dependency 'aws-sdk-dynamodb', '~> 1.62'
   spec.add_dependency "activesupport" # TODO - Can we build our own verison of cattr_accessor to avoid this?
-  spec.add_dependency "thor" # Thor drives the CLI
+  spec.add_dependency "thor" # Thor drives the CLI TODO - should this just be a dev dependency?
 
   spec.add_development_dependency 'activejob', '>= 5.1.5'
   spec.add_development_dependency 'simplecov'
   spec.add_development_dependency 'webmock'
   spec.add_development_dependency 'pry-byebug'
+  spec.add_development_dependency 'sinatra'
 end

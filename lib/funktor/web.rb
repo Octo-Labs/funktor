@@ -1,0 +1,1 @@
+include 'funktor/web/application'
