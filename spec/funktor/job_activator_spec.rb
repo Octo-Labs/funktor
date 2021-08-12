@@ -23,11 +23,13 @@ RSpec.describe Funktor::JobActivator, type: :handler do
 
   describe 'call' do
     context 'in the middle of the day with one job ready' do
+      let(:job_id){ SecureRandom.uuid }
+      let(:shard){ job_id.hash % 64 }
       let(:response) do
         double items: [{
           "performAt": Time.now.utc.iso8601,
-          "performAtDate": Time.now.utc.to_date.iso8601,
-          "jobId": SecureRandom.uuid,
+          "jobShard": shard,
+          "jobId": job_id,
           "payload": Funktor.dump_json({})
         }.stringify_keys],
         attributes: {}

@@ -77,7 +77,9 @@ module Funktor
           payload: job.to_json,
           jobId: job.job_id,
           performAt: perform_at.iso8601,
-          performAtDate: perform_at.to_date.iso8601
+          jobShard: job.shard,
+          dummy: "dummy",
+          category: job.is_retry? ? "retry" : "scheduled"
         },
         table_name: delayed_job_table
       })

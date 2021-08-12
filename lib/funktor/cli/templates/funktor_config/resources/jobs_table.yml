@@ -4,21 +4,25 @@ Resources:
     Properties:
       TableName: ${self:custom.funktor.JobsTableName}
       AttributeDefinitions:
-        - AttributeName: performAtDate
-          AttributeType: S
-        - AttributeName: performAt
-          AttributeType: S
+        - AttributeName: jobShard
+          AttributeType: N
         - AttributeName: jobId
           AttributeType: S
+        #- AttributeName: category
+          #AttributeType: S
+        - AttributeName: performAt
+          AttributeType: S
+        - AttributeName: dummy
+          AttributeType: S
       KeySchema:
-        - AttributeName: performAtDate
+        - AttributeName: jobShard
           KeyType: HASH
         - AttributeName: jobId
           KeyType: RANGE
-      LocalSecondaryIndexes:
+      GlobalSecondaryIndexes:
         - IndexName: performAtIndex
           KeySchema:
-          - AttributeName: performAtDate
+          - AttributeName: dummy
             KeyType: HASH
           - AttributeName: performAt
             KeyType: RANGE
@@ -26,6 +30,7 @@ Resources:
             NonKeyAttributes:
             - jobId
             - payload
+            - category
             ProjectionType: INCLUDE
       BillingMode: PAY_PER_REQUEST
       # Set the capacity based on the stage

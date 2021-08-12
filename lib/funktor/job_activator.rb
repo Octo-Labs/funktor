@@ -28,11 +28,11 @@ module Funktor
       target_time = (Time.now + 90).utc
       query_params = {
         expression_attribute_values: {
-          ":targetDate" => target_time.to_date.iso8601,
+          ":dummy" => "dummy",
           ":targetTime" => target_time.iso8601
         },
-        key_condition_expression: "performAtDate = :targetDate AND performAt < :targetTime",
-        projection_expression: "payload, performAt, jobId, performAtDate",
+        key_condition_expression: "dummy = :dummy AND performAt < :targetTime",
+        projection_expression: "payload, performAt, jobId, jobShard",
         table_name: delayed_job_table,
         index_name: "performAtIndex"
       }
@@ -56,11 +56,13 @@ module Funktor
       if delay < 0
         delay = 0
       end
+      Funktor.logger.debug "jobShard = #{item['jobShard']}"
+      Funktor.logger.debug "jobId = #{item['jobId']}"
       # First we delete the item from Dynamo to be sure that another scheduler hasn't gotten to it,
       # and if that works then send to SQS. This is basically how Sidekiq scheduler works.
       response = dynamodb_client.delete_item({
         key: {
-          "performAtDate" => item["performAtDate"],
+          "jobShard" => item["jobShard"],
           "jobId" => item["jobId"]
         },
         table_name: delayed_job_table,

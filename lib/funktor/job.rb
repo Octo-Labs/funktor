@@ -22,6 +22,11 @@ module Funktor
       job_data["job_id"]
     end
 
+    def shard
+      # TODO - Should the number of shards be configurable?
+      job_data["job_id"].hash % 64
+    end
+
     def worker_params
       job_data["worker_params"]
     end
