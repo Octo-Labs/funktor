@@ -8,8 +8,8 @@ Resources:
           AttributeType: N
         - AttributeName: jobId
           AttributeType: S
-        #- AttributeName: category
-          #AttributeType: S
+        - AttributeName: category
+          AttributeType: S
         - AttributeName: performAt
           AttributeType: S
         - AttributeName: dummy
@@ -23,6 +23,18 @@ Resources:
         - IndexName: performAtIndex
           KeySchema:
           - AttributeName: dummy
+            KeyType: HASH
+          - AttributeName: performAt
+            KeyType: RANGE
+          Projection:
+            NonKeyAttributes:
+            - jobId
+            - payload
+            - category
+            ProjectionType: INCLUDE
+        - IndexName: categoryIndex
+          KeySchema:
+          - AttributeName: category
             KeyType: HASH
           - AttributeName: performAt
             KeyType: RANGE
