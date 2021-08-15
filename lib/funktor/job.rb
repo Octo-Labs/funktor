@@ -51,6 +51,25 @@ module Funktor
       job_data["delay"] = delay
     end
 
+    def error_class
+      job_data["error_class"]
+    end
+
+    def error_message
+      job_data["error_message"]
+    end
+
+    def error_backtrace
+      job_data["error_backtrace"]
+    end
+
+    def error=(error)
+      # TODO We should maybe compress this?
+      job_data["error_class"] = error.class.name
+      job_data["error_message"] = error.message
+      job_data["error_backtrace"] = Funktor.dump_json(error.backtrace)
+    end
+
     def execute
       worker_class.new.perform(*worker_params)
     end

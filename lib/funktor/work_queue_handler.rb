@@ -34,6 +34,7 @@ module Funktor
       rescue Exception => e
         handle_error(e, job)
         @failed_counter.incr(job)
+        job.error = e
         if job.can_retry
           @tracker.track(:retrying, job)
           trigger_retry(job)
