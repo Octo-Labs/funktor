@@ -17,7 +17,7 @@ end
 get '/retries' do
   erb :retries, layout: :layout, locals: {
     activity_data: get_activity_data,
-    jobs: get_jobs('retries')
+    jobs: get_jobs('retry')
   }
 end
 
