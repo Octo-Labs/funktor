@@ -38,7 +38,7 @@ module Funktor::Worker
         worker_params: worker_params,
         queue: self.work_queue,
         incoming_job_queue_url: self.queue_url,
-        perform_at: job_time,
+        perform_at: job_time.utc,
         funktor_options: get_funktor_options
       }
     end

@@ -1,6 +1,6 @@
 require 'sinatra'
 require 'aws-sdk-dynamodb'
-require 'funktor'
+require_relative '../../funktor'
 
 get '/' do
   erb :index, layout: :layout, locals: {

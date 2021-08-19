@@ -1,15 +1,15 @@
-require "funktor/version"
-require 'funktor/aws/sqs/event'
-require 'funktor/aws/sqs/record'
-require 'funktor/counter'
-require 'funktor/job'
-require 'funktor/job_pusher'
-require 'funktor/logger'
-require 'funktor/worker'
-require 'funktor/middleware_chain'
-require 'funktor/incoming_job_handler'
-require 'funktor/job_activator'
-require 'funktor/activity_tracker'
+require_relative "funktor/version"
+require_relative 'funktor/aws/sqs/event'
+require_relative 'funktor/aws/sqs/record'
+require_relative 'funktor/counter'
+require_relative 'funktor/job'
+require_relative 'funktor/job_pusher'
+require_relative 'funktor/logger'
+require_relative 'funktor/worker'
+require_relative 'funktor/middleware_chain'
+require_relative 'funktor/incoming_job_handler'
+require_relative 'funktor/job_activator'
+require_relative 'funktor/activity_tracker'
 
 require 'json'
 
@@ -132,8 +132,8 @@ end
 # the main Funktor module is defined?
 #
 # TODO - Should we require metrics by default or let people opt in?
-require 'funktor/middleware/metrics'
-require 'funktor/error_handler'
-require 'funktor/work_queue_handler'
+require_relative 'funktor/middleware/metrics'
+require_relative 'funktor/error_handler'
+require_relative 'funktor/work_queue_handler'
 
-require 'funktor/rails' if defined?(::Rails::Engine)
+require_relative 'funktor/rails' if defined?(::Rails::Engine)
