@@ -43,12 +43,20 @@ module Funktor
       job_data["retries"] = retries
     end
 
+    def perform_at
+      if job_data["perform_at"].present?
+        job_data["perform_at"].is_a?(Time) ? job_data["perform_at"] : Time.parse(job_data["perform_at"])
+      else
+        Time.now.utc
+      end
+    end
+
     def delay
-      job_data["delay"] || 0
+      (perform_at - Time.now.utc).to_i
     end
 
     def delay=(delay)
-      job_data["delay"] = delay
+      job_data["perform_at"] = Time.now.utc + delay
     end
 
     def error_class

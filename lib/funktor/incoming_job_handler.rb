@@ -71,12 +71,11 @@ module Funktor
     end
 
     def push_to_jobs_table(job)
-      perform_at = (Time.now + job.delay).utc
       resp = dynamodb_client.put_item({
         item: {
           payload: job.to_json,
           jobId: job.job_id,
-          performAt: perform_at.iso8601,
+          performAt: job.perform_at.iso8601,
           jobShard: job.shard,
           dummy: "dummy",
           category: job.is_retry? ? "retry" : "scheduled"
