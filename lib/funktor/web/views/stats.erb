@@ -1,0 +1,8 @@
+<table width="100%">
+  <tr>
+    <% @activity_stats.each_pair do |stat, value| %>
+      <td><a href="/<%= stat %>"><%= stat %>: <%= value %></a></td>
+    <% end %>
+    <td>Current time UTC: <%= Time.now.utc %></td>
+  </tr>
+</table>

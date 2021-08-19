@@ -49,7 +49,11 @@ def get_activity_data
     table_name: ENV['FUNKTOR_ACTIVITY_TABLE']
   }
   resp = dynamodb_client.query(query_params)
-  return resp.items
+  @activity_stats = {}
+  resp.items.each do |item|
+    @activity_stats[item["statName"]] = item["stat_value"].to_i
+  end
+  return @activity_stats
 end
 
 def dynamodb_client

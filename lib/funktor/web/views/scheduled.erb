@@ -1,20 +1,18 @@
-<p>Scheduled</p>
-<p><%= jobs.count %></p>
-<table>
-  <th>
-    <td>Delay</td>
+<h1>Scheduled</h1>
+<p>Showing <%= jobs.count %> of <%= @activity_stats["scheduled"] %></p>
+<table width="100%">
+  <tr>
+    <td>Perform at</td>
     <td>Worker</td>
     <td>Queue</td>
     <td>Params</td>
-  </th>
+  </tr>
   <% jobs.each do |job| %>
     <tr>
-      <td><%= job.delay %></td>
+      <td><%= job.perform_at %></td>
       <td><%= job.worker_class_name %></td>
       <td><%= job.queue %></td>
       <td><%= job.worker_params %></td>
     </tr>
   <% end %>
 </table>
-<p><%= jobs %></p>
-<p><%= @items %></p>

@@ -1,2 +1,18 @@
-<p>Retries!!!</p>
-<p><%= jobs %></p>
+<h1>Retries</h1>
+<p>Showing <%= jobs.count %> of <%= @activity_stats["retries"] %></p>
+<table width="100%">
+  <tr>
+    <td>Perform at</td>
+    <td>Worker</td>
+    <td>Queue</td>
+    <td>Params</td>
+  </tr>
+  <% jobs.each do |job| %>
+    <tr>
+      <td><%= job.perform_at %></td>
+      <td><%= job.worker_class_name %></td>
+      <td><%= job.queue %></td>
+      <td><%= job.worker_params %></td>
+    </tr>
+  <% end %>
+</table>
