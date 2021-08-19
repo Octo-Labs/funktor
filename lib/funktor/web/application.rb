@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'aws-sdk-dynamodb'
+require 'funktor'
 
 get '/' do
   erb :index, layout: :layout, locals: {
@@ -33,7 +34,9 @@ def get_jobs(category)
     index_name: "categoryIndex"
   }
   resp = dynamodb_client.query(query_params)
-  return resp.items
+  @items = resp.items
+  @jobs = @items.map{ |item| Funktor::Job.new(item["payload"]) }
+  return @jobs
 end
 
 def get_activity_data

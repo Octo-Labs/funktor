@@ -1,2 +1,20 @@
 <p>Scheduled</p>
+<p><%= jobs.count %></p>
+<table>
+  <th>
+    <td>Delay</td>
+    <td>Worker</td>
+    <td>Queue</td>
+    <td>Params</td>
+  </th>
+  <% jobs.each do |job| %>
+    <tr>
+      <td><%= job.delay %></td>
+      <td><%= job.worker_class_name %></td>
+      <td><%= job.queue %></td>
+      <td><%= job.worker_params %></td>
+    </tr>
+  <% end %>
+</table>
 <p><%= jobs %></p>
+<p><%= @items %></p>
