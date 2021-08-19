@@ -49,11 +49,11 @@ RSpec.describe Funktor::Worker, type: :worker do
 
   describe 'build_job_payload' do
     it "defaults to 'default'" do
-      payload = LambdaTestWorker.build_job_payload(0)
+      payload = LambdaTestWorker.build_job_payload(Time.now)
       expect(payload[:queue]).to eq 'default'
     end
     it "can be set by a worker" do
-      payload = CustomQueueWorker.build_job_payload(0)
+      payload = CustomQueueWorker.build_job_payload(Time.now)
       expect(payload[:queue]).to eq 'custom'
     end
   end
