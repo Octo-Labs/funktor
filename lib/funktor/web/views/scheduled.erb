@@ -1,18 +1,26 @@
 <h1>Scheduled</h1>
 <p>Showing <%= jobs.count %> of <%= @activity_stats["scheduled"] %></p>
-<table width="100%">
-  <tr>
-    <td>Perform at</td>
-    <td>Worker</td>
-    <td>Queue</td>
-    <td>Params</td>
-  </tr>
-  <% jobs.each do |job| %>
+<form action="/update_jobs" method="post" accept-charset="utf-8">
+  <input type="submit" name="submit" value="Delete Selected Jobs" />
+  <input type="submit" name="submit" value="Queue Selected Jobs" />
+  <table width="100%">
     <tr>
-      <td><%= job.perform_at %></td>
-      <td><%= job.worker_class_name %></td>
-      <td><%= job.queue %></td>
-      <td><%= job.worker_params %></td>
+      <td>&nbsp;</td>
+      <td>Perform at</td>
+      <td>Worker</td>
+      <td>Queue</td>
+      <td>Params</td>
     </tr>
-  <% end %>
-</table>
+    <% jobs.each do |job| %>
+      <tr>
+        <td><input type="checkbox" name="job_id[]" value="<%= job.job_id %>" id=""></td>
+        <td><%= job.perform_at %></td>
+        <td><%= job.worker_class_name %></td>
+        <td><%= job.queue %></td>
+        <td><%= job.worker_params %></td>
+      </tr>
+    <% end %>
+  </table>
+  <input type="submit" name="submit" value="Delete Selected Jobs" />
+  <input type="submit" name="submit" value="Queue Selected Jobs" />
+</form>

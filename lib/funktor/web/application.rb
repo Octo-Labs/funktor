@@ -1,6 +1,9 @@
 require 'sinatra'
 require 'aws-sdk-dynamodb'
 require_relative '../../funktor'
+require_relative '../../funktor/shard_utils'
+
+include ShardUtils
 
 get '/' do
   erb :index, layout: :layout, locals: {
@@ -20,6 +23,19 @@ get '/retries' do
     activity_data: get_activity_data,
     jobs: get_jobs('retry')
   }
+end
+
+post '/update_jobs' do
+ job_ids = params[:job_id]
+ if job_ids.is_a?(String)
+   job_ids = [job_ids]
+ end
+ puts "params[:submit] = #{params[:submit]}"
+ puts "job_ids = #{job_ids}"
+ if params[:submit] == "Delete Selected Jobs"
+   delete_jobs(job_ids)
+   redirect request.referrer
+ end
 end
 
 def get_jobs(category)
@@ -54,6 +70,30 @@ def get_activity_data
     @activity_stats[item["statName"]] = item["stat_value"].to_i
   end
   return @activity_stats
+end
+
+def delete_jobs(job_ids)
+  job_ids.each_slice(25) do |slice|
+    request_items = []
+    slice.each do |job_id|
+      request_items.push({
+        delete_request: {
+          key: {
+            "jobShard" => calculate_shard(job_id),
+            "jobId" => job_id
+          }
+        }
+      })
+    end
+    pp request_items
+    resp = dynamodb_client.batch_write_item({
+      request_items: {
+        "#{ENV['FUNKTOR_JOBS_TABLE']}": request_items
+      }
+    })
+    pp resp
+  end
+
 end
 
 def dynamodb_client

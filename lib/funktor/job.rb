@@ -1,5 +1,8 @@
+require_relative 'shard_utils'
+
 module Funktor
   class Job
+    include ShardUtils
     attr_accessor :job_string
     attr_accessor :job_data
     def initialize(job_string)
@@ -23,8 +26,7 @@ module Funktor
     end
 
     def shard
-      # TODO - Should the number of shards be configurable?
-      job_data["job_id"].hash % 64
+      calculate_shard(job_data["job_id"])
     end
 
     def worker_params
