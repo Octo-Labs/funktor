@@ -77,7 +77,7 @@ module Funktor
           jobId: job.job_id,
           performAt: job.perform_at.iso8601,
           jobShard: job.shard,
-          dummy: "dummy",
+          queueable: "true",
           category: job.is_retry? ? "retry" : "scheduled"
         },
         table_name: delayed_job_table

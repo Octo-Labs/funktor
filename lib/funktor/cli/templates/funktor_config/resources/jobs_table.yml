@@ -12,7 +12,7 @@ Resources:
           AttributeType: S
         - AttributeName: performAt
           AttributeType: S
-        - AttributeName: dummy
+        - AttributeName: queueable
           AttributeType: S
       KeySchema:
         - AttributeName: jobShard
@@ -22,7 +22,7 @@ Resources:
       GlobalSecondaryIndexes:
         - IndexName: performAtIndex
           KeySchema:
-          - AttributeName: dummy
+          - AttributeName: queueable
             KeyType: HASH
           - AttributeName: performAt
             KeyType: RANGE

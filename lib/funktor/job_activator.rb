@@ -28,10 +28,10 @@ module Funktor
       target_time = (Time.now + 90).utc
       query_params = {
         expression_attribute_values: {
-          ":dummy" => "dummy",
+          ":queueable" => "true",
           ":targetTime" => target_time.iso8601
         },
-        key_condition_expression: "dummy = :dummy AND performAt < :targetTime",
+        key_condition_expression: "queueable = :queueable AND performAt < :targetTime",
         projection_expression: "payload, performAt, jobId, jobShard",
         table_name: delayed_job_table,
         index_name: "performAtIndex"
