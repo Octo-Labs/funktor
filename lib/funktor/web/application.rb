@@ -2,8 +2,10 @@ require 'sinatra'
 require 'aws-sdk-dynamodb'
 require_relative '../../funktor'
 require_relative '../../funktor/shard_utils'
+require_relative '../../funktor/activity_tracker'
 
 include ShardUtils
+
 
 get '/' do
   erb :index, layout: :layout, locals: {
@@ -30,10 +32,12 @@ post '/update_jobs' do
  if job_ids.is_a?(String)
    job_ids = [job_ids]
  end
+ job_ids ||= []
  puts "params[:submit] = #{params[:submit]}"
  puts "job_ids = #{job_ids}"
+ puts "params[:source] = #{params[:source]}"
  if params[:submit] == "Delete Selected Jobs"
-   delete_jobs(job_ids)
+   delete_jobs(job_ids, params[:source])
    redirect request.referrer
  end
 end
@@ -72,28 +76,29 @@ def get_activity_data
   return @activity_stats
 end
 
-def delete_jobs(job_ids)
-  job_ids.each_slice(25) do |slice|
-    request_items = []
-    slice.each do |job_id|
-      request_items.push({
-        delete_request: {
-          key: {
-            "jobShard" => calculate_shard(job_id),
-            "jobId" => job_id
-          }
-        }
-      })
-    end
-    pp request_items
-    resp = dynamodb_client.batch_write_item({
-      request_items: {
-        "#{ENV['FUNKTOR_JOBS_TABLE']}": request_items
-      }
-    })
-    pp resp
+def delete_jobs(job_ids, source)
+  @tracker = Funktor::ActivityTracker.new
+  job_ids.each do |job_id|
+    delete_single_job(job_id, source)
   end
+end
 
+def delete_single_job(job_id, source)
+  response = dynamodb_client.delete_item({
+    key: {
+      "jobShard" => calculate_shard(job_id),
+      "jobId" => job_id
+    },
+    table_name: ENV['FUNKTOR_JOBS_TABLE'],
+    return_values: "ALL_OLD"
+  })
+  if response.attributes # this means the record was still there
+    if source == "scheduled"
+      @tracker.track(:scheduledJobDeleted, nil)
+    elsif source == "retries"
+      @tracker.track(:retryDeleted, nil)
+    end
+  end
 end
 
 def dynamodb_client

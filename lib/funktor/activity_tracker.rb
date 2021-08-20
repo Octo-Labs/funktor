@@ -14,7 +14,9 @@ module Funktor
       bailingOut: 'failed',
       retrying: 'retries',
       retryActivated: 'queued',
-      scheduledJobActivated: 'queued'
+      scheduledJobActivated: 'queued',
+      scheduledJobDeleted: 'scheduledJobDeleted',
+      retryDeleted: 'retryDeleted'
       #scheduledJobPushedToActive: 'active',
       #activeJobPushed: 'active',
       #scheduledJobPushed: 'scheduled'
@@ -30,7 +32,9 @@ module Funktor
       bailingOut: 'processing',
       retrying: 'processing',
       retryActivated: 'retries',
-      scheduledJobActivated: 'scheduled'
+      scheduledJobActivated: 'scheduled',
+      scheduledJobDeleted: 'scheduled',
+      retryDeleted: 'retries'
       #scheduledJobPushedToActive: 'scheduled',
       #activeJobPushed: nil,
       #scheduledJobPushed: nil
