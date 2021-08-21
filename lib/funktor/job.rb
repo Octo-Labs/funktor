@@ -14,7 +14,15 @@ module Funktor
     end
 
     def queue
-      job_data["queue"]
+      job_data["queue"] || 'default'
+    end
+
+    def work_queue_url
+      queue_name = self.queue
+      queue_constant = "FUNKTOR_#{queue_name.underscore.upcase}_QUEUE"
+      Funktor.logger.debug "queue_constant = #{queue_constant}"
+      Funktor.logger.debug "ENV value = #{ENV[queue_constant]}"
+      ENV[queue_constant] || ENV['FUNKTOR_DEFAULT_QUEUE']
     end
 
     def worker_class_name

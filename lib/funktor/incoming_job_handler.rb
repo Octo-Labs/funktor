@@ -50,18 +50,10 @@ module Funktor
       end
     end
 
-    def queue_for_job(job)
-      queue_name = job.queue || 'default'
-      queue_constant = "FUNKTOR_#{queue_name.underscore.upcase}_QUEUE"
-      Funktor.logger.debug "queue_constant = #{queue_constant}"
-      Funktor.logger.debug "ENV value = #{ENV[queue_constant]}"
-      ENV[queue_constant] || ENV['FUNKTOR_DEFAULT_QUEUE']
-    end
-
     def push_to_work_queue(job)
       Funktor.logger.debug "job = #{job.to_json}"
       sqs_client.send_message({
-        queue_url: queue_for_job(job),
+        queue_url: job.work_queue_url,
         message_body: job.to_json,
         delay_seconds: job.delay
       })
