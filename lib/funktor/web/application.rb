@@ -34,6 +34,13 @@ get '/queued' do
   }
 end
 
+get '/processing' do
+  erb :processing, layout: :layout, locals: {
+    activity_data: get_activity_data,
+    jobs: get_jobs('processing')
+  }
+end
+
 post '/update_jobs' do
  job_ids = params[:job_id]
  if job_ids.is_a?(String)
