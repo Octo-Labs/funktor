@@ -21,8 +21,9 @@ RSpec.describe Funktor::WorkQueueHandler, type: :handler do
 
   describe 'call' do
     it "calls perform on a worker" do
+      expect(dynamodb_client).to receive(:update_item).and_return(nil)
       expect(dynamodb_client).to receive(:delete_item).and_return(nil)
-      expect(work_queue_handler).to receive(:dynamodb_client).and_return(dynamodb_client)
+      expect(work_queue_handler).to receive(:dynamodb_client).twice.and_return(dynamodb_client)
       expect_any_instance_of(HelloWorker).to receive(:perform).and_call_original
       work_queue_handler.call(event: single_job_event, context: {})
     end

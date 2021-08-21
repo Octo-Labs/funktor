@@ -30,6 +30,7 @@ module Funktor
     def dispatch(job)
       begin
         @tracker.track(:processingStarted, job)
+        update_job_category_to_processing(job)
         Funktor.work_queue_handler_middleware.invoke(job) do
           job.execute
         end
@@ -65,6 +66,22 @@ module Funktor
 
     def delayed_job_table
       ENV['FUNKTOR_JOBS_TABLE']
+    end
+
+    def update_job_category_to_processing(job)
+      dynamodb_client.update_item({
+        key: {
+          "jobShard" => job.shard,
+          "jobId" => job.job_id
+        },
+        table_name: delayed_job_table,
+        update_expression: "SET category = :category, queueable = :queueable",
+        expression_attribute_values: {
+          ":queueable" => "false",
+          ":category" => "processing"
+        },
+        return_values: "ALL_OLD"
+      })
     end
 
     def delete_job_from_dynamodb(job)
