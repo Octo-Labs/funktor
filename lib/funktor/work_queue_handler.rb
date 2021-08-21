@@ -30,7 +30,7 @@ module Funktor
     def dispatch(job)
       begin
         @tracker.track(:processingStarted, job)
-        update_job_category_to_processing(job)
+        update_job_category(job, "processing")
         Funktor.work_queue_handler_middleware.invoke(job) do
           job.execute
         end
@@ -44,9 +44,11 @@ module Funktor
         job.error = e
         if job.can_retry
           @tracker.track(:retrying, job)
+          update_job_category(job, "retry")
           trigger_retry(job)
         else
           @tracker.track(:bailingOut, job)
+          update_job_category(job, "dead")
           Funktor.logger.error "We retried max times. We're bailing on this one."
           Funktor.logger.error job.to_json
         end
@@ -68,7 +70,7 @@ module Funktor
       ENV['FUNKTOR_JOBS_TABLE']
     end
 
-    def update_job_category_to_processing(job)
+    def update_job_category(job, category)
       dynamodb_client.update_item({
         key: {
           "jobShard" => job.shard,
@@ -78,7 +80,7 @@ module Funktor
         update_expression: "SET category = :category, queueable = :queueable",
         expression_attribute_values: {
           ":queueable" => "false",
-          ":category" => "processing"
+          ":category" => category
         },
         return_values: "ALL_OLD"
       })

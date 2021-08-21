@@ -39,7 +39,7 @@ module Funktor
           end
         else
           Funktor.logger.debug "pushing to jobs table for delay = #{job.delay}"
-          push_to_jobs_table(job)
+          push_to_jobs_table(job, nil)
           if job.is_retry?
             # do nothing for tracking
           else

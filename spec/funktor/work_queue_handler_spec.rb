@@ -29,7 +29,7 @@ RSpec.describe Funktor::WorkQueueHandler, type: :handler do
     end
     it "calls dispatch twice for two jobs" do
       expect_any_instance_of(Funktor::WorkQueueHandler).to receive(:dispatch).twice.and_return(nil)
-      Funktor::WorkQueueHandler.new.call(
+      work_queue_handler.call(
         event: double_job_event,
         context: {}
       )
@@ -40,7 +40,9 @@ RSpec.describe Funktor::WorkQueueHandler, type: :handler do
       end
       it "sends a message to the IncomingJobQueue to retry on failure" do
         expect(sqs_client).to receive(:send_message).and_return(nil)
-        Funktor::WorkQueueHandler.new.call(
+        expect(dynamodb_client).to receive(:update_item).twice.and_return(nil)
+        expect(work_queue_handler).to receive(:dynamodb_client).twice.and_return(dynamodb_client)
+        work_queue_handler.call(
           event: fail_once_job_event,
           context: {}
         )
