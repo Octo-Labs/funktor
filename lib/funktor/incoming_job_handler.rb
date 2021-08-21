@@ -31,6 +31,7 @@ module Funktor
         if job.delay < 60 # for now we're testing with just one minute * 5 # 5 minutes
           Funktor.logger.debug "pushing to work queue for delay = #{job.delay}"
           push_to_work_queue(job)
+          push_to_jobs_table(job, "queued")
           if job.is_retry?
             @tracker.track(:retryActivated, job)
           else
@@ -70,15 +71,15 @@ module Funktor
       ENV['FUNKTOR_JOBS_TABLE']
     end
 
-    def push_to_jobs_table(job)
+    def push_to_jobs_table(job, category = nil)
       resp = dynamodb_client.put_item({
         item: {
           payload: job.to_json,
           jobId: job.job_id,
           performAt: job.perform_at.iso8601,
           jobShard: job.shard,
-          queueable: "true",
-          category: job.is_retry? ? "retry" : "scheduled"
+          queueable: category.present? ? "false" : "true",
+          category: category || (job.is_retry? ? "retry" : "scheduled")
         },
         table_name: delayed_job_table
       })

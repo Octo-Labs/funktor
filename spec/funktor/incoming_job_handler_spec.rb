@@ -20,8 +20,10 @@ RSpec.describe Funktor::IncomingJobHandler, type: :handler do
 
   describe 'call' do
     describe 'with a short delay' do
-      it 'should send a message to the work queue' do
+      it 'should send a message to the work queue and put something in the jobs table' do
         expect(sqs_client).to receive(:send_message).and_return(nil)
+        expect(dynamodb_client).to receive(:put_item).and_return(nil)
+        expect(incoming_job_handler).to receive(:dynamodb_client).and_return(dynamodb_client)
         expect(incoming_job_handler).to receive(:sqs_client).and_return(sqs_client)
         incoming_job_handler.call(event: single_job_event, context: {})
       end

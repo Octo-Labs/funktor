@@ -32,7 +32,7 @@ module Funktor
           ":targetTime" => target_time.iso8601
         },
         key_condition_expression: "queueable = :queueable AND performAt < :targetTime",
-        projection_expression: "payload, performAt, jobId, jobShard",
+        projection_expression: "payload, performAt, jobId, jobShard, category",
         table_name: delayed_job_table,
         index_name: "performAtIndex"
       }
@@ -49,6 +49,9 @@ module Funktor
     end
 
     def handle_item(item)
+      current_category = item["category"]
+      Funktor.logger.debug "current_category = #{current_category}"
+
       job = Funktor::Job.new(item["payload"])
       Funktor.logger.debug "we created a job from payload"
       Funktor.logger.debug item["payload"]
@@ -58,17 +61,24 @@ module Funktor
       end
       Funktor.logger.debug "jobShard = #{item['jobShard']}"
       Funktor.logger.debug "jobId = #{item['jobId']}"
-      # First we delete the item from Dynamo to be sure that another scheduler hasn't gotten to it,
+      # First we conditionally update the item in  Dynamo to be sure that another scheduler hasn't gotten to it,
       # and if that works then send to SQS. This is basically how Sidekiq scheduler works.
-      response = dynamodb_client.delete_item({
+      response = dynamodb_client.update_item({
         key: {
           "jobShard" => item["jobShard"],
           "jobId" => item["jobId"]
         },
+        update_expression: "SET category = :category, queueable = :queueable",
+        condition_expression: "category = :current_category",
+        expression_attribute_values: {
+          ":current_category" => current_category,
+          ":queueable" => "false",
+          ":category" => "queued"
+        },
         table_name: delayed_job_table,
         return_values: "ALL_OLD"
       })
-      if response.attributes # this means the record was still there
+      if response.attributes # this means the record was still there in the state we expected
         sqs_client.send_message({
           # TODO : How to get this URL...
           queue_url: queue_for_job(job),

@@ -36,9 +36,9 @@ RSpec.describe Funktor::JobActivator, type: :handler do
       end
       before do
         expect(dynamodb_client).to receive(:query).and_return(response)
-        expect(dynamodb_client).to receive(:delete_item).and_return(response)
+        expect(dynamodb_client).to receive(:update_item).and_return(response)
       end
-      it 'should send a message to the ActiveJobQueue then delete the item' do
+      it 'should send a message to the ActiveJobQueue then update the item' do
         expect(sqs_client).to receive(:send_message).and_return(nil)
         delayed_job_activator.call(event: event, context: lambda_context)
       end
