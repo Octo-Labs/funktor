@@ -16,10 +16,6 @@ module Funktor
       @sqs_client ||= ::Aws::SQS::Client.new
     end
 
-    def active_job_queue
-      ENV['FUNKTOR_ACTIVE_JOB_QUEUE']
-    end
-
     def delayed_job_table
       ENV['FUNKTOR_JOBS_TABLE']
     end
