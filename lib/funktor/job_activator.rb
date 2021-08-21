@@ -91,6 +91,8 @@ module Funktor
           @tracker.track(:scheduledJobActivated, job)
         end
       end
+    rescue Aws::DynamoDB::Errors::ConditionalCheckFailedException
+      # This means that a different instance of the JobActivator got to the job first.
     end
 
     def call(event:, context:)
