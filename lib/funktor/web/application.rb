@@ -27,6 +27,13 @@ get '/retries' do
   }
 end
 
+get '/queued' do
+  erb :queued, layout: :layout, locals: {
+    activity_data: get_activity_data,
+    jobs: get_jobs('queued')
+  }
+end
+
 post '/update_jobs' do
  job_ids = params[:job_id]
  if job_ids.is_a?(String)
