@@ -34,9 +34,18 @@ RSpec.describe Funktor::JobActivator, type: :handler do
         }.stringify_keys],
         attributes: {}
       end
+      let(:update_response) do
+        double items: [],
+        attributes: {
+          "performAt": Time.now.utc.iso8601,
+          "jobShard": shard,
+          "jobId": job_id,
+          "payload": Funktor.dump_json({})
+        }.stringify_keys
+      end
       before do
         expect(dynamodb_client).to receive(:query).and_return(response)
-        expect(dynamodb_client).to receive(:update_item).and_return(response)
+        expect(dynamodb_client).to receive(:update_item).and_return(update_response)
       end
       it 'should send a message to the ActiveJobQueue then update the item' do
         expect(sqs_client).to receive(:send_message).and_return(nil)

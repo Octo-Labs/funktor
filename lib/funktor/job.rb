@@ -62,7 +62,11 @@ module Funktor
     end
 
     def delay
-      (perform_at - Time.now.utc).to_i
+      delay = (perform_at - Time.now.utc).to_i
+      if delay < 0
+        delay = 0
+      end
+      return delay
     end
 
     def delay=(delay)

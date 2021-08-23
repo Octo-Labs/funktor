@@ -28,7 +28,7 @@ module Funktor
           ":targetTime" => target_time.iso8601
         },
         key_condition_expression: "queueable = :queueable AND performAt < :targetTime",
-        projection_expression: "payload, performAt, jobId, jobShard, category",
+        projection_expression: "jobId, jobShard, category",
         table_name: delayed_job_table,
         index_name: "performAtIndex"
       }
@@ -47,14 +47,6 @@ module Funktor
     def handle_item(item)
       current_category = item["category"]
       Funktor.logger.debug "current_category = #{current_category}"
-
-      job = Funktor::Job.new(item["payload"])
-      Funktor.logger.debug "we created a job from payload"
-      Funktor.logger.debug item["payload"]
-      delay = (Time.parse(item["performAt"]) - Time.now.utc).to_i
-      if delay < 0
-        delay = 0
-      end
       Funktor.logger.debug "jobShard = #{item['jobShard']}"
       Funktor.logger.debug "jobId = #{item['jobId']}"
       # First we conditionally update the item in  Dynamo to be sure that another scheduler hasn't gotten to it,
@@ -75,11 +67,16 @@ module Funktor
         return_values: "ALL_OLD"
       })
       if response.attributes # this means the record was still there in the state we expected
+        Funktor.logger.debug "response.attributes ====== "
+        Funktor.logger.debug response.attributes
+        job = Funktor::Job.new(response.attributes["payload"])
+        Funktor.logger.debug "we created a job from payload"
+        Funktor.logger.debug response.attributes["payload"]
         sqs_client.send_message({
           # TODO : How to get this URL...
           queue_url: queue_for_job(job),
-          message_body: item["payload"],
-          delay_seconds: delay
+          message_body: response.attributes["payload"],
+          delay_seconds: job.delay
         })
         if job.is_retry?
           @tracker.track(:retryActivated, job)
@@ -87,7 +84,9 @@ module Funktor
           @tracker.track(:scheduledJobActivated, job)
         end
       end
-    rescue Aws::DynamoDB::Errors::ConditionalCheckFailedException
+    rescue ::Aws::DynamoDB::Errors::ConditionalCheckFailedException => e
+      Funktor.logger.debug "#{e.to_s} : #{e.message}"
+      Funktor.logger.debug e.backtrace.join("\n")
       # This means that a different instance of the JobActivator got to the job first.
     end
 
