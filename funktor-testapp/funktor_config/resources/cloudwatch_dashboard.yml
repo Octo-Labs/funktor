@@ -34,6 +34,8 @@ Resources:
                             [ "funktor-testapp", "Duration", "WorkerClassName", "GreetingsWorker" ],
                             [ "...", { "stat": "p99" } ],
                             [ "funktor-testapp", "Duration", "WorkerClassName", "HelloWorker" ],
+                            [ "...", { "stat": "p99" } ],
+                            [ "funktor-testapp", "Duration", "WorkerClassName", "SingleThreadAuditWorker" ],
                             [ "...", { "stat": "p99" } ]
                         ],
                         "view": "timeSeries",
@@ -58,6 +60,8 @@ Resources:
                             [ "funktor-testapp", "processed", "WorkerClassName", "GreetingsWorker" ],
                             [ ".", "failed", ".", "." ],
                             [ "funktor-testapp", "processed", "WorkerClassName", "HelloWorker" ],
+                            [ ".", "failed", ".", "." ],
+                            [ "funktor-testapp", "processed", "WorkerClassName", "SingleThreadAuditWorker" ],
                             [ ".", "failed", ".", "." ]
                         ],
                         "view": "timeSeries",
