@@ -74,7 +74,7 @@ Resources:
                     "properties": {
                         "metrics": [
                             <%- queue_names.each do |queue_name| -%>
-                            [ "<%= app_name %>", "Duration", "Queue", "<%= queue_name %>" ],
+                            [ "<%= app_name %>", "Duration", "Queue", "<%= queue_name.underscore %>" ],
                             [ "...", { "stat": "p99" } ]<%= queue_name == queue_names.last ? "" : "," %>
                             <%- end -%>
                         ],
@@ -95,7 +95,7 @@ Resources:
                     "properties": {
                         "metrics": [
                             <%- queue_names.each do |queue_name| -%>
-                            [ "<%= app_name %>", "processed", "Queue", "<%= queue_name %>" ],
+                            [ "<%= app_name %>", "processed", "Queue", "<%= queue_name.underscore %>" ],
                             [ ".", "failed", ".", "." ]<%= queue_name == queue_names.last ? "" : "," %>
                             <%- end -%>
                         ],
