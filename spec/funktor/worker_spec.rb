@@ -12,6 +12,10 @@ RSpec.describe Funktor::Worker, type: :worker do
     funktor_options queue: :custom
   end
 
+  class DescendantWorker < CustomQueueWorker
+    funktor_options queue: :descendant
+  end
+
   let(:params) do
     {}
   end
@@ -48,11 +52,18 @@ RSpec.describe Funktor::Worker, type: :worker do
   end
 
   describe 'build_job_payload' do
-    it "defaults to 'default'" do
+    it "queue defaults to 'default'" do
       payload = LambdaTestWorker.build_job_payload(Time.now)
       expect(payload[:queue]).to eq 'default'
     end
-    it "can be set by a worker" do
+    it "queue can be set by a worker" do
+      payload = CustomQueueWorker.build_job_payload(Time.now)
+      expect(payload[:queue]).to eq 'custom'
+    end
+    it "queue shouldn't leak into a parent class" do
+      payload = DescendantWorker.build_job_payload(Time.now)
+      expect(payload[:queue]).to eq 'descendant'
+
       payload = CustomQueueWorker.build_job_payload(Time.now)
       expect(payload[:queue]).to eq 'custom'
     end

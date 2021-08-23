@@ -1,10 +1,12 @@
+require 'active_support/core_ext/class/attribute'
+
 module Funktor
   module Worker
     module FunktorOptions
       def self.included(base)
         base.extend ClassMethods
         base.class_eval do
-          cattr_accessor :funktor_options_hash
+          class_attribute :funktor_options_hash
         end
       end
       module ClassMethods
