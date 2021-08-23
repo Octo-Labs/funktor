@@ -125,6 +125,10 @@ module Funktor
 
     def retry_queue_url
       worker_class&.custom_queue_url || ENV['FUNKTOR_INCOMING_JOB_QUEUE']
+    rescue NameError, TypeError
+      # In the web ui we may not have access to the the worker classes
+      # TODO : We should mayb handle this differently somehow? This just feels a bit icky...
+      ENV['FUNKTOR_INCOMING_JOB_QUEUE']
     end
   end
 end

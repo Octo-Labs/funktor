@@ -30,8 +30,12 @@ module Funktor
         # TODO : This number should be configurable via ENV var
         if job.delay < 60 # for now we're testing with just one minute * 5 # 5 minutes
           Funktor.logger.debug "pushing to work queue for delay = #{job.delay}"
-          push_to_work_queue(job)
+          # We push to the jobs table first becauase the work queue handler will expect to be able
+          # to update the stats of a record that's already in the table.
+          # TODO : For time sensitive jobs this is probably less than optimal. Can we update the
+          # work queue handler to be ok with a job that's not yet in the table?
           push_to_jobs_table(job, "queued")
+          push_to_work_queue(job)
           if job.is_retry?
             @tracker.track(:retryActivated, job)
           else

@@ -21,7 +21,13 @@ module Funktor
     end
 
     def jobs_to_activate
-      target_time = (Time.now + 90).utc
+      # TODO : The lookahead time here should be configurable
+      # If this doesn't match the setting in the IncomingJobHandler some jobs
+      # might be activated and then immediately re-scheduled instead of being
+      # queued, which leads to kind of confusing stats for the "incoming" stat.
+      # (Come to think of it, the incoming stat is kind of confusting anyway since
+      # it reflects retries and scheduled jobs activations...)
+      target_time = (Time.now + 60).utc
       query_params = {
         expression_attribute_values: {
           ":queueable" => "true",
@@ -54,7 +60,7 @@ module Funktor
       activate_job(job_shard, job_id, current_category)
     end
 
-    def activate_job(job_shard, job_id, current_category)
+    def activate_job(job_shard, job_id, current_category, queue_immediately = false)
       # First we conditionally update the item in  Dynamo to be sure that another scheduler hasn't gotten
       # to it, and if that works then send to SQS. This is basically how Sidekiq scheduler works.
       response = dynamodb_client.update_item({
@@ -78,11 +84,14 @@ module Funktor
         job = Funktor::Job.new(response.attributes["payload"])
         Funktor.logger.debug "we created a job from payload"
         Funktor.logger.debug response.attributes["payload"]
+        Funktor.logger.debug "queueing to #{job.retry_queue_url}"
+        if queue_immediately
+          job.delay = 0
+        end
         sqs_client.send_message({
-          # TODO : How to get this URL...
-          queue_url: queue_for_job(job),
-          message_body: response.attributes["payload"],
-          delay_seconds: job.delay
+          queue_url: job.retry_queue_url,
+          message_body: job.to_json
+          #delay_seconds: job.delay
         })
         if job.is_retry?
           @tracker.track(:retryActivated, job)

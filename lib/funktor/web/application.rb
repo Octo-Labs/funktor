@@ -96,7 +96,7 @@ def queue_jobs(job_ids, source)
   job_activator = Funktor::JobActivator.new
   job_ids.each do |job_id|
     job_shard = calculate_shard(job_id)
-    job_activator.activate_job(job_shard, job_id, source)
+    job_activator.activate_job(job_shard, job_id, source, true)
   end
 end
 
