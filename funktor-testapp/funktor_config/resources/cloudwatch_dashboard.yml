@@ -83,7 +83,7 @@ Resources:
                         "metrics": [
                             [ "funktor-testapp", "Duration", "Queue", "default" ],
                             [ "...", { "stat": "p99" } ],
-                            [ "funktor-testapp", "Duration", "Queue", "singleThread" ],
+                            [ "funktor-testapp", "Duration", "Queue", "single_thread" ],
                             [ "...", { "stat": "p99" } ]
                         ],
                         "view": "timeSeries",
@@ -104,7 +104,7 @@ Resources:
                         "metrics": [
                             [ "funktor-testapp", "processed", "Queue", "default" ],
                             [ ".", "failed", ".", "." ],
-                            [ "funktor-testapp", "processed", "Queue", "singleThread" ],
+                            [ "funktor-testapp", "processed", "Queue", "single_thread" ],
                             [ ".", "failed", ".", "." ]
                         ],
                         "view": "timeSeries",
