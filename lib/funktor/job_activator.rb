@@ -94,7 +94,10 @@ module Funktor
           #delay_seconds: job.delay
         })
         if job.is_retry?
-          @tracker.track(:retryActivated, job)
+          # We don't track here because we send stuff back to the incoming job queue and we track the
+          # :retryActivated even there.
+          # TODO - Once we're sure this is all working right we can delete the commented out line.
+          #@tracker.track(:retryActivated, job)
         else
           @tracker.track(:scheduledJobActivated, job)
         end

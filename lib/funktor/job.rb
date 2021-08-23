@@ -82,7 +82,7 @@ module Funktor
     end
 
     def error_backtrace
-      Funktor.parse_json(job_data["error_backtrace"])
+      job_data["error_backtrace"].present? ? Funktor.parse_json(job_data["error_backtrace"]) : []
     end
 
     def error=(error)
