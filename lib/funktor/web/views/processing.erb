@@ -6,6 +6,8 @@
     <td>Worker</td>
     <td>Queue</td>
     <td>Params</td>
+    <td>Attempts</td>
+    <td>Last error</td>
   </tr>
   <% jobs.each do |job| %>
     <tr>
@@ -13,6 +15,12 @@
       <td><%= job.worker_class_name %></td>
       <td><%= job.queue %></td>
       <td><%= job.worker_params %></td>
+      <td><%= job.retries %></td>
+      <td>
+        <%= job.error_class %> - <%= job.error_message %>
+        <br/>
+        <%= job.error_backtrace.first %>
+      </td>
     </tr>
   <% end %>
 </table>
