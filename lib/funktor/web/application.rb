@@ -52,8 +52,10 @@ post '/update_jobs' do
  puts "params[:source] = #{params[:source]}"
  if params[:submit] == "Delete Selected Jobs"
    delete_jobs(job_ids, params[:source])
-   redirect request.referrer
+ elsif params[:submit] == "Queue Selected Jobs"
+   queue_jobs(job_ids, params[:source])
  end
+redirect request.referrer
 end
 
 def get_jobs(category)
@@ -90,6 +92,14 @@ def get_activity_data
   return @activity_stats
 end
 
+def queue_jobs(job_ids, source)
+  job_activator = Funktor::JobActivator.new
+  job_ids.each do |job_id|
+    job_shard = calculate_shard(job_id)
+    job_activator.activate_job(job_shard, job_id, source)
+  end
+end
+
 def delete_jobs(job_ids, source)
   @tracker = Funktor::ActivityTracker.new
   job_ids.each do |job_id|
@@ -109,7 +119,7 @@ def delete_single_job(job_id, source)
   if response.attributes # this means the record was still there
     if source == "scheduled"
       @tracker.track(:scheduledJobDeleted, nil)
-    elsif source == "retries"
+    elsif source == "retry"
       @tracker.track(:retryDeleted, nil)
     end
   end
