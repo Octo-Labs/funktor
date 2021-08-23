@@ -45,16 +45,22 @@ module Funktor
     end
 
     def handle_item(item)
+      job_shard = item["jobShard"]
+      job_id = item["jobId"]
       current_category = item["category"]
-      Funktor.logger.debug "current_category = #{current_category}"
       Funktor.logger.debug "jobShard = #{item['jobShard']}"
       Funktor.logger.debug "jobId = #{item['jobId']}"
-      # First we conditionally update the item in  Dynamo to be sure that another scheduler hasn't gotten to it,
-      # and if that works then send to SQS. This is basically how Sidekiq scheduler works.
+      Funktor.logger.debug "current_category = #{current_category}"
+      activate_job(job_shard, job_id, current_category)
+    end
+
+    def activate_job(job_shard, job_id, current_category)
+      # First we conditionally update the item in  Dynamo to be sure that another scheduler hasn't gotten
+      # to it, and if that works then send to SQS. This is basically how Sidekiq scheduler works.
       response = dynamodb_client.update_item({
         key: {
-          "jobShard" => item["jobShard"],
-          "jobId" => item["jobId"]
+          "jobShard" => job_shard,
+          "jobId" => job_id
         },
         update_expression: "SET category = :category, queueable = :queueable",
         condition_expression: "category = :current_category",
@@ -85,9 +91,10 @@ module Funktor
         end
       end
     rescue ::Aws::DynamoDB::Errors::ConditionalCheckFailedException => e
+      # This means that a different instance of the JobActivator (or someone doing stuff in the web UI)
+      # got to the job first.
       Funktor.logger.debug "#{e.to_s} : #{e.message}"
       Funktor.logger.debug e.backtrace.join("\n")
-      # This means that a different instance of the JobActivator got to the job first.
     end
 
     def call(event:, context:)
