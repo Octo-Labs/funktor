@@ -16,21 +16,18 @@ module ActiveJob
           "worker"  => JobWrapper.to_s,
           "wrapped" => job.class,
           "queue"   => job.class.work_queue,
-          "delay"   => 0,
+          "perform_at" => Time.now.utc,
           "worker_params"    => [ job.serialize ]
         })
       end
 
       def enqueue_at(job, timestamp) # :nodoc:
-        delay = (Time.at(timestamp).utc - Time.now.utc).round
-        if delay < 0
-          delay = 0
-        end
+        time = Time.at(timestamp).utc
         job.provider_job_id = Funktor.job_pusher.push({
           "worker"  => JobWrapper.to_s,
           "wrapped" => job.class,
           "queue"   => job.class.work_queue,
-          "delay"   => delay,
+          "perform_at" => time,
           "worker_params"    => [ job.serialize ]
         })
       end
