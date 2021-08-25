@@ -1,1 +1,1 @@
-include 'funktor/web/application'
+require 'funktor/web/application'
