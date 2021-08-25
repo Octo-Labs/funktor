@@ -32,7 +32,7 @@ provider:
     - ${file(funktor_config/iam_permissions/default_queue.yml)}
     - ${file(funktor_config/iam_permissions/incoming_job_queue.yml)}
     - ${file(funktor_config/iam_permissions/ssm.yml)}
-    - ${file(funktor_config/iam_permissions/single_thread_queue.yml)}
+    - ${file(funktor_config/iam_permissions/low_concurrency_queue.yml)}
     - ${file(funktor_config/iam_permissions/jobs_table.yml)}
     - ${file(funktor_config/iam_permissions/jobs_table_secondary_index.yml)}
 
@@ -50,7 +50,7 @@ functions:
   IncomingJobHandler: ${file(funktor_config/function_definitions/incoming_job_handler.yml)}
   DefaultQueueHandler: ${file(funktor_config/function_definitions/default_queue_handler.yml)}
   JobActivator: ${file(funktor_config/function_definitions/job_activator.yml)}
-  SingleThreadQueueHandler: ${file(funktor_config/function_definitions/single_thread_queue_handler.yml)}
+  LowConcurrencyQueueHandler: ${file(funktor_config/function_definitions/low_concurrency_queue_handler.yml)}
   RandomJobGenerator: ${file(funktor_config/function_definitions/random_job_generator.yml)}
 
 resources:
@@ -59,7 +59,7 @@ resources:
   - ${file(funktor_config/resources/cloudwatch_dashboard.yml)}
   - ${file(funktor_config/resources/default_queue.yml)}
   - ${file(funktor_config/resources/incoming_job_queue.yml)}
-  - ${file(funktor_config/resources/single_thread_queue.yml)}
+  - ${file(funktor_config/resources/low_concurrency_queue.yml)}
   - ${file(funktor_config/resources/jobs_table.yml)}
 
 plugins:

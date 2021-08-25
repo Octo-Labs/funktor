@@ -3,7 +3,6 @@ timeout: ${self:custom.funktor.DefaultQueueHandler.functionTimeout, 900}
 reservedConcurrency: ${self:custom.funktor.DefaultQueueHandler.reservedConcurrency, null}
 provisionedConcurrency: ${self:custom.funktor.DefaultQueueHandler.provisionedConcurrency, null}
 memorySize: ${self:custom.funktor.DefaultQueueHandler.memorySize, 256}
-#logRetentionInDays: ${self:custom.funktor.DefaultQueueHandler.logRetentionInDays, 7}
 events:
   - sqs:
       batchSize: ${self:custom.funktor.DefaultQueueHandler.batchSize, 1}

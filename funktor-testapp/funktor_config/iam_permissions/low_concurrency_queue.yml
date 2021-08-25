@@ -5,4 +5,4 @@ Action:
   - sqs:SendMessage
   - sqs:GetQueueAttributes
 Resource:
-  - "Fn::GetAtt": [ SingleThreadQueue, Arn ]
+  - "Fn::GetAtt": [ LowConcurrencyQueue, Arn ]

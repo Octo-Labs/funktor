@@ -1,0 +1,13 @@
+handler: lambda_event_handlers/low_concurrency_queue_handler.call
+timeout: ${self:custom.funktor.LowConcurrencyQueueHandler.functionTimeout, 900}
+reservedConcurrency: ${self:custom.funktor.LowConcurrencyQueueHandler.reservedConcurrency, null}
+provisionedConcurrency: ${self:custom.funktor.LowConcurrencyQueueHandler.provisionedConcurrency, null}
+memorySize: ${self:custom.funktor.LowConcurrencyQueueHandler.memorySize, 256}
+events:
+  - sqs:
+      batchSize: ${self:custom.funktor.LowConcurrencyQueueHandler.batchSize, 1}
+      maximumBatchingWindow: ${self:custom.funktor.LowConcurrencyQueueHandler.maximumBatchingWindow, 0}
+      arn:
+        Fn::GetAtt:
+          - LowConcurrencyQueue
+          - Arn

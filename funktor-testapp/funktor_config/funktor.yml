@@ -20,7 +20,6 @@ IncomingJobHandler:
   maximumBatchingWindow: 0
   visibilityTimeout: 1800
   maxReceiveCount: 20
-  logRetentionInDays: 30
 
 JobActivator:
   # timeout is how long the handler can possibly run. Up to 10 messages may be delivered
@@ -44,7 +43,6 @@ JobActivator:
   maximumBatchingWindow: 0
   visibilityTimeout: 1800
   maxReceiveCount: 20
-  logRetentionInDays: 30
 
 
 
@@ -71,9 +69,8 @@ DefaultQueueHandler:
   maximumBatchingWindow: 0
   visibilityTimeout: 1800
   maxReceiveCount: 20
-  logRetentionInDays: 30
 
-SingleThreadQueueHandler:
+LowConcurrencyQueueHandler:
   # timeout is how long the handler can possibly run. Up to 10 messages may be delivered
   # to a handler at one time, so you'll want this to be at least 10x the maximum time you
   # expect to spend for one message. The active job handler may be slow if your jobs are
@@ -82,7 +79,7 @@ SingleThreadQueueHandler:
   # reservedConcurrency represents the maximum number of concurrent executions.
   # For the active job handler you may want to limit it if you have resource limitations
   # like database connections that you need to avoid exhausting.
-  reservedConcurrency: 1
+  reservedConcurrency: 10
   # provisionedConcurrency represents the number of lambda functions that will always
   # be available. For the active job handler you probably don't need to set this
   # unless your jobs are very bursty AND very time sensitive.
@@ -96,7 +93,6 @@ SingleThreadQueueHandler:
   maximumBatchingWindow: 0
   visibilityTimeout: 1800
   maxReceiveCount: 20
-  logRetentionInDays: 30
 
 
 
@@ -110,9 +106,9 @@ DashboardName: ${self:service}-${self:custom.stage}-dashboard
 DefaultQueueName: ${self:service}-${self:custom.stage}-default
 DefaultDeadJobQueueName: ${self:service}-${self:custom.stage}-default-dead
 DefaultQueueHandlerName: ${self:service}-${self:custom.stage}-DefaultQueueHandler
-SingleThreadQueueName: ${self:service}-${self:custom.stage}-single-thread
-SingleThreadDeadJobQueueName: ${self:service}-${self:custom.stage}-single-thread-dead
-SingleThreadQueueHandlerName: ${self:service}-${self:custom.stage}-SingleThreadQueueHandler
+LowConcurrencyQueueName: ${self:service}-${self:custom.stage}-low-concurrency
+LowConcurrencyDeadJobQueueName: ${self:service}-${self:custom.stage}-low-concurrency-dead
+LowConcurrencyQueueHandlerName: ${self:service}-${self:custom.stage}-LowConcurrencyQueueHandler
 JobsTableName: ${self:service}-${self:custom.stage}-jobs
 ActivityTableName: ${self:service}-${self:custom.stage}-activity
 JobActivatorName: ${self:service}-${self:custom.stage}-JobActivator

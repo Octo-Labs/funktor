@@ -45,9 +45,6 @@ handlerDefaults:
   # up in the dead letter queue
   maxReceiveCount: 20
 
-  # Set log rentention to save money
-  logRetentionInDays: 30
-
 # Incoming Job Handler
 incomingJobHandler:
   # If your jobs are bursty AND time-sensitive you might want to have some lambdas pre-provisioned
@@ -63,6 +60,10 @@ queues:
       # memorySize: 512
       # TODO - Is it advisable to use FIFO queuues with Funktor? Maybe this isn't really even supported by CloudFormation?
       # fifo: false
-  - singleThread:
-      reservedConcurrency: 1
+  - lowConcurrency:
+      # BEWARE - Setting very low concurrency values (5 or lower) can contribute to "SQS Overpull", so you probably don't
+      # want to have any queues with extremely low concurrency.
+      # Details about "SQS Overpull" can be found in this article:
+      # https://zaccharles.medium.com/reproducing-the-sqs-trigger-and-lambda-concurrency-limit-issue-f4c09d384a18
+      reservedConcurrency: 10
 

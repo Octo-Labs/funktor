@@ -83,7 +83,7 @@ Resources:
                         "metrics": [
                             [ "funktor-testapp", "Duration", "Queue", "default" ],
                             [ "...", { "stat": "p99" } ],
-                            [ "funktor-testapp", "Duration", "Queue", "single_thread" ],
+                            [ "funktor-testapp", "Duration", "Queue", "low_concurrency" ],
                             [ "...", { "stat": "p99" } ]
                         ],
                         "view": "timeSeries",
@@ -104,7 +104,7 @@ Resources:
                         "metrics": [
                             [ "funktor-testapp", "processed", "Queue", "default" ],
                             [ ".", "failed", ".", "." ],
-                            [ "funktor-testapp", "processed", "Queue", "single_thread" ],
+                            [ "funktor-testapp", "processed", "Queue", "low_concurrency" ],
                             [ ".", "failed", ".", "." ]
                         ],
                         "view": "timeSeries",
@@ -430,7 +430,7 @@ Resources:
                     "x": 0,
                     "type": "text",
                     "properties": {
-                        "markdown": "\n# SingleThread Queue\n"
+                        "markdown": "\n# LowConcurrency Queue\n"
                     }
                 },
                 { 
@@ -442,7 +442,7 @@ Resources:
                     "properties": {
                         "metrics": [
                             [ "AWS/SQS", "NumberOfMessagesReceived", "QueueName",
-                              "${self:custom.funktor.SingleThreadQueueName}", { "label": "Messages Per Minute" } ]
+                              "${self:custom.funktor.LowConcurrencyQueueName}", { "label": "Messages Per Minute" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
@@ -460,8 +460,8 @@ Resources:
                     "properties": {
                         "metrics": [
                             [ "AWS/Lambda", "Duration", "FunctionName",
-                              "${self:custom.funktor.SingleThreadQueueHandlerName}", "Resource",
-                              "${self:custom.funktor.SingleThreadQueueHandlerName}", { "label": "p10" } ],
+                              "${self:custom.funktor.LowConcurrencyQueueHandlerName}", "Resource",
+                              "${self:custom.funktor.LowConcurrencyQueueHandlerName}", { "label": "p10" } ],
                             [ "...", { "label": "p50", "stat": "p50" } ],
                             [ "...", { "label": "p99", "stat": "p99" } ],
                             [ "...", { "label": "Average", "stat": "Average" } ]
@@ -482,14 +482,14 @@ Resources:
                     "properties": {
                         "metrics": [
                             [ "AWS/SQS", "NumberOfMessagesReceived", "QueueName",
-                              "${self:custom.funktor.SingleThreadQueueName}",
+                              "${self:custom.funktor.LowConcurrencyQueueName}",
                               { "label": "Received" } ],
                             [ ".", "NumberOfMessagesDeleted", ".", ".", { "label": "Handled" } ],
                             [ "AWS/Lambda", "Invocations", "FunctionName",
-                              "${self:custom.funktor.SingleThreadQueueHandlerName}", "Resource",
-                              "${self:custom.funktor.SingleThreadQueueHandlerName}", { "label": "Handler Invocations" } ],
+                              "${self:custom.funktor.LowConcurrencyQueueHandlerName}", "Resource",
+                              "${self:custom.funktor.LowConcurrencyQueueHandlerName}", { "label": "Handler Invocations" } ],
                             [ "AWS/SQS", "ApproximateNumberOfMessagesVisible", "QueueName",
-                              "${self:custom.funktor.SingleThreadQueueName}", { "label": "Pending?" } ],
+                              "${self:custom.funktor.LowConcurrencyQueueName}", { "label": "Pending?" } ],
                             [ ".", "ApproximateNumberOfMessagesNotVisible", ".", ".", { "label": "Backlog?" } ],
                             [ ".", "NumberOfMessagesSent", ".", ".", { "label": "Sent" } ],
                             [ ".", "ApproximateNumberOfMessagesDelayed", ".", ".", { "label": "Delayed" } ]
@@ -497,7 +497,7 @@ Resources:
                         "view": "timeSeries",
                         "stacked": false,
                         "region": "us-east-1",
-                        "title": "SingleThread Queue (Async jobs go here immediately, scheduled jobs land here in the minute before they're scheduled)",
+                        "title": "LowConcurrency Queue (Async jobs go here immediately, scheduled jobs land here in the minute before they're scheduled)",
                         "period": 60,
                         "stat": "Sum",
                         "liveData": true
@@ -512,12 +512,12 @@ Resources:
                     "properties": {
                         "period": 60,
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.SingleThreadQueueHandlerName}", { "stat": "Minimum" } ],
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.LowConcurrencyQueueHandlerName}", { "stat": "Minimum" } ],
                             [ "...", { "stat": "Average" } ],
                             [ "...", { "stat": "Maximum" } ]
                         ],
                         "region": "us-east-1",
-                        "title": "SingleThread Queue Handler Duration in Milliseconds",
+                        "title": "LowConcurrency Queue Handler Duration in Milliseconds",
                         "view": "timeSeries",
                         "stacked": false,
                         "liveData": true
@@ -533,12 +533,12 @@ Resources:
                         "period": 60,
                         "metrics": [
                             [ "AWS/Lambda", "Errors", "FunctionName",
-                              "${self:custom.funktor.SingleThreadQueueHandlerName}", { "id": "errors", "stat": "Sum", "color": "#d13212" } ],
+                              "${self:custom.funktor.LowConcurrencyQueueHandlerName}", { "id": "errors", "stat": "Sum", "color": "#d13212" } ],
                             [ ".", "Invocations", ".", ".", { "id": "invocations", "stat": "Sum", "visible": false } ],
                             [ { "expression": "100 - 100 * errors / MAX([errors, invocations])", "label": "Success rate (%)", "id": "availability", "yAxis": "right", "region": "us-east-1" } ]
                         ],
                         "region": "us-east-1",
-                        "title": "SingleThread Queue Handler Error count and success rate (%)",
+                        "title": "LowConcurrency Queue Handler Error count and success rate (%)",
                         "yAxis": {
                             "right": {
                                 "max": 100
@@ -559,10 +559,10 @@ Resources:
                         "period": 60,
                         "metrics": [
                             [ "AWS/Lambda", "ConcurrentExecutions", "FunctionName",
-                              "${self:custom.funktor.SingleThreadQueueHandlerName}", { "stat": "Maximum" } ]
+                              "${self:custom.funktor.LowConcurrencyQueueHandlerName}", { "stat": "Maximum" } ]
                         ],
                         "region": "us-east-1",
-                        "title": "SingleThread Queue Handler Concurrent executions",
+                        "title": "LowConcurrency Queue Handler Concurrent executions",
                         "view": "timeSeries",
                         "stacked": false,
                         "liveData": true

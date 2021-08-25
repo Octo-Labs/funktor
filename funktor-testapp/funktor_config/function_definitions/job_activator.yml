@@ -3,6 +3,5 @@ timeout: ${self:custom.funktor.JobActivator.functionTimeout, 30}
 reservedConcurrency: ${self:custom.funktor.JobActivator.reservedConcurrency, null}
 provisionedConcurrency: ${self:custom.funktor.JobActivator.provisionedConcurrency, null}
 memorySize: ${self:custom.funktor.JobActivator.memorySize, 256}
-#logRetentionInDays: ${self:custom.funktor.JobActivator.logRetentionInDays, 7}
 events:
   - schedule: rate(1 minute)

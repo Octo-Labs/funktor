@@ -1,0 +1,22 @@
+Resources:
+  LowConcurrencyQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: ${self:custom.funktor.LowConcurrencyQueueName}
+      VisibilityTimeout: ${self:custom.funktor.LowConcurrencyQueueHandler.visibilityTimeout}
+      RedrivePolicy:
+        deadLetterTargetArn:
+          "Fn::GetAtt": [ LowConcurrencyDeadLetterQueue, Arn ]
+        maxReceiveCount: ${self:custom.funktor.LowConcurrencyQueueHandler.maxReceiveCount}
+  LowConcurrencyDeadLetterQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: ${self:custom.funktor.LowConcurrencyDeadJobQueueName}
+
+Outputs:
+  LowConcurrencyQueueUrl:
+    Value:
+      Ref: LowConcurrencyQueue
+  LowConcurrencyDeadLetterQueueUrl:
+    Value:
+      Ref: LowConcurrencyDeadLetterQueue
