@@ -1,12 +1,11 @@
 <h1>Scheduled</h1>
-<p>Showing <%= jobs.count %> of <%= @activity_stats["scheduled"] %></p>
 <form action="/update_jobs" method="post" accept-charset="utf-8">
-  <input type="submit" name="submit" value="Delete Selected Jobs" />
-  <input type="submit" name="submit" value="Queue Selected Jobs" />
   <input type="hidden" name="source" value="scheduled" />
-  <table width="100%">
+  <%= erb :table_stats_with_buttons, locals: { jobs: jobs, stat_category: 'scheduled' } %>
+  <table role="grid">
     <tr>
       <td>&nbsp;</td>
+      <td>ID</td>
       <td>Perform at</td>
       <td>Worker</td>
       <td>Queue</td>
@@ -15,6 +14,7 @@
     <% jobs.each do |job| %>
       <tr>
         <td><input type="checkbox" name="job_id[]" value="<%= job.job_id %>" id=""></td>
+        <td><%= job.job_id %></td>
         <td><%= job.perform_at %></td>
         <td><%= job.worker_class_name %></td>
         <td><%= job.queue %></td>
@@ -22,6 +22,5 @@
       </tr>
     <% end %>
   </table>
-  <input type="submit" name="submit" value="Delete Selected Jobs" />
-  <input type="submit" name="submit" value="Queue Selected Jobs" />
+  <%= erb :table_stats_with_buttons, locals: { jobs: jobs, stat_category: 'scheduled' } %>
 </form>

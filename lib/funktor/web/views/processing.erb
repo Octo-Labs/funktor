@@ -1,7 +1,8 @@
 <h1>Processing</h1>
 <p>Showing <%= jobs.count %> of <%= @activity_stats["processing"] %></p>
-<table width="100%">
+<table role="grid">
   <tr>
+    <td>ID</td>
     <td>Perform at</td>
     <td>Worker</td>
     <td>Queue</td>
@@ -11,6 +12,7 @@
   </tr>
   <% jobs.each do |job| %>
     <tr>
+      <td><%= job.job_id %></td>
       <td><%= job.perform_at %></td>
       <td><%= job.worker_class_name %></td>
       <td><%= job.queue %></td>
