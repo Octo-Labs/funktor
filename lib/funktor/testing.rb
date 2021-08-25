@@ -1,4 +1,5 @@
 require 'funktor/worker'
+require 'funktor/job_pusher'
 require 'funktor/fake_job_queue'
 
 module Funktor
