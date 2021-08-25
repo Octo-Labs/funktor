@@ -3,11 +3,11 @@ Resources:
     Type: AWS::SQS::Queue
     Properties:
       QueueName: ${self:custom.funktor.SingleThreadQueueName}
-      VisibilityTimeout: 300
+      VisibilityTimeout: ${self:custom.funktor.SingleThreadQueueHandler.visibilityTimeout}
       RedrivePolicy:
         deadLetterTargetArn:
           "Fn::GetAtt": [ SingleThreadDeadLetterQueue, Arn ]
-        maxReceiveCount: 15
+        maxReceiveCount: ${self:custom.funktor.SingleThreadQueueHandler.maxReceiveCount}
   SingleThreadDeadLetterQueue:
     Type: AWS::SQS::Queue
     Properties:

@@ -1,10 +1,13 @@
 handler: lambda_event_handlers/default_queue_handler.call
-timeout: ${self:custom.funktor.DefaultQueueHandler.timeout, 900}
+timeout: ${self:custom.funktor.DefaultQueueHandler.functionTimeout, 900}
 reservedConcurrency: ${self:custom.funktor.DefaultQueueHandler.reservedConcurrency, null}
 provisionedConcurrency: ${self:custom.funktor.DefaultQueueHandler.provisionedConcurrency, null}
 memorySize: ${self:custom.funktor.DefaultQueueHandler.memorySize, 256}
+#logRetentionInDays: ${self:custom.funktor.DefaultQueueHandler.logRetentionInDays, 7}
 events:
   - sqs:
+      batchSize: ${self:custom.funktor.DefaultQueueHandler.batchSize, 1}
+      maximumBatchingWindow: ${self:custom.funktor.DefaultQueueHandler.maximumBatchingWindow, 0}
       arn:
         Fn::GetAtt:
           - DefaultQueue

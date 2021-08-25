@@ -1,10 +1,13 @@
 handler: lambda_event_handlers/incoming_job_handler.call
-timeout: ${self:custom.funktor.IncomingJobHandler.timeout, 30}
+timeout: ${self:custom.funktor.IncomingJobHandler.functionTimeout, 30}
 reservedConcurrency: ${self:custom.funktor.IncomingJobHandler.reservedConcurrency, null}
 provisionedConcurrency: ${self:custom.funktor.IncomingJobHandler.provisionedConcurrency, null}
 memorySize: ${self:custom.funktor.IncomingJobHandler.memorySize, 256}
+#logRetentionInDays: ${self:custom.funktor.IncomingJobHandler.logRetentionInDays, 7}
 events:
   - sqs:
+      batchSize: ${self:custom.funktor.IncomingJobHandler.batchSize, 1}
+      maximumBatchingWindow: ${self:custom.funktor.IncomingJobHandler.maximumBatchingWindow, 0}
       arn:
         Fn::GetAtt:
           - IncomingJobQueue

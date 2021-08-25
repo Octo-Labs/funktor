@@ -10,7 +10,7 @@ handlerDefaults:
   # to a handler at one time, so you'll want this to be at least 10x the maximum time you
   # expect to spend for one message. We default to a high number here to allow for the
   # times when things go weird.
-  timeout: 300
+  functionTimeout: 300
 
   # reservedConcurrency represents the maximum number of concurrent executions.
   # Usually you'll want to leave this as null so that handlers can scale infinitely
@@ -29,16 +29,21 @@ handlerDefaults:
   memorySize: 256
 
   # You can set the batch size. Max of 10_000 for normal queues, 10 for FIFO.
-  batchSize: 10
+  batchSize: 1
 
   # How many seconds should AWS wait for a batch to fill up before executing lambda?
   # For immediate execution set the batch size to 1.
-  maximumBatchingWindow : 1
+  maximumBatchingWindow : 0
 
   # Visibility timeout should only come into play in the case of Funktor errors.
   # Application level errors should be handled by Funktor retry mechanisms.
   # The visibility timeout should be at least as long as the function timeout, and up to 6 times larger.
-  visibilityTimeout: 900
+  visibilityTimeout: 1800
+
+  # Max recieve count affects how many times a job will retry that has been throttled at the SQS -> Lambda boundary.
+  # Amazon recommend this be at least 5, but I've found that higher numbers are better to avoid legit jobs ending
+  # up in the dead letter queue
+  maxReceiveCount: 20
 
   # Set log rentention to save money
   logRetentionInDays: 30
@@ -49,6 +54,8 @@ incomingJobHandler:
   # to quickly handle jobs at the beginning of a burst. Uncomment the line below if so.
   # provisionedConcurrency: 4
 
+jobActivator:
+  # You probably don't need to adjust the defaults for this one.
 
 queues:
   - default:
