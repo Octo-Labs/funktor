@@ -30,6 +30,11 @@ module Funktor
         # TODO : This number should be configurable via ENV var
         if job.delay < 60 # for now we're testing with just one minute * 5 # 5 minutes
           Funktor.logger.debug "pushing to work queue for delay = #{job.delay}"
+          # We push to the jobs table first becauase the work queue handler will expect to be able
+          # to update the stats of a record that's already in the table.
+          # TODO : For time sensitive jobs this is probably less than optimal. Can we update the
+          # work queue handler to be ok with a job that's not yet in the table?
+          push_to_jobs_table(job, "queued")
           push_to_work_queue(job)
           if job.is_retry?
             @tracker.track(:retryActivated, job)
@@ -38,7 +43,7 @@ module Funktor
           end
         else
           Funktor.logger.debug "pushing to jobs table for delay = #{job.delay}"
-          push_to_jobs_table(job)
+          push_to_jobs_table(job, nil)
           if job.is_retry?
             # do nothing for tracking
           else
@@ -49,18 +54,10 @@ module Funktor
       end
     end
 
-    def queue_for_job(job)
-      queue_name = job.queue || 'default'
-      queue_constant = "FUNKTOR_#{queue_name.underscore.upcase}_QUEUE"
-      Funktor.logger.debug "queue_constant = #{queue_constant}"
-      Funktor.logger.debug "ENV value = #{ENV[queue_constant]}"
-      ENV[queue_constant] || ENV['FUNKTOR_DEFAULT_QUEUE']
-    end
-
     def push_to_work_queue(job)
       Funktor.logger.debug "job = #{job.to_json}"
       sqs_client.send_message({
-        queue_url: queue_for_job(job),
+        queue_url: job.work_queue_url,
         message_body: job.to_json,
         delay_seconds: job.delay
       })
@@ -70,16 +67,15 @@ module Funktor
       ENV['FUNKTOR_JOBS_TABLE']
     end
 
-    def push_to_jobs_table(job)
-      perform_at = (Time.now + job.delay).utc
+    def push_to_jobs_table(job, category = nil)
       resp = dynamodb_client.put_item({
         item: {
           payload: job.to_json,
           jobId: job.job_id,
-          performAt: perform_at.iso8601,
+          performAt: job.perform_at.iso8601,
           jobShard: job.shard,
-          dummy: "dummy",
-          category: job.is_retry? ? "retry" : "scheduled"
+          queueable: category.present? ? "false" : "true",
+          category: category || (job.is_retry? ? "retry" : "scheduled")
         },
         table_name: delayed_job_table
       })

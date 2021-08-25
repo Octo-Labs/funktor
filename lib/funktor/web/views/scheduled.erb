@@ -1,0 +1,26 @@
+<h1>Scheduled</h1>
+<form action="/update_jobs" method="post" accept-charset="utf-8">
+  <input type="hidden" name="source" value="scheduled" />
+  <%= erb :table_stats_with_buttons, locals: { jobs: jobs, stat_category: 'scheduled' } %>
+  <table role="grid">
+    <tr>
+      <td>&nbsp;</td>
+      <td>ID</td>
+      <td>Perform at</td>
+      <td>Worker</td>
+      <td>Queue</td>
+      <td>Params</td>
+    </tr>
+    <% jobs.each do |job| %>
+      <tr>
+        <td><input type="checkbox" name="job_id[]" value="<%= job.job_id %>" id=""></td>
+        <td><%= job.job_id %></td>
+        <td><%= job.perform_at %></td>
+        <td><%= job.worker_class_name %></td>
+        <td><%= job.queue %></td>
+        <td><%= job.worker_params %></td>
+      </tr>
+    <% end %>
+  </table>
+  <%= erb :table_stats_with_buttons, locals: { jobs: jobs, stat_category: 'scheduled' } %>
+</form>

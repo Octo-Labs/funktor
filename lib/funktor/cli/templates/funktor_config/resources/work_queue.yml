@@ -7,7 +7,7 @@ Resources:
       RedrivePolicy:
         deadLetterTargetArn:
           "Fn::GetAtt": [ <%= work_queue_name.camelize %>DeadLetterQueue, Arn ]
-        maxReceiveCount: 5
+        maxReceiveCount: 15
   <%= work_queue_name.camelize %>DeadLetterQueue:
     Type: AWS::SQS::Queue
     Properties:

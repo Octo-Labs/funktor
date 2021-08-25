@@ -16,23 +16,25 @@ module Funktor
       @sqs_client ||= ::Aws::SQS::Client.new
     end
 
-    def active_job_queue
-      ENV['FUNKTOR_ACTIVE_JOB_QUEUE']
-    end
-
     def delayed_job_table
       ENV['FUNKTOR_JOBS_TABLE']
     end
 
     def jobs_to_activate
-      target_time = (Time.now + 90).utc
+      # TODO : The lookahead time here should be configurable
+      # If this doesn't match the setting in the IncomingJobHandler some jobs
+      # might be activated and then immediately re-scheduled instead of being
+      # queued, which leads to kind of confusing stats for the "incoming" stat.
+      # (Come to think of it, the incoming stat is kind of confusting anyway since
+      # it reflects retries and scheduled jobs activations...)
+      target_time = (Time.now + 60).utc
       query_params = {
         expression_attribute_values: {
-          ":dummy" => "dummy",
+          ":queueable" => "true",
           ":targetTime" => target_time.iso8601
         },
-        key_condition_expression: "dummy = :dummy AND performAt < :targetTime",
-        projection_expression: "payload, performAt, jobId, jobShard",
+        key_condition_expression: "queueable = :queueable AND performAt < :targetTime",
+        projection_expression: "jobId, jobShard, category",
         table_name: delayed_job_table,
         index_name: "performAtIndex"
       }
@@ -49,38 +51,62 @@ module Funktor
     end
 
     def handle_item(item)
-      job = Funktor::Job.new(item["payload"])
-      Funktor.logger.debug "we created a job from payload"
-      Funktor.logger.debug item["payload"]
-      delay = (Time.parse(item["performAt"]) - Time.now.utc).to_i
-      if delay < 0
-        delay = 0
-      end
+      job_shard = item["jobShard"]
+      job_id = item["jobId"]
+      current_category = item["category"]
       Funktor.logger.debug "jobShard = #{item['jobShard']}"
       Funktor.logger.debug "jobId = #{item['jobId']}"
-      # First we delete the item from Dynamo to be sure that another scheduler hasn't gotten to it,
-      # and if that works then send to SQS. This is basically how Sidekiq scheduler works.
-      response = dynamodb_client.delete_item({
+      Funktor.logger.debug "current_category = #{current_category}"
+      activate_job(job_shard, job_id, current_category)
+    end
+
+    def activate_job(job_shard, job_id, current_category, queue_immediately = false)
+      # First we conditionally update the item in  Dynamo to be sure that another scheduler hasn't gotten
+      # to it, and if that works then send to SQS. This is basically how Sidekiq scheduler works.
+      response = dynamodb_client.update_item({
         key: {
-          "jobShard" => item["jobShard"],
-          "jobId" => item["jobId"]
+          "jobShard" => job_shard,
+          "jobId" => job_id
+        },
+        update_expression: "SET category = :category, queueable = :queueable",
+        condition_expression: "category = :current_category",
+        expression_attribute_values: {
+          ":current_category" => current_category,
+          ":queueable" => "false",
+          ":category" => "queued"
         },
         table_name: delayed_job_table,
         return_values: "ALL_OLD"
       })
-      if response.attributes # this means the record was still there
+      if response.attributes # this means the record was still there in the state we expected
+        Funktor.logger.debug "response.attributes ====== "
+        Funktor.logger.debug response.attributes
+        job = Funktor::Job.new(response.attributes["payload"])
+        Funktor.logger.debug "we created a job from payload"
+        Funktor.logger.debug response.attributes["payload"]
+        Funktor.logger.debug "queueing to #{job.retry_queue_url}"
+        if queue_immediately
+          job.delay = 0
+        end
         sqs_client.send_message({
-          # TODO : How to get this URL...
-          queue_url: queue_for_job(job),
-          message_body: item["payload"],
-          delay_seconds: delay
+          queue_url: job.retry_queue_url,
+          message_body: job.to_json
+          #delay_seconds: job.delay
         })
         if job.is_retry?
-          @tracker.track(:retryActivated, job)
+          # We don't track here because we send stuff back to the incoming job queue and we track the
+          # :retryActivated even there.
+          # TODO - Once we're sure this is all working right we can delete the commented out line.
+          #@tracker.track(:retryActivated, job)
         else
           @tracker.track(:scheduledJobActivated, job)
         end
       end
+    rescue ::Aws::DynamoDB::Errors::ConditionalCheckFailedException => e
+      # This means that a different instance of the JobActivator (or someone doing stuff in the web UI)
+      # got to the job first.
+      Funktor.logger.debug "#{e.to_s} : #{e.message}"
+      Funktor.logger.debug e.backtrace.join("\n")
     end
 
     def call(event:, context:)

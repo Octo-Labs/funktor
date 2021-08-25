@@ -10,6 +10,8 @@ RSpec.describe Funktor::WorkQueueHandler, type: :handler do
   let(:single_job_event){ create_event [HelloWorker] }
   let(:double_job_event){ create_event [HelloWorker, HelloWorker] }
   let(:fail_once_job_event){ create_event [FailWorker] }
+  let(:dynamodb_client){ double Aws::DynamoDB::Client }
+  let(:work_queue_handler){ Funktor::WorkQueueHandler.new }
 
   before :each do
     # TODO - Clean this up and really test something...
@@ -19,12 +21,15 @@ RSpec.describe Funktor::WorkQueueHandler, type: :handler do
 
   describe 'call' do
     it "calls perform on a worker" do
+      expect(dynamodb_client).to receive(:update_item).and_return(nil)
+      expect(dynamodb_client).to receive(:delete_item).and_return(nil)
+      expect(work_queue_handler).to receive(:dynamodb_client).twice.and_return(dynamodb_client)
       expect_any_instance_of(HelloWorker).to receive(:perform).and_call_original
-      Funktor::WorkQueueHandler.new.call(event: single_job_event, context: {})
+      work_queue_handler.call(event: single_job_event, context: {})
     end
     it "calls dispatch twice for two jobs" do
       expect_any_instance_of(Funktor::WorkQueueHandler).to receive(:dispatch).twice.and_return(nil)
-      Funktor::WorkQueueHandler.new.call(
+      work_queue_handler.call(
         event: double_job_event,
         context: {}
       )
@@ -35,7 +40,9 @@ RSpec.describe Funktor::WorkQueueHandler, type: :handler do
       end
       it "sends a message to the IncomingJobQueue to retry on failure" do
         expect(sqs_client).to receive(:send_message).and_return(nil)
-        Funktor::WorkQueueHandler.new.call(
+        expect(dynamodb_client).to receive(:update_item).twice.and_return(nil)
+        expect(work_queue_handler).to receive(:dynamodb_client).twice.and_return(dynamodb_client)
+        work_queue_handler.call(
           event: fail_once_job_event,
           context: {}
         )

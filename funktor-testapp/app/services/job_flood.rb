@@ -23,7 +23,7 @@ class JobFlood
         job_target_time = Time.now + (minute * 60) + rand(60)
         job_sleep = rand(0.0..max_job_length_in_seconds.to_f)
         puts job_target_time
-        AuditWorker.perform_at(job_target_time, {
+        [AuditWorker, AuditWorker, SingleThreadAuditWorker].sample.perform_at(job_target_time, {
           mode: 'later',
           message: 'msg: from random JobFlood - ' + SecureRandom.hex,
           target_time: job_target_time,

@@ -29,11 +29,11 @@ handlerDefaults:
   memorySize: 256
 
   # You can set the batch size. Max of 10_000 for normal queues, 10 for FIFO.
-  batchSize: 10
+  batchSize: 1
 
   # How many seconds should AWS wait for a batch to fill up before executing lambda?
   # For immediate execution set the batch size to 1.
-  maximumBatchingWindow : 1
+  maximumBatchingWindow : 0
 
   # Visibility timeout should only come into play in the case of Funktor errors.
   # Application level errors should be handled by Funktor retry mechanisms.

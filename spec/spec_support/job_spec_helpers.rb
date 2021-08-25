@@ -16,7 +16,10 @@ end
 
 module JobSpecHelpers
   def build_payload(worker_class, delay = 0)
-    { "body": Funktor.dump_json(worker_class.build_job_payload(delay, 1, 'two')) }
+    job_time = Time.now.utc + delay
+    payload = worker_class.build_job_payload(job_time, 1, 'two')
+    payload["job_id"] = SecureRandom.uuid
+    { "body": Funktor.dump_json(payload) }
   end
 
   def create_event(worker_classes = [HelloWorker, HelloWorker], delay = 0)

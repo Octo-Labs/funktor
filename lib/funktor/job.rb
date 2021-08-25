@@ -1,5 +1,8 @@
+require_relative 'shard_utils'
+
 module Funktor
   class Job
+    include ShardUtils
     attr_accessor :job_string
     attr_accessor :job_data
     def initialize(job_string)
@@ -11,7 +14,15 @@ module Funktor
     end
 
     def queue
-      job_data["queue"]
+      job_data["queue"] || 'default'
+    end
+
+    def work_queue_url
+      queue_name = self.queue
+      queue_constant = "FUNKTOR_#{queue_name.underscore.upcase}_QUEUE"
+      Funktor.logger.debug "queue_constant = #{queue_constant}"
+      Funktor.logger.debug "ENV value = #{ENV[queue_constant]}"
+      ENV[queue_constant] || ENV['FUNKTOR_DEFAULT_QUEUE']
     end
 
     def worker_class_name
@@ -23,8 +34,7 @@ module Funktor
     end
 
     def shard
-      # TODO - Should the number of shards be configurable?
-      job_data["job_id"].hash % 64
+      calculate_shard(job_data["job_id"])
     end
 
     def worker_params
@@ -43,12 +53,43 @@ module Funktor
       job_data["retries"] = retries
     end
 
+    def perform_at
+      if job_data["perform_at"].present?
+        job_data["perform_at"].is_a?(Time) ? job_data["perform_at"] : Time.parse(job_data["perform_at"])
+      else
+        Time.now.utc
+      end
+    end
+
     def delay
-      job_data["delay"] || 0
+      delay = (perform_at - Time.now.utc).to_i
+      if delay < 0
+        delay = 0
+      end
+      return delay
     end
 
     def delay=(delay)
-      job_data["delay"] = delay
+      job_data["perform_at"] = Time.now.utc + delay
+    end
+
+    def error_class
+      job_data["error_class"]
+    end
+
+    def error_message
+      job_data["error_message"]
+    end
+
+    def error_backtrace
+      job_data["error_backtrace"].present? ? Funktor.parse_json(job_data["error_backtrace"]) : []
+    end
+
+    def error=(error)
+      # TODO We should maybe compress this?
+      job_data["error_class"] = error.class.name
+      job_data["error_message"] = error.message
+      job_data["error_backtrace"] = Funktor.dump_json(error.backtrace)
     end
 
     def execute
@@ -84,6 +125,10 @@ module Funktor
 
     def retry_queue_url
       worker_class&.custom_queue_url || ENV['FUNKTOR_INCOMING_JOB_QUEUE']
+    rescue NameError, TypeError
+      # In the web ui we may not have access to the the worker classes
+      # TODO : We should mayb handle this differently somehow? This just feels a bit icky...
+      ENV['FUNKTOR_INCOMING_JOB_QUEUE']
     end
   end
 end
