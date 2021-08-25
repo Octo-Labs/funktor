@@ -7,7 +7,7 @@ Resources:
       RedrivePolicy:
         deadLetterTargetArn:
           "Fn::GetAtt": [ SingleThreadDeadLetterQueue, Arn ]
-        maxReceiveCount: 5
+        maxReceiveCount: 15
   SingleThreadDeadLetterQueue:
     Type: AWS::SQS::Queue
     Properties:

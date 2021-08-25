@@ -17,7 +17,7 @@ IncomingJobHandler:
   # but if you're seeing large delays at this stage it might help to bump it up.
   memorySize: 256
   batchSize: 10
-  maximumBatchingWindow: 1
+  maximumBatchingWindow: 0
   visibilityTimeout: 900
   logRetentionInDays: 30
 
@@ -65,8 +65,8 @@ DefaultQueueHandler:
   # required to actually do your jobs. You can choose an even higher number to increase
   # the available CPU to make the jobs run faster.
   memorySize: 256
-  batchSize: 10
-  maximumBatchingWindow: 1
+  batchSize: 1
+  maximumBatchingWindow: 0
   visibilityTimeout: 900
   logRetentionInDays: 30
 
@@ -89,8 +89,8 @@ SingleThreadQueueHandler:
   # required to actually do your jobs. You can choose an even higher number to increase
   # the available CPU to make the jobs run faster.
   memorySize: 256
-  batchSize: 10
-  maximumBatchingWindow: 1
+  batchSize: 1
+  maximumBatchingWindow: 0
   visibilityTimeout: 900
   logRetentionInDays: 30
 
