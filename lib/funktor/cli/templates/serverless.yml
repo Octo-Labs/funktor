@@ -26,6 +26,7 @@ provider:
   lambdaHashingVersion: 20201221
   environment: ${file(funktor_config/environment.yml)}
   versionFunctions: false # Reduces the amount of storage used since all Lambdas together are limited to 75GB
+  logRetentionInDays: 7
   iamRoleStatements:
     <%- all_iam_permissions.each do |iam_permission| -%>
     - ${file(<%= iam_permission %>)}

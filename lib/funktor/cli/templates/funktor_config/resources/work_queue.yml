@@ -3,11 +3,11 @@ Resources:
     Type: AWS::SQS::Queue
     Properties:
       QueueName: ${self:custom.funktor.<%= work_queue_name.camelize %>QueueName}
-      VisibilityTimeout: 300
+      VisibilityTimeout: ${self:custom.funktor.<%= work_queue_name.camelize %>QueueHandler.visibilityTimeout}
       RedrivePolicy:
         deadLetterTargetArn:
           "Fn::GetAtt": [ <%= work_queue_name.camelize %>DeadLetterQueue, Arn ]
-        maxReceiveCount: 15
+        maxReceiveCount: ${self:custom.funktor.<%= work_queue_name.camelize %>QueueHandler.maxReceiveCount}
   <%= work_queue_name.camelize %>DeadLetterQueue:
     Type: AWS::SQS::Queue
     Properties:

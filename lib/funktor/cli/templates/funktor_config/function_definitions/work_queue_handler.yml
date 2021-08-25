@@ -1,10 +1,12 @@
 handler: lambda_event_handlers/<%= work_queue_name.underscore %>_queue_handler.call
-timeout: ${self:custom.funktor.<%= work_queue_name.camelize %>QueueHandler.timeout, 900}
+timeout: ${self:custom.funktor.<%= work_queue_name.camelize %>QueueHandler.functionTimeout, 900}
 reservedConcurrency: ${self:custom.funktor.<%= work_queue_name.camelize %>QueueHandler.reservedConcurrency, null}
 provisionedConcurrency: ${self:custom.funktor.<%= work_queue_name.camelize %>QueueHandler.provisionedConcurrency, null}
 memorySize: ${self:custom.funktor.<%= work_queue_name.camelize %>QueueHandler.memorySize, 256}
 events:
   - sqs:
+      batchSize: ${self:custom.funktor.<%= work_queue_name.camelize %>QueueHandler.batchSize, 1}
+      maximumBatchingWindow: ${self:custom.funktor.<%= work_queue_name.camelize %>QueueHandler.maximumBatchingWindow, 0}
       arn:
         Fn::GetAtt:
           - <%= work_queue_name.camelize %>Queue
