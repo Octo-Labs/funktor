@@ -1,5 +1,5 @@
 <h1>Scheduled</h1>
-<form action="/update_jobs" method="post" accept-charset="utf-8">
+<form action="./update_jobs" method="post" accept-charset="utf-8">
   <input type="hidden" name="source" value="scheduled" />
   <%= erb :table_stats_with_buttons, locals: { jobs: jobs, stat_category: 'scheduled' } %>
   <table role="grid">
