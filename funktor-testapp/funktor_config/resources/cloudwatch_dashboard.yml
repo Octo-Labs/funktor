@@ -769,6 +769,7 @@ Resources:
                             [ "...", "Query" ],
                             [ ".", "ThrottledRequests", ".", ".", ".", "PutItem", { "yAxis": "right", "visible": false } ],
                             [ ".", "SuccessfulRequestLatency", ".", ".", ".", "DeleteItem" ],
+                            [ ".", "SuccessfulRequestLatency", ".", ".", ".", "UpdateItem" ],
                             [ ".", "ThrottledRequests", ".", ".", ".", ".", { "yAxis": "right", "visible": false } ]
                         ],
                         "view": "timeSeries",
