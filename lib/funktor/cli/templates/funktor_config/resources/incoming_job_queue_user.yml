@@ -12,6 +12,11 @@ Resources:
               - sqs:*
               Resource:
                 - "Fn::GetAtt": [ IncomingJobQueue, Arn ]
+            - Effect: Allow
+              Action:
+                - dynamodb:*
+              Resource:
+                - "Fn::GetAtt": [ JobsTable, Arn ]
 
   IncomingJobQueueUserAccessKey:
     Type: AWS::IAM::AccessKey
