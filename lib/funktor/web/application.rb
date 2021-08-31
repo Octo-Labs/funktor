@@ -80,16 +80,16 @@ module Funktor
       def get_activity_data
         query_params = {
           expression_attribute_values: {
-            ":category" => "stat"
+            ":jobShard" => "stat"
           },
-          key_condition_expression: "category = :category",
-          projection_expression: "statName, stat_value",
-          table_name: ENV['FUNKTOR_ACTIVITY_TABLE']
+          key_condition_expression: "jobShard = :jobShard",
+          projection_expression: "jobId, stat_value",
+          table_name: ENV['FUNKTOR_JOBS_TABLE']
         }
         resp = dynamodb_client.query(query_params)
         @activity_stats = {}
         resp.items.each do |item|
-          @activity_stats[item["statName"]] = item["stat_value"].to_i
+          @activity_stats[item["jobId"]] = item["stat_value"].to_i
         end
         return @activity_stats
       end

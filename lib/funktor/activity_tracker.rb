@@ -56,8 +56,8 @@ module Funktor
     def increment_key(key)
       #put_metric_to_stdout(key, 1)
       dynamodb_client.update_item({
-        table_name: ENV['FUNKTOR_ACTIVITY_TABLE'],
-        key: { category: 'stat', statName: key },
+        table_name: ENV['FUNKTOR_JOBS_TABLE'],
+        key: { jobShard: 'stat', jobId: key },
         expression_attribute_values:{ ":start": 0, ":inc": 1 },
         update_expression: "SET stat_value = if_not_exists(stat_value, :start) + :inc",
       })
@@ -66,8 +66,8 @@ module Funktor
     def decrement_key(key)
       #put_metric_to_stdout(key, -1)
       dynamodb_client.update_item({
-        table_name: ENV['FUNKTOR_ACTIVITY_TABLE'],
-        key: { category: 'stat', statName: key },
+        table_name: ENV['FUNKTOR_JOBS_TABLE'],
+        key: { jobShard: 'stat', jobId: key },
         expression_attribute_values:{ ":start": 0, ":inc": 1 },
         update_expression: "SET stat_value = if_not_exists(stat_value, :start) - :inc",
       })
