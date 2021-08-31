@@ -26,7 +26,6 @@ Resources:
                   - - "Fn::GetAtt": [ JobsTable, Arn ]
                     - "/index/categoryIndex"
 
-
   IncomingJobQueueUserAccessKey:
     Type: AWS::IAM::AccessKey
     Properties:
