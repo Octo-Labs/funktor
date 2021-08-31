@@ -9,7 +9,5 @@ FUNKTOR_DEFAULT_QUEUE:
   Ref: DefaultQueue
 FUNKTOR_LOW_CONCURRENCY_QUEUE:
   Ref: LowConcurrencyQueue
-FUNKTOR_ACTIVITY_TABLE:
-  Ref: ActivityTable
 FUNKTOR_JOBS_TABLE:
   Ref: JobsTable

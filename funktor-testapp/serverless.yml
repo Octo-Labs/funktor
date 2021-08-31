@@ -23,12 +23,12 @@ frameworkVersion: '2'
 provider:
   name: aws
   runtime: ruby2.7
+  stage: ${opt:stage, 'dev'}
   lambdaHashingVersion: 20201221
   environment: ${file(funktor_config/environment.yml)}
   versionFunctions: false # Reduces the amount of storage used since all Lambdas together are limited to 75GB
   logRetentionInDays: 7
   iamRoleStatements:
-    - ${file(funktor_config/iam_permissions/activity_table.yml)}
     - ${file(funktor_config/iam_permissions/default_queue.yml)}
     - ${file(funktor_config/iam_permissions/incoming_job_queue.yml)}
     - ${file(funktor_config/iam_permissions/ssm.yml)}
@@ -54,7 +54,6 @@ functions:
   RandomJobGenerator: ${file(funktor_config/function_definitions/random_job_generator.yml)}
 
 resources:
-  - ${file(funktor_config/resources/activity_table.yml)}
   - ${file(funktor_config/resources/incoming_job_queue_user.yml)}
   - ${file(funktor_config/resources/cloudwatch_dashboard.yml)}
   - ${file(funktor_config/resources/default_queue.yml)}
