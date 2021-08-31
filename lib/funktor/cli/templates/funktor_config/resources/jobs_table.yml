@@ -5,7 +5,7 @@ Resources:
       TableName: ${self:custom.funktor.JobsTableName}
       AttributeDefinitions:
         - AttributeName: jobShard
-          AttributeType: N
+          AttributeType: S
         - AttributeName: jobId
           AttributeType: S
         - AttributeName: category

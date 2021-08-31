@@ -1,5 +1,0 @@
-Effect: Allow
-Action:
-  - dynamodb:*
-Resource:
-  - "Fn::GetAtt": [ ActivityTable, Arn ]
