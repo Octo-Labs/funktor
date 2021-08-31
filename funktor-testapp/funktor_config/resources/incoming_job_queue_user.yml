@@ -17,6 +17,15 @@ Resources:
                 - dynamodb:*
               Resource:
                 - "Fn::GetAtt": [ JobsTable, Arn ]
+            - Effect: Allow
+              Action:
+                - dynamodb:Query
+              Resource:
+                Fn::Join:
+                  - ""
+                  - - "Fn::GetAtt": [ JobsTable, Arn ]
+                    - "/index/categoryIndex"
+
 
   IncomingJobQueueUserAccessKey:
     Type: AWS::IAM::AccessKey
