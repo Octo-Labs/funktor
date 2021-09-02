@@ -58,7 +58,16 @@ module Funktor
       end
 
       def gemfile
-        template "Gemfile", File.join("Gemfile")
+        if File.exist?("Gemfile")
+          gem_data = File.open("Gemfile").read
+          if gem_data =~ /funktor/
+            say "funktor is already installed in Gemfile"
+          else
+            run "bundle add funktor"
+          end
+        else
+          template "Gemfile", File.join("Gemfile")
+        end
       end
 
       def gitignore
