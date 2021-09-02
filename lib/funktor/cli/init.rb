@@ -40,15 +40,44 @@ module Funktor
       end
 
       def package_json
-        template "package.json", File.join("package.json")
+        if File.exist?("package.json")
+          package_data = File.open("package.json").read
+          if package_data =~ /serverless-ruby-layer/
+            say "serverless-ruby-layer is already installed in package.json"
+          else
+            if File.exist?("package-lock.json")
+              run "npm install serverless-ruby-layer@1.4.0"
+              # TODO - Add handers for yarn and what not
+            else
+              say "You should install serverless-ruby-layer version 1.4.0 using yor package manager of choice."
+            end
+          end
+        else
+          template "package.json", File.join("package.json")
+        end
       end
 
       def gemfile
-        template "Gemfile", File.join("Gemfile")
+        if File.exist?("Gemfile")
+          gem_data = File.open("Gemfile").read
+          if gem_data =~ /funktor/
+            say "funktor is already installed in Gemfile"
+          else
+            run "bundle add funktor"
+          end
+        else
+          template "Gemfile", File.join("Gemfile")
+        end
       end
 
       def gitignore
-        template "gitignore", File.join(".gitignore")
+        # TODO clean this up so that we have a single source of truth for .gitignor stuff
+        if File.exist?(".gitignore")
+          append_to_file ".gitignore", ".serverless"
+          append_to_file ".gitignore", "node_modules"
+        else
+          template "gitignore", File.join(".gitignore")
+        end
       end
 
       def workers
