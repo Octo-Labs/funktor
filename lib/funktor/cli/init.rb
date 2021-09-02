@@ -71,7 +71,13 @@ module Funktor
       end
 
       def gitignore
-        template "gitignore", File.join(".gitignore")
+        # TODO clean this up so that we have a single source of truth for .gitignor stuff
+        if File.exist?(".gitignore")
+          append_to_file ".gitignore", ".serverless"
+          append_to_file ".gitignore", "node_modules"
+        else
+          template "gitignore", File.join(".gitignore")
+        end
       end
 
       def workers
