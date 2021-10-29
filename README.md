@@ -40,8 +40,6 @@ cd my-funktor-app
 funktor init
 ```
 
-Then you sh
-
 This will create a `funktor` directory that is ready to deploy to AWS. If you've already configured
 your aws tools via `~/.aws/credentials` you should be ready to deploy.
 
