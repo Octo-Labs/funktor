@@ -109,6 +109,7 @@ Resources:
                 },
 
 
+                <% current_y += 3 %>
                 { <% "Funktor Behind the Scenes Banner" %>
                     "height": 3,
                     "width": 24,
@@ -119,7 +120,6 @@ Resources:
                         "markdown": "\n# Behind the scenes\n\n The stats below give some insight into the inner workings of the Funktor apparatus."
                     }
                 },
-                <% current_y += 3 %>
 
 
                 <% current_y += 6 %>

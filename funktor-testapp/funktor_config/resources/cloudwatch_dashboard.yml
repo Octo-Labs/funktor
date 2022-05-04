@@ -117,17 +117,17 @@ Resources:
                 },
 
 
+                
                 { 
                     "height": 3,
                     "width": 24,
-                    "y": 9,
+                    "y": 12,
                     "x": 0,
                     "type": "text",
                     "properties": {
                         "markdown": "\n# Behind the scenes\n\n The stats below give some insight into the inner workings of the Funktor apparatus."
                     }
                 },
-                
 
 
                 
