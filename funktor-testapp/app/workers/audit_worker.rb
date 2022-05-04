@@ -21,13 +21,17 @@ class AuditWorker
     puts "So long from the #{self.class.name}, and thanks for all the fish!"
   end
 
+  def metric_namespace
+    [ENV['FUNKTOR_APP_NAME'], ENV['SERVERLESS_STAGE']].join('-')
+  end
+
   def metric_hash(time_diff)
     {
       "_aws": {
         "Timestamp": Time.now.strftime('%s%3N').to_i,
         "CloudWatchMetrics": [
           {
-            "Namespace": ENV['FUNKTOR_APP_NAME'],
+            "Namespace": metric_namespace,
             "Dimensions": [["WorkerClassName"]],
             "Metrics": [ # CPU, Memory, Duration, etc...
                          {

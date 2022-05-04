@@ -17,13 +17,17 @@ module Funktor
       Funktor.raw_logger.unknown Funktor.dump_json(metric_hash(job))
     end
 
+    def metric_namespace
+      [ENV['FUNKTOR_APP_NAME'], ENV['SERVERLESS_STAGE']].join('-')
+    end
+
     def metric_hash(job)
       {
         "_aws": {
           "Timestamp": Time.now.strftime('%s%3N').to_i,
           "CloudWatchMetrics": [
             {
-              "Namespace": ENV['FUNKTOR_APP_NAME'],
+              "Namespace": metric_namespace,
               "Dimensions": [["WorkerClassName"], ["Queue"]],
               "Metrics": [ # CPU, Memory, Duration, etc...
                            {

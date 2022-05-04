@@ -77,13 +77,17 @@ module Funktor
       @dynamodb_client ||= ::Aws::DynamoDB::Client.new
     end
 
+    def metric_namespace
+      [ENV['FUNKTOR_APP_NAME'], ENV['SERVERLESS_STAGE']].join('-')
+    end
+
     def put_metric_to_stdout(key, value)
       data = {
         "_aws": {
           "Timestamp": Time.now.strftime('%s%3N').to_i,
           "CloudWatchMetrics": [
             {
-              "Namespace": "rails-lambda-experiment",
+              "Namespace": metric_namespace,
               "Dimensions": [["functionVersion"]],
               "Metrics": [ # CPU, Memory, Duration, etc...
                            {

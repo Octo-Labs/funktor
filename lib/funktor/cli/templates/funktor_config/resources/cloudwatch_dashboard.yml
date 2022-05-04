@@ -30,7 +30,7 @@ Resources:
                     "properties": {
                         "metrics": [
                             <%- app_worker_names.each do |worker_name| -%>
-                            [ "<%= app_name %>", "Duration", "WorkerClassName", "<%= worker_name %>" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>" ],
                             [ "...", { "stat": "p99" } ]<%= worker_name == app_worker_names.last ? "" : "," %>
                             <%- end -%>
                         ],
@@ -52,7 +52,7 @@ Resources:
                     "properties": {
                         "metrics": [
                             <%- app_worker_names.each do |worker_name| -%>
-                            [ "<%= app_name %>", "processed", "WorkerClassName", "<%= worker_name %>" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "<%= worker_name %>" ],
                             [ ".", "failed", ".", "." ]<%= worker_name == app_worker_names.last ? "" : "," %>
                             <%- end -%>
                         ],
@@ -74,7 +74,7 @@ Resources:
                     "properties": {
                         "metrics": [
                             <%- queue_names.each do |queue_name| -%>
-                            [ "<%= app_name %>", "Duration", "Queue", "<%= queue_name.underscore %>" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "Queue", "<%= queue_name.underscore %>" ],
                             [ "...", { "stat": "p99" } ]<%= queue_name == queue_names.last ? "" : "," %>
                             <%- end -%>
                         ],
@@ -95,7 +95,7 @@ Resources:
                     "properties": {
                         "metrics": [
                             <%- queue_names.each do |queue_name| -%>
-                            [ "<%= app_name %>", "processed", "Queue", "<%= queue_name.underscore %>" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "Queue", "<%= queue_name.underscore %>" ],
                             [ ".", "failed", ".", "." ]<%= queue_name == queue_names.last ? "" : "," %>
                             <%- end -%>
                         ],

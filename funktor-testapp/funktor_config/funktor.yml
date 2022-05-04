@@ -103,6 +103,7 @@ IncomingDeadJobQueueName: ${self:service}-${self:custom.stage}-incoming-dead
 IncomingJobHandlerName: ${self:service}-${self:custom.stage}-IncomingJobHandler
 IncomingJobQueueAccessPolicyName: ${self:service}-${self:custom.stage}-incoming-job-queue-access
 DashboardName: ${self:service}-${self:custom.stage}-dashboard
+DashboardNamespace: ${self:service}-${self:custom.stage}
 DefaultQueueName: ${self:service}-${self:custom.stage}-default
 DefaultDeadJobQueueName: ${self:service}-${self:custom.stage}-default-dead
 DefaultQueueHandlerName: ${self:service}-${self:custom.stage}-DefaultQueueHandler

@@ -46,8 +46,10 @@ module Funktor
             say "serverless-ruby-layer is already installed in package.json"
           else
             if File.exist?("package-lock.json")
-              run "npm install serverless-ruby-layer@1.4.0"
+              run "npm install serverless-ruby-layer@1.4.0 --save-dev"
               # TODO - Add handers for yarn and what not
+            elsif File.exist?("yarn.lock")
+              run "yarn add --dev serverless-ruby-layer@1.4.0"
             else
               say "You should install serverless-ruby-layer version 1.4.0 using yor package manager of choice."
             end

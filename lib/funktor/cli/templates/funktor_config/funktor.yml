@@ -81,6 +81,7 @@ IncomingDeadJobQueueName: ${self:service}-${self:custom.stage}-incoming-dead
 IncomingJobHandlerName: ${self:service}-${self:custom.stage}-IncomingJobHandler
 IncomingJobQueueAccessPolicyName: ${self:service}-${self:custom.stage}-incoming-job-queue-access
 DashboardName: ${self:service}-${self:custom.stage}-dashboard
+DashboardNamespace: ${self:service}-${self:custom.stage}
 <%- queue_names.each do |queue_name| -%>
 <%= queue_name.camelize %>QueueName: ${self:service}-${self:custom.stage}-<%= queue_name.underscore.dasherize %>
 <%= queue_name.camelize %>DeadJobQueueName: ${self:service}-${self:custom.stage}-<%= queue_name.underscore.dasherize %>-dead

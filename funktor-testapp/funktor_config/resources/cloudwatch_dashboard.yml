@@ -29,13 +29,13 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "funktor-testapp", "Duration", "WorkerClassName", "AuditWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker" ],
                             [ "...", { "stat": "p99" } ],
-                            [ "funktor-testapp", "Duration", "WorkerClassName", "GreetingsWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker" ],
                             [ "...", { "stat": "p99" } ],
-                            [ "funktor-testapp", "Duration", "WorkerClassName", "HelloWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker" ],
                             [ "...", { "stat": "p99" } ],
-                            [ "funktor-testapp", "Duration", "WorkerClassName", "SingleThreadAuditWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "SingleThreadAuditWorker" ],
                             [ "...", { "stat": "p99" } ]
                         ],
                         "view": "timeSeries",
@@ -55,13 +55,13 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "funktor-testapp", "processed", "WorkerClassName", "AuditWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "AuditWorker" ],
                             [ ".", "failed", ".", "." ],
-                            [ "funktor-testapp", "processed", "WorkerClassName", "GreetingsWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "GreetingsWorker" ],
                             [ ".", "failed", ".", "." ],
-                            [ "funktor-testapp", "processed", "WorkerClassName", "HelloWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "HelloWorker" ],
                             [ ".", "failed", ".", "." ],
-                            [ "funktor-testapp", "processed", "WorkerClassName", "SingleThreadAuditWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "SingleThreadAuditWorker" ],
                             [ ".", "failed", ".", "." ]
                         ],
                         "view": "timeSeries",
@@ -81,9 +81,9 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "funktor-testapp", "Duration", "Queue", "default" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "Queue", "default" ],
                             [ "...", { "stat": "p99" } ],
-                            [ "funktor-testapp", "Duration", "Queue", "low_concurrency" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "Queue", "low_concurrency" ],
                             [ "...", { "stat": "p99" } ]
                         ],
                         "view": "timeSeries",
@@ -102,9 +102,9 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "funktor-testapp", "processed", "Queue", "default" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "Queue", "default" ],
                             [ ".", "failed", ".", "." ],
-                            [ "funktor-testapp", "processed", "Queue", "low_concurrency" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "Queue", "low_concurrency" ],
                             [ ".", "failed", ".", "." ]
                         ],
                         "view": "timeSeries",
