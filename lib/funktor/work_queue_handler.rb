@@ -82,6 +82,7 @@ module Funktor
     end
 
     def update_job_category(job, category)
+      puts "starting update_job_category #{category}"
       dynamodb_client.update_item({
         key: {
           "jobShard" => job.shard,
@@ -95,9 +96,11 @@ module Funktor
         },
         return_values: "ALL_OLD"
       })
+      puts "ending update_job_category #{category}"
     end
 
     def delete_job_from_dynamodb(job)
+      puts "starting delete_job_from_dynamodb"
       dynamodb_client.delete_item({
         key: {
           "jobShard" => job.shard,
@@ -106,6 +109,7 @@ module Funktor
         table_name: delayed_job_table,
         return_values: "ALL_OLD"
       })
+      puts "ending delete_job_from_dynamodb"
     end
 
   end
