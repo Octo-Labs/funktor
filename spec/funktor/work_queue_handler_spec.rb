@@ -39,7 +39,7 @@ RSpec.describe Funktor::WorkQueueHandler, type: :handler do
     end
     context 'on failure' do
       before do
-        expect(Aws::SQS::Client).to receive(:new).and_return(sqs_client)
+        expect(Funktor).to receive(:sqs_client).and_return(sqs_client)
       end
       it "sends a message to the IncomingJobQueue to retry on failure" do
         expect(sqs_client).to receive(:send_message).and_return(nil)
@@ -70,7 +70,7 @@ RSpec.describe Funktor::WorkQueueHandler, type: :handler do
     end
     context 'on failure' do
       before do
-        expect(Aws::SQS::Client).to receive(:new).and_return(sqs_client)
+        expect(Funktor).to receive(:sqs_client).and_return(sqs_client)
       end
       it "sends a message to the IncomingJobQueue to retry on failure" do
         expect(sqs_client).to receive(:send_message).and_return(nil)

@@ -24,7 +24,7 @@ module Funktor
     end
 
     def sqs_client
-      @sqs_client ||= ::Aws::SQS::Client.new
+      Funktor.sqs_client
     end
 
     def dispatch(job)

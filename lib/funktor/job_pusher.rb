@@ -19,7 +19,7 @@ module Funktor
     private
 
     def client
-      @client ||= ::Aws::SQS::Client.new
+      Funktor.sqs_client
     end
 
     def queue_url(payload)

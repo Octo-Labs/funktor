@@ -37,7 +37,7 @@ RSpec.describe Funktor::Worker, type: :worker do
     let(:sqs_client){ double Aws::SQS::Client }
     it 'delegates to perform_in' do
       expect(sqs_client).to receive(:send_message).and_return(nil)
-      expect(Aws::SQS::Client).to receive(:new).and_return(sqs_client)
+      expect(Funktor).to receive(:sqs_client).and_return(sqs_client)
       LambdaTestWorker.perform_at(Time.now.utc + 5*60, params)
     end
   end

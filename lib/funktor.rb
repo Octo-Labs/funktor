@@ -13,6 +13,7 @@ require_relative 'funktor/activity_tracker'
 
 require 'json'
 require 'aws-sdk-dynamodb'
+require 'aws-sdk-sqs'
 
 module Funktor
   class Error < StandardError; end
@@ -139,6 +140,10 @@ module Funktor
 
   def self.dynamodb_client
     @dynamodb_client ||= ::Aws::DynamoDB::Client.new
+  end
+
+  def self.sqs_client
+    @sqs_client ||= ::Aws::SQS::Client.new
   end
 end
 

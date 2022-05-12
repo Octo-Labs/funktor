@@ -13,7 +13,7 @@ module Funktor
     end
 
     def sqs_client
-      @sqs_client ||= ::Aws::SQS::Client.new
+      Funktor.sqs_client
     end
 
     def delayed_job_table
@@ -61,7 +61,6 @@ module Funktor
     end
 
     def activate_job(job_shard, job_id, current_category, queue_immediately = false)
-      
       # TODO: WorkQueueVisibilityMiddleware to alter what happens here? Maybe we delete by default and then the middleware puts it back in the table?
       # First we conditionally update the item in  Dynamo to be sure that another scheduler hasn't gotten
       # to it, and if that works then send to SQS. This is basically how Sidekiq scheduler works.
