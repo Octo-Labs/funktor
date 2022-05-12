@@ -25,6 +25,16 @@ provider:
   runtime: <%= runtime %>
   stage: ${opt:stage, 'dev'}
   lambdaHashingVersion: 20201221
+  ecr:
+    scanOnPush: true
+    images:
+      funktorimage:
+        path: ./
+        file: Dockerfile
+        #platform: linux/amd64 # May be needed if you're on an M1.
+        buildArgs:
+          # Here you can specify ENV vars that you need at build time. For instance you may want to install private gems:
+          #BUNDLE_GEM__FURY__IO: ${env:BUNDLE_GEM__FURY__IO}
   environment: ${file(funktor_config/environment.yml)}
   versionFunctions: false # Reduces the amount of storage used since all Lambdas together are limited to 75GB
   logRetentionInDays: 7
@@ -39,9 +49,9 @@ custom:
   # commands. Or fallsback to what we have set in the provider section.
   stage: ${self:provider.stage, 'dev'}
   funktor: ${file(funktor_config/funktor.yml)}
-  rubyLayer: ${file(funktor_config/ruby_layer.yml)}
+  #rubyLayer: ${file(funktor_config/ruby_layer.yml)}
 
-package: ${file(funktor_config/package.yml)}
+#package: ${file(funktor_config/package.yml)}
 
 functions:
   <%- all_function_definitions.each do |function_definition| -%>
@@ -54,4 +64,4 @@ resources:
   <%- end -%>
 
 plugins:
-  - serverless-ruby-layer
+  #- serverless-ruby-layer

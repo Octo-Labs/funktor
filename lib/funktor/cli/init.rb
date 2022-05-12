@@ -135,6 +135,10 @@ module Funktor
         template "serverless.yml", File.join("serverless.yml")
       end
 
+      def dockerfile
+        template "Dockerfile", File.join("Dockerfile")
+      end
+
       private
 
       def app_worker_names
