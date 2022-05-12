@@ -1,5 +1,4 @@
 require 'json'
-require 'aws-sdk-dynamodb'
 
 module Funktor
   class ActivityTracker
@@ -74,7 +73,7 @@ module Funktor
     end
 
     def dynamodb_client
-      @dynamodb_client ||= ::Aws::DynamoDB::Client.new
+      Funktor.dynamodb_client
     end
 
     def metric_namespace

@@ -22,7 +22,7 @@ module Funktor
     end
 
     def dynamodb_client
-      @dynamodb_client ||= ::Aws::DynamoDB::Client.new
+      Funktor.dynamodb_client
     end
 
     def dispatch(job)

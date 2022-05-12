@@ -128,7 +128,7 @@ module Funktor
       end
 
       def dynamodb_client
-        @dynamodb_client ||= ::Aws::DynamoDB::Client.new
+        Funktor.dynamodb_client
       end
 
       # start the server if ruby file executed directly

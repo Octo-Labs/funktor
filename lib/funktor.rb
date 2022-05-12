@@ -12,6 +12,7 @@ require_relative 'funktor/job_activator'
 require_relative 'funktor/activity_tracker'
 
 require 'json'
+require 'aws-sdk-dynamodb'
 
 module Funktor
   class Error < StandardError; end
@@ -134,6 +135,10 @@ module Funktor
     end
 
     @raw_logger = raw_logger
+  end
+
+  def self.dynamodb_client
+    @dynamodb_client ||= ::Aws::DynamoDB::Client.new
   end
 end
 
