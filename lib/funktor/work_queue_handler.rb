@@ -30,13 +30,18 @@ module Funktor
     def dispatch(job)
       begin
         @tracker.track(:processingStarted, job)
-        update_job_category(job, "processing")
+        if Funktor.enable_work_queue_visibility
+          update_job_category(job, "processing")
+        end
         Funktor.work_queue_handler_middleware.invoke(job) do
           job.execute
         end
         @processed_counter.incr(job)
         @tracker.track(:processingComplete, job)
-        delete_job_from_dynamodb(job)
+
+        if Funktor.enable_work_queue_visibility
+          delete_job_from_dynamodb(job)
+        end
       # rescue Funktor::Job::InvalidJsonError # TODO Make this work
       rescue Exception => e
         handle_error(e, job)
@@ -44,11 +49,17 @@ module Funktor
         job.error = e
         if job.can_retry
           @tracker.track(:retrying, job)
-          update_job_category(job, "retry")
+
+          if Funktor.enable_work_queue_visibility
+            update_job_category(job, "retry")
+          end
           trigger_retry(job)
         else
           @tracker.track(:bailingOut, job)
-          update_job_category(job, "dead")
+
+          if Funktor.enable_work_queue_visibility
+            update_job_category(job, "dead")
+          end
           Funktor.logger.error "We retried max times. We're bailing on this one."
           Funktor.logger.error job.to_json
         end

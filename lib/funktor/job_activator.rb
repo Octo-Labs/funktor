@@ -61,23 +61,40 @@ module Funktor
     end
 
     def activate_job(job_shard, job_id, current_category, queue_immediately = false)
+      
+      # TODO: WorkQueueVisibilityMiddleware to alter what happens here? Maybe we delete by default and then the middleware puts it back in the table?
       # First we conditionally update the item in  Dynamo to be sure that another scheduler hasn't gotten
       # to it, and if that works then send to SQS. This is basically how Sidekiq scheduler works.
-      response = dynamodb_client.update_item({
-        key: {
-          "jobShard" => job_shard,
-          "jobId" => job_id
-        },
-        update_expression: "SET category = :category, queueable = :queueable",
-        condition_expression: "category = :current_category",
-        expression_attribute_values: {
-          ":current_category" => current_category,
-          ":queueable" => "false",
-          ":category" => "queued"
-        },
-        table_name: delayed_job_table,
-        return_values: "ALL_OLD"
-      })
+      response = if Funktor.enable_work_queue_visibility
+                   dynamodb_client.update_item({
+                     key: {
+                       "jobShard" => job_shard,
+                       "jobId" => job_id
+                     },
+                     update_expression: "SET category = :category, queueable = :queueable",
+                     condition_expression: "category = :current_category",
+                     expression_attribute_values: {
+                       ":current_category" => current_category,
+                       ":queueable" => "false",
+                       ":category" => "queued"
+                     },
+                     table_name: delayed_job_table,
+                     return_values: "ALL_OLD"
+                   })
+                 else
+                   dynamodb_client.delete_item({
+                     key: {
+                       "jobShard" => job_shard,
+                       "jobId" => job_id
+                     },
+                     condition_expression: "category = :current_category",
+                     expression_attribute_values: {
+                       ":current_category" => current_category
+                     },
+                     table_name: delayed_job_table,
+                     return_values: "ALL_OLD"
+                   })
+                 end
       if response.attributes # this means the record was still there in the state we expected
         Funktor.logger.debug "response.attributes ====== "
         Funktor.logger.debug response.attributes
