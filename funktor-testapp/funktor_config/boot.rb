@@ -12,6 +12,9 @@ Bundler.require(:default, :production)
 $LOAD_PATH.unshift 'funktor/lib'
 require 'funktor'
 
+
+Funktor.enable_work_queue_visibility = false
+
 # Load all ruby files in the app directory
 require_rel File.join('..', 'app')
 

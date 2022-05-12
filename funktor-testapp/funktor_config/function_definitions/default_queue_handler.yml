@@ -1,8 +1,12 @@
-handler: lambda_event_handlers/default_queue_handler.call
+#handler: lambda_event_handlers/default_queue_handler.call
 timeout: ${self:custom.funktor.DefaultQueueHandler.functionTimeout, 900}
 reservedConcurrency: ${self:custom.funktor.DefaultQueueHandler.reservedConcurrency, null}
 provisionedConcurrency: ${self:custom.funktor.DefaultQueueHandler.provisionedConcurrency, null}
 memorySize: ${self:custom.funktor.DefaultQueueHandler.memorySize, 256}
+image:
+  name: funktorimage
+  command:
+    - lambda_event_handlers/default_queue_handler.call
 events:
   - sqs:
       batchSize: ${self:custom.funktor.DefaultQueueHandler.batchSize, 1}

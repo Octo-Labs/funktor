@@ -1,7 +1,16 @@
-BUNDLE_WITHOUT: development:test:assets
+BUNDLE_WITHOUT: development:test
 BUNDLE_PLUGINS: false
 BUNDLE_FROZEN: true
+BUNDLE_DEPLOYMENT: true
 SERVERLESS_STAGE: ${self:custom.stage}
+
+FUNKTOR_LOG_LEVEL: INFO
+
+RAILS_LOG_TO_STDOUT: true
+RAILS_ENV: production
+RACK_ENV: production
+RAILS_MAX_THREADS: 1
+
 FUNKTOR_APP_NAME: funktor-testapp
 FUNKTOR_INCOMING_JOB_QUEUE:
   Ref: IncomingJobQueue
