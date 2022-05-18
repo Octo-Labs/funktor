@@ -48,7 +48,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "AuditWorker Processed/Min"
                     }
                 },
@@ -66,7 +66,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "AuditWorker Failed/Min"
                     }
                 },
@@ -84,7 +84,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p60",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "AuditWorker p60"
                     }
                 },
@@ -102,7 +102,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p70",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "AuditWorker p70"
                     }
                 },
@@ -120,7 +120,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p80",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "AuditWorker p80"
                     }
                 },
@@ -138,7 +138,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p90",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "AuditWorker p90"
                     }
                 },
@@ -156,7 +156,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Minimum",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "AuditWorker Min"
                     }
                 },
@@ -174,7 +174,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Maximum",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "AuditWorker Max"
                     }
                 },
@@ -233,7 +233,7 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                          [ "funktor-testapp-dev", "Duration", "WorkerClassName", "AuditWorker", { "stat": "p90", "color": "#d62728" } ],
+                          [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "stat": "p90", "color": "#d62728" } ],
                           [ "...", { "stat": "p80", "color": "#2ca02c" } ],
                           [ "...", { "stat": "p70", "color": "#ff7f0e" } ],
                           [ "...", { "color": "#1f77b4" } ]
@@ -319,7 +319,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "GreetingsWorker Processed/Min"
                     }
                 },
@@ -337,7 +337,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "GreetingsWorker Failed/Min"
                     }
                 },
@@ -355,7 +355,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p60",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "GreetingsWorker p60"
                     }
                 },
@@ -373,7 +373,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p70",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "GreetingsWorker p70"
                     }
                 },
@@ -391,7 +391,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p80",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "GreetingsWorker p80"
                     }
                 },
@@ -409,7 +409,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p90",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "GreetingsWorker p90"
                     }
                 },
@@ -427,7 +427,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Minimum",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "GreetingsWorker Min"
                     }
                 },
@@ -445,7 +445,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Maximum",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "GreetingsWorker Max"
                     }
                 },
@@ -504,7 +504,7 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                          [ "funktor-testapp-dev", "Duration", "WorkerClassName", "AuditWorker", { "stat": "p90", "color": "#d62728" } ],
+                          [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "stat": "p90", "color": "#d62728" } ],
                           [ "...", { "stat": "p80", "color": "#2ca02c" } ],
                           [ "...", { "stat": "p70", "color": "#ff7f0e" } ],
                           [ "...", { "color": "#1f77b4" } ]
@@ -590,7 +590,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "HelloWorker Processed/Min"
                     }
                 },
@@ -608,7 +608,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "HelloWorker Failed/Min"
                     }
                 },
@@ -626,7 +626,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p60",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "HelloWorker p60"
                     }
                 },
@@ -644,7 +644,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p70",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "HelloWorker p70"
                     }
                 },
@@ -662,7 +662,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p80",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "HelloWorker p80"
                     }
                 },
@@ -680,7 +680,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p90",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "HelloWorker p90"
                     }
                 },
@@ -698,7 +698,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Minimum",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "HelloWorker Min"
                     }
                 },
@@ -716,7 +716,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Maximum",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "HelloWorker Max"
                     }
                 },
@@ -775,7 +775,7 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                          [ "funktor-testapp-dev", "Duration", "WorkerClassName", "AuditWorker", { "stat": "p90", "color": "#d62728" } ],
+                          [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "stat": "p90", "color": "#d62728" } ],
                           [ "...", { "stat": "p80", "color": "#2ca02c" } ],
                           [ "...", { "stat": "p70", "color": "#ff7f0e" } ],
                           [ "...", { "color": "#1f77b4" } ]
@@ -861,7 +861,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "SingleThreadAuditWorker Processed/Min"
                     }
                 },
@@ -879,7 +879,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "SingleThreadAuditWorker Failed/Min"
                     }
                 },
@@ -897,7 +897,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p60",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "SingleThreadAuditWorker p60"
                     }
                 },
@@ -915,7 +915,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p70",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "SingleThreadAuditWorker p70"
                     }
                 },
@@ -933,7 +933,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p80",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "SingleThreadAuditWorker p80"
                     }
                 },
@@ -951,7 +951,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p90",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "SingleThreadAuditWorker p90"
                     }
                 },
@@ -969,7 +969,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Minimum",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "SingleThreadAuditWorker Min"
                     }
                 },
@@ -987,7 +987,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Maximum",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "SingleThreadAuditWorker Max"
                     }
                 },
@@ -1046,7 +1046,7 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                          [ "funktor-testapp-dev", "Duration", "WorkerClassName", "AuditWorker", { "stat": "p90", "color": "#d62728" } ],
+                          [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "SingleThreadAuditWorker", { "stat": "p90", "color": "#d62728" } ],
                           [ "...", { "stat": "p80", "color": "#2ca02c" } ],
                           [ "...", { "stat": "p70", "color": "#ff7f0e" } ],
                           [ "...", { "color": "#1f77b4" } ]
