@@ -21,6 +21,128 @@ Resources:
                 },
                 <% current_y += 3 %>
 
+                { <% "Jobs/Minute Section" %>
+                    "height": 1,
+                    "width": 24,
+                    "y": <%= current_y %>,
+                    "x": 0,
+                    "type": "text",
+                    "properties": {
+                        "markdown": "\n# Jobs Per Minute By Worker\n"
+                    }
+                },
+                <% current_y += 1 %>
+
+
+              <%- app_worker_names.each_with_index do |worker_name, index| -%>
+                <%- current_y += 3 if (index > 0 && (index % 6) == 0) %>
+                { <% "Processed Jobs By Worker" %>
+                    "height": 3,
+                    "width": 4,
+                    "y": <%= current_y %>,
+                    "x": <%= (index % 6) * 4 %>,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                          [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "<%= worker_name %>" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "<%= worker_name %> Jobs/Min",
+                        "period": 60,
+                        "stat": "Sum",
+                        "legend": {
+                          "position": "hidden"
+                        }
+                  }
+                },
+              <%- end -%>
+              <%- current_y += 3 if (app_worker_names.count - 1) % 6 != 0 %>
+
+
+              { <% "Failures/Minute Section" %>
+                    "height": 1,
+                    "width": 24,
+                    "y": <%= current_y %>,
+                    "x": 0,
+                    "type": "text",
+                    "properties": {
+                        "markdown": "\n# Failures Per Minute By Worker\n"
+                    }
+                },
+                <% current_y += 1 %>
+
+
+              <%- app_worker_names.each_with_index do |worker_name, index| -%>
+                <%- current_y += 3 if (index > 0 && (index % 6) == 0) %>
+                { <% "Failed Jobs By Worker" %>
+                    "height": 3,
+                    "width": 4,
+                    "y": <%= current_y %>,
+                    "x": <%= (index % 6) * 4 %>,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                          [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "<%= worker_name %>", { "color": "#d62728" } ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "<%= worker_name %> Fails/Min",
+                        "period": 60,
+                        "stat": "Sum",
+                        "legend": {
+                          "position": "hidden"
+                        }
+                  }
+                },
+              <%- end -%>
+              <%- current_y += 3 if (app_worker_names.count - 1) % 6 != 0 %>
+
+
+                { <% "Duration Percentiles Section" %>
+                    "height": 1,
+                    "width": 24,
+                    "y": <%= current_y %>,
+                    "x": 0,
+                    "type": "text",
+                    "properties": {
+                        "markdown": "\n# Duration Percentiles By Worker\n"
+                    }
+                },
+                <% current_y += 1 %>
+
+
+              <%- app_worker_names.each_with_index do |worker_name, index| -%>
+                <%- current_y += 4 if (index > 0 && (index % 6) == 0) %>
+                { <% "Job Duration By Worker" %>
+                    "height": 4,
+                    "width": 4,
+                    "y": <%= current_y %>,
+                    "x": <%= (index % 6) * 4 %>,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                          [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>", { "label": "p90", "stat": "p90", "color": "#d62728" } ],
+                          [ "...", { "label": "p80", "stat": "p80", "color": "#2ca02c" } ],
+                          [ "...", { "label": "p70", "stat": "p70", "color": "#ff7f0e" } ],
+                          [ "...", { "label": "p60", "color": "#1f77b4" } ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "p60",
+                        "period": 60,
+                        "title": "<%= worker_name %> Duration Percentiles",
+                        "legend": {
+                          "position": "bottom"
+                        }
+                    }
+                },
+              <%- end -%>
+              <%- current_y += 3 if (app_worker_names.count - 1) % 6 != 0 %>
+
 
               <%- app_worker_names.each do |worker_name| -%>
                 { <% "Worker" %>
