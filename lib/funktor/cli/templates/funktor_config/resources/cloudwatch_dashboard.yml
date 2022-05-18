@@ -21,6 +21,160 @@ Resources:
                 },
                 <% current_y += 3 %>
 
+
+              <%- app_worker_names.each do |worker_name| -%>
+                { <% "Worker" %>
+                    "height": 3,
+                    "width": 6,
+                    "y": <%= current_y %>,
+                    "x": 0,
+                    "type": "text",
+                    "properties": {
+                        "markdown": "\n# <%= worker_name %>\n"
+                    }
+                },
+                { <% "Worker Jobs per minute" %>
+                    "height": 3,
+                    "width": 6,
+                    "y": <%= current_y %>,
+                    "x": 6,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "<%= worker_name %>" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "<%= worker_name %>", { "color": "#d62728" } ]
+                        ],
+                        "view": "singleValue",
+                        "region": "us-east-1",
+                        "stat": "Sum",
+                        "period": 60,
+                        "sparkline": true,
+                        "title": "<%= worker_name %> Jobs Per Minute"
+                    }
+                },
+                { <% "Worker Durations" %>
+                    "height": 3,
+                    "width": 12,
+                    "y": <%= current_y %>,
+                    "x": 12,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>", { "label": "p10" } ],
+                            [ "...", { "label": "p50", "stat": "p50" } ],
+                            [ "...", { "label": "p99", "stat": "p99" } ],
+                            [ "...", { "label": "Average", "stat": "Average" } ]
+                        ],
+                        "view": "singleValue",
+                        "region": "us-east-1",
+                        "stat": "p10",
+                        "period": 60,
+                        "sparkline": true,
+                        "title": "<%= worker_name %> Duration"
+                    }
+                },
+                <% current_y += 3 %>
+
+
+
+
+                { <% "Processed Jobs By Worker" %>
+                    "height": 3,
+                    "width": 6,
+                    "y": <%= current_y %>,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                          [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "<%= worker_name %>" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "<%= worker_name %> Processed Jobs",
+                        "period": 60,
+                        "stat": "Sum"
+                  }
+                },
+                { <% "Failed Jobs By Worker" %>
+                    "height": 3,
+                    "width": 6,
+                    "y": <%= current_y + 3 %>,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                          [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "<%= worker_name %>", { "color": "#d62728" }]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "<%= worker_name %> Failed Jobs",
+                        "period": 60,
+                        "stat": "Sum"
+                  }
+                },
+                { <% "Job Duration By Worker" %>
+                    "height": 6,
+                    "width": 12,
+                    "y": <%= current_y %>,
+                    "x": 6,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>" ],
+                            [ "...", { "stat": "p80" } ],
+                            [ "...", { "stat": "p70" } ],
+                            [ "...", { "stat": "p60" } ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "p90",
+                        "period": 60,
+                        "title": "<%= worker_name %> Duration Percentiles"
+                    }
+                },
+                { <% "Maximum By Worker" %>
+                    "height": 3,
+                    "width": 6,
+                    "y": <%= current_y %>,
+                    "x": 18,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "Maximum",
+                        "period": 60,
+                        "title": "<%= worker_name %> Max"
+                    }
+                },
+                { <% "Minimum By Worker" %>
+                    "height": 3,
+                    "width": 6,
+                    "y": <%= current_y %>,
+                    "x": 18,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "Minimum",
+                        "period": 60,
+                        "title": "<%= worker_name %> Min"
+                    }
+                },
+                <% current_y += 6 %>
+              <%- end -%>
+
+
               { <% "Job Duration By Worker" %>
                     "height": 6,
                     "width": 12,
@@ -65,6 +219,7 @@ Resources:
                   }
                 },
                 <% current_y += 6 %>
+
                 { <% "Job Duration By Queue" %>
                     "height": 6,
                     "width": 12,
@@ -147,6 +302,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
+                        "sparkline": true,
                         "title": "Messages Per Minute"
                     }
                 },
@@ -167,6 +323,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p10",
                         "period": 60,
+                        "sparkline": true,
                         "title": "Handler Duration"
                     }
                 },
@@ -294,6 +451,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
+                        "sparkline": true,
                         "title": "Messages Per Minute"
                     }
                 },
@@ -316,6 +474,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p10",
                         "period": 60,
+                        "sparkline": true,
                         "title": "Handler Duration"
                     }
                 },
@@ -444,6 +603,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Average",
                         "period": 60,
+                        "sparkline": true,
                         "title": "Messages To Be Scheduled"
                     }
                 },
@@ -464,6 +624,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p10",
                         "period": 60,
+                        "sparkline": true,
                         "title": "Handler Duration"
                     }
                 },
