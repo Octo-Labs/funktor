@@ -21,11 +21,334 @@ Resources:
                 },
                 
 
-
                 { 
                     "height": 1,
                     "width": 24,
                     "y": 3,
+                    "x": 0,
+                    "type": "text",
+                    "properties": {
+                        "markdown": "\n# Jobs Per Minute By Worker\n"
+                    }
+                },
+                
+
+
+
+                { 
+                    "height": 3,
+                    "width": 4,
+                    "y": 4,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                          [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "AuditWorker" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "AuditWorker Jobs/Min",
+                        "period": 60,
+                        "stat": "Sum",
+                        "legend": {
+                          "position": "hidden"
+                        }
+                  }
+                },
+
+                { 
+                    "height": 3,
+                    "width": 4,
+                    "y": 4,
+                    "x": 4,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                          [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "GreetingsWorker" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "GreetingsWorker Jobs/Min",
+                        "period": 60,
+                        "stat": "Sum",
+                        "legend": {
+                          "position": "hidden"
+                        }
+                  }
+                },
+
+                { 
+                    "height": 3,
+                    "width": 4,
+                    "y": 4,
+                    "x": 8,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                          [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "HelloWorker" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "HelloWorker Jobs/Min",
+                        "period": 60,
+                        "stat": "Sum",
+                        "legend": {
+                          "position": "hidden"
+                        }
+                  }
+                },
+
+                { 
+                    "height": 3,
+                    "width": 4,
+                    "y": 4,
+                    "x": 12,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                          [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "SingleThreadAuditWorker" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "SingleThreadAuditWorker Jobs/Min",
+                        "period": 60,
+                        "stat": "Sum",
+                        "legend": {
+                          "position": "hidden"
+                        }
+                  }
+                },
+
+
+
+              { 
+                    "height": 1,
+                    "width": 24,
+                    "y": 7,
+                    "x": 0,
+                    "type": "text",
+                    "properties": {
+                        "markdown": "\n# Failures Per Minute By Worker\n"
+                    }
+                },
+                
+
+
+
+                { 
+                    "height": 3,
+                    "width": 4,
+                    "y": 8,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                          [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "AuditWorker", { "color": "#d62728" } ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "AuditWorker Fails/Min",
+                        "period": 60,
+                        "stat": "Sum",
+                        "legend": {
+                          "position": "hidden"
+                        }
+                  }
+                },
+
+                { 
+                    "height": 3,
+                    "width": 4,
+                    "y": 8,
+                    "x": 4,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                          [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "GreetingsWorker", { "color": "#d62728" } ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "GreetingsWorker Fails/Min",
+                        "period": 60,
+                        "stat": "Sum",
+                        "legend": {
+                          "position": "hidden"
+                        }
+                  }
+                },
+
+                { 
+                    "height": 3,
+                    "width": 4,
+                    "y": 8,
+                    "x": 8,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                          [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "HelloWorker", { "color": "#d62728" } ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "HelloWorker Fails/Min",
+                        "period": 60,
+                        "stat": "Sum",
+                        "legend": {
+                          "position": "hidden"
+                        }
+                  }
+                },
+
+                { 
+                    "height": 3,
+                    "width": 4,
+                    "y": 8,
+                    "x": 12,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                          [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "SingleThreadAuditWorker", { "color": "#d62728" } ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "SingleThreadAuditWorker Fails/Min",
+                        "period": 60,
+                        "stat": "Sum",
+                        "legend": {
+                          "position": "hidden"
+                        }
+                  }
+                },
+
+
+
+                { 
+                    "height": 1,
+                    "width": 24,
+                    "y": 11,
+                    "x": 0,
+                    "type": "text",
+                    "properties": {
+                        "markdown": "\n# Duration Percentiles By Worker\n"
+                    }
+                },
+                
+
+
+
+                { 
+                    "height": 4,
+                    "width": 4,
+                    "y": 12,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                          [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "label": "p90", "stat": "p90", "color": "#d62728" } ],
+                          [ "...", { "label": "p80", "stat": "p80", "color": "#2ca02c" } ],
+                          [ "...", { "label": "p70", "stat": "p70", "color": "#ff7f0e" } ],
+                          [ "...", { "label": "p60", "color": "#1f77b4" } ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "p60",
+                        "period": 60,
+                        "title": "AuditWorker Duration Percentiles",
+                        "legend": {
+                          "position": "bottom"
+                        }
+                    }
+                },
+
+                { 
+                    "height": 4,
+                    "width": 4,
+                    "y": 12,
+                    "x": 4,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                          [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "p90", "stat": "p90", "color": "#d62728" } ],
+                          [ "...", { "label": "p80", "stat": "p80", "color": "#2ca02c" } ],
+                          [ "...", { "label": "p70", "stat": "p70", "color": "#ff7f0e" } ],
+                          [ "...", { "label": "p60", "color": "#1f77b4" } ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "p60",
+                        "period": 60,
+                        "title": "GreetingsWorker Duration Percentiles",
+                        "legend": {
+                          "position": "bottom"
+                        }
+                    }
+                },
+
+                { 
+                    "height": 4,
+                    "width": 4,
+                    "y": 12,
+                    "x": 8,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                          [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "label": "p90", "stat": "p90", "color": "#d62728" } ],
+                          [ "...", { "label": "p80", "stat": "p80", "color": "#2ca02c" } ],
+                          [ "...", { "label": "p70", "stat": "p70", "color": "#ff7f0e" } ],
+                          [ "...", { "label": "p60", "color": "#1f77b4" } ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "p60",
+                        "period": 60,
+                        "title": "HelloWorker Duration Percentiles",
+                        "legend": {
+                          "position": "bottom"
+                        }
+                    }
+                },
+
+                { 
+                    "height": 4,
+                    "width": 4,
+                    "y": 12,
+                    "x": 12,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                          [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "SingleThreadAuditWorker", { "label": "p90", "stat": "p90", "color": "#d62728" } ],
+                          [ "...", { "label": "p80", "stat": "p80", "color": "#2ca02c" } ],
+                          [ "...", { "label": "p70", "stat": "p70", "color": "#ff7f0e" } ],
+                          [ "...", { "label": "p60", "color": "#1f77b4" } ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "p60",
+                        "period": 60,
+                        "title": "SingleThreadAuditWorker Duration Percentiles",
+                        "legend": {
+                          "position": "bottom"
+                        }
+                    }
+                },
+
+
+
+                { 
+                    "height": 1,
+                    "width": 24,
+                    "y": 15,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -37,7 +360,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 4,
+                    "y": 16,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -55,7 +378,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 4,
+                    "y": 16,
                     "x": 3,
                     "type": "metric",
                     "properties": {
@@ -73,7 +396,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 4,
+                    "y": 16,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -91,7 +414,7 @@ Resources:
                { 
                     "height": 2,
                     "width": 3,
-                    "y": 4,
+                    "y": 16,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -109,7 +432,7 @@ Resources:
                { 
                     "height": 2,
                     "width": 3,
-                    "y": 4,
+                    "y": 16,
                     "x": 12,
                     "type": "metric",
                     "properties": {
@@ -127,7 +450,7 @@ Resources:
                { 
                     "height": 2,
                     "width": 3,
-                    "y": 4,
+                    "y": 16,
                     "x": 15,
                     "type": "metric",
                     "properties": {
@@ -145,7 +468,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 4,
+                    "y": 16,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -163,7 +486,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 4,
+                    "y": 16,
                     "x": 21,
                     "type": "metric",
                     "properties": {
@@ -186,7 +509,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 7,
+                    "y": 19,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -207,7 +530,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 7,
+                    "y": 19,
                     "x": 3,
                     "type": "metric",
                     "properties": {
@@ -228,7 +551,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 12,
-                    "y": 7,
+                    "y": 19,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -252,7 +575,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 7,
+                    "y": 19,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -273,7 +596,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 7,
+                    "y": 19,
                     "x": 21,
                     "type": "metric",
                     "properties": {
@@ -296,7 +619,7 @@ Resources:
                 { 
                     "height": 1,
                     "width": 24,
-                    "y": 13,
+                    "y": 25,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -308,7 +631,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 14,
+                    "y": 26,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -326,7 +649,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 14,
+                    "y": 26,
                     "x": 3,
                     "type": "metric",
                     "properties": {
@@ -344,7 +667,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 14,
+                    "y": 26,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -362,7 +685,7 @@ Resources:
                { 
                     "height": 2,
                     "width": 3,
-                    "y": 14,
+                    "y": 26,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -380,7 +703,7 @@ Resources:
                { 
                     "height": 2,
                     "width": 3,
-                    "y": 14,
+                    "y": 26,
                     "x": 12,
                     "type": "metric",
                     "properties": {
@@ -398,7 +721,7 @@ Resources:
                { 
                     "height": 2,
                     "width": 3,
-                    "y": 14,
+                    "y": 26,
                     "x": 15,
                     "type": "metric",
                     "properties": {
@@ -416,7 +739,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 14,
+                    "y": 26,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -434,7 +757,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 14,
+                    "y": 26,
                     "x": 21,
                     "type": "metric",
                     "properties": {
@@ -457,7 +780,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 17,
+                    "y": 29,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -478,7 +801,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 17,
+                    "y": 29,
                     "x": 3,
                     "type": "metric",
                     "properties": {
@@ -499,7 +822,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 12,
-                    "y": 17,
+                    "y": 29,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -523,7 +846,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 17,
+                    "y": 29,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -544,7 +867,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 17,
+                    "y": 29,
                     "x": 21,
                     "type": "metric",
                     "properties": {
@@ -567,7 +890,7 @@ Resources:
                 { 
                     "height": 1,
                     "width": 24,
-                    "y": 23,
+                    "y": 35,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -579,7 +902,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 24,
+                    "y": 36,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -597,7 +920,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 24,
+                    "y": 36,
                     "x": 3,
                     "type": "metric",
                     "properties": {
@@ -615,7 +938,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 24,
+                    "y": 36,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -633,7 +956,7 @@ Resources:
                { 
                     "height": 2,
                     "width": 3,
-                    "y": 24,
+                    "y": 36,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -651,7 +974,7 @@ Resources:
                { 
                     "height": 2,
                     "width": 3,
-                    "y": 24,
+                    "y": 36,
                     "x": 12,
                     "type": "metric",
                     "properties": {
@@ -669,7 +992,7 @@ Resources:
                { 
                     "height": 2,
                     "width": 3,
-                    "y": 24,
+                    "y": 36,
                     "x": 15,
                     "type": "metric",
                     "properties": {
@@ -687,7 +1010,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 24,
+                    "y": 36,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -705,7 +1028,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 24,
+                    "y": 36,
                     "x": 21,
                     "type": "metric",
                     "properties": {
@@ -728,7 +1051,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 27,
+                    "y": 39,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -749,7 +1072,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 27,
+                    "y": 39,
                     "x": 3,
                     "type": "metric",
                     "properties": {
@@ -770,7 +1093,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 12,
-                    "y": 27,
+                    "y": 39,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -794,7 +1117,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 27,
+                    "y": 39,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -815,7 +1138,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 27,
+                    "y": 39,
                     "x": 21,
                     "type": "metric",
                     "properties": {
@@ -838,7 +1161,7 @@ Resources:
                 { 
                     "height": 1,
                     "width": 24,
-                    "y": 33,
+                    "y": 45,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -850,7 +1173,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 34,
+                    "y": 46,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -868,7 +1191,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 34,
+                    "y": 46,
                     "x": 3,
                     "type": "metric",
                     "properties": {
@@ -886,7 +1209,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 34,
+                    "y": 46,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -904,7 +1227,7 @@ Resources:
                { 
                     "height": 2,
                     "width": 3,
-                    "y": 34,
+                    "y": 46,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -922,7 +1245,7 @@ Resources:
                { 
                     "height": 2,
                     "width": 3,
-                    "y": 34,
+                    "y": 46,
                     "x": 12,
                     "type": "metric",
                     "properties": {
@@ -940,7 +1263,7 @@ Resources:
                { 
                     "height": 2,
                     "width": 3,
-                    "y": 34,
+                    "y": 46,
                     "x": 15,
                     "type": "metric",
                     "properties": {
@@ -958,7 +1281,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 34,
+                    "y": 46,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -976,7 +1299,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 34,
+                    "y": 46,
                     "x": 21,
                     "type": "metric",
                     "properties": {
@@ -999,7 +1322,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 37,
+                    "y": 49,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1020,7 +1343,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 37,
+                    "y": 49,
                     "x": 3,
                     "type": "metric",
                     "properties": {
@@ -1041,7 +1364,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 12,
-                    "y": 37,
+                    "y": 49,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -1065,7 +1388,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 37,
+                    "y": 49,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -1086,7 +1409,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 37,
+                    "y": 49,
                     "x": 21,
                     "type": "metric",
                     "properties": {
@@ -1111,7 +1434,7 @@ Resources:
               { 
                     "height": 6,
                     "width": 12,
-                    "y": 43,
+                    "y": 55,
                     "x": 12,
                     "type": "metric",
                     "properties": {
@@ -1137,7 +1460,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 12,
-                    "y": 43,
+                    "y": 55,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1164,7 +1487,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 12,
-                    "y": 49,
+                    "y": 61,
                     "x": 12,
                     "type": "metric",
                     "properties": {
@@ -1185,7 +1508,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 12,
-                    "y": 49,
+                    "y": 61,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1209,7 +1532,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 24,
-                    "y": 52,
+                    "y": 64,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -1222,7 +1545,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 58,
+                    "y": 70,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -1232,7 +1555,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 58,
+                    "y": 70,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -1250,7 +1573,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 15,
-                    "y": 58,
+                    "y": 70,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -1274,7 +1597,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 9,
-                    "y": 61,
+                    "y": 73,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1300,7 +1623,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 9,
-                    "y": 61,
+                    "y": 73,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -1320,7 +1643,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 61,
+                    "y": 73,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -1347,7 +1670,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 64,
+                    "y": 76,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -1369,7 +1692,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 67,
+                    "y": 79,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -1379,7 +1702,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 67,
+                    "y": 79,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -1398,7 +1721,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 15,
-                    "y": 67,
+                    "y": 79,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -1421,7 +1744,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 9,
-                    "y": 70,
+                    "y": 82,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1451,7 +1774,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 9,
-                    "y": 70,
+                    "y": 82,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -1471,7 +1794,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 70,
+                    "y": 82,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -1497,7 +1820,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 73,
+                    "y": 85,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -1518,7 +1841,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 76,
+                    "y": 88,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -1528,7 +1851,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 76,
+                    "y": 88,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -1547,7 +1870,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 15,
-                    "y": 76,
+                    "y": 88,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -1570,7 +1893,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 9,
-                    "y": 79,
+                    "y": 91,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1600,7 +1923,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 9,
-                    "y": 79,
+                    "y": 91,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -1620,7 +1943,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 79,
+                    "y": 91,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -1646,7 +1969,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 82,
+                    "y": 94,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -1670,7 +1993,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 85,
+                    "y": 97,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -1680,7 +2003,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 85,
+                    "y": 97,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -1698,7 +2021,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 15,
-                    "y": 85,
+                    "y": 97,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -1723,7 +2046,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 88,
+                    "y": 100,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -1748,7 +2071,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 9,
-                    "y": 88,
+                    "y": 100,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -1768,7 +2091,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 9,
-                    "y": 88,
+                    "y": 100,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1790,7 +2113,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 9,
-                    "y": 91,
+                    "y": 103,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1812,7 +2135,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 91,
+                    "y": 103,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -1830,7 +2153,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 9,
-                    "y": 91,
+                    "y": 103,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -1856,7 +2179,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 18,
-                    "y": 94,
+                    "y": 106,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1880,7 +2203,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 94,
+                    "y": 106,
                     "x": 18,
                     "type": "metric",
                     "properties": {
