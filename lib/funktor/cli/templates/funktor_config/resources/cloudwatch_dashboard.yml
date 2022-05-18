@@ -49,7 +49,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "<%= worker_name %> Processed/Min"
                     }
                 },
@@ -67,7 +67,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "<%= worker_name %> Failed/Min"
                     }
                 },
@@ -85,7 +85,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p60",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "<%= worker_name %> p60"
                     }
                 },
@@ -103,7 +103,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p70",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "<%= worker_name %> p70"
                     }
                 },
@@ -121,7 +121,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p80",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "<%= worker_name %> p80"
                     }
                 },
@@ -139,7 +139,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p90",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "<%= worker_name %> p90"
                     }
                 },
@@ -157,7 +157,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Minimum",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "<%= worker_name %> Min"
                     }
                 },
@@ -175,7 +175,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Maximum",
                         "period": 60,
-                        "sparkline": true,
+                        "sparkline": false,
                         "title": "<%= worker_name %> Max"
                     }
                 },
@@ -234,7 +234,7 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                          [ "funktor-testapp-dev", "Duration", "WorkerClassName", "AuditWorker", { "stat": "p90", "color": "#d62728" } ],
+                          [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>", { "stat": "p90", "color": "#d62728" } ],
                           [ "...", { "stat": "p80", "color": "#2ca02c" } ],
                           [ "...", { "stat": "p70", "color": "#ff7f0e" } ],
                           [ "...", { "color": "#1f77b4" } ]
