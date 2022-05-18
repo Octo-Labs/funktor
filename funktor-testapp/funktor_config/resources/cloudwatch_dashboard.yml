@@ -21,10 +21,609 @@ Resources:
                 },
                 
 
+
+                { 
+                    "height": 3,
+                    "width": 6,
+                    "y": 3,
+                    "x": 0,
+                    "type": "text",
+                    "properties": {
+                        "markdown": "\n# AuditWorker\n"
+                    }
+                },
+                { 
+                    "height": 3,
+                    "width": 6,
+                    "y": 3,
+                    "x": 6,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "AuditWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "AuditWorker", { "color": "#d62728" } ]
+                        ],
+                        "view": "singleValue",
+                        "region": "us-east-1",
+                        "stat": "Sum",
+                        "period": 60,
+                        "sparkline": true,
+                        "title": "AuditWorker Jobs Per Minute"
+                    }
+                },
+                { 
+                    "height": 3,
+                    "width": 12,
+                    "y": 3,
+                    "x": 12,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "label": "p10" } ],
+                            [ "...", { "label": "p50", "stat": "p50" } ],
+                            [ "...", { "label": "p99", "stat": "p99" } ],
+                            [ "...", { "label": "Average", "stat": "Average" } ]
+                        ],
+                        "view": "singleValue",
+                        "region": "us-east-1",
+                        "stat": "p10",
+                        "period": 60,
+                        "sparkline": true,
+                        "title": "AuditWorker Duration"
+                    }
+                },
+                
+
+
+
+
+                { 
+                    "height": 3,
+                    "width": 6,
+                    "y": 6,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                          [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "AuditWorker" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "AuditWorker Processed Jobs",
+                        "period": 60,
+                        "stat": "Sum"
+                  }
+                },
+                { 
+                    "height": 3,
+                    "width": 6,
+                    "y": 9,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                          [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "AuditWorker", { "color": "#d62728" }]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "AuditWorker Failed Jobs",
+                        "period": 60,
+                        "stat": "Sum"
+                  }
+                },
+                { 
+                    "height": 6,
+                    "width": 12,
+                    "y": 6,
+                    "x": 6,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker" ],
+                            [ "...", { "stat": "p80" } ],
+                            [ "...", { "stat": "p70" } ],
+                            [ "...", { "stat": "p60" } ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "p90",
+                        "period": 60,
+                        "title": "AuditWorker Duration Percentiles"
+                    }
+                },
+                { 
+                    "height": 3,
+                    "width": 6,
+                    "y": 6,
+                    "x": 18,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "Maximum",
+                        "period": 60,
+                        "title": "AuditWorker Max"
+                    }
+                },
+                { 
+                    "height": 3,
+                    "width": 6,
+                    "y": 6,
+                    "x": 18,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "Minimum",
+                        "period": 60,
+                        "title": "AuditWorker Min"
+                    }
+                },
+                
+                { 
+                    "height": 3,
+                    "width": 6,
+                    "y": 12,
+                    "x": 0,
+                    "type": "text",
+                    "properties": {
+                        "markdown": "\n# GreetingsWorker\n"
+                    }
+                },
+                { 
+                    "height": 3,
+                    "width": 6,
+                    "y": 12,
+                    "x": 6,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "GreetingsWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "GreetingsWorker", { "color": "#d62728" } ]
+                        ],
+                        "view": "singleValue",
+                        "region": "us-east-1",
+                        "stat": "Sum",
+                        "period": 60,
+                        "sparkline": true,
+                        "title": "GreetingsWorker Jobs Per Minute"
+                    }
+                },
+                { 
+                    "height": 3,
+                    "width": 12,
+                    "y": 12,
+                    "x": 12,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "p10" } ],
+                            [ "...", { "label": "p50", "stat": "p50" } ],
+                            [ "...", { "label": "p99", "stat": "p99" } ],
+                            [ "...", { "label": "Average", "stat": "Average" } ]
+                        ],
+                        "view": "singleValue",
+                        "region": "us-east-1",
+                        "stat": "p10",
+                        "period": 60,
+                        "sparkline": true,
+                        "title": "GreetingsWorker Duration"
+                    }
+                },
+                
+
+
+
+
+                { 
+                    "height": 3,
+                    "width": 6,
+                    "y": 15,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                          [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "GreetingsWorker" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "GreetingsWorker Processed Jobs",
+                        "period": 60,
+                        "stat": "Sum"
+                  }
+                },
+                { 
+                    "height": 3,
+                    "width": 6,
+                    "y": 18,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                          [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "GreetingsWorker", { "color": "#d62728" }]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "GreetingsWorker Failed Jobs",
+                        "period": 60,
+                        "stat": "Sum"
+                  }
+                },
+                { 
+                    "height": 6,
+                    "width": 12,
+                    "y": 15,
+                    "x": 6,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker" ],
+                            [ "...", { "stat": "p80" } ],
+                            [ "...", { "stat": "p70" } ],
+                            [ "...", { "stat": "p60" } ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "p90",
+                        "period": 60,
+                        "title": "GreetingsWorker Duration Percentiles"
+                    }
+                },
+                { 
+                    "height": 3,
+                    "width": 6,
+                    "y": 15,
+                    "x": 18,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "Maximum",
+                        "period": 60,
+                        "title": "GreetingsWorker Max"
+                    }
+                },
+                { 
+                    "height": 3,
+                    "width": 6,
+                    "y": 15,
+                    "x": 18,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "Minimum",
+                        "period": 60,
+                        "title": "GreetingsWorker Min"
+                    }
+                },
+                
+                { 
+                    "height": 3,
+                    "width": 6,
+                    "y": 21,
+                    "x": 0,
+                    "type": "text",
+                    "properties": {
+                        "markdown": "\n# HelloWorker\n"
+                    }
+                },
+                { 
+                    "height": 3,
+                    "width": 6,
+                    "y": 21,
+                    "x": 6,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "HelloWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "HelloWorker", { "color": "#d62728" } ]
+                        ],
+                        "view": "singleValue",
+                        "region": "us-east-1",
+                        "stat": "Sum",
+                        "period": 60,
+                        "sparkline": true,
+                        "title": "HelloWorker Jobs Per Minute"
+                    }
+                },
+                { 
+                    "height": 3,
+                    "width": 12,
+                    "y": 21,
+                    "x": 12,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "label": "p10" } ],
+                            [ "...", { "label": "p50", "stat": "p50" } ],
+                            [ "...", { "label": "p99", "stat": "p99" } ],
+                            [ "...", { "label": "Average", "stat": "Average" } ]
+                        ],
+                        "view": "singleValue",
+                        "region": "us-east-1",
+                        "stat": "p10",
+                        "period": 60,
+                        "sparkline": true,
+                        "title": "HelloWorker Duration"
+                    }
+                },
+                
+
+
+
+
+                { 
+                    "height": 3,
+                    "width": 6,
+                    "y": 24,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                          [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "HelloWorker" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "HelloWorker Processed Jobs",
+                        "period": 60,
+                        "stat": "Sum"
+                  }
+                },
+                { 
+                    "height": 3,
+                    "width": 6,
+                    "y": 27,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                          [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "HelloWorker", { "color": "#d62728" }]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "HelloWorker Failed Jobs",
+                        "period": 60,
+                        "stat": "Sum"
+                  }
+                },
+                { 
+                    "height": 6,
+                    "width": 12,
+                    "y": 24,
+                    "x": 6,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker" ],
+                            [ "...", { "stat": "p80" } ],
+                            [ "...", { "stat": "p70" } ],
+                            [ "...", { "stat": "p60" } ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "p90",
+                        "period": 60,
+                        "title": "HelloWorker Duration Percentiles"
+                    }
+                },
+                { 
+                    "height": 3,
+                    "width": 6,
+                    "y": 24,
+                    "x": 18,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "Maximum",
+                        "period": 60,
+                        "title": "HelloWorker Max"
+                    }
+                },
+                { 
+                    "height": 3,
+                    "width": 6,
+                    "y": 24,
+                    "x": 18,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "Minimum",
+                        "period": 60,
+                        "title": "HelloWorker Min"
+                    }
+                },
+                
+                { 
+                    "height": 3,
+                    "width": 6,
+                    "y": 30,
+                    "x": 0,
+                    "type": "text",
+                    "properties": {
+                        "markdown": "\n# SingleThreadAuditWorker\n"
+                    }
+                },
+                { 
+                    "height": 3,
+                    "width": 6,
+                    "y": 30,
+                    "x": 6,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "SingleThreadAuditWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "SingleThreadAuditWorker", { "color": "#d62728" } ]
+                        ],
+                        "view": "singleValue",
+                        "region": "us-east-1",
+                        "stat": "Sum",
+                        "period": 60,
+                        "sparkline": true,
+                        "title": "SingleThreadAuditWorker Jobs Per Minute"
+                    }
+                },
+                { 
+                    "height": 3,
+                    "width": 12,
+                    "y": 30,
+                    "x": 12,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "SingleThreadAuditWorker", { "label": "p10" } ],
+                            [ "...", { "label": "p50", "stat": "p50" } ],
+                            [ "...", { "label": "p99", "stat": "p99" } ],
+                            [ "...", { "label": "Average", "stat": "Average" } ]
+                        ],
+                        "view": "singleValue",
+                        "region": "us-east-1",
+                        "stat": "p10",
+                        "period": 60,
+                        "sparkline": true,
+                        "title": "SingleThreadAuditWorker Duration"
+                    }
+                },
+                
+
+
+
+
+                { 
+                    "height": 3,
+                    "width": 6,
+                    "y": 33,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                          [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "SingleThreadAuditWorker" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "SingleThreadAuditWorker Processed Jobs",
+                        "period": 60,
+                        "stat": "Sum"
+                  }
+                },
+                { 
+                    "height": 3,
+                    "width": 6,
+                    "y": 36,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                          [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "SingleThreadAuditWorker", { "color": "#d62728" }]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "SingleThreadAuditWorker Failed Jobs",
+                        "period": 60,
+                        "stat": "Sum"
+                  }
+                },
+                { 
+                    "height": 6,
+                    "width": 12,
+                    "y": 33,
+                    "x": 6,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "SingleThreadAuditWorker" ],
+                            [ "...", { "stat": "p80" } ],
+                            [ "...", { "stat": "p70" } ],
+                            [ "...", { "stat": "p60" } ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "p90",
+                        "period": 60,
+                        "title": "SingleThreadAuditWorker Duration Percentiles"
+                    }
+                },
+                { 
+                    "height": 3,
+                    "width": 6,
+                    "y": 33,
+                    "x": 18,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "SingleThreadAuditWorker" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "Maximum",
+                        "period": 60,
+                        "title": "SingleThreadAuditWorker Max"
+                    }
+                },
+                { 
+                    "height": 3,
+                    "width": 6,
+                    "y": 33,
+                    "x": 18,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "SingleThreadAuditWorker" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "Minimum",
+                        "period": 60,
+                        "title": "SingleThreadAuditWorker Min"
+                    }
+                },
+                
+
+
               { 
                     "height": 6,
                     "width": 12,
-                    "y": 3,
+                    "y": 39,
                     "x": 12,
                     "type": "metric",
                     "properties": {
@@ -50,7 +649,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 12,
-                    "y": 3,
+                    "y": 39,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -73,10 +672,11 @@ Resources:
                   }
                 },
                 
+
                 { 
                     "height": 6,
                     "width": 12,
-                    "y": 9,
+                    "y": 45,
                     "x": 12,
                     "type": "metric",
                     "properties": {
@@ -97,7 +697,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 12,
-                    "y": 9,
+                    "y": 45,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -121,7 +721,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 24,
-                    "y": 12,
+                    "y": 48,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -134,7 +734,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 18,
+                    "y": 54,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -144,7 +744,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 18,
+                    "y": 54,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -155,13 +755,14 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
+                        "sparkline": true,
                         "title": "Messages Per Minute"
                     }
                 },
                 { 
                     "height": 3,
                     "width": 15,
-                    "y": 18,
+                    "y": 54,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -175,6 +776,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p10",
                         "period": 60,
+                        "sparkline": true,
                         "title": "Handler Duration"
                     }
                 },
@@ -184,7 +786,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 9,
-                    "y": 21,
+                    "y": 57,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -210,7 +812,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 9,
-                    "y": 21,
+                    "y": 57,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -230,7 +832,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 21,
+                    "y": 57,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -257,7 +859,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 24,
+                    "y": 60,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -279,7 +881,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 27,
+                    "y": 63,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -289,7 +891,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 27,
+                    "y": 63,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -301,13 +903,14 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
+                        "sparkline": true,
                         "title": "Messages Per Minute"
                     }
                 },
                 { 
                     "height": 3,
                     "width": 15,
-                    "y": 27,
+                    "y": 63,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -323,13 +926,14 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p10",
                         "period": 60,
+                        "sparkline": true,
                         "title": "Handler Duration"
                     }
                 },
                 { 
                     "height": 6,
                     "width": 9,
-                    "y": 30,
+                    "y": 66,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -359,7 +963,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 9,
-                    "y": 30,
+                    "y": 66,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -379,7 +983,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 30,
+                    "y": 66,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -405,7 +1009,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 33,
+                    "y": 69,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -426,7 +1030,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 36,
+                    "y": 72,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -436,7 +1040,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 36,
+                    "y": 72,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -448,13 +1052,14 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
+                        "sparkline": true,
                         "title": "Messages Per Minute"
                     }
                 },
                 { 
                     "height": 3,
                     "width": 15,
-                    "y": 36,
+                    "y": 72,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -470,13 +1075,14 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p10",
                         "period": 60,
+                        "sparkline": true,
                         "title": "Handler Duration"
                     }
                 },
                 { 
                     "height": 6,
                     "width": 9,
-                    "y": 39,
+                    "y": 75,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -506,7 +1112,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 9,
-                    "y": 39,
+                    "y": 75,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -526,7 +1132,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 39,
+                    "y": 75,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -552,7 +1158,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 42,
+                    "y": 78,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -576,7 +1182,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 45,
+                    "y": 81,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -586,7 +1192,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 45,
+                    "y": 81,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -597,13 +1203,14 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Average",
                         "period": 60,
+                        "sparkline": true,
                         "title": "Messages To Be Scheduled"
                     }
                 },
                 { 
                     "height": 3,
                     "width": 15,
-                    "y": 45,
+                    "y": 81,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -617,6 +1224,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p10",
                         "period": 60,
+                        "sparkline": true,
                         "title": "Handler Duration"
                     }
                 },
@@ -627,7 +1235,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 48,
+                    "y": 84,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -652,7 +1260,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 9,
-                    "y": 48,
+                    "y": 84,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -672,7 +1280,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 9,
-                    "y": 48,
+                    "y": 84,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -694,7 +1302,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 9,
-                    "y": 51,
+                    "y": 87,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -716,7 +1324,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 51,
+                    "y": 87,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -734,7 +1342,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 9,
-                    "y": 51,
+                    "y": 87,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -760,7 +1368,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 18,
-                    "y": 54,
+                    "y": 90,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -784,7 +1392,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 54,
+                    "y": 90,
                     "x": 18,
                     "type": "metric",
                     "properties": {
