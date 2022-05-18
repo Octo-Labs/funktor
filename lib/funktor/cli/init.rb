@@ -144,7 +144,7 @@ module Funktor
       def app_worker_names
         app_worker_files.map do |file|
           File.basename(file, ".rb").camelize
-        end
+        end.sort
       end
 
       def app_worker_files

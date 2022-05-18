@@ -24,8 +24,8 @@ Resources:
 
               <%- app_worker_names.each do |worker_name| -%>
                 { <% "Worker" %>
-                    "height": 3,
-                    "width": 6,
+                    "height": 1,
+                    "width": 24,
                     "y": <%= current_y %>,
                     "x": 0,
                     "type": "text",
@@ -33,15 +33,34 @@ Resources:
                         "markdown": "\n# <%= worker_name %>\n"
                     }
                 },
+                <% current_y += 1 %>
+
                 { <% "Worker Jobs per minute" %>
-                    "height": 3,
-                    "width": 6,
+                    "height": 2,
+                    "width": 3,
                     "y": <%= current_y %>,
-                    "x": 6,
+                    "x": 0,
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "<%= worker_name %>" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "<%= worker_name %>" ]
+                        ],
+                        "view": "singleValue",
+                        "region": "us-east-1",
+                        "stat": "Sum",
+                        "period": 60,
+                        "sparkline": true,
+                        "title": "<%= worker_name %> Processed/Min"
+                    }
+                },
+                { <% "Worker Jobs per minute" %>
+                    "height": 2,
+                    "width": 3,
+                    "y": <%= current_y %>,
+                    "x": 3,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
                             [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "<%= worker_name %>", { "color": "#d62728" } ]
                         ],
                         "view": "singleValue",
@@ -49,28 +68,115 @@ Resources:
                         "stat": "Sum",
                         "period": 60,
                         "sparkline": true,
-                        "title": "<%= worker_name %> Jobs Per Minute"
+                        "title": "<%= worker_name %> Failed/Min"
                     }
                 },
-                { <% "Worker Durations" %>
-                    "height": 3,
-                    "width": 12,
+                { <% "Worker Duration Percentiles" %>
+                    "height": 2,
+                    "width": 3,
+                    "y": <%= current_y %>,
+                    "x": 6,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>", { "label": "p60", "color": "#1f77b4" } ]
+                        ],
+                        "view": "singleValue",
+                        "region": "us-east-1",
+                        "stat": "p60",
+                        "period": 60,
+                        "sparkline": true,
+                        "title": "<%= worker_name %> p60"
+                    }
+                },
+               { <% "Worker Duration Percentiles" %>
+                    "height": 2,
+                    "width": 3,
+                    "y": <%= current_y %>,
+                    "x": 9,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>", { "label": "p70", "color": "#ff7f0e" } ]
+                        ],
+                        "view": "singleValue",
+                        "region": "us-east-1",
+                        "stat": "p70",
+                        "period": 60,
+                        "sparkline": true,
+                        "title": "<%= worker_name %> p70"
+                    }
+                },
+               { <% "Worker Duration Percentiles" %>
+                    "height": 2,
+                    "width": 3,
                     "y": <%= current_y %>,
                     "x": 12,
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>", { "label": "p10" } ],
-                            [ "...", { "label": "p50", "stat": "p50" } ],
-                            [ "...", { "label": "p99", "stat": "p99" } ],
-                            [ "...", { "label": "Average", "stat": "Average" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>", { "label": "p80", "color": "#2ca02c" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
-                        "stat": "p10",
+                        "stat": "p80",
                         "period": 60,
                         "sparkline": true,
-                        "title": "<%= worker_name %> Duration"
+                        "title": "<%= worker_name %> p80"
+                    }
+                },
+               { <% "Worker Duration Percentiles" %>
+                    "height": 2,
+                    "width": 3,
+                    "y": <%= current_y %>,
+                    "x": 15,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>", { "label": "p90", "color": "#d62728" } ]
+                        ],
+                        "view": "singleValue",
+                        "region": "us-east-1",
+                        "stat": "p90",
+                        "period": 60,
+                        "sparkline": true,
+                        "title": "<%= worker_name %> p90"
+                    }
+                },
+                { <% "Worker Min/Max" %>
+                    "height": 2,
+                    "width": 3,
+                    "y": <%= current_y %>,
+                    "x": 18,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>", { "label": "Min" } ]
+                        ],
+                        "view": "singleValue",
+                        "region": "us-east-1",
+                        "stat": "Minimum",
+                        "period": 60,
+                        "sparkline": true,
+                        "title": "<%= worker_name %> Min"
+                    }
+                },
+                { <% "Worker Min/Max" %>
+                    "height": 2,
+                    "width": 3,
+                    "y": <%= current_y %>,
+                    "x": 21,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>", { "label": "Max", "color": "#d62728" } ]
+                        ],
+                        "view": "singleValue",
+                        "region": "us-east-1",
+                        "stat": "Maximum",
+                        "period": 60,
+                        "sparkline": true,
+                        "title": "<%= worker_name %> Max"
                     }
                 },
                 <% current_y += 3 %>
@@ -80,7 +186,7 @@ Resources:
 
                 { <% "Processed Jobs By Worker" %>
                     "height": 3,
-                    "width": 6,
+                    "width": 3,
                     "y": <%= current_y %>,
                     "x": 0,
                     "type": "metric",
@@ -93,14 +199,17 @@ Resources:
                         "region": "us-east-1",
                         "title": "<%= worker_name %> Processed Jobs",
                         "period": 60,
-                        "stat": "Sum"
+                        "stat": "Sum",
+                        "legend": {
+                          "position": "hidden"
+                        }
                   }
                 },
                 { <% "Failed Jobs By Worker" %>
                     "height": 3,
-                    "width": 6,
-                    "y": <%= current_y + 3 %>,
-                    "x": 0,
+                    "width": 3,
+                    "y": <%= current_y %>,
+                    "x": 3,
                     "type": "metric",
                     "properties": {
                         "metrics": [
@@ -111,51 +220,39 @@ Resources:
                         "region": "us-east-1",
                         "title": "<%= worker_name %> Failed Jobs",
                         "period": 60,
-                        "stat": "Sum"
+                        "stat": "Sum",
+                        "legend": {
+                          "position": "hidden"
+                        }
                   }
                 },
                 { <% "Job Duration By Worker" %>
-                    "height": 6,
+                    "height": 3,
                     "width": 12,
                     "y": <%= current_y %>,
                     "x": 6,
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>" ],
-                            [ "...", { "stat": "p80" } ],
-                            [ "...", { "stat": "p70" } ],
-                            [ "...", { "stat": "p60" } ]
+                          [ "funktor-testapp-dev", "Duration", "WorkerClassName", "AuditWorker", { "stat": "p90", "color": "#d62728" } ],
+                          [ "...", { "stat": "p80", "color": "#2ca02c" } ],
+                          [ "...", { "stat": "p70", "color": "#ff7f0e" } ],
+                          [ "...", { "color": "#1f77b4" } ]
                         ],
                         "view": "timeSeries",
                         "stacked": false,
                         "region": "us-east-1",
-                        "stat": "p90",
+                        "stat": "p60",
                         "period": 60,
-                        "title": "<%= worker_name %> Duration Percentiles"
-                    }
-                },
-                { <% "Maximum By Worker" %>
-                    "height": 3,
-                    "width": 6,
-                    "y": <%= current_y %>,
-                    "x": 18,
-                    "type": "metric",
-                    "properties": {
-                        "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>" ]
-                        ],
-                        "view": "timeSeries",
-                        "stacked": false,
-                        "region": "us-east-1",
-                        "stat": "Maximum",
-                        "period": 60,
-                        "title": "<%= worker_name %> Max"
+                        "title": "<%= worker_name %> Duration Percentiles",
+                        "legend": {
+                          "position": "right"
+                        }
                     }
                 },
                 { <% "Minimum By Worker" %>
                     "height": 3,
-                    "width": 6,
+                    "width": 3,
                     "y": <%= current_y %>,
                     "x": 18,
                     "type": "metric",
@@ -168,9 +265,34 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Minimum",
                         "period": 60,
-                        "title": "<%= worker_name %> Min"
+                        "title": "<%= worker_name %> Min",
+                        "legend": {
+                          "position": "hidden"
+                        }
                     }
                 },
+                { <% "Maximum By Worker" %>
+                    "height": 3,
+                    "width": 3,
+                    "y": <%= current_y %>,
+                    "x": 21,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>", { "color": "#d62728" } ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "Maximum",
+                        "period": 60,
+                        "title": "<%= worker_name %> Max",
+                        "legend": {
+                          "position": "hidden"
+                        }
+                    }
+                },
+                
                 <% current_y += 6 %>
               <%- end -%>
 
