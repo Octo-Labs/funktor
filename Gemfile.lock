@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    funktor (0.7.7)
+    funktor (0.7.8)
       activesupport
       aws-sdk-dynamodb (~> 1.62)
       aws-sdk-sqs (~> 1.37)
@@ -23,7 +23,7 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     aws-eventstream (1.2.0)
     aws-partitions (1.587.0)
-    aws-sdk-core (3.130.2)
+    aws-sdk-core (3.131.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.525.0)
       aws-sigv4 (~> 1.1)
