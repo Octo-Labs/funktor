@@ -21,6 +21,174 @@ Resources:
                 },
                 <% current_y += 3 %>
 
+                { <% "Processed Jobs By Worker" %>
+                    "height": 4,
+                    "width": 12,
+                    "y": <%= current_y %>,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            <%- app_worker_names.each do |worker_name| -%>
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "<%= worker_name %>" ]<%= worker_name == app_worker_names.last ? "" : "," %>
+                            <%- end -%>
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "Processed Jobs By Worker",
+                        "period": 60,
+                        "stat": "Sum"
+                  }
+                },
+                { <% "p90 By Worker" %>
+                    "height": 4,
+                    "width": 12,
+                    "y": <%= current_y %>,
+                    "x": 12,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            <%- app_worker_names.each do |worker_name| -%>
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>" ]<%= worker_name == app_worker_names.last ? "" : "," %>
+                            <%- end -%>
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "p90",
+                        "period": 60,
+                        "title": "p90 by Worker"
+                    }
+                },
+                <% current_y += 3 %>
+
+                { <% "Failed Jobs By Worker" %>
+                    "height": 4,
+                    "width": 12,
+                    "y": <%= current_y %>,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            <%- app_worker_names.each do |worker_name| -%>
+                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "<%= worker_name %>" ]<%= worker_name == app_worker_names.last ? "" : "," %>
+                            <%- end -%>
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "Failed Jobs By Worker",
+                        "period": 60,
+                        "stat": "Sum"
+                  }
+                },
+                { <% "p50 By Worker" %>
+                    "height": 4,
+                    "width": 12,
+                    "y": <%= current_y %>,
+                    "x": 12,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            <%- app_worker_names.each do |worker_name| -%>
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>" ]<%= worker_name == app_worker_names.last ? "" : "," %>
+                            <%- end -%>
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "p50",
+                        "period": 60,
+                        "title": "p50 by Worker"
+                    }
+                },
+                <% current_y += 3 %>
+
+                { <% "Processed Jobs By Queue" %>
+                    "height": 4,
+                    "width": 12,
+                    "y": <%= current_y %>,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            <%- queue_names.each do |queue_name| -%>
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "Queue", "<%= queue_name.underscore %>" ]<%= queue_name == queue_names.last ? "" : "," %>
+                            <%- end -%>
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "Processed Jobs By Queue",
+                        "period": 60,
+                        "stat": "Sum"
+                  }
+                },
+                { <% "p90 By Queue" %>
+                    "height": 4,
+                    "width": 12,
+                    "y": <%= current_y %>,
+                    "x": 12,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            <%- queue_names.each do |queue_name| -%>
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "Queue", "<%= queue_name.underscore %>" ]<%= queue_name == queue_names.last ? "" : "," %>
+                            <%- end -%>
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "p90",
+                        "period": 60,
+                        "title": "p90 by Queue"
+                    }
+                },
+
+                <% current_y += 3 %>
+                { <% "Failed Jobs By Queue" %>
+                    "height": 4,
+                    "width": 12,
+                    "y": <%= current_y %>,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            <%- queue_names.each do |queue_name| -%>
+                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "Queue", "<%= queue_name.underscore %>" ]<%= queue_name == queue_names.last ? "" : "," %>
+                            <%- end -%>
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "Failed Jobs By Queue",
+                        "period": 60,
+                        "stat": "Sum"
+                  }
+                },
+                { <% "p50 By Queue" %>
+                    "height": 4,
+                    "width": 12,
+                    "y": <%= current_y %>,
+                    "x": 12,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            <%- queue_names.each do |queue_name| -%>
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "Queue", "<%= queue_name.underscore %>" ]<%= queue_name == queue_names.last ? "" : "," %>
+                            <%- end -%>
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "p50",
+                        "period": 60,
+                        "title": "p50 by Queue"
+                    }
+                },
+                <% current_y += 3 %>
+
                 { <% "Jobs/Minute Section" %>
                     "height": 1,
                     "width": 24,
@@ -414,10 +582,30 @@ Resources:
                         }
                     }
                 },
-                
                 <% current_y += 6 %>
               <%- end -%>
 
+                { <% "Processed/Failed Jobs By Worker" %>
+                    "height": 6,
+                    "width": 12,
+                    "y": <%= current_y %>,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            <%- app_worker_names.each do |worker_name| -%>
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "<%= worker_name %>" ],
+                            [ ".", "failed", ".", "." ]<%= worker_name == app_worker_names.last ? "" : "," %>
+                            <%- end -%>
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "Process/Failed Jobs By Worker",
+                        "period": 60,
+                        "stat": "Sum"
+                  }
+                },
 
               { <% "Job Duration By Worker" %>
                     "height": 6,
@@ -441,27 +629,7 @@ Resources:
                     }
                 },
 
-                { <% "Processed/Failed Jobs By Worker" %>
-                    "height": 6,
-                    "width": 12,
-                    "y": <%= current_y %>,
-                    "x": 0,
-                    "type": "metric",
-                    "properties": {
-                        "metrics": [
-                            <%- app_worker_names.each do |worker_name| -%>
-                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "<%= worker_name %>" ],
-                            [ ".", "failed", ".", "." ]<%= worker_name == app_worker_names.last ? "" : "," %>
-                            <%- end -%>
-                        ],
-                        "view": "timeSeries",
-                        "stacked": false,
-                        "region": "us-east-1",
-                        "title": "Process/Failed Jobs By Worker",
-                        "period": 60,
-                        "stat": "Sum"
-                  }
-                },
+                
                 <% current_y += 6 %>
 
                 { <% "Job Duration By Queue" %>

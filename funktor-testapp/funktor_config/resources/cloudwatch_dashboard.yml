@@ -22,9 +22,177 @@ Resources:
                 
 
                 { 
+                    "height": 4,
+                    "width": 12,
+                    "y": 3,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "AuditWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "GreetingsWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "HelloWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "SingleThreadAuditWorker" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "Processed Jobs By Worker",
+                        "period": 60,
+                        "stat": "Sum"
+                  }
+                },
+                { 
+                    "height": 4,
+                    "width": 12,
+                    "y": 3,
+                    "x": 12,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "SingleThreadAuditWorker" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "p90",
+                        "period": 60,
+                        "title": "p90 by Worker"
+                    }
+                },
+                
+
+                { 
+                    "height": 4,
+                    "width": 12,
+                    "y": 6,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "AuditWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "GreetingsWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "HelloWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "SingleThreadAuditWorker" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "Failed Jobs By Worker",
+                        "period": 60,
+                        "stat": "Sum"
+                  }
+                },
+                { 
+                    "height": 4,
+                    "width": 12,
+                    "y": 6,
+                    "x": 12,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "SingleThreadAuditWorker" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "p50",
+                        "period": 60,
+                        "title": "p50 by Worker"
+                    }
+                },
+                
+
+                { 
+                    "height": 4,
+                    "width": 12,
+                    "y": 9,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "Queue", "default" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "Queue", "low_concurrency" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "Processed Jobs By Queue",
+                        "period": 60,
+                        "stat": "Sum"
+                  }
+                },
+                { 
+                    "height": 4,
+                    "width": 12,
+                    "y": 9,
+                    "x": 12,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "Queue", "default" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "Queue", "low_concurrency" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "p90",
+                        "period": 60,
+                        "title": "p90 by Queue"
+                    }
+                },
+
+                
+                { 
+                    "height": 4,
+                    "width": 12,
+                    "y": 12,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "Queue", "default" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "Queue", "low_concurrency" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "Failed Jobs By Queue",
+                        "period": 60,
+                        "stat": "Sum"
+                  }
+                },
+                { 
+                    "height": 4,
+                    "width": 12,
+                    "y": 12,
+                    "x": 12,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "Queue", "default" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "Queue", "low_concurrency" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "p50",
+                        "period": 60,
+                        "title": "p50 by Queue"
+                    }
+                },
+                
+
+                { 
                     "height": 1,
                     "width": 24,
-                    "y": 3,
+                    "y": 15,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -38,7 +206,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 4,
-                    "y": 4,
+                    "y": 16,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -60,7 +228,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 4,
-                    "y": 4,
+                    "y": 16,
                     "x": 4,
                     "type": "metric",
                     "properties": {
@@ -82,7 +250,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 4,
-                    "y": 4,
+                    "y": 16,
                     "x": 8,
                     "type": "metric",
                     "properties": {
@@ -104,7 +272,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 4,
-                    "y": 4,
+                    "y": 16,
                     "x": 12,
                     "type": "metric",
                     "properties": {
@@ -128,7 +296,7 @@ Resources:
               { 
                     "height": 1,
                     "width": 24,
-                    "y": 7,
+                    "y": 19,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -142,7 +310,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 4,
-                    "y": 8,
+                    "y": 20,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -164,7 +332,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 4,
-                    "y": 8,
+                    "y": 20,
                     "x": 4,
                     "type": "metric",
                     "properties": {
@@ -186,7 +354,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 4,
-                    "y": 8,
+                    "y": 20,
                     "x": 8,
                     "type": "metric",
                     "properties": {
@@ -208,7 +376,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 4,
-                    "y": 8,
+                    "y": 20,
                     "x": 12,
                     "type": "metric",
                     "properties": {
@@ -232,7 +400,7 @@ Resources:
                 { 
                     "height": 1,
                     "width": 24,
-                    "y": 11,
+                    "y": 23,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -246,7 +414,7 @@ Resources:
                 { 
                     "height": 4,
                     "width": 4,
-                    "y": 12,
+                    "y": 24,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -271,7 +439,7 @@ Resources:
                 { 
                     "height": 4,
                     "width": 4,
-                    "y": 12,
+                    "y": 24,
                     "x": 4,
                     "type": "metric",
                     "properties": {
@@ -296,7 +464,7 @@ Resources:
                 { 
                     "height": 4,
                     "width": 4,
-                    "y": 12,
+                    "y": 24,
                     "x": 8,
                     "type": "metric",
                     "properties": {
@@ -321,7 +489,7 @@ Resources:
                 { 
                     "height": 4,
                     "width": 4,
-                    "y": 12,
+                    "y": 24,
                     "x": 12,
                     "type": "metric",
                     "properties": {
@@ -348,7 +516,7 @@ Resources:
                 { 
                     "height": 1,
                     "width": 24,
-                    "y": 15,
+                    "y": 27,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -360,7 +528,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 16,
+                    "y": 28,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -378,7 +546,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 16,
+                    "y": 28,
                     "x": 3,
                     "type": "metric",
                     "properties": {
@@ -396,7 +564,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 16,
+                    "y": 28,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -414,7 +582,7 @@ Resources:
                { 
                     "height": 2,
                     "width": 3,
-                    "y": 16,
+                    "y": 28,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -432,7 +600,7 @@ Resources:
                { 
                     "height": 2,
                     "width": 3,
-                    "y": 16,
+                    "y": 28,
                     "x": 12,
                     "type": "metric",
                     "properties": {
@@ -450,7 +618,7 @@ Resources:
                { 
                     "height": 2,
                     "width": 3,
-                    "y": 16,
+                    "y": 28,
                     "x": 15,
                     "type": "metric",
                     "properties": {
@@ -468,7 +636,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 16,
+                    "y": 28,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -486,7 +654,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 16,
+                    "y": 28,
                     "x": 21,
                     "type": "metric",
                     "properties": {
@@ -509,7 +677,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 19,
+                    "y": 31,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -530,7 +698,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 19,
+                    "y": 31,
                     "x": 3,
                     "type": "metric",
                     "properties": {
@@ -551,7 +719,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 12,
-                    "y": 19,
+                    "y": 31,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -575,7 +743,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 19,
+                    "y": 31,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -596,7 +764,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 19,
+                    "y": 31,
                     "x": 21,
                     "type": "metric",
                     "properties": {
@@ -615,11 +783,10 @@ Resources:
                     }
                 },
                 
-                
                 { 
                     "height": 1,
                     "width": 24,
-                    "y": 25,
+                    "y": 37,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -631,7 +798,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 26,
+                    "y": 38,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -649,7 +816,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 26,
+                    "y": 38,
                     "x": 3,
                     "type": "metric",
                     "properties": {
@@ -667,7 +834,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 26,
+                    "y": 38,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -685,7 +852,7 @@ Resources:
                { 
                     "height": 2,
                     "width": 3,
-                    "y": 26,
+                    "y": 38,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -703,7 +870,7 @@ Resources:
                { 
                     "height": 2,
                     "width": 3,
-                    "y": 26,
+                    "y": 38,
                     "x": 12,
                     "type": "metric",
                     "properties": {
@@ -721,7 +888,7 @@ Resources:
                { 
                     "height": 2,
                     "width": 3,
-                    "y": 26,
+                    "y": 38,
                     "x": 15,
                     "type": "metric",
                     "properties": {
@@ -739,7 +906,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 26,
+                    "y": 38,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -757,7 +924,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 26,
+                    "y": 38,
                     "x": 21,
                     "type": "metric",
                     "properties": {
@@ -780,7 +947,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 29,
+                    "y": 41,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -801,7 +968,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 29,
+                    "y": 41,
                     "x": 3,
                     "type": "metric",
                     "properties": {
@@ -822,7 +989,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 12,
-                    "y": 29,
+                    "y": 41,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -846,7 +1013,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 29,
+                    "y": 41,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -867,7 +1034,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 29,
+                    "y": 41,
                     "x": 21,
                     "type": "metric",
                     "properties": {
@@ -886,11 +1053,10 @@ Resources:
                     }
                 },
                 
-                
                 { 
                     "height": 1,
                     "width": 24,
-                    "y": 35,
+                    "y": 47,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -902,7 +1068,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 36,
+                    "y": 48,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -920,7 +1086,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 36,
+                    "y": 48,
                     "x": 3,
                     "type": "metric",
                     "properties": {
@@ -938,7 +1104,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 36,
+                    "y": 48,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -956,7 +1122,7 @@ Resources:
                { 
                     "height": 2,
                     "width": 3,
-                    "y": 36,
+                    "y": 48,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -974,7 +1140,7 @@ Resources:
                { 
                     "height": 2,
                     "width": 3,
-                    "y": 36,
+                    "y": 48,
                     "x": 12,
                     "type": "metric",
                     "properties": {
@@ -992,7 +1158,7 @@ Resources:
                { 
                     "height": 2,
                     "width": 3,
-                    "y": 36,
+                    "y": 48,
                     "x": 15,
                     "type": "metric",
                     "properties": {
@@ -1010,7 +1176,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 36,
+                    "y": 48,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -1028,7 +1194,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 36,
+                    "y": 48,
                     "x": 21,
                     "type": "metric",
                     "properties": {
@@ -1051,7 +1217,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 39,
+                    "y": 51,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1072,7 +1238,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 39,
+                    "y": 51,
                     "x": 3,
                     "type": "metric",
                     "properties": {
@@ -1093,7 +1259,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 12,
-                    "y": 39,
+                    "y": 51,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -1117,7 +1283,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 39,
+                    "y": 51,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -1138,7 +1304,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 39,
+                    "y": 51,
                     "x": 21,
                     "type": "metric",
                     "properties": {
@@ -1157,11 +1323,10 @@ Resources:
                     }
                 },
                 
-                
                 { 
                     "height": 1,
                     "width": 24,
-                    "y": 45,
+                    "y": 57,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -1173,7 +1338,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 46,
+                    "y": 58,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1191,7 +1356,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 46,
+                    "y": 58,
                     "x": 3,
                     "type": "metric",
                     "properties": {
@@ -1209,7 +1374,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 46,
+                    "y": 58,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -1227,7 +1392,7 @@ Resources:
                { 
                     "height": 2,
                     "width": 3,
-                    "y": 46,
+                    "y": 58,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -1245,7 +1410,7 @@ Resources:
                { 
                     "height": 2,
                     "width": 3,
-                    "y": 46,
+                    "y": 58,
                     "x": 12,
                     "type": "metric",
                     "properties": {
@@ -1263,7 +1428,7 @@ Resources:
                { 
                     "height": 2,
                     "width": 3,
-                    "y": 46,
+                    "y": 58,
                     "x": 15,
                     "type": "metric",
                     "properties": {
@@ -1281,7 +1446,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 46,
+                    "y": 58,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -1299,7 +1464,7 @@ Resources:
                 { 
                     "height": 2,
                     "width": 3,
-                    "y": 46,
+                    "y": 58,
                     "x": 21,
                     "type": "metric",
                     "properties": {
@@ -1322,7 +1487,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 49,
+                    "y": 61,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1343,7 +1508,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 49,
+                    "y": 61,
                     "x": 3,
                     "type": "metric",
                     "properties": {
@@ -1364,7 +1529,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 12,
-                    "y": 49,
+                    "y": 61,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -1388,7 +1553,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 49,
+                    "y": 61,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -1409,7 +1574,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 49,
+                    "y": 61,
                     "x": 21,
                     "type": "metric",
                     "properties": {
@@ -1428,13 +1593,37 @@ Resources:
                     }
                 },
                 
-                
 
+                { 
+                    "height": 6,
+                    "width": 12,
+                    "y": 67,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "AuditWorker" ],
+                            [ ".", "failed", ".", "." ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "GreetingsWorker" ],
+                            [ ".", "failed", ".", "." ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "HelloWorker" ],
+                            [ ".", "failed", ".", "." ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "SingleThreadAuditWorker" ],
+                            [ ".", "failed", ".", "." ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "Process/Failed Jobs By Worker",
+                        "period": 60,
+                        "stat": "Sum"
+                  }
+                },
 
               { 
                     "height": 6,
                     "width": 12,
-                    "y": 55,
+                    "y": 67,
                     "x": 12,
                     "type": "metric",
                     "properties": {
@@ -1457,37 +1646,13 @@ Resources:
                     }
                 },
 
-                { 
-                    "height": 6,
-                    "width": 12,
-                    "y": 55,
-                    "x": 0,
-                    "type": "metric",
-                    "properties": {
-                        "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "AuditWorker" ],
-                            [ ".", "failed", ".", "." ],
-                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "GreetingsWorker" ],
-                            [ ".", "failed", ".", "." ],
-                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "HelloWorker" ],
-                            [ ".", "failed", ".", "." ],
-                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "SingleThreadAuditWorker" ],
-                            [ ".", "failed", ".", "." ]
-                        ],
-                        "view": "timeSeries",
-                        "stacked": false,
-                        "region": "us-east-1",
-                        "title": "Process/Failed Jobs By Worker",
-                        "period": 60,
-                        "stat": "Sum"
-                  }
-                },
+                
                 
 
                 { 
                     "height": 6,
                     "width": 12,
-                    "y": 61,
+                    "y": 73,
                     "x": 12,
                     "type": "metric",
                     "properties": {
@@ -1508,7 +1673,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 12,
-                    "y": 61,
+                    "y": 73,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1532,7 +1697,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 24,
-                    "y": 64,
+                    "y": 76,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -1545,7 +1710,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 70,
+                    "y": 82,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -1555,7 +1720,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 70,
+                    "y": 82,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -1573,7 +1738,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 15,
-                    "y": 70,
+                    "y": 82,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -1597,7 +1762,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 9,
-                    "y": 73,
+                    "y": 85,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1623,7 +1788,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 9,
-                    "y": 73,
+                    "y": 85,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -1643,7 +1808,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 73,
+                    "y": 85,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -1670,7 +1835,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 76,
+                    "y": 88,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -1692,7 +1857,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 79,
+                    "y": 91,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -1702,7 +1867,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 79,
+                    "y": 91,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -1721,7 +1886,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 15,
-                    "y": 79,
+                    "y": 91,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -1744,7 +1909,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 9,
-                    "y": 82,
+                    "y": 94,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1774,7 +1939,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 9,
-                    "y": 82,
+                    "y": 94,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -1794,7 +1959,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 82,
+                    "y": 94,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -1820,7 +1985,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 85,
+                    "y": 97,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -1841,7 +2006,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 88,
+                    "y": 100,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -1851,7 +2016,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 88,
+                    "y": 100,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -1870,7 +2035,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 15,
-                    "y": 88,
+                    "y": 100,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -1893,7 +2058,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 9,
-                    "y": 91,
+                    "y": 103,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1923,7 +2088,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 9,
-                    "y": 91,
+                    "y": 103,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -1943,7 +2108,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 91,
+                    "y": 103,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -1969,7 +2134,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 94,
+                    "y": 106,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -1993,7 +2158,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 97,
+                    "y": 109,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -2003,7 +2168,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 97,
+                    "y": 109,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -2021,7 +2186,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 15,
-                    "y": 97,
+                    "y": 109,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -2046,7 +2211,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 100,
+                    "y": 112,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -2071,7 +2236,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 9,
-                    "y": 100,
+                    "y": 112,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -2091,7 +2256,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 9,
-                    "y": 100,
+                    "y": 112,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -2113,7 +2278,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 9,
-                    "y": 103,
+                    "y": 115,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -2135,7 +2300,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 103,
+                    "y": 115,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -2153,7 +2318,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 9,
-                    "y": 103,
+                    "y": 115,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -2179,7 +2344,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 18,
-                    "y": 106,
+                    "y": 118,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -2203,7 +2368,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 106,
+                    "y": 118,
                     "x": 18,
                     "type": "metric",
                     "properties": {
