@@ -189,6 +189,84 @@ Resources:
                 },
                 <% current_y += 3 %>
 
+              { <% "Worker Overview" %>
+                    "height": 1,
+                    "width": 24,
+                    "y": <%= current_y %>,
+                    "x": 0,
+                    "type": "text",
+                    "properties": {
+                        "markdown": "\n# Worker Overviews\n"
+                    }
+                },
+                <% current_y += 1 %>
+
+                <%- primary_workers.each_with_index do |worker_name, index| -%>
+                  <%- current_y += 5 if (index > 0 && (index % 3) == 0) %>
+                  { <% "Worker Overview" %>
+                      "height": 5,
+                      "width": 8,
+                      "y": <%= current_y %>,
+                      "x": <%= (index % 3) * 8 %>,
+                      "type": "metric",
+                      "properties": {
+                          "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "<%= worker_name %>", { "color": "#2ca02c" } ],
+                              [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>", { "label": "p90", "color": "#ff7f0e", "stat": "p90" } ],
+                              [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "<%= worker_name %>", { "color": "#d62728" } ],
+                              [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>", { "label": "p60", "color": "#1f77b4", "stat": "p60" } ]
+                          ],
+                          "view": "singleValue",
+                          "region": "us-east-1",
+                          "stat": "Sum",
+                          "period": 60,
+                          "sparkline": true,
+                          "title": "<%= worker_name %>"
+                      }
+                  },
+                <%- end -%>
+                <%#- current_y += 5 if (primary_workers.count - 1) % 3 != 0 %>
+                <%- current_y += 5 %>
+
+                { <% "Worker Overview Redux" %>
+                    "height": 1,
+                    "width": 24,
+                    "y": <%= current_y %>,
+                    "x": 0,
+                    "type": "text",
+                    "properties": {
+                        "markdown": "\n# Worker Overviews Redux\n"
+                    }
+                },
+                <% current_y += 1 %>
+
+                <%- primary_workers.each_with_index do |worker_name, index| -%>
+                  <%- current_y += 9 if (index > 0 && (index % 6) == 0) %>
+                  { <% "Worker Overview" %>
+                      "height": 9,
+                      "width": 4,
+                      "y": <%= current_y %>,
+                      "x": <%= (index % 6) * 4 %>,
+                      "type": "metric",
+                      "properties": {
+                          "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "<%= worker_name %>", { "color": "#2ca02c" } ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "<%= worker_name %>", { "color": "#d62728" } ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>", { "label": "p90", "color": "#ff7f0e", "stat": "p90" } ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>", { "label": "p60", "color": "#1f77b4", "stat": "p60" } ]
+                          ],
+                          "view": "singleValue",
+                          "region": "us-east-1",
+                          "stat": "Sum",
+                          "period": 60,
+                          "sparkline": true,
+                          "title": "<%= worker_name %>"
+                      }
+                  },
+                <%- end -%>
+                <%#- current_y += 9 if (primary_workers.count - 1) % 3 != 0 %>
+                <%- current_y += 9 %>
+
                 { <% "Jobs/Minute Section" %>
                     "height": 1,
                     "width": 24,
@@ -272,27 +350,28 @@ Resources:
                 <% current_y += 1 %>
 
                 <%- primary_workers.each_with_index do |worker_name, index| -%>
-                  <%- current_y += 3 if (index > 0 && (index % 6) == 0) %>
+                  <%- current_y += 5 if (index > 0 && (index % 6) == 0) %>
                   { <% "p50 by worker" %>
-                      "height": 3,
+                      "height": 5,
                       "width": 3,
                       "y": <%= current_y %>,
                       "x": <%= (index % 8) * 3 %>,
                       "type": "metric",
                       "properties": {
                           "metrics": [
-                              [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>" ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>", { "color": "#d62728", "label": "p90"} ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>", { "color": "#1f77b4", "label": "p60", "stat": "p60"} ]
                           ],
                           "view": "singleValue",
                           "region": "us-east-1",
-                          "stat": "p50",
+                          "stat": "p90",
                           "period": 60,
                           "sparkline": true,
                           "title": "<%= worker_name %>"
                       }
                   },
                 <%- end -%>
-                <%- current_y += 3 if (primary_workers.count - 1) % 6 != 0 %>
+                <%- current_y += 5 if (primary_workers.count - 1) % 6 != 0 %>
 
 
 

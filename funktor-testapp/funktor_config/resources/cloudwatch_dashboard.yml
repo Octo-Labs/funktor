@@ -189,10 +189,216 @@ Resources:
                 },
                 
 
-                { 
+              { 
                     "height": 1,
                     "width": 24,
                     "y": 15,
+                    "x": 0,
+                    "type": "text",
+                    "properties": {
+                        "markdown": "\n# Worker Overviews\n"
+                    }
+                },
+                
+
+
+                  { 
+                      "height": 5,
+                      "width": 8,
+                      "y": 16,
+                      "x": 0,
+                      "type": "metric",
+                      "properties": {
+                          "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "HelloWorker", { "color": "#2ca02c" } ],
+                              [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "label": "p90", "color": "#ff7f0e", "stat": "p90" } ],
+                              [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "HelloWorker", { "color": "#d62728" } ],
+                              [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "label": "p60", "color": "#1f77b4", "stat": "p60" } ]
+                          ],
+                          "view": "singleValue",
+                          "region": "us-east-1",
+                          "stat": "Sum",
+                          "period": 60,
+                          "sparkline": true,
+                          "title": "HelloWorker"
+                      }
+                  },
+
+                  { 
+                      "height": 5,
+                      "width": 8,
+                      "y": 16,
+                      "x": 8,
+                      "type": "metric",
+                      "properties": {
+                          "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "GreetingsWorker", { "color": "#2ca02c" } ],
+                              [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "p90", "color": "#ff7f0e", "stat": "p90" } ],
+                              [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "GreetingsWorker", { "color": "#d62728" } ],
+                              [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "p60", "color": "#1f77b4", "stat": "p60" } ]
+                          ],
+                          "view": "singleValue",
+                          "region": "us-east-1",
+                          "stat": "Sum",
+                          "period": 60,
+                          "sparkline": true,
+                          "title": "GreetingsWorker"
+                      }
+                  },
+
+                  { 
+                      "height": 5,
+                      "width": 8,
+                      "y": 16,
+                      "x": 16,
+                      "type": "metric",
+                      "properties": {
+                          "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "AuditWorker", { "color": "#2ca02c" } ],
+                              [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "label": "p90", "color": "#ff7f0e", "stat": "p90" } ],
+                              [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "AuditWorker", { "color": "#d62728" } ],
+                              [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "label": "p60", "color": "#1f77b4", "stat": "p60" } ]
+                          ],
+                          "view": "singleValue",
+                          "region": "us-east-1",
+                          "stat": "Sum",
+                          "period": 60,
+                          "sparkline": true,
+                          "title": "AuditWorker"
+                      }
+                  },
+
+                  { 
+                      "height": 5,
+                      "width": 8,
+                      "y": 21,
+                      "x": 0,
+                      "type": "metric",
+                      "properties": {
+                          "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "SingleThreadAuditWorker", { "color": "#2ca02c" } ],
+                              [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "SingleThreadAuditWorker", { "label": "p90", "color": "#ff7f0e", "stat": "p90" } ],
+                              [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "SingleThreadAuditWorker", { "color": "#d62728" } ],
+                              [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "SingleThreadAuditWorker", { "label": "p60", "color": "#1f77b4", "stat": "p60" } ]
+                          ],
+                          "view": "singleValue",
+                          "region": "us-east-1",
+                          "stat": "Sum",
+                          "period": 60,
+                          "sparkline": true,
+                          "title": "SingleThreadAuditWorker"
+                      }
+                  },
+                
+
+
+                { 
+                    "height": 1,
+                    "width": 24,
+                    "y": 26,
+                    "x": 0,
+                    "type": "text",
+                    "properties": {
+                        "markdown": "\n# Worker Overviews Redux\n"
+                    }
+                },
+                
+
+
+                  { 
+                      "height": 9,
+                      "width": 4,
+                      "y": 27,
+                      "x": 0,
+                      "type": "metric",
+                      "properties": {
+                          "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "HelloWorker", { "color": "#2ca02c" } ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "HelloWorker", { "color": "#d62728" } ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "label": "p90", "color": "#ff7f0e", "stat": "p90" } ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "label": "p60", "color": "#1f77b4", "stat": "p60" } ]
+                          ],
+                          "view": "singleValue",
+                          "region": "us-east-1",
+                          "stat": "Sum",
+                          "period": 60,
+                          "sparkline": true,
+                          "title": "HelloWorker"
+                      }
+                  },
+
+                  { 
+                      "height": 9,
+                      "width": 4,
+                      "y": 27,
+                      "x": 4,
+                      "type": "metric",
+                      "properties": {
+                          "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "GreetingsWorker", { "color": "#2ca02c" } ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "GreetingsWorker", { "color": "#d62728" } ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "p90", "color": "#ff7f0e", "stat": "p90" } ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "p60", "color": "#1f77b4", "stat": "p60" } ]
+                          ],
+                          "view": "singleValue",
+                          "region": "us-east-1",
+                          "stat": "Sum",
+                          "period": 60,
+                          "sparkline": true,
+                          "title": "GreetingsWorker"
+                      }
+                  },
+
+                  { 
+                      "height": 9,
+                      "width": 4,
+                      "y": 27,
+                      "x": 8,
+                      "type": "metric",
+                      "properties": {
+                          "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "AuditWorker", { "color": "#2ca02c" } ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "AuditWorker", { "color": "#d62728" } ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "label": "p90", "color": "#ff7f0e", "stat": "p90" } ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "label": "p60", "color": "#1f77b4", "stat": "p60" } ]
+                          ],
+                          "view": "singleValue",
+                          "region": "us-east-1",
+                          "stat": "Sum",
+                          "period": 60,
+                          "sparkline": true,
+                          "title": "AuditWorker"
+                      }
+                  },
+
+                  { 
+                      "height": 9,
+                      "width": 4,
+                      "y": 27,
+                      "x": 12,
+                      "type": "metric",
+                      "properties": {
+                          "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "SingleThreadAuditWorker", { "color": "#2ca02c" } ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "SingleThreadAuditWorker", { "color": "#d62728" } ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "SingleThreadAuditWorker", { "label": "p90", "color": "#ff7f0e", "stat": "p90" } ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "SingleThreadAuditWorker", { "label": "p60", "color": "#1f77b4", "stat": "p60" } ]
+                          ],
+                          "view": "singleValue",
+                          "region": "us-east-1",
+                          "stat": "Sum",
+                          "period": 60,
+                          "sparkline": true,
+                          "title": "SingleThreadAuditWorker"
+                      }
+                  },
+                
+
+
+                { 
+                    "height": 1,
+                    "width": 24,
+                    "y": 36,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -205,7 +411,7 @@ Resources:
                   { 
                       "height": 3,
                       "width": 3,
-                      "y": 16,
+                      "y": 37,
                       "x": 0,
                       "type": "metric",
                       "properties": {
@@ -224,7 +430,7 @@ Resources:
                   { 
                       "height": 3,
                       "width": 3,
-                      "y": 16,
+                      "y": 37,
                       "x": 3,
                       "type": "metric",
                       "properties": {
@@ -243,7 +449,7 @@ Resources:
                   { 
                       "height": 3,
                       "width": 3,
-                      "y": 16,
+                      "y": 37,
                       "x": 6,
                       "type": "metric",
                       "properties": {
@@ -262,7 +468,7 @@ Resources:
                   { 
                       "height": 3,
                       "width": 3,
-                      "y": 16,
+                      "y": 37,
                       "x": 9,
                       "type": "metric",
                       "properties": {
@@ -282,7 +488,7 @@ Resources:
                 { 
                     "height": 1,
                     "width": 24,
-                    "y": 19,
+                    "y": 40,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -295,7 +501,7 @@ Resources:
                   { 
                       "height": 3,
                       "width": 3,
-                      "y": 20,
+                      "y": 41,
                       "x": 0,
                       "type": "metric",
                       "properties": {
@@ -314,7 +520,7 @@ Resources:
                   { 
                       "height": 3,
                       "width": 3,
-                      "y": 20,
+                      "y": 41,
                       "x": 3,
                       "type": "metric",
                       "properties": {
@@ -333,7 +539,7 @@ Resources:
                   { 
                       "height": 3,
                       "width": 3,
-                      "y": 20,
+                      "y": 41,
                       "x": 6,
                       "type": "metric",
                       "properties": {
@@ -352,7 +558,7 @@ Resources:
                   { 
                       "height": 3,
                       "width": 3,
-                      "y": 20,
+                      "y": 41,
                       "x": 9,
                       "type": "metric",
                       "properties": {
@@ -372,7 +578,7 @@ Resources:
                 { 
                     "height": 1,
                     "width": 24,
-                    "y": 23,
+                    "y": 44,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -383,18 +589,19 @@ Resources:
 
 
                   { 
-                      "height": 3,
+                      "height": 5,
                       "width": 3,
-                      "y": 24,
+                      "y": 45,
                       "x": 0,
                       "type": "metric",
                       "properties": {
                           "metrics": [
-                              [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker" ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "color": "#d62728", "label": "p90"} ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "color": "#1f77b4", "label": "p60", "stat": "p60"} ]
                           ],
                           "view": "singleValue",
                           "region": "us-east-1",
-                          "stat": "p50",
+                          "stat": "p90",
                           "period": 60,
                           "sparkline": true,
                           "title": "HelloWorker"
@@ -402,18 +609,19 @@ Resources:
                   },
 
                   { 
-                      "height": 3,
+                      "height": 5,
                       "width": 3,
-                      "y": 24,
+                      "y": 45,
                       "x": 3,
                       "type": "metric",
                       "properties": {
                           "metrics": [
-                              [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker" ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "color": "#d62728", "label": "p90"} ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "color": "#1f77b4", "label": "p60", "stat": "p60"} ]
                           ],
                           "view": "singleValue",
                           "region": "us-east-1",
-                          "stat": "p50",
+                          "stat": "p90",
                           "period": 60,
                           "sparkline": true,
                           "title": "GreetingsWorker"
@@ -421,18 +629,19 @@ Resources:
                   },
 
                   { 
-                      "height": 3,
+                      "height": 5,
                       "width": 3,
-                      "y": 24,
+                      "y": 45,
                       "x": 6,
                       "type": "metric",
                       "properties": {
                           "metrics": [
-                              [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker" ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "color": "#d62728", "label": "p90"} ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "color": "#1f77b4", "label": "p60", "stat": "p60"} ]
                           ],
                           "view": "singleValue",
                           "region": "us-east-1",
-                          "stat": "p50",
+                          "stat": "p90",
                           "period": 60,
                           "sparkline": true,
                           "title": "AuditWorker"
@@ -440,18 +649,19 @@ Resources:
                   },
 
                   { 
-                      "height": 3,
+                      "height": 5,
                       "width": 3,
-                      "y": 24,
+                      "y": 45,
                       "x": 9,
                       "type": "metric",
                       "properties": {
                           "metrics": [
-                              [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "SingleThreadAuditWorker" ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "SingleThreadAuditWorker", { "color": "#d62728", "label": "p90"} ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "SingleThreadAuditWorker", { "color": "#1f77b4", "label": "p60", "stat": "p60"} ]
                           ],
                           "view": "singleValue",
                           "region": "us-east-1",
-                          "stat": "p50",
+                          "stat": "p90",
                           "period": 60,
                           "sparkline": true,
                           "title": "SingleThreadAuditWorker"
@@ -466,7 +676,7 @@ Resources:
                 { 
                     "height": 1,
                     "width": 24,
-                    "y": 27,
+                    "y": 50,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -480,7 +690,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 4,
-                    "y": 28,
+                    "y": 51,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -502,7 +712,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 4,
-                    "y": 28,
+                    "y": 51,
                     "x": 4,
                     "type": "metric",
                     "properties": {
@@ -524,7 +734,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 4,
-                    "y": 28,
+                    "y": 51,
                     "x": 8,
                     "type": "metric",
                     "properties": {
@@ -546,7 +756,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 4,
-                    "y": 28,
+                    "y": 51,
                     "x": 12,
                     "type": "metric",
                     "properties": {
@@ -570,7 +780,7 @@ Resources:
               { 
                     "height": 1,
                     "width": 24,
-                    "y": 31,
+                    "y": 54,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -584,7 +794,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 4,
-                    "y": 32,
+                    "y": 55,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -606,7 +816,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 4,
-                    "y": 32,
+                    "y": 55,
                     "x": 4,
                     "type": "metric",
                     "properties": {
@@ -628,7 +838,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 4,
-                    "y": 32,
+                    "y": 55,
                     "x": 8,
                     "type": "metric",
                     "properties": {
@@ -650,7 +860,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 4,
-                    "y": 32,
+                    "y": 55,
                     "x": 12,
                     "type": "metric",
                     "properties": {
@@ -674,7 +884,7 @@ Resources:
                 { 
                     "height": 1,
                     "width": 24,
-                    "y": 35,
+                    "y": 58,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -688,7 +898,7 @@ Resources:
                 { 
                     "height": 4,
                     "width": 4,
-                    "y": 36,
+                    "y": 59,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -713,7 +923,7 @@ Resources:
                 { 
                     "height": 4,
                     "width": 4,
-                    "y": 36,
+                    "y": 59,
                     "x": 4,
                     "type": "metric",
                     "properties": {
@@ -738,7 +948,7 @@ Resources:
                 { 
                     "height": 4,
                     "width": 4,
-                    "y": 36,
+                    "y": 59,
                     "x": 8,
                     "type": "metric",
                     "properties": {
@@ -763,7 +973,7 @@ Resources:
                 { 
                     "height": 4,
                     "width": 4,
-                    "y": 36,
+                    "y": 59,
                     "x": 12,
                     "type": "metric",
                     "properties": {
@@ -790,7 +1000,7 @@ Resources:
                 { 
                     "height": 1,
                     "width": 24,
-                    "y": 39,
+                    "y": 62,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -802,7 +1012,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 40,
+                    "y": 63,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -820,7 +1030,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 40,
+                    "y": 63,
                     "x": 3,
                     "type": "metric",
                     "properties": {
@@ -838,7 +1048,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 40,
+                    "y": 63,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -856,7 +1066,7 @@ Resources:
                { 
                     "height": 3,
                     "width": 3,
-                    "y": 40,
+                    "y": 63,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -874,7 +1084,7 @@ Resources:
                { 
                     "height": 3,
                     "width": 3,
-                    "y": 40,
+                    "y": 63,
                     "x": 12,
                     "type": "metric",
                     "properties": {
@@ -892,7 +1102,7 @@ Resources:
                { 
                     "height": 3,
                     "width": 3,
-                    "y": 40,
+                    "y": 63,
                     "x": 15,
                     "type": "metric",
                     "properties": {
@@ -910,7 +1120,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 40,
+                    "y": 63,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -928,7 +1138,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 40,
+                    "y": 63,
                     "x": 21,
                     "type": "metric",
                     "properties": {
@@ -951,7 +1161,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 43,
+                    "y": 66,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -972,7 +1182,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 43,
+                    "y": 66,
                     "x": 3,
                     "type": "metric",
                     "properties": {
@@ -993,7 +1203,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 12,
-                    "y": 43,
+                    "y": 66,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -1017,7 +1227,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 43,
+                    "y": 66,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -1038,7 +1248,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 43,
+                    "y": 66,
                     "x": 21,
                     "type": "metric",
                     "properties": {
@@ -1060,7 +1270,7 @@ Resources:
                 { 
                     "height": 1,
                     "width": 24,
-                    "y": 49,
+                    "y": 72,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -1072,7 +1282,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 50,
+                    "y": 73,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1090,7 +1300,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 50,
+                    "y": 73,
                     "x": 3,
                     "type": "metric",
                     "properties": {
@@ -1108,7 +1318,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 50,
+                    "y": 73,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -1126,7 +1336,7 @@ Resources:
                { 
                     "height": 3,
                     "width": 3,
-                    "y": 50,
+                    "y": 73,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -1144,7 +1354,7 @@ Resources:
                { 
                     "height": 3,
                     "width": 3,
-                    "y": 50,
+                    "y": 73,
                     "x": 12,
                     "type": "metric",
                     "properties": {
@@ -1162,7 +1372,7 @@ Resources:
                { 
                     "height": 3,
                     "width": 3,
-                    "y": 50,
+                    "y": 73,
                     "x": 15,
                     "type": "metric",
                     "properties": {
@@ -1180,7 +1390,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 50,
+                    "y": 73,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -1198,7 +1408,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 50,
+                    "y": 73,
                     "x": 21,
                     "type": "metric",
                     "properties": {
@@ -1221,7 +1431,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 53,
+                    "y": 76,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1242,7 +1452,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 53,
+                    "y": 76,
                     "x": 3,
                     "type": "metric",
                     "properties": {
@@ -1263,7 +1473,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 12,
-                    "y": 53,
+                    "y": 76,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -1287,7 +1497,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 53,
+                    "y": 76,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -1308,7 +1518,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 53,
+                    "y": 76,
                     "x": 21,
                     "type": "metric",
                     "properties": {
@@ -1330,7 +1540,7 @@ Resources:
                 { 
                     "height": 1,
                     "width": 24,
-                    "y": 59,
+                    "y": 82,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -1342,7 +1552,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 60,
+                    "y": 83,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1360,7 +1570,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 60,
+                    "y": 83,
                     "x": 3,
                     "type": "metric",
                     "properties": {
@@ -1378,7 +1588,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 60,
+                    "y": 83,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -1396,7 +1606,7 @@ Resources:
                { 
                     "height": 3,
                     "width": 3,
-                    "y": 60,
+                    "y": 83,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -1414,7 +1624,7 @@ Resources:
                { 
                     "height": 3,
                     "width": 3,
-                    "y": 60,
+                    "y": 83,
                     "x": 12,
                     "type": "metric",
                     "properties": {
@@ -1432,7 +1642,7 @@ Resources:
                { 
                     "height": 3,
                     "width": 3,
-                    "y": 60,
+                    "y": 83,
                     "x": 15,
                     "type": "metric",
                     "properties": {
@@ -1450,7 +1660,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 60,
+                    "y": 83,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -1468,7 +1678,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 60,
+                    "y": 83,
                     "x": 21,
                     "type": "metric",
                     "properties": {
@@ -1491,7 +1701,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 63,
+                    "y": 86,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1512,7 +1722,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 63,
+                    "y": 86,
                     "x": 3,
                     "type": "metric",
                     "properties": {
@@ -1533,7 +1743,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 12,
-                    "y": 63,
+                    "y": 86,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -1557,7 +1767,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 63,
+                    "y": 86,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -1578,7 +1788,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 63,
+                    "y": 86,
                     "x": 21,
                     "type": "metric",
                     "properties": {
@@ -1600,7 +1810,7 @@ Resources:
                 { 
                     "height": 1,
                     "width": 24,
-                    "y": 69,
+                    "y": 92,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -1612,7 +1822,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 70,
+                    "y": 93,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1630,7 +1840,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 70,
+                    "y": 93,
                     "x": 3,
                     "type": "metric",
                     "properties": {
@@ -1648,7 +1858,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 70,
+                    "y": 93,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -1666,7 +1876,7 @@ Resources:
                { 
                     "height": 3,
                     "width": 3,
-                    "y": 70,
+                    "y": 93,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -1684,7 +1894,7 @@ Resources:
                { 
                     "height": 3,
                     "width": 3,
-                    "y": 70,
+                    "y": 93,
                     "x": 12,
                     "type": "metric",
                     "properties": {
@@ -1702,7 +1912,7 @@ Resources:
                { 
                     "height": 3,
                     "width": 3,
-                    "y": 70,
+                    "y": 93,
                     "x": 15,
                     "type": "metric",
                     "properties": {
@@ -1720,7 +1930,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 70,
+                    "y": 93,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -1738,7 +1948,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 70,
+                    "y": 93,
                     "x": 21,
                     "type": "metric",
                     "properties": {
@@ -1761,7 +1971,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 73,
+                    "y": 96,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1782,7 +1992,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 73,
+                    "y": 96,
                     "x": 3,
                     "type": "metric",
                     "properties": {
@@ -1803,7 +2013,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 12,
-                    "y": 73,
+                    "y": 96,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -1827,7 +2037,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 73,
+                    "y": 96,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -1848,7 +2058,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 73,
+                    "y": 96,
                     "x": 21,
                     "type": "metric",
                     "properties": {
@@ -1871,7 +2081,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 12,
-                    "y": 79,
+                    "y": 102,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1897,7 +2107,7 @@ Resources:
               { 
                     "height": 6,
                     "width": 12,
-                    "y": 79,
+                    "y": 102,
                     "x": 12,
                     "type": "metric",
                     "properties": {
@@ -1926,7 +2136,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 12,
-                    "y": 85,
+                    "y": 108,
                     "x": 12,
                     "type": "metric",
                     "properties": {
@@ -1947,7 +2157,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 12,
-                    "y": 85,
+                    "y": 108,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1971,7 +2181,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 24,
-                    "y": 88,
+                    "y": 111,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -1984,7 +2194,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 94,
+                    "y": 117,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -1994,7 +2204,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 94,
+                    "y": 117,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -2012,7 +2222,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 15,
-                    "y": 94,
+                    "y": 117,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -2036,7 +2246,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 9,
-                    "y": 97,
+                    "y": 120,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -2062,7 +2272,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 9,
-                    "y": 97,
+                    "y": 120,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -2083,7 +2293,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 97,
+                    "y": 120,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -2110,7 +2320,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 100,
+                    "y": 123,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -2132,7 +2342,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 103,
+                    "y": 126,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -2142,7 +2352,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 103,
+                    "y": 126,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -2161,7 +2371,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 15,
-                    "y": 103,
+                    "y": 126,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -2184,7 +2394,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 9,
-                    "y": 106,
+                    "y": 129,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -2214,7 +2424,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 9,
-                    "y": 106,
+                    "y": 129,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -2235,7 +2445,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 106,
+                    "y": 129,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -2261,7 +2471,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 109,
+                    "y": 132,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -2282,7 +2492,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 112,
+                    "y": 135,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -2292,7 +2502,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 112,
+                    "y": 135,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -2311,7 +2521,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 15,
-                    "y": 112,
+                    "y": 135,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -2334,7 +2544,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 9,
-                    "y": 115,
+                    "y": 138,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -2364,7 +2574,7 @@ Resources:
                 { 
                     "height": 6,
                     "width": 9,
-                    "y": 115,
+                    "y": 138,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -2385,7 +2595,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 115,
+                    "y": 138,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -2411,7 +2621,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 118,
+                    "y": 141,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -2435,7 +2645,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 121,
+                    "y": 144,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -2445,7 +2655,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 121,
+                    "y": 144,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -2463,7 +2673,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 15,
-                    "y": 121,
+                    "y": 144,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -2488,7 +2698,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 124,
+                    "y": 147,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -2513,7 +2723,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 9,
-                    "y": 124,
+                    "y": 147,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -2534,7 +2744,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 9,
-                    "y": 124,
+                    "y": 147,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -2556,7 +2766,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 9,
-                    "y": 127,
+                    "y": 150,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -2578,7 +2788,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 127,
+                    "y": 150,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -2596,7 +2806,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 9,
-                    "y": 127,
+                    "y": 150,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -2622,7 +2832,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 18,
-                    "y": 130,
+                    "y": 153,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -2646,7 +2856,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 130,
+                    "y": 153,
                     "x": 18,
                     "type": "metric",
                     "properties": {
