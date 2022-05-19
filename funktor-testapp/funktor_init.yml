@@ -70,6 +70,6 @@ queues:
 # Here you can specify a list of worker that you want to monitor closely
 primaryWorkers:
   - HelloWorker
-  - GreetingsWorker
-  - AuditWorker
-  - SingleThreadAuditWorker
+  #- GreetingsWorker
+  #- AuditWorker
+  #- SingleThreadAuditWorker

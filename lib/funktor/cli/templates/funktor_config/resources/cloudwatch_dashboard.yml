@@ -33,7 +33,7 @@ Resources:
                 },
                 <% current_y += 1 %>
 
-                <%- primary_workers.each_with_index do |worker_name, index| -%>
+                <%- prioritized_workers.each_with_index do |worker_name, index| -%>
                   <%- current_y += 9 if (index > 0 && (index % 6) == 0) %>
                   { <% "Worker Overview" %>
                       "height": 9,
@@ -57,10 +57,10 @@ Resources:
                       }
                   },
                 <%- end -%>
-                <%#- current_y += 9 if (primary_workers.count - 1) % 3 != 0 %>
+                <%#- current_y += 9 if (prioritized_workers.count - 1) % 3 != 0 %>
                 <%- current_y += 9 %>
 
-              <%- primary_workers.each do |worker_name| -%>
+              <%- prioritized_workers.each do |worker_name| -%>
                 { <% "Worker" %>
                     "height": 1,
                     "width": 24,

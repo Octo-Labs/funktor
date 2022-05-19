@@ -141,6 +141,22 @@ module Funktor
 
       private
 
+      def prioritized_workers
+        if primary_workers == app_worker_names
+          app_worker_names
+        else
+          primary_workers + non_primary_workers
+        end
+      end
+
+      def non_primary_workers
+        if primary_workers == app_worker_names
+          app_worker_names
+        else
+          app_worker_names - primary_workers
+        end
+      end
+
       def primary_workers
         funktor_config["primaryWorkers"] || app_worker_names
       end

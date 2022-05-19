@@ -64,28 +64,6 @@ Resources:
                       "type": "metric",
                       "properties": {
                           "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "GreetingsWorker", { "color": "#2ca02c" } ],
-                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "GreetingsWorker", { "color": "#d62728" } ],
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "p90", "color": "#ff7f0e", "stat": "p90" } ],
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "p60", "color": "#1f77b4", "stat": "p60" } ]
-                          ],
-                          "view": "singleValue",
-                          "region": "us-east-1",
-                          "stat": "Sum",
-                          "period": 60,
-                          "sparkline": true,
-                          "title": "GreetingsWorker"
-                      }
-                  },
-
-                  { 
-                      "height": 9,
-                      "width": 4,
-                      "y": 4,
-                      "x": 8,
-                      "type": "metric",
-                      "properties": {
-                          "metrics": [
                             [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "AuditWorker", { "color": "#2ca02c" } ],
                             [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "AuditWorker", { "color": "#d62728" } ],
                             [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "label": "p90", "color": "#ff7f0e", "stat": "p90" } ],
@@ -97,6 +75,28 @@ Resources:
                           "period": 60,
                           "sparkline": true,
                           "title": "AuditWorker"
+                      }
+                  },
+
+                  { 
+                      "height": 9,
+                      "width": 4,
+                      "y": 4,
+                      "x": 8,
+                      "type": "metric",
+                      "properties": {
+                          "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "GreetingsWorker", { "color": "#2ca02c" } ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "GreetingsWorker", { "color": "#d62728" } ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "p90", "color": "#ff7f0e", "stat": "p90" } ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "p60", "color": "#1f77b4", "stat": "p60" } ]
+                          ],
+                          "view": "singleValue",
+                          "region": "us-east-1",
+                          "stat": "Sum",
+                          "period": 60,
+                          "sparkline": true,
+                          "title": "GreetingsWorker"
                       }
                   },
 
@@ -401,276 +401,6 @@ Resources:
                     "x": 0,
                     "type": "text",
                     "properties": {
-                        "markdown": "\n# GreetingsWorker\n"
-                    }
-                },
-                
-
-                { 
-                    "height": 3,
-                    "width": 3,
-                    "y": 24,
-                    "x": 0,
-                    "type": "metric",
-                    "properties": {
-                        "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "GreetingsWorker" ]
-                        ],
-                        "view": "singleValue",
-                        "region": "us-east-1",
-                        "stat": "Sum",
-                        "period": 60,
-                        "sparkline": true,
-                        "title": "GreetingsWorker Processed/Min"
-                    }
-                },
-                { 
-                    "height": 3,
-                    "width": 3,
-                    "y": 24,
-                    "x": 3,
-                    "type": "metric",
-                    "properties": {
-                        "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "GreetingsWorker", { "color": "#d62728" } ]
-                        ],
-                        "view": "singleValue",
-                        "region": "us-east-1",
-                        "stat": "Sum",
-                        "period": 60,
-                        "sparkline": true,
-                        "title": "GreetingsWorker Failed/Min"
-                    }
-                },
-                { 
-                    "height": 3,
-                    "width": 3,
-                    "y": 24,
-                    "x": 6,
-                    "type": "metric",
-                    "properties": {
-                        "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "p60", "color": "#1f77b4" } ]
-                        ],
-                        "view": "singleValue",
-                        "region": "us-east-1",
-                        "stat": "p60",
-                        "period": 60,
-                        "sparkline": true,
-                        "title": "GreetingsWorker p60"
-                    }
-                },
-               { 
-                    "height": 3,
-                    "width": 3,
-                    "y": 24,
-                    "x": 9,
-                    "type": "metric",
-                    "properties": {
-                        "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "p70", "color": "#ff7f0e" } ]
-                        ],
-                        "view": "singleValue",
-                        "region": "us-east-1",
-                        "stat": "p70",
-                        "period": 60,
-                        "sparkline": true,
-                        "title": "GreetingsWorker p70"
-                    }
-                },
-               { 
-                    "height": 3,
-                    "width": 3,
-                    "y": 24,
-                    "x": 12,
-                    "type": "metric",
-                    "properties": {
-                        "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "p80", "color": "#2ca02c" } ]
-                        ],
-                        "view": "singleValue",
-                        "region": "us-east-1",
-                        "stat": "p80",
-                        "period": 60,
-                        "sparkline": true,
-                        "title": "GreetingsWorker p80"
-                    }
-                },
-               { 
-                    "height": 3,
-                    "width": 3,
-                    "y": 24,
-                    "x": 15,
-                    "type": "metric",
-                    "properties": {
-                        "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "p90", "color": "#d62728" } ]
-                        ],
-                        "view": "singleValue",
-                        "region": "us-east-1",
-                        "stat": "p90",
-                        "period": 60,
-                        "sparkline": true,
-                        "title": "GreetingsWorker p90"
-                    }
-                },
-                { 
-                    "height": 3,
-                    "width": 3,
-                    "y": 24,
-                    "x": 18,
-                    "type": "metric",
-                    "properties": {
-                        "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "Min" } ]
-                        ],
-                        "view": "singleValue",
-                        "region": "us-east-1",
-                        "stat": "Minimum",
-                        "period": 60,
-                        "sparkline": true,
-                        "title": "GreetingsWorker Min"
-                    }
-                },
-                { 
-                    "height": 3,
-                    "width": 3,
-                    "y": 24,
-                    "x": 21,
-                    "type": "metric",
-                    "properties": {
-                        "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "Max", "color": "#d62728" } ]
-                        ],
-                        "view": "singleValue",
-                        "region": "us-east-1",
-                        "stat": "Maximum",
-                        "period": 60,
-                        "sparkline": true,
-                        "title": "GreetingsWorker Max"
-                    }
-                },
-                
-
-
-
-
-                { 
-                    "height": 3,
-                    "width": 3,
-                    "y": 27,
-                    "x": 0,
-                    "type": "metric",
-                    "properties": {
-                        "metrics": [
-                          [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "GreetingsWorker" ]
-                        ],
-                        "view": "timeSeries",
-                        "stacked": false,
-                        "region": "us-east-1",
-                        "title": "GreetingsWorker Processed Jobs",
-                        "period": 60,
-                        "stat": "Sum",
-                        "legend": {
-                          "position": "hidden"
-                        }
-                  }
-                },
-                { 
-                    "height": 3,
-                    "width": 3,
-                    "y": 27,
-                    "x": 3,
-                    "type": "metric",
-                    "properties": {
-                        "metrics": [
-                          [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "GreetingsWorker", { "color": "#d62728" }]
-                        ],
-                        "view": "timeSeries",
-                        "stacked": false,
-                        "region": "us-east-1",
-                        "title": "GreetingsWorker Failed Jobs",
-                        "period": 60,
-                        "stat": "Sum",
-                        "legend": {
-                          "position": "hidden"
-                        }
-                  }
-                },
-                { 
-                    "height": 3,
-                    "width": 12,
-                    "y": 27,
-                    "x": 6,
-                    "type": "metric",
-                    "properties": {
-                        "metrics": [
-                          [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "stat": "p90", "color": "#d62728" } ],
-                          [ "...", { "stat": "p80", "color": "#2ca02c" } ],
-                          [ "...", { "stat": "p70", "color": "#ff7f0e" } ],
-                          [ "...", { "color": "#1f77b4" } ]
-                        ],
-                        "view": "timeSeries",
-                        "stacked": false,
-                        "region": "us-east-1",
-                        "stat": "p60",
-                        "period": 60,
-                        "title": "GreetingsWorker Duration Percentiles",
-                        "legend": {
-                          "position": "right"
-                        }
-                    }
-                },
-                { 
-                    "height": 3,
-                    "width": 3,
-                    "y": 27,
-                    "x": 18,
-                    "type": "metric",
-                    "properties": {
-                        "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker" ]
-                        ],
-                        "view": "timeSeries",
-                        "stacked": false,
-                        "region": "us-east-1",
-                        "stat": "Minimum",
-                        "period": 60,
-                        "title": "GreetingsWorker Min",
-                        "legend": {
-                          "position": "hidden"
-                        }
-                    }
-                },
-                { 
-                    "height": 3,
-                    "width": 3,
-                    "y": 27,
-                    "x": 21,
-                    "type": "metric",
-                    "properties": {
-                        "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "color": "#d62728" } ]
-                        ],
-                        "view": "timeSeries",
-                        "stacked": false,
-                        "region": "us-east-1",
-                        "stat": "Maximum",
-                        "period": 60,
-                        "title": "GreetingsWorker Max",
-                        "legend": {
-                          "position": "hidden"
-                        }
-                    }
-                },
-                
-                { 
-                    "height": 1,
-                    "width": 24,
-                    "y": 33,
-                    "x": 0,
-                    "type": "text",
-                    "properties": {
                         "markdown": "\n# AuditWorker\n"
                     }
                 },
@@ -679,7 +409,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 34,
+                    "y": 24,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -697,7 +427,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 34,
+                    "y": 24,
                     "x": 3,
                     "type": "metric",
                     "properties": {
@@ -715,7 +445,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 34,
+                    "y": 24,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -733,7 +463,7 @@ Resources:
                { 
                     "height": 3,
                     "width": 3,
-                    "y": 34,
+                    "y": 24,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -751,7 +481,7 @@ Resources:
                { 
                     "height": 3,
                     "width": 3,
-                    "y": 34,
+                    "y": 24,
                     "x": 12,
                     "type": "metric",
                     "properties": {
@@ -769,7 +499,7 @@ Resources:
                { 
                     "height": 3,
                     "width": 3,
-                    "y": 34,
+                    "y": 24,
                     "x": 15,
                     "type": "metric",
                     "properties": {
@@ -787,7 +517,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 34,
+                    "y": 24,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -805,7 +535,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 34,
+                    "y": 24,
                     "x": 21,
                     "type": "metric",
                     "properties": {
@@ -828,7 +558,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 37,
+                    "y": 27,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -849,7 +579,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 37,
+                    "y": 27,
                     "x": 3,
                     "type": "metric",
                     "properties": {
@@ -870,7 +600,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 12,
-                    "y": 37,
+                    "y": 27,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -894,7 +624,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 37,
+                    "y": 27,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -915,7 +645,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 37,
+                    "y": 27,
                     "x": 21,
                     "type": "metric",
                     "properties": {
@@ -928,6 +658,276 @@ Resources:
                         "stat": "Maximum",
                         "period": 60,
                         "title": "AuditWorker Max",
+                        "legend": {
+                          "position": "hidden"
+                        }
+                    }
+                },
+                
+                { 
+                    "height": 1,
+                    "width": 24,
+                    "y": 33,
+                    "x": 0,
+                    "type": "text",
+                    "properties": {
+                        "markdown": "\n# GreetingsWorker\n"
+                    }
+                },
+                
+
+                { 
+                    "height": 3,
+                    "width": 3,
+                    "y": 34,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "GreetingsWorker" ]
+                        ],
+                        "view": "singleValue",
+                        "region": "us-east-1",
+                        "stat": "Sum",
+                        "period": 60,
+                        "sparkline": true,
+                        "title": "GreetingsWorker Processed/Min"
+                    }
+                },
+                { 
+                    "height": 3,
+                    "width": 3,
+                    "y": 34,
+                    "x": 3,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "GreetingsWorker", { "color": "#d62728" } ]
+                        ],
+                        "view": "singleValue",
+                        "region": "us-east-1",
+                        "stat": "Sum",
+                        "period": 60,
+                        "sparkline": true,
+                        "title": "GreetingsWorker Failed/Min"
+                    }
+                },
+                { 
+                    "height": 3,
+                    "width": 3,
+                    "y": 34,
+                    "x": 6,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "p60", "color": "#1f77b4" } ]
+                        ],
+                        "view": "singleValue",
+                        "region": "us-east-1",
+                        "stat": "p60",
+                        "period": 60,
+                        "sparkline": true,
+                        "title": "GreetingsWorker p60"
+                    }
+                },
+               { 
+                    "height": 3,
+                    "width": 3,
+                    "y": 34,
+                    "x": 9,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "p70", "color": "#ff7f0e" } ]
+                        ],
+                        "view": "singleValue",
+                        "region": "us-east-1",
+                        "stat": "p70",
+                        "period": 60,
+                        "sparkline": true,
+                        "title": "GreetingsWorker p70"
+                    }
+                },
+               { 
+                    "height": 3,
+                    "width": 3,
+                    "y": 34,
+                    "x": 12,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "p80", "color": "#2ca02c" } ]
+                        ],
+                        "view": "singleValue",
+                        "region": "us-east-1",
+                        "stat": "p80",
+                        "period": 60,
+                        "sparkline": true,
+                        "title": "GreetingsWorker p80"
+                    }
+                },
+               { 
+                    "height": 3,
+                    "width": 3,
+                    "y": 34,
+                    "x": 15,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "p90", "color": "#d62728" } ]
+                        ],
+                        "view": "singleValue",
+                        "region": "us-east-1",
+                        "stat": "p90",
+                        "period": 60,
+                        "sparkline": true,
+                        "title": "GreetingsWorker p90"
+                    }
+                },
+                { 
+                    "height": 3,
+                    "width": 3,
+                    "y": 34,
+                    "x": 18,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "Min" } ]
+                        ],
+                        "view": "singleValue",
+                        "region": "us-east-1",
+                        "stat": "Minimum",
+                        "period": 60,
+                        "sparkline": true,
+                        "title": "GreetingsWorker Min"
+                    }
+                },
+                { 
+                    "height": 3,
+                    "width": 3,
+                    "y": 34,
+                    "x": 21,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "Max", "color": "#d62728" } ]
+                        ],
+                        "view": "singleValue",
+                        "region": "us-east-1",
+                        "stat": "Maximum",
+                        "period": 60,
+                        "sparkline": true,
+                        "title": "GreetingsWorker Max"
+                    }
+                },
+                
+
+
+
+
+                { 
+                    "height": 3,
+                    "width": 3,
+                    "y": 37,
+                    "x": 0,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                          [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "GreetingsWorker" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "GreetingsWorker Processed Jobs",
+                        "period": 60,
+                        "stat": "Sum",
+                        "legend": {
+                          "position": "hidden"
+                        }
+                  }
+                },
+                { 
+                    "height": 3,
+                    "width": 3,
+                    "y": 37,
+                    "x": 3,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                          [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "GreetingsWorker", { "color": "#d62728" }]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "title": "GreetingsWorker Failed Jobs",
+                        "period": 60,
+                        "stat": "Sum",
+                        "legend": {
+                          "position": "hidden"
+                        }
+                  }
+                },
+                { 
+                    "height": 3,
+                    "width": 12,
+                    "y": 37,
+                    "x": 6,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                          [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "stat": "p90", "color": "#d62728" } ],
+                          [ "...", { "stat": "p80", "color": "#2ca02c" } ],
+                          [ "...", { "stat": "p70", "color": "#ff7f0e" } ],
+                          [ "...", { "color": "#1f77b4" } ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "p60",
+                        "period": 60,
+                        "title": "GreetingsWorker Duration Percentiles",
+                        "legend": {
+                          "position": "right"
+                        }
+                    }
+                },
+                { 
+                    "height": 3,
+                    "width": 3,
+                    "y": 37,
+                    "x": 18,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker" ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "Minimum",
+                        "period": 60,
+                        "title": "GreetingsWorker Min",
+                        "legend": {
+                          "position": "hidden"
+                        }
+                    }
+                },
+                { 
+                    "height": 3,
+                    "width": 3,
+                    "y": 37,
+                    "x": 21,
+                    "type": "metric",
+                    "properties": {
+                        "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "color": "#d62728" } ]
+                        ],
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "region": "us-east-1",
+                        "stat": "Maximum",
+                        "period": 60,
+                        "title": "GreetingsWorker Max",
                         "legend": {
                           "position": "hidden"
                         }
