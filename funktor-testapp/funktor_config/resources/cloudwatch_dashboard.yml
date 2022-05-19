@@ -526,7 +526,7 @@ Resources:
                 
 
                 { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 28,
                     "x": 0,
@@ -539,12 +539,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "AuditWorker Processed/Min"
                     }
                 },
                 { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 28,
                     "x": 3,
@@ -557,12 +557,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "AuditWorker Failed/Min"
                     }
                 },
                 { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 28,
                     "x": 6,
@@ -575,12 +575,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p60",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "AuditWorker p60"
                     }
                 },
                { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 28,
                     "x": 9,
@@ -593,12 +593,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p70",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "AuditWorker p70"
                     }
                 },
                { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 28,
                     "x": 12,
@@ -611,12 +611,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p80",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "AuditWorker p80"
                     }
                 },
                { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 28,
                     "x": 15,
@@ -629,12 +629,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p90",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "AuditWorker p90"
                     }
                 },
                 { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 28,
                     "x": 18,
@@ -647,12 +647,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Minimum",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "AuditWorker Min"
                     }
                 },
                 { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 28,
                     "x": 21,
@@ -665,7 +665,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Maximum",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "AuditWorker Max"
                     }
                 },
@@ -796,7 +796,7 @@ Resources:
                 
 
                 { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 38,
                     "x": 0,
@@ -809,12 +809,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "GreetingsWorker Processed/Min"
                     }
                 },
                 { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 38,
                     "x": 3,
@@ -827,12 +827,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "GreetingsWorker Failed/Min"
                     }
                 },
                 { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 38,
                     "x": 6,
@@ -845,12 +845,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p60",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "GreetingsWorker p60"
                     }
                 },
                { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 38,
                     "x": 9,
@@ -863,12 +863,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p70",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "GreetingsWorker p70"
                     }
                 },
                { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 38,
                     "x": 12,
@@ -881,12 +881,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p80",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "GreetingsWorker p80"
                     }
                 },
                { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 38,
                     "x": 15,
@@ -899,12 +899,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p90",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "GreetingsWorker p90"
                     }
                 },
                 { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 38,
                     "x": 18,
@@ -917,12 +917,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Minimum",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "GreetingsWorker Min"
                     }
                 },
                 { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 38,
                     "x": 21,
@@ -935,7 +935,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Maximum",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "GreetingsWorker Max"
                     }
                 },
@@ -1066,7 +1066,7 @@ Resources:
                 
 
                 { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 48,
                     "x": 0,
@@ -1079,12 +1079,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "HelloWorker Processed/Min"
                     }
                 },
                 { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 48,
                     "x": 3,
@@ -1097,12 +1097,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "HelloWorker Failed/Min"
                     }
                 },
                 { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 48,
                     "x": 6,
@@ -1115,12 +1115,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p60",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "HelloWorker p60"
                     }
                 },
                { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 48,
                     "x": 9,
@@ -1133,12 +1133,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p70",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "HelloWorker p70"
                     }
                 },
                { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 48,
                     "x": 12,
@@ -1151,12 +1151,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p80",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "HelloWorker p80"
                     }
                 },
                { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 48,
                     "x": 15,
@@ -1169,12 +1169,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p90",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "HelloWorker p90"
                     }
                 },
                 { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 48,
                     "x": 18,
@@ -1187,12 +1187,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Minimum",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "HelloWorker Min"
                     }
                 },
                 { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 48,
                     "x": 21,
@@ -1205,7 +1205,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Maximum",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "HelloWorker Max"
                     }
                 },
@@ -1336,7 +1336,7 @@ Resources:
                 
 
                 { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 58,
                     "x": 0,
@@ -1349,12 +1349,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "SingleThreadAuditWorker Processed/Min"
                     }
                 },
                 { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 58,
                     "x": 3,
@@ -1367,12 +1367,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "SingleThreadAuditWorker Failed/Min"
                     }
                 },
                 { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 58,
                     "x": 6,
@@ -1385,12 +1385,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p60",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "SingleThreadAuditWorker p60"
                     }
                 },
                { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 58,
                     "x": 9,
@@ -1403,12 +1403,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p70",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "SingleThreadAuditWorker p70"
                     }
                 },
                { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 58,
                     "x": 12,
@@ -1421,12 +1421,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p80",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "SingleThreadAuditWorker p80"
                     }
                 },
                { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 58,
                     "x": 15,
@@ -1439,12 +1439,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p90",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "SingleThreadAuditWorker p90"
                     }
                 },
                 { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 58,
                     "x": 18,
@@ -1457,12 +1457,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Minimum",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "SingleThreadAuditWorker Min"
                     }
                 },
                 { 
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": 58,
                     "x": 21,
@@ -1475,7 +1475,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Maximum",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "SingleThreadAuditWorker Max"
                     }
                 },
@@ -1743,17 +1743,17 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.IncomingJobHandlerName}", "Resource", "${self:custom.funktor.IncomingJobHandlerName}", { "label": "p10" } ],
-                            [ "...", { "label": "p50", "stat": "p50" } ],
-                            [ "...", { "label": "p99", "stat": "p99" } ],
-                            [ "...", { "label": "Average", "stat": "Average" } ]
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.IncomingJobHandlerName}", "Resource", "${self:custom.funktor.IncomingJobHandlerName}", { "label": "p60" } ],
+                            [ "...", { "label": "p70", "stat": "p70" } ],
+                            [ "...", { "label": "p80", "stat": "p80" } ],
+                            [ "...", { "label": "p90", "stat": "p90" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
-                        "stat": "p10",
+                        "stat": "p60",
                         "period": 60,
                         "sparkline": true,
-                        "title": "Handler Duration"
+                        "title": "Handler Duration Percentiles"
                     }
                 },
 
@@ -1794,9 +1794,10 @@ Resources:
                     "properties": {
                         "period": 60,
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.IncomingJobHandlerName}", { "stat": "Minimum" } ],
-                            [ "...", { "stat": "Average" } ],
-                            [ "...", { "stat": "Maximum" } ]
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.IncomingJobHandlerName}", { "stat": "p60" } ],
+                            [ "...", { "stat": "p70" } ],
+                            [ "...", { "stat": "p80" } ],
+                            [ "...", { "stat": "p90" } ]
                         ],
                         "region": "us-east-1",
                         "title": "Incoming Job Handler Duration in Milliseconds",
@@ -1893,14 +1894,14 @@ Resources:
                         "metrics": [
                             [ "AWS/Lambda", "Duration", "FunctionName",
                               "${self:custom.funktor.DefaultQueueHandlerName}", "Resource",
-                              "${self:custom.funktor.DefaultQueueHandlerName}", { "label": "p10" } ],
-                            [ "...", { "label": "p50", "stat": "p50" } ],
-                            [ "...", { "label": "p99", "stat": "p99" } ],
-                            [ "...", { "label": "Average", "stat": "Average" } ]
+                              "${self:custom.funktor.DefaultQueueHandlerName}", { "label": "p60" } ],
+                            [ "...", { "label": "p70", "stat": "p70" } ],
+                            [ "...", { "label": "p80", "stat": "p80" } ],
+                            [ "...", { "label": "p90", "stat": "p90" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
-                        "stat": "p10",
+                        "stat": "p60",
                         "period": 60,
                         "sparkline": true,
                         "title": "Handler Duration"
@@ -1945,9 +1946,10 @@ Resources:
                     "properties": {
                         "period": 60,
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.DefaultQueueHandlerName}", { "stat": "Minimum" } ],
-                            [ "...", { "stat": "Average" } ],
-                            [ "...", { "stat": "Maximum" } ]
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.DefaultQueueHandlerName}", { "stat": "p60" } ],
+                            [ "...", { "stat": "p70" } ],
+                            [ "...", { "stat": "p80" } ],
+                            [ "...", { "stat": "p90" } ]
                         ],
                         "region": "us-east-1",
                         "title": "Default Queue Handler Duration in Milliseconds",
@@ -2042,14 +2044,14 @@ Resources:
                         "metrics": [
                             [ "AWS/Lambda", "Duration", "FunctionName",
                               "${self:custom.funktor.LowConcurrencyQueueHandlerName}", "Resource",
-                              "${self:custom.funktor.LowConcurrencyQueueHandlerName}", { "label": "p10" } ],
-                            [ "...", { "label": "p50", "stat": "p50" } ],
-                            [ "...", { "label": "p99", "stat": "p99" } ],
-                            [ "...", { "label": "Average", "stat": "Average" } ]
+                              "${self:custom.funktor.LowConcurrencyQueueHandlerName}", { "label": "p60" } ],
+                            [ "...", { "label": "p70", "stat": "p70" } ],
+                            [ "...", { "label": "p80", "stat": "p80" } ],
+                            [ "...", { "label": "p90", "stat": "p90" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
-                        "stat": "p10",
+                        "stat": "p60",
                         "period": 60,
                         "sparkline": true,
                         "title": "Handler Duration"
@@ -2094,9 +2096,10 @@ Resources:
                     "properties": {
                         "period": 60,
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.LowConcurrencyQueueHandlerName}", { "stat": "Minimum" } ],
-                            [ "...", { "stat": "Average" } ],
-                            [ "...", { "stat": "Maximum" } ]
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.LowConcurrencyQueueHandlerName}", { "stat": "p60" } ],
+                            [ "...", { "stat": "p70" } ],
+                            [ "...", { "stat": "p80" } ],
+                            [ "...", { "stat": "p90" } ]
                         ],
                         "region": "us-east-1",
                         "title": "LowConcurrency Queue Handler Duration in Milliseconds",
@@ -2191,14 +2194,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.JobActivatorName}", "Resource", "${self:custom.funktor.JobActivatorName}", { "label": "p10" } ],
-                            [ "...", { "label": "p50", "stat": "p50" } ],
-                            [ "...", { "label": "p99", "stat": "p99" } ],
-                            [ "...", { "label": "Average", "stat": "Average" } ]
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.JobActivatorName}", "Resource", "${self:custom.funktor.JobActivatorName}", { "label": "p60" } ],
+                            [ "...", { "label": "p70", "stat": "p70" } ],
+                            [ "...", { "label": "p80", "stat": "p80" } ],
+                            [ "...", { "label": "p90", "stat": "p90" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
-                        "stat": "p10",
+                        "stat": "p60",
                         "period": 60,
                         "sparkline": true,
                         "title": "Handler Duration"
@@ -2242,9 +2245,10 @@ Resources:
                     "properties": {
                         "period": 60,
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.JobActivatorName}", { "stat": "Minimum" } ],
-                            [ "...", { "stat": "Average" } ],
-                            [ "...", { "stat": "Maximum" } ]
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.JobActivatorName}", { "stat": "p60" } ],
+                            [ "...", { "stat": "p70" } ],
+                            [ "...", { "stat": "p80" } ],
+                            [ "...", { "stat": "p90" } ]
                         ],
                         "region": "us-east-1",
                         "title": "Delayed Job Scheduler Duration",

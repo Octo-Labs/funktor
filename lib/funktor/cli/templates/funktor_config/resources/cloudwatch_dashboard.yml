@@ -326,7 +326,7 @@ Resources:
                 <% current_y += 1 %>
 
                 { <% "Worker Jobs per minute" %>
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": <%= current_y %>,
                     "x": 0,
@@ -339,12 +339,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "<%= worker_name %> Processed/Min"
                     }
                 },
                 { <% "Worker Jobs per minute" %>
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": <%= current_y %>,
                     "x": 3,
@@ -357,12 +357,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "<%= worker_name %> Failed/Min"
                     }
                 },
                 { <% "Worker Duration Percentiles" %>
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": <%= current_y %>,
                     "x": 6,
@@ -375,12 +375,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p60",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "<%= worker_name %> p60"
                     }
                 },
                { <% "Worker Duration Percentiles" %>
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": <%= current_y %>,
                     "x": 9,
@@ -393,12 +393,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p70",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "<%= worker_name %> p70"
                     }
                 },
                { <% "Worker Duration Percentiles" %>
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": <%= current_y %>,
                     "x": 12,
@@ -411,12 +411,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p80",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "<%= worker_name %> p80"
                     }
                 },
                { <% "Worker Duration Percentiles" %>
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": <%= current_y %>,
                     "x": 15,
@@ -429,12 +429,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p90",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "<%= worker_name %> p90"
                     }
                 },
                 { <% "Worker Min/Max" %>
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": <%= current_y %>,
                     "x": 18,
@@ -447,12 +447,12 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Minimum",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "<%= worker_name %> Min"
                     }
                 },
                 { <% "Worker Min/Max" %>
-                    "height": 2,
+                    "height": 3,
                     "width": 3,
                     "y": <%= current_y %>,
                     "x": 21,
@@ -465,7 +465,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "Maximum",
                         "period": 60,
-                        "sparkline": false,
+                        "sparkline": true,
                         "title": "<%= worker_name %> Max"
                     }
                 },
@@ -726,17 +726,17 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.IncomingJobHandlerName}", "Resource", "${self:custom.funktor.IncomingJobHandlerName}", { "label": "p10" } ],
-                            [ "...", { "label": "p50", "stat": "p50" } ],
-                            [ "...", { "label": "p99", "stat": "p99" } ],
-                            [ "...", { "label": "Average", "stat": "Average" } ]
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.IncomingJobHandlerName}", "Resource", "${self:custom.funktor.IncomingJobHandlerName}", { "label": "p60" } ],
+                            [ "...", { "label": "p70", "stat": "p70" } ],
+                            [ "...", { "label": "p80", "stat": "p80" } ],
+                            [ "...", { "label": "p90", "stat": "p90" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
-                        "stat": "p10",
+                        "stat": "p60",
                         "period": 60,
                         "sparkline": true,
-                        "title": "Handler Duration"
+                        "title": "Handler Duration Percentiles"
                     }
                 },
 
@@ -777,9 +777,10 @@ Resources:
                     "properties": {
                         "period": 60,
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.IncomingJobHandlerName}", { "stat": "Minimum" } ],
-                            [ "...", { "stat": "Average" } ],
-                            [ "...", { "stat": "Maximum" } ]
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.IncomingJobHandlerName}", { "stat": "p60" } ],
+                            [ "...", { "stat": "p70" } ],
+                            [ "...", { "stat": "p80" } ],
+                            [ "...", { "stat": "p90" } ]
                         ],
                         "region": "us-east-1",
                         "title": "Incoming Job Handler Duration in Milliseconds",
@@ -877,14 +878,14 @@ Resources:
                         "metrics": [
                             [ "AWS/Lambda", "Duration", "FunctionName",
                               "${self:custom.funktor.<%= queue_name.camelize %>QueueHandlerName}", "Resource",
-                              "${self:custom.funktor.<%= queue_name.camelize %>QueueHandlerName}", { "label": "p10" } ],
-                            [ "...", { "label": "p50", "stat": "p50" } ],
-                            [ "...", { "label": "p99", "stat": "p99" } ],
-                            [ "...", { "label": "Average", "stat": "Average" } ]
+                              "${self:custom.funktor.<%= queue_name.camelize %>QueueHandlerName}", { "label": "p60" } ],
+                            [ "...", { "label": "p70", "stat": "p70" } ],
+                            [ "...", { "label": "p80", "stat": "p80" } ],
+                            [ "...", { "label": "p90", "stat": "p90" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
-                        "stat": "p10",
+                        "stat": "p60",
                         "period": 60,
                         "sparkline": true,
                         "title": "Handler Duration"
@@ -929,9 +930,10 @@ Resources:
                     "properties": {
                         "period": 60,
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.<%= queue_name.camelize %>QueueHandlerName}", { "stat": "Minimum" } ],
-                            [ "...", { "stat": "Average" } ],
-                            [ "...", { "stat": "Maximum" } ]
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.<%= queue_name.camelize %>QueueHandlerName}", { "stat": "p60" } ],
+                            [ "...", { "stat": "p70" } ],
+                            [ "...", { "stat": "p80" } ],
+                            [ "...", { "stat": "p90" } ]
                         ],
                         "region": "us-east-1",
                         "title": "<%= queue_name.camelize %> Queue Handler Duration in Milliseconds",
@@ -1027,14 +1029,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.JobActivatorName}", "Resource", "${self:custom.funktor.JobActivatorName}", { "label": "p10" } ],
-                            [ "...", { "label": "p50", "stat": "p50" } ],
-                            [ "...", { "label": "p99", "stat": "p99" } ],
-                            [ "...", { "label": "Average", "stat": "Average" } ]
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.JobActivatorName}", "Resource", "${self:custom.funktor.JobActivatorName}", { "label": "p60" } ],
+                            [ "...", { "label": "p70", "stat": "p70" } ],
+                            [ "...", { "label": "p80", "stat": "p80" } ],
+                            [ "...", { "label": "p90", "stat": "p90" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
-                        "stat": "p10",
+                        "stat": "p60",
                         "period": 60,
                         "sparkline": true,
                         "title": "Handler Duration"
@@ -1078,9 +1080,10 @@ Resources:
                     "properties": {
                         "period": 60,
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.JobActivatorName}", { "stat": "Minimum" } ],
-                            [ "...", { "stat": "Average" } ],
-                            [ "...", { "stat": "Maximum" } ]
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.JobActivatorName}", { "stat": "p60" } ],
+                            [ "...", { "stat": "p70" } ],
+                            [ "...", { "stat": "p80" } ],
+                            [ "...", { "stat": "p90" } ]
                         ],
                         "region": "us-east-1",
                         "title": "Delayed Job Scheduler Duration",
