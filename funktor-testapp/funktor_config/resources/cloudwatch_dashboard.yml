@@ -29,9 +29,9 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "AuditWorker" ],
-                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "GreetingsWorker" ],
                             [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "HelloWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "GreetingsWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "AuditWorker" ],
                             [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "SingleThreadAuditWorker" ]
                         ],
                         "view": "timeSeries",
@@ -50,9 +50,9 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker" ],
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker" ],
                             [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker" ],
                             [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "SingleThreadAuditWorker" ]
                         ],
                         "view": "timeSeries",
@@ -73,9 +73,9 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "AuditWorker" ],
-                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "GreetingsWorker" ],
                             [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "HelloWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "GreetingsWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "AuditWorker" ],
                             [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "SingleThreadAuditWorker" ]
                         ],
                         "view": "timeSeries",
@@ -94,9 +94,9 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker" ],
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker" ],
                             [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker" ],
                             [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "SingleThreadAuditWorker" ]
                         ],
                         "view": "timeSeries",
@@ -211,12 +211,12 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                          [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "AuditWorker" ]
+                          [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "HelloWorker" ]
                         ],
                         "view": "timeSeries",
                         "stacked": false,
                         "region": "us-east-1",
-                        "title": "AuditWorker Jobs/Min",
+                        "title": "HelloWorker Jobs/Min",
                         "period": 60,
                         "stat": "Sum",
                         "legend": {
@@ -255,12 +255,12 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                          [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "HelloWorker" ]
+                          [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "AuditWorker" ]
                         ],
                         "view": "timeSeries",
                         "stacked": false,
                         "region": "us-east-1",
-                        "title": "HelloWorker Jobs/Min",
+                        "title": "AuditWorker Jobs/Min",
                         "period": 60,
                         "stat": "Sum",
                         "legend": {
@@ -315,12 +315,12 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                          [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "AuditWorker", { "color": "#d62728" } ]
+                          [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "HelloWorker", { "color": "#d62728" } ]
                         ],
                         "view": "timeSeries",
                         "stacked": false,
                         "region": "us-east-1",
-                        "title": "AuditWorker Fails/Min",
+                        "title": "HelloWorker Fails/Min",
                         "period": 60,
                         "stat": "Sum",
                         "legend": {
@@ -359,12 +359,12 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                          [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "HelloWorker", { "color": "#d62728" } ]
+                          [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "AuditWorker", { "color": "#d62728" } ]
                         ],
                         "view": "timeSeries",
                         "stacked": false,
                         "region": "us-east-1",
-                        "title": "HelloWorker Fails/Min",
+                        "title": "AuditWorker Fails/Min",
                         "period": 60,
                         "stat": "Sum",
                         "legend": {
@@ -419,7 +419,7 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                          [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "label": "p90", "stat": "p90", "color": "#d62728" } ],
+                          [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "label": "p90", "stat": "p90", "color": "#d62728" } ],
                           [ "...", { "label": "p80", "stat": "p80", "color": "#2ca02c" } ],
                           [ "...", { "label": "p70", "stat": "p70", "color": "#ff7f0e" } ],
                           [ "...", { "label": "p60", "color": "#1f77b4" } ]
@@ -429,7 +429,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p60",
                         "period": 60,
-                        "title": "AuditWorker Duration Percentiles",
+                        "title": "HelloWorker Duration Percentiles",
                         "legend": {
                           "position": "bottom"
                         }
@@ -469,7 +469,7 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                          [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "label": "p90", "stat": "p90", "color": "#d62728" } ],
+                          [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "label": "p90", "stat": "p90", "color": "#d62728" } ],
                           [ "...", { "label": "p80", "stat": "p80", "color": "#2ca02c" } ],
                           [ "...", { "label": "p70", "stat": "p70", "color": "#ff7f0e" } ],
                           [ "...", { "label": "p60", "color": "#1f77b4" } ]
@@ -479,7 +479,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p60",
                         "period": 60,
-                        "title": "HelloWorker Duration Percentiles",
+                        "title": "AuditWorker Duration Percentiles",
                         "legend": {
                           "position": "bottom"
                         }
@@ -520,7 +520,7 @@ Resources:
                     "x": 0,
                     "type": "text",
                     "properties": {
-                        "markdown": "\n# AuditWorker\n"
+                        "markdown": "\n# HelloWorker\n"
                     }
                 },
                 
@@ -533,14 +533,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "AuditWorker" ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "HelloWorker" ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
                         "sparkline": true,
-                        "title": "AuditWorker Processed/Min"
+                        "title": "HelloWorker Processed/Min"
                     }
                 },
                 { 
@@ -551,14 +551,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "AuditWorker", { "color": "#d62728" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "HelloWorker", { "color": "#d62728" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
                         "sparkline": true,
-                        "title": "AuditWorker Failed/Min"
+                        "title": "HelloWorker Failed/Min"
                     }
                 },
                 { 
@@ -569,14 +569,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "label": "p60", "color": "#1f77b4" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "label": "p60", "color": "#1f77b4" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
                         "stat": "p60",
                         "period": 60,
                         "sparkline": true,
-                        "title": "AuditWorker p60"
+                        "title": "HelloWorker p60"
                     }
                 },
                { 
@@ -587,14 +587,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "label": "p70", "color": "#ff7f0e" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "label": "p70", "color": "#ff7f0e" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
                         "stat": "p70",
                         "period": 60,
                         "sparkline": true,
-                        "title": "AuditWorker p70"
+                        "title": "HelloWorker p70"
                     }
                 },
                { 
@@ -605,14 +605,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "label": "p80", "color": "#2ca02c" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "label": "p80", "color": "#2ca02c" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
                         "stat": "p80",
                         "period": 60,
                         "sparkline": true,
-                        "title": "AuditWorker p80"
+                        "title": "HelloWorker p80"
                     }
                 },
                { 
@@ -623,14 +623,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "label": "p90", "color": "#d62728" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "label": "p90", "color": "#d62728" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
                         "stat": "p90",
                         "period": 60,
                         "sparkline": true,
-                        "title": "AuditWorker p90"
+                        "title": "HelloWorker p90"
                     }
                 },
                 { 
@@ -641,14 +641,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "label": "Min" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "label": "Min" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
                         "stat": "Minimum",
                         "period": 60,
                         "sparkline": true,
-                        "title": "AuditWorker Min"
+                        "title": "HelloWorker Min"
                     }
                 },
                 { 
@@ -659,14 +659,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "label": "Max", "color": "#d62728" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "label": "Max", "color": "#d62728" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
                         "stat": "Maximum",
                         "period": 60,
                         "sparkline": true,
-                        "title": "AuditWorker Max"
+                        "title": "HelloWorker Max"
                     }
                 },
                 
@@ -682,12 +682,12 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                          [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "AuditWorker" ]
+                          [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "HelloWorker" ]
                         ],
                         "view": "timeSeries",
                         "stacked": false,
                         "region": "us-east-1",
-                        "title": "AuditWorker Processed Jobs",
+                        "title": "HelloWorker Processed Jobs",
                         "period": 60,
                         "stat": "Sum",
                         "legend": {
@@ -703,12 +703,12 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                          [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "AuditWorker", { "color": "#d62728" }]
+                          [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "HelloWorker", { "color": "#d62728" }]
                         ],
                         "view": "timeSeries",
                         "stacked": false,
                         "region": "us-east-1",
-                        "title": "AuditWorker Failed Jobs",
+                        "title": "HelloWorker Failed Jobs",
                         "period": 60,
                         "stat": "Sum",
                         "legend": {
@@ -724,7 +724,7 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                          [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "stat": "p90", "color": "#d62728" } ],
+                          [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "stat": "p90", "color": "#d62728" } ],
                           [ "...", { "stat": "p80", "color": "#2ca02c" } ],
                           [ "...", { "stat": "p70", "color": "#ff7f0e" } ],
                           [ "...", { "color": "#1f77b4" } ]
@@ -734,7 +734,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p60",
                         "period": 60,
-                        "title": "AuditWorker Duration Percentiles",
+                        "title": "HelloWorker Duration Percentiles",
                         "legend": {
                           "position": "right"
                         }
@@ -748,14 +748,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker" ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker" ]
                         ],
                         "view": "timeSeries",
                         "stacked": false,
                         "region": "us-east-1",
                         "stat": "Minimum",
                         "period": 60,
-                        "title": "AuditWorker Min",
+                        "title": "HelloWorker Min",
                         "legend": {
                           "position": "hidden"
                         }
@@ -769,14 +769,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "color": "#d62728" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "color": "#d62728" } ]
                         ],
                         "view": "timeSeries",
                         "stacked": false,
                         "region": "us-east-1",
                         "stat": "Maximum",
                         "period": 60,
-                        "title": "AuditWorker Max",
+                        "title": "HelloWorker Max",
                         "legend": {
                           "position": "hidden"
                         }
@@ -1060,7 +1060,7 @@ Resources:
                     "x": 0,
                     "type": "text",
                     "properties": {
-                        "markdown": "\n# HelloWorker\n"
+                        "markdown": "\n# AuditWorker\n"
                     }
                 },
                 
@@ -1073,14 +1073,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "HelloWorker" ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "AuditWorker" ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
                         "sparkline": true,
-                        "title": "HelloWorker Processed/Min"
+                        "title": "AuditWorker Processed/Min"
                     }
                 },
                 { 
@@ -1091,14 +1091,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "HelloWorker", { "color": "#d62728" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "AuditWorker", { "color": "#d62728" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
                         "stat": "Sum",
                         "period": 60,
                         "sparkline": true,
-                        "title": "HelloWorker Failed/Min"
+                        "title": "AuditWorker Failed/Min"
                     }
                 },
                 { 
@@ -1109,14 +1109,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "label": "p60", "color": "#1f77b4" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "label": "p60", "color": "#1f77b4" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
                         "stat": "p60",
                         "period": 60,
                         "sparkline": true,
-                        "title": "HelloWorker p60"
+                        "title": "AuditWorker p60"
                     }
                 },
                { 
@@ -1127,14 +1127,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "label": "p70", "color": "#ff7f0e" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "label": "p70", "color": "#ff7f0e" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
                         "stat": "p70",
                         "period": 60,
                         "sparkline": true,
-                        "title": "HelloWorker p70"
+                        "title": "AuditWorker p70"
                     }
                 },
                { 
@@ -1145,14 +1145,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "label": "p80", "color": "#2ca02c" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "label": "p80", "color": "#2ca02c" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
                         "stat": "p80",
                         "period": 60,
                         "sparkline": true,
-                        "title": "HelloWorker p80"
+                        "title": "AuditWorker p80"
                     }
                 },
                { 
@@ -1163,14 +1163,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "label": "p90", "color": "#d62728" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "label": "p90", "color": "#d62728" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
                         "stat": "p90",
                         "period": 60,
                         "sparkline": true,
-                        "title": "HelloWorker p90"
+                        "title": "AuditWorker p90"
                     }
                 },
                 { 
@@ -1181,14 +1181,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "label": "Min" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "label": "Min" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
                         "stat": "Minimum",
                         "period": 60,
                         "sparkline": true,
-                        "title": "HelloWorker Min"
+                        "title": "AuditWorker Min"
                     }
                 },
                 { 
@@ -1199,14 +1199,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "label": "Max", "color": "#d62728" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "label": "Max", "color": "#d62728" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
                         "stat": "Maximum",
                         "period": 60,
                         "sparkline": true,
-                        "title": "HelloWorker Max"
+                        "title": "AuditWorker Max"
                     }
                 },
                 
@@ -1222,12 +1222,12 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                          [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "HelloWorker" ]
+                          [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "AuditWorker" ]
                         ],
                         "view": "timeSeries",
                         "stacked": false,
                         "region": "us-east-1",
-                        "title": "HelloWorker Processed Jobs",
+                        "title": "AuditWorker Processed Jobs",
                         "period": 60,
                         "stat": "Sum",
                         "legend": {
@@ -1243,12 +1243,12 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                          [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "HelloWorker", { "color": "#d62728" }]
+                          [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "AuditWorker", { "color": "#d62728" }]
                         ],
                         "view": "timeSeries",
                         "stacked": false,
                         "region": "us-east-1",
-                        "title": "HelloWorker Failed Jobs",
+                        "title": "AuditWorker Failed Jobs",
                         "period": 60,
                         "stat": "Sum",
                         "legend": {
@@ -1264,7 +1264,7 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                          [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "stat": "p90", "color": "#d62728" } ],
+                          [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "stat": "p90", "color": "#d62728" } ],
                           [ "...", { "stat": "p80", "color": "#2ca02c" } ],
                           [ "...", { "stat": "p70", "color": "#ff7f0e" } ],
                           [ "...", { "color": "#1f77b4" } ]
@@ -1274,7 +1274,7 @@ Resources:
                         "region": "us-east-1",
                         "stat": "p60",
                         "period": 60,
-                        "title": "HelloWorker Duration Percentiles",
+                        "title": "AuditWorker Duration Percentiles",
                         "legend": {
                           "position": "right"
                         }
@@ -1288,14 +1288,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker" ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker" ]
                         ],
                         "view": "timeSeries",
                         "stacked": false,
                         "region": "us-east-1",
                         "stat": "Minimum",
                         "period": 60,
-                        "title": "HelloWorker Min",
+                        "title": "AuditWorker Min",
                         "legend": {
                           "position": "hidden"
                         }
@@ -1309,14 +1309,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "color": "#d62728" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "color": "#d62728" } ]
                         ],
                         "view": "timeSeries",
                         "stacked": false,
                         "region": "us-east-1",
                         "stat": "Maximum",
                         "period": 60,
-                        "title": "HelloWorker Max",
+                        "title": "AuditWorker Max",
                         "legend": {
                           "position": "hidden"
                         }
@@ -1602,11 +1602,11 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "AuditWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "HelloWorker" ],
                             [ ".", "failed", ".", "." ],
                             [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "GreetingsWorker" ],
                             [ ".", "failed", ".", "." ],
-                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "HelloWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "AuditWorker" ],
                             [ ".", "failed", ".", "." ],
                             [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "SingleThreadAuditWorker" ],
                             [ ".", "failed", ".", "." ]
@@ -1628,11 +1628,11 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker" ],
                             [ "...", { "stat": "p99" } ],
                             [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker" ],
                             [ "...", { "stat": "p99" } ],
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker" ],
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker" ],
                             [ "...", { "stat": "p99" } ],
                             [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "SingleThreadAuditWorker" ],
                             [ "...", { "stat": "p99" } ]

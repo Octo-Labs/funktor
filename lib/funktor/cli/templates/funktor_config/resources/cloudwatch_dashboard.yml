@@ -29,8 +29,8 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            <%- app_worker_names.each do |worker_name| -%>
-                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "<%= worker_name %>" ]<%= worker_name == app_worker_names.last ? "" : "," %>
+                            <%- primary_workers.each do |worker_name| -%>
+                            [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "<%= worker_name %>" ]<%= worker_name == primary_workers.last ? "" : "," %>
                             <%- end -%>
                         ],
                         "view": "timeSeries",
@@ -49,8 +49,8 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            <%- app_worker_names.each do |worker_name| -%>
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>" ]<%= worker_name == app_worker_names.last ? "" : "," %>
+                            <%- primary_workers.each do |worker_name| -%>
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>" ]<%= worker_name == primary_workers.last ? "" : "," %>
                             <%- end -%>
                         ],
                         "view": "timeSeries",
@@ -71,8 +71,8 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            <%- app_worker_names.each do |worker_name| -%>
-                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "<%= worker_name %>" ]<%= worker_name == app_worker_names.last ? "" : "," %>
+                            <%- primary_workers.each do |worker_name| -%>
+                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "<%= worker_name %>" ]<%= worker_name == primary_workers.last ? "" : "," %>
                             <%- end -%>
                         ],
                         "view": "timeSeries",
@@ -91,8 +91,8 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            <%- app_worker_names.each do |worker_name| -%>
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>" ]<%= worker_name == app_worker_names.last ? "" : "," %>
+                            <%- primary_workers.each do |worker_name| -%>
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>" ]<%= worker_name == primary_workers.last ? "" : "," %>
                             <%- end -%>
                         ],
                         "view": "timeSeries",
@@ -202,7 +202,7 @@ Resources:
                 <% current_y += 1 %>
 
 
-              <%- app_worker_names.each_with_index do |worker_name, index| -%>
+              <%- primary_workers.each_with_index do |worker_name, index| -%>
                 <%- current_y += 3 if (index > 0 && (index % 6) == 0) %>
                 { <% "Processed Jobs By Worker" %>
                     "height": 3,
@@ -226,7 +226,7 @@ Resources:
                   }
                 },
               <%- end -%>
-              <%- current_y += 3 if (app_worker_names.count - 1) % 6 != 0 %>
+              <%- current_y += 3 if (primary_workers.count - 1) % 6 != 0 %>
 
 
               { <% "Failures/Minute Section" %>
@@ -242,7 +242,7 @@ Resources:
                 <% current_y += 1 %>
 
 
-              <%- app_worker_names.each_with_index do |worker_name, index| -%>
+              <%- primary_workers.each_with_index do |worker_name, index| -%>
                 <%- current_y += 3 if (index > 0 && (index % 6) == 0) %>
                 { <% "Failed Jobs By Worker" %>
                     "height": 3,
@@ -266,7 +266,7 @@ Resources:
                   }
                 },
               <%- end -%>
-              <%- current_y += 3 if (app_worker_names.count - 1) % 6 != 0 %>
+              <%- current_y += 3 if (primary_workers.count - 1) % 6 != 0 %>
 
 
                 { <% "Duration Percentiles Section" %>
@@ -282,7 +282,7 @@ Resources:
                 <% current_y += 1 %>
 
 
-              <%- app_worker_names.each_with_index do |worker_name, index| -%>
+              <%- primary_workers.each_with_index do |worker_name, index| -%>
                 <%- current_y += 4 if (index > 0 && (index % 6) == 0) %>
                 { <% "Job Duration By Worker" %>
                     "height": 4,
@@ -309,10 +309,10 @@ Resources:
                     }
                 },
               <%- end -%>
-              <%- current_y += 3 if (app_worker_names.count - 1) % 6 != 0 %>
+              <%- current_y += 3 if (primary_workers.count - 1) % 6 != 0 %>
 
 
-              <%- app_worker_names.each do |worker_name| -%>
+              <%- primary_workers.each do |worker_name| -%>
                 { <% "Worker" %>
                     "height": 1,
                     "width": 24,
@@ -593,9 +593,9 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            <%- app_worker_names.each do |worker_name| -%>
+                            <%- primary_workers.each do |worker_name| -%>
                             [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "<%= worker_name %>" ],
-                            [ ".", "failed", ".", "." ]<%= worker_name == app_worker_names.last ? "" : "," %>
+                            [ ".", "failed", ".", "." ]<%= worker_name == primary_workers.last ? "" : "," %>
                             <%- end -%>
                         ],
                         "view": "timeSeries",
@@ -615,9 +615,9 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            <%- app_worker_names.each do |worker_name| -%>
+                            <%- primary_workers.each do |worker_name| -%>
                             [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>" ],
-                            [ "...", { "stat": "p99" } ]<%= worker_name == app_worker_names.last ? "" : "," %>
+                            [ "...", { "stat": "p99" } ]<%= worker_name == primary_workers.last ? "" : "," %>
                             <%- end -%>
                         ],
                         "view": "timeSeries",

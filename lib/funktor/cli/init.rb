@@ -141,6 +141,10 @@ module Funktor
 
       private
 
+      def primary_workers
+        funktor_config["primaryWorkers"] || app_worker_names
+      end
+
       def app_worker_names
         app_worker_files.map do |file|
           File.basename(file, ".rb").camelize

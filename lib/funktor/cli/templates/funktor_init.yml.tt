@@ -67,3 +67,6 @@ queues:
       # https://zaccharles.medium.com/reproducing-the-sqs-trigger-and-lambda-concurrency-limit-issue-f4c09d384a18
       reservedConcurrency: 10
 
+# Here you can specify a list of worker that you want to monitor closely
+primaryWorkers:
+  - HelloWorker
