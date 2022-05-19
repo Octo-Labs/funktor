@@ -201,6 +201,115 @@ Resources:
                 },
                 <% current_y += 1 %>
 
+                <%- primary_workers.each_with_index do |worker_name, index| -%>
+                  <%- current_y += 3 if (index > 0 && (index % 6) == 0) %>
+                  { <% "Worker Jobs per minute" %>
+                      "height": 3,
+                      "width": 3,
+                      "y": <%= current_y %>,
+                      "x": <%= (index % 8) * 3 %>,
+                      "type": "metric",
+                      "properties": {
+                          "metrics": [
+                              [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "<%= worker_name %>" ]
+                          ],
+                          "view": "singleValue",
+                          "region": "us-east-1",
+                          "stat": "Sum",
+                          "period": 60,
+                          "sparkline": true,
+                          "title": "<%= worker_name %>"
+                      }
+                  },
+                <%- end -%>
+                <%- current_y += 3 if (primary_workers.count - 1) % 6 != 0 %>
+
+                { <% "Failures/Minute Section" %>
+                    "height": 1,
+                    "width": 24,
+                    "y": <%= current_y %>,
+                    "x": 0,
+                    "type": "text",
+                    "properties": {
+                        "markdown": "\n# Failures Per Minute By Worker\n"
+                    }
+                },
+                <% current_y += 1 %>
+
+                <%- primary_workers.each_with_index do |worker_name, index| -%>
+                  <%- current_y += 3 if (index > 0 && (index % 6) == 0) %>
+                  { <% "Worker Failures per minute" %>
+                      "height": 3,
+                      "width": 3,
+                      "y": <%= current_y %>,
+                      "x": <%= (index % 8) * 3 %>,
+                      "type": "metric",
+                      "properties": {
+                          "metrics": [
+                              [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "<%= worker_name %>" ]
+                          ],
+                          "view": "singleValue",
+                          "region": "us-east-1",
+                          "stat": "Sum",
+                          "period": 60,
+                          "sparkline": true,
+                          "title": "<%= worker_name %>"
+                      }
+                  },
+                <%- end -%>
+                <%- current_y += 3 if (primary_workers.count - 1) % 6 != 0 %>
+
+                { <% "Duration Percentiles Section" %>
+                    "height": 1,
+                    "width": 24,
+                    "y": <%= current_y %>,
+                    "x": 0,
+                    "type": "text",
+                    "properties": {
+                        "markdown": "\n# Duration Percentiles By Worker\n"
+                    }
+                },
+                <% current_y += 1 %>
+
+                <%- primary_workers.each_with_index do |worker_name, index| -%>
+                  <%- current_y += 3 if (index > 0 && (index % 6) == 0) %>
+                  { <% "p50 by worker" %>
+                      "height": 3,
+                      "width": 3,
+                      "y": <%= current_y %>,
+                      "x": <%= (index % 8) * 3 %>,
+                      "type": "metric",
+                      "properties": {
+                          "metrics": [
+                              [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>" ]
+                          ],
+                          "view": "singleValue",
+                          "region": "us-east-1",
+                          "stat": "p50",
+                          "period": 60,
+                          "sparkline": true,
+                          "title": "<%= worker_name %>"
+                      }
+                  },
+                <%- end -%>
+                <%- current_y += 3 if (primary_workers.count - 1) % 6 != 0 %>
+
+
+
+
+
+                { <% "Jobs/Minute Section" %>
+                    "height": 1,
+                    "width": 24,
+                    "y": <%= current_y %>,
+                    "x": 0,
+                    "type": "text",
+                    "properties": {
+                        "markdown": "\n# Jobs Per Minute By Worker\n"
+                    }
+                },
+                <% current_y += 1 %>
+
 
               <%- primary_workers.each_with_index do |worker_name, index| -%>
                 <%- current_y += 3 if (index > 0 && (index % 6) == 0) %>
