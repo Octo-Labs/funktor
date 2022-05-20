@@ -34,9 +34,9 @@ Resources:
                 <% current_y += 1 %>
 
                 <%- prioritized_workers.each_with_index do |worker_name, index| -%>
-                  <%- current_y += 9 if (index > 0 && (index % 6) == 0) %>
+                  <%- current_y += 10 if (index > 0 && (index % 6) == 0) %>
                   { <% "Worker Overview" %>
-                      "height": 9,
+                      "height": 7,
                       "width": 4,
                       "y": <%= current_y %>,
                       "x": <%= (index % 6) * 4 %>,
@@ -44,7 +44,6 @@ Resources:
                       "properties": {
                           "metrics": [
                             [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "<%= worker_name %>", { "color": "#2ca02c" } ],
-                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "<%= worker_name %>", { "color": "#d62728" } ],
                             [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>", { "label": "p90", "color": "#ff7f0e", "stat": "p90" } ],
                             [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "<%= worker_name %>", { "label": "p60", "color": "#1f77b4", "stat": "p60" } ]
                           ],
@@ -56,9 +55,27 @@ Resources:
                           "title": "<%= worker_name %>"
                       }
                   },
+                  { <% "Worker Overview" %>
+                      "height": 3,
+                      "width": 4,
+                      "y": <%= current_y + 7 %>,
+                      "x": <%= (index % 6) * 4 %>,
+                      "type": "metric",
+                      "properties": {
+                          "metrics": [
+                            [ "${self:custom.funktor.DashboardNamespace}", "failed", "WorkerClassName", "<%= worker_name %>", { "color": "#d62728" } ]
+                          ],
+                          "view": "singleValue",
+                          "region": "us-east-1",
+                          "stat": "Sum",
+                          "period": 60,
+                          "sparkline": true,
+                          "title": "<%= worker_name %>"
+                      }
+                  },
                 <%- end -%>
-                <%#- current_y += 9 if (prioritized_workers.count - 1) % 3 != 0 %>
-                <%- current_y += 9 %>
+                <%#- current_y += 10 if (prioritized_workers.count - 1) % 3 != 0 %>
+                <%- current_y += 10 %>
 
               <%- prioritized_workers.each do |worker_name| -%>
                 { <% "Worker" %>
