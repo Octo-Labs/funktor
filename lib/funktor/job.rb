@@ -25,12 +25,16 @@ module Funktor
       ENV[queue_constant] || ENV['FUNKTOR_DEFAULT_QUEUE']
     end
 
-    def worker_class_name
+    def worker_class_name_for_metrics
       if job_data["worker"] == "ActiveJob::QueueAdapters::FunktorAdapter::JobWrapper"
         job_data["wrapped"]
       else
         job_data["worker"]
       end
+    end
+
+    def worker_class_name
+      job_data["worker"]
     end
 
     def job_id

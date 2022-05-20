@@ -38,7 +38,7 @@ module Funktor
             }
           ]
         },
-        "WorkerClassName": job.worker_class_name,
+        "WorkerClassName": job.worker_class_name_for_metrics,
         "Queue": job.queue,
         "#{dimension}": 1
         #"count": value,

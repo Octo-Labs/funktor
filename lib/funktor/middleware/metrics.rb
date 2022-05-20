@@ -39,7 +39,7 @@ module Funktor
               }
             ]
           },
-          "WorkerClassName": job.worker_class_name,
+          "WorkerClassName": job.worker_class_name_for_metrics,
           "Queue": job.queue,
           "Duration": time_diff_in_seconds * 1_000
           #"count": value,
