@@ -26,7 +26,11 @@ module Funktor
     end
 
     def worker_class_name
-      job_data["worker"]
+      if job_data["worker"] == "ActiveJob::QueueAdapters::FunktorAdapter::JobWrapper"
+        job_data["wrapped"]
+      else
+        job_data["worker"]
+      end
     end
 
     def job_id

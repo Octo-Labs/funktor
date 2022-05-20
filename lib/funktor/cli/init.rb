@@ -168,7 +168,8 @@ module Funktor
       end
 
       def app_worker_files
-        Dir.glob(File.join('app', 'workers', '**.rb'))
+        Dir.glob(File.join('app', 'workers', '**.rb')) +
+          Dir.glob(File.join('app', 'jobs', '**.rb'))
       end
 
       def all_iam_permissions
