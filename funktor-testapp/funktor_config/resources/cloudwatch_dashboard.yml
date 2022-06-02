@@ -1339,7 +1339,7 @@ Resources:
 
                 
                 { 
-                    "height": 6,
+                    "height": 3,
                     "width": 9,
                     "y": 63,
                     "x": 0,
@@ -1363,6 +1363,20 @@ Resources:
                         "setPeriodToTimeRange": true,
                         "liveData": true
                     }
+                },
+                { 
+                  "type": "log",
+                  "x": 0,
+                  "y": 66,
+                  "width": 9,
+                  "height": 3,
+                  "properties": {
+                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.IncomingJobHandlerName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(1h)\n",
+                    "region": "us-east-1",
+                    "stacked": false,
+                    "view": "timeSeries",
+                    "title": "Incoming Job Handler Init Duration"
+                  }
                 },
                 { 
                     "height": 6,
@@ -1430,10 +1444,11 @@ Resources:
                         "liveData": true
                     }
                 },
-
-
+                
 
                 
+
+
                 { 
                     "height": 3,
                     "width": 6,
@@ -1487,7 +1502,7 @@ Resources:
                     }
                 },
                 { 
-                    "height": 6,
+                    "height": 3,
                     "width": 9,
                     "y": 72,
                     "x": 0,
@@ -1515,6 +1530,20 @@ Resources:
                         "stat": "Sum",
                         "liveData": true
                     }
+                },
+                { 
+                  "type": "log",
+                  "x": 0,
+                  "y": 72,
+                  "width": 9,
+                  "height": 3,
+                  "properties": {
+                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.DefaultQueueHandlerName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(1h)\n",
+                    "region": "us-east-1",
+                    "stacked": false,
+                    "view": "timeSeries",
+                    "title": "Handler Init Duration"
+                  }
                 },
                 { 
                     "height": 6,
@@ -1637,7 +1666,7 @@ Resources:
                     }
                 },
                 { 
-                    "height": 6,
+                    "height": 3,
                     "width": 9,
                     "y": 81,
                     "x": 0,
@@ -1665,6 +1694,20 @@ Resources:
                         "stat": "Sum",
                         "liveData": true
                     }
+                },
+                { 
+                  "type": "log",
+                  "x": 0,
+                  "y": 81,
+                  "width": 9,
+                  "height": 3,
+                  "properties": {
+                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.LowConcurrencyQueueHandlerName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(1h)\n",
+                    "region": "us-east-1",
+                    "stacked": false,
+                    "view": "timeSeries",
+                    "title": "Handler Init Duration"
+                  }
                 },
                 { 
                     "height": 6,
@@ -1925,10 +1968,24 @@ Resources:
 
                 
                 { 
+                  "type": "log",
+                  "x": 0,
+                  "y": 96,
+                  "width": 9,
+                  "height": 3,
+                  "properties": {
+                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.JobActivatorName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(1h)\n",
+                    "region": "us-east-1",
+                    "stacked": false,
+                    "view": "timeSeries",
+                    "title": "Handler Init Duration"
+                  }
+                },
+                { 
                     "height": 3,
-                    "width": 18,
+                    "width": 9,
                     "y": 96,
-                    "x": 0,
+                    "x": 9,
                     "type": "metric",
                     "properties": {
                         "metrics": [

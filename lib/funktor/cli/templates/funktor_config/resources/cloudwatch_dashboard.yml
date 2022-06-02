@@ -416,7 +416,7 @@ Resources:
 
                 <% current_y += 3 %>
                 { <% "Incoming Job Queue (Async & scheduled jobs land here first)" %>
-                    "height": 6,
+                    "height": 3,
                     "width": 9,
                     "y": <%= current_y %>,
                     "x": 0,
@@ -440,6 +440,20 @@ Resources:
                         "setPeriodToTimeRange": true,
                         "liveData": true
                     }
+                },
+                { <% "Incoming Job Handler Init Duration" %>
+                  "type": "log",
+                  "x": 0,
+                  "y": <%= current_y + 3 %>,
+                  "width": 9,
+                  "height": 3,
+                  "properties": {
+                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.IncomingJobHandlerName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(1h)\n",
+                    "region": "us-east-1",
+                    "stacked": false,
+                    "view": "timeSeries",
+                    "title": "Incoming Job Handler Init Duration"
+                  }
                 },
                 { <% "Incoming Job Handler Duration in Milliseconds" %>
                     "height": 6,
@@ -507,10 +521,11 @@ Resources:
                         "liveData": true
                     }
                 },
-
-
-
                 <% current_y += 6 %>
+
+                
+
+
                 <%- queue_names.each do |queue_name| -%>
                 { <% "Active Jobs" %>
                     "height": 3,
@@ -565,7 +580,7 @@ Resources:
                     }
                 },
                 { <% "Active Job Queue" %>
-                    "height": 6,
+                    "height": 3,
                     "width": 9,
                     "y": <%= current_y + 3 %>,
                     "x": 0,
@@ -593,6 +608,20 @@ Resources:
                         "stat": "Sum",
                         "liveData": true
                     }
+                },
+                { <% "Queue Handler Init Duration" %>
+                  "type": "log",
+                  "x": 0,
+                  "y": <%= current_y + 3 %>,
+                  "width": 9,
+                  "height": 3,
+                  "properties": {
+                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.<%= queue_name.camelize %>QueueHandlerName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(1h)\n",
+                    "region": "us-east-1",
+                    "stacked": false,
+                    "view": "timeSeries",
+                    "title": "Handler Init Duration"
+                  }
                 },
                 { <% "Active Job Handler Duration in Milliseconds" %>
                     "height": 6,
@@ -853,11 +882,25 @@ Resources:
 
 
                 <% current_y += 3 %>
+                { <% "Job Activator Init Duration" %>
+                  "type": "log",
+                  "x": 0,
+                  "y": <%= current_y %>,
+                  "width": 9,
+                  "height": 3,
+                  "properties": {
+                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.JobActivatorName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(1h)\n",
+                    "region": "us-east-1",
+                    "stacked": false,
+                    "view": "timeSeries",
+                    "title": "Handler Init Duration"
+                  }
+                },
                 { <% "Scheduled Job Table Latency" %>
                     "height": 3,
-                    "width": 18,
+                    "width": 9,
                     "y": <%= current_y %>,
-                    "x": 0,
+                    "x": 9,
                     "type": "metric",
                     "properties": {
                         "metrics": [
