@@ -511,7 +511,7 @@ Resources:
                   "y": <%= current_y %>,
                   "x": 19,
                   "properties": {
-                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.IncomingJobHandlerName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(20m)\n",
+                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.IncomingJobHandlerName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(1m)\n",
                     "region": "us-east-1",
                     "stacked": false,
                     "view": "timeSeries",
@@ -696,7 +696,7 @@ Resources:
                   "y": <%= current_y %>,
                   "x": 19,
                   "properties": {
-                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.<%= queue_name.camelize %>QueueHandlerName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(20m)\n",
+                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.<%= queue_name.camelize %>QueueHandlerName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(1m)\n",
                     "region": "us-east-1",
                     "stacked": false,
                     "view": "timeSeries",
@@ -867,7 +867,7 @@ Resources:
                   "y": <%= current_y %>,
                   "x": 19,
                   "properties": {
-                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.JobActivatorName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(20m)\n",
+                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.JobActivatorName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(1m)\n",
                     "region": "us-east-1",
                     "stacked": false,
                     "view": "timeSeries",
