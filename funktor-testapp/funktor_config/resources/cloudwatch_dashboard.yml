@@ -1363,7 +1363,8 @@ Resources:
                         "metrics": [
                             [ "AWS/Lambda", "Errors", "FunctionName", "${self:custom.funktor.IncomingJobHandlerName}", { "id": "errors", "stat": "Sum", "color": "#d13212" } ],
                             [ ".", "Invocations", ".", ".", { "id": "invocations", "stat": "Sum", "visible": false } ],
-                            [ { "expression": "100 - 100 * errors / MAX([errors, invocations])", "label": "Success rate (%)", "id": "availability", "yAxis": "right", "region": "us-east-1" } ]
+                            [ { "expression": "100 - 100 * errors / MAX([errors, invocations])", "label": "Success rate (%)", "id": "availability", "yAxis": "right", "region": "us-east-1" } ],
+                            [ "AWS/Lambda", "Throttles", "FunctionName", "${self:custom.funktor.IncomingJobHandlerName}", { "id": "throttles", "color": "#ff7f0e" } ]
                         ],
                         "region": "us-east-1",
                         "title": "Incoming Job Handler Error count and success rate (%)",
@@ -1545,7 +1546,8 @@ Resources:
                             [ "AWS/Lambda", "Errors", "FunctionName",
                               "${self:custom.funktor.DefaultQueueHandlerName}", { "id": "errors", "stat": "Sum", "color": "#d13212" } ],
                             [ ".", "Invocations", ".", ".", { "id": "invocations", "stat": "Sum", "visible": false } ],
-                            [ { "expression": "100 - 100 * errors / MAX([errors, invocations])", "label": "Success rate (%)", "id": "availability", "yAxis": "right", "region": "us-east-1" } ]
+                            [ { "expression": "100 - 100 * errors / MAX([errors, invocations])", "label": "Success rate (%)", "id": "availability", "yAxis": "right", "region": "us-east-1" } ],
+                            [ "AWS/Lambda", "Throttles", "FunctionName", "${self:custom.funktor.DefaultQueueHandlerName}", { "id": "throttles", "color": "#ff7f0e" } ]
                         ],
                         "region": "us-east-1",
                         "title": "Default Queue Handler Error count and success rate (%)",
@@ -1725,7 +1727,8 @@ Resources:
                             [ "AWS/Lambda", "Errors", "FunctionName",
                               "${self:custom.funktor.LowConcurrencyQueueHandlerName}", { "id": "errors", "stat": "Sum", "color": "#d13212" } ],
                             [ ".", "Invocations", ".", ".", { "id": "invocations", "stat": "Sum", "visible": false } ],
-                            [ { "expression": "100 - 100 * errors / MAX([errors, invocations])", "label": "Success rate (%)", "id": "availability", "yAxis": "right", "region": "us-east-1" } ]
+                            [ { "expression": "100 - 100 * errors / MAX([errors, invocations])", "label": "Success rate (%)", "id": "availability", "yAxis": "right", "region": "us-east-1" } ],
+                            [ "AWS/Lambda", "Throttles", "FunctionName", "${self:custom.funktor.LowConcurrencyQueueHandlerName}", { "id": "throttles", "color": "#ff7f0e" } ]
                         ],
                         "region": "us-east-1",
                         "title": "LowConcurrency Queue Handler Error count and success rate (%)",
@@ -1877,7 +1880,8 @@ Resources:
                         "metrics": [
                             [ "AWS/Lambda", "Errors", "FunctionName", "${self:custom.funktor.JobActivatorName}", { "id": "errors", "stat": "Sum", "color": "#d13212" } ],
                             [ ".", "Invocations", ".", ".", { "id": "invocations", "stat": "Sum", "visible": false } ],
-                            [ { "expression": "100 - 100 * errors / MAX([errors, invocations])", "label": "Success rate (%)", "id": "availability", "yAxis": "right", "region": "us-east-1" } ]
+                            [ { "expression": "100 - 100 * errors / MAX([errors, invocations])", "label": "Success rate (%)", "id": "availability", "yAxis": "right", "region": "us-east-1" } ],
+                            [ "AWS/Lambda", "Throttles", "FunctionName", "${self:custom.funktor.JobActivatorName}", { "id": "throttles", "color": "#ff7f0e" } ]
                         ],
                         "region": "us-east-1",
                         "title": "Job Activator Error count and success rate (%)",
