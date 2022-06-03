@@ -350,9 +350,6 @@ Resources:
                 },
                 
 
-
-
-
                 { 
                     "height": 3,
                     "width": 3,
@@ -619,9 +616,6 @@ Resources:
                     }
                 },
                 
-
-
-
 
                 { 
                     "height": 3,
@@ -890,9 +884,6 @@ Resources:
                 },
                 
 
-
-
-
                 { 
                     "height": 3,
                     "width": 3,
@@ -1160,9 +1151,6 @@ Resources:
                 },
                 
 
-
-
-
                 { 
                     "height": 3,
                     "width": 3,
@@ -1274,7 +1262,7 @@ Resources:
                 
 
                 { 
-                    "height": 3,
+                    "height": 2,
                     "width": 24,
                     "y": 54,
                     "x": 0,
@@ -1283,23 +1271,23 @@ Resources:
                         "markdown": "\n# Behind the scenes\n\n The stats below give some insight into the inner workings of the Funktor apparatus."
                     }
                 },
-
-
                 
+
+
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 60,
+                    "y": 56,
                     "x": 0,
                     "type": "text",
                     "properties": {
-                        "markdown": "\n# Incoming Jobs\n"
+                        "markdown": "\n# Incoming Jobs\n All jobs enter the system here. Jobs that are to be executed within the next 90 second go directly to a work queue. Jobs farther in the future are put in the jobs table."
                     }
                 },
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 60,
+                    "y": 56,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -1317,7 +1305,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 15,
-                    "y": 60,
+                    "y": 56,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -1335,13 +1323,13 @@ Resources:
                         "title": "Handler Duration Percentiles"
                     }
                 },
-
-
                 
+
+
                 { 
-                    "height": 3,
+                    "height": 4,
                     "width": 9,
-                    "y": 63,
+                    "y": 59,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1357,7 +1345,7 @@ Resources:
                         "view": "timeSeries",
                         "stacked": false,
                         "region": "us-east-1",
-                        "title": "Incoming Job Queue (Async & scheduled jobs land here first)",
+                        "title": "Incoming Job Queue Counts",
                         "period": 60,
                         "stat": "Sum",
                         "setPeriodToTimeRange": true,
@@ -1365,45 +1353,10 @@ Resources:
                     }
                 },
                 { 
-                  "type": "log",
-                  "x": 0,
-                  "y": 66,
-                  "width": 9,
-                  "height": 3,
-                  "properties": {
-                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.IncomingJobHandlerName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(1h)\n",
-                    "region": "us-east-1",
-                    "stacked": false,
-                    "view": "timeSeries",
-                    "title": "Incoming Job Handler Init Duration"
-                  }
-                },
-                { 
-                    "height": 6,
-                    "width": 9,
-                    "y": 63,
-                    "x": 9,
-                    "type": "metric",
-                    "properties": {
-                        "period": 60,
-                        "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.IncomingJobHandlerName}", { "stat": "p20" } ],
-                            [ "...", { "stat": "p50" } ],
-                            [ "...", { "stat": "p80" } ],
-                            [ "...", { "stat": "p90" } ]
-                        ],
-                        "region": "us-east-1",
-                        "title": "Incoming Job Handler Duration in Milliseconds",
-                        "view": "timeSeries",
-                        "stacked": false,
-                        "liveData": true
-                    }
-                },
-                { 
                     "height": 3,
-                    "width": 6,
+                    "width": 4,
                     "y": 63,
-                    "x": 18,
+                    "x": 0,
                     "type": "metric",
                     "properties": {
                         "period": 60,
@@ -1424,13 +1377,11 @@ Resources:
                         "liveData": true
                     }
                 },
-
-
                 { 
                     "height": 3,
-                    "width": 6,
-                    "y": 66,
-                    "x": 18,
+                    "width": 5,
+                    "y": 63,
+                    "x": 4,
                     "type": "metric",
                     "properties": {
                         "period": 60,
@@ -1444,25 +1395,74 @@ Resources:
                         "liveData": true
                     }
                 },
+ 
+                { 
+                    "x": 9,
+                    "y": 59,
+                    "width": 10,
+                    "height": 7,
+                    "type": "metric",
+                    "properties": {
+                        "period": 60,
+                        "metrics": [
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.IncomingJobHandlerName}", { "stat": "p20" } ],
+                            [ "...", { "stat": "p50" } ],
+                            [ "...", { "stat": "p80" } ],
+                            [ "...", { "stat": "p90" } ]
+                        ],
+                        "region": "us-east-1",
+                        "title": "Incoming Job Handler Duration in Milliseconds",
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "liveData": true
+                    }
+                },
+                { 
+                  "type": "log",
+                  "height": 4,
+                  "width": 5,
+                  "y": 59,
+                  "x": 19,
+                  "properties": {
+                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.IncomingJobHandlerName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(20m)\n",
+                    "region": "us-east-1",
+                    "stacked": false,
+                    "view": "timeSeries",
+                    "title": "Incoming Job Handler Init Duration"
+                  }
+                },
+                { 
+                    "height": 3,
+                    "width": 5,
+                    "y": 63,
+                    "x": 19,
+                    "type": "log",
+                    "properties": {
+                        "query": "SOURCE '/aws/lambda/wsl-funktor-production-IncomingJobHandler' | filter @type=\"REPORT\"\n| stats max(@memorySize/1024/1024) as provisioned,\navg(@maxMemoryUsed/1024/1024) as avg_used,\nmax(@maxMemoryUsed/1024/1024) as max_used by bin(60s)",
+                        "region": "us-east-1",
+                        "stacked": false,
+                        "title": "IncomingJobHandler Memory",
+                        "view": "timeSeries"
+                    }
+                },
                 
 
-                
 
 
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 69,
+                    "y": 66,
                     "x": 0,
                     "type": "text",
                     "properties": {
-                        "markdown": "\n# Default Queue\n"
+                        "markdown": "\n# Default Queue\n This is a queue that handles jobs that are ready to execute. (Async jobs go here immediately, scheduled jobs land here in the minute before they're scheduled.)"
                     }
                 },
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 69,
+                    "y": 66,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -1481,7 +1481,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 15,
-                    "y": 69,
+                    "y": 66,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -1501,10 +1501,12 @@ Resources:
                         "title": "Handler Duration"
                     }
                 },
+                
+
                 { 
-                    "height": 3,
+                    "height": 4,
                     "width": 9,
-                    "y": 72,
+                    "y": 69,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1525,52 +1527,17 @@ Resources:
                         "view": "timeSeries",
                         "stacked": false,
                         "region": "us-east-1",
-                        "title": "Default Queue (Async jobs go here immediately, scheduled jobs land here in the minute before they're scheduled)",
+                        "title": "Default Queue Counts",
                         "period": 60,
                         "stat": "Sum",
                         "liveData": true
                     }
                 },
                 { 
-                  "type": "log",
-                  "x": 0,
-                  "y": 72,
-                  "width": 9,
-                  "height": 3,
-                  "properties": {
-                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.DefaultQueueHandlerName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(1h)\n",
-                    "region": "us-east-1",
-                    "stacked": false,
-                    "view": "timeSeries",
-                    "title": "Handler Init Duration"
-                  }
-                },
-                { 
-                    "height": 6,
-                    "width": 9,
-                    "y": 72,
-                    "x": 9,
-                    "type": "metric",
-                    "properties": {
-                        "period": 60,
-                        "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.DefaultQueueHandlerName}", { "stat": "p20" } ],
-                            [ "...", { "stat": "p50" } ],
-                            [ "...", { "stat": "p80" } ],
-                            [ "...", { "stat": "p90" } ]
-                        ],
-                        "region": "us-east-1",
-                        "title": "Default Queue Handler Duration in Milliseconds",
-                        "view": "timeSeries",
-                        "stacked": false,
-                        "liveData": true
-                    }
-                },
-                { 
                     "height": 3,
-                    "width": 6,
-                    "y": 72,
-                    "x": 18,
+                    "width": 4,
+                    "y": 73,
+                    "x": 0,
                     "type": "metric",
                     "properties": {
                         "period": 60,
@@ -1594,9 +1561,9 @@ Resources:
                 },
                 { 
                     "height": 3,
-                    "width": 6,
-                    "y": 75,
-                    "x": 18,
+                    "width": 5,
+                    "y": 73,
+                    "x": 4,
                     "type": "metric",
                     "properties": {
                         "period": 60,
@@ -1612,21 +1579,70 @@ Resources:
                     }
                 },
 
+                { 
+                    "x": 9,
+                    "y": 69,
+                    "width": 10,
+                    "height": 7,
+                    "type": "metric",
+                    "properties": {
+                        "period": 60,
+                        "metrics": [
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.DefaultQueueHandlerName}", { "stat": "p20" } ],
+                            [ "...", { "stat": "p50" } ],
+                            [ "...", { "stat": "p80" } ],
+                            [ "...", { "stat": "p90" } ]
+                        ],
+                        "region": "us-east-1",
+                        "title": "Default Queue Handler Duration in Milliseconds",
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "liveData": true
+                    }
+                },
+                { 
+                  "type": "log",
+                  "height": 4,
+                  "width": 5,
+                  "y": 69,
+                  "x": 19,
+                  "properties": {
+                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.DefaultQueueHandlerName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(20m)\n",
+                    "region": "us-east-1",
+                    "stacked": false,
+                    "view": "timeSeries",
+                    "title": "Default Handler Init Duration"
+                  }
+                },
+                { 
+                    "height": 3,
+                    "width": 5,
+                    "y": 73,
+                    "x": 19,
+                    "type": "log",
+                    "properties": {
+                        "query": "SOURCE '/aws/lambda/${self:custom.funktor.DefaultQueueHandlerName}' | filter @type=\"REPORT\"\n| stats max(@memorySize/1024/1024) as provisioned,\navg(@maxMemoryUsed/1024/1024) as avg_used,\nmax(@maxMemoryUsed/1024/1024) as max_used by bin(60s)",
+                        "region": "us-east-1",
+                        "stacked": false,
+                        "title": "Default Handler Memory",
+                        "view": "timeSeries"
+                    }
+                },
                 
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 78,
+                    "y": 76,
                     "x": 0,
                     "type": "text",
                     "properties": {
-                        "markdown": "\n# LowConcurrency Queue\n"
+                        "markdown": "\n# LowConcurrency Queue\n This is a queue that handles jobs that are ready to execute. (Async jobs go here immediately, scheduled jobs land here in the minute before they're scheduled.)"
                     }
                 },
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 78,
+                    "y": 76,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -1645,7 +1661,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 15,
-                    "y": 78,
+                    "y": 76,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -1665,10 +1681,12 @@ Resources:
                         "title": "Handler Duration"
                     }
                 },
+                
+
                 { 
-                    "height": 3,
+                    "height": 4,
                     "width": 9,
-                    "y": 81,
+                    "y": 79,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1689,52 +1707,17 @@ Resources:
                         "view": "timeSeries",
                         "stacked": false,
                         "region": "us-east-1",
-                        "title": "LowConcurrency Queue (Async jobs go here immediately, scheduled jobs land here in the minute before they're scheduled)",
+                        "title": "LowConcurrency Queue Counts",
                         "period": 60,
                         "stat": "Sum",
                         "liveData": true
                     }
                 },
                 { 
-                  "type": "log",
-                  "x": 0,
-                  "y": 81,
-                  "width": 9,
-                  "height": 3,
-                  "properties": {
-                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.LowConcurrencyQueueHandlerName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(1h)\n",
-                    "region": "us-east-1",
-                    "stacked": false,
-                    "view": "timeSeries",
-                    "title": "Handler Init Duration"
-                  }
-                },
-                { 
-                    "height": 6,
-                    "width": 9,
-                    "y": 81,
-                    "x": 9,
-                    "type": "metric",
-                    "properties": {
-                        "period": 60,
-                        "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.LowConcurrencyQueueHandlerName}", { "stat": "p20" } ],
-                            [ "...", { "stat": "p50" } ],
-                            [ "...", { "stat": "p80" } ],
-                            [ "...", { "stat": "p90" } ]
-                        ],
-                        "region": "us-east-1",
-                        "title": "LowConcurrency Queue Handler Duration in Milliseconds",
-                        "view": "timeSeries",
-                        "stacked": false,
-                        "liveData": true
-                    }
-                },
-                { 
                     "height": 3,
-                    "width": 6,
-                    "y": 81,
-                    "x": 18,
+                    "width": 4,
+                    "y": 83,
+                    "x": 0,
                     "type": "metric",
                     "properties": {
                         "period": 60,
@@ -1758,9 +1741,9 @@ Resources:
                 },
                 { 
                     "height": 3,
-                    "width": 6,
-                    "y": 84,
-                    "x": 18,
+                    "width": 5,
+                    "y": 83,
+                    "x": 4,
                     "type": "metric",
                     "properties": {
                         "period": 60,
@@ -1776,6 +1759,55 @@ Resources:
                     }
                 },
 
+                { 
+                    "x": 9,
+                    "y": 79,
+                    "width": 10,
+                    "height": 7,
+                    "type": "metric",
+                    "properties": {
+                        "period": 60,
+                        "metrics": [
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.LowConcurrencyQueueHandlerName}", { "stat": "p20" } ],
+                            [ "...", { "stat": "p50" } ],
+                            [ "...", { "stat": "p80" } ],
+                            [ "...", { "stat": "p90" } ]
+                        ],
+                        "region": "us-east-1",
+                        "title": "LowConcurrency Queue Handler Duration in Milliseconds",
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "liveData": true
+                    }
+                },
+                { 
+                  "type": "log",
+                  "height": 4,
+                  "width": 5,
+                  "y": 79,
+                  "x": 19,
+                  "properties": {
+                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.LowConcurrencyQueueHandlerName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(20m)\n",
+                    "region": "us-east-1",
+                    "stacked": false,
+                    "view": "timeSeries",
+                    "title": "LowConcurrency Handler Init Duration"
+                  }
+                },
+                { 
+                    "height": 3,
+                    "width": 5,
+                    "y": 83,
+                    "x": 19,
+                    "type": "log",
+                    "properties": {
+                        "query": "SOURCE '/aws/lambda/${self:custom.funktor.LowConcurrencyQueueHandlerName}' | filter @type=\"REPORT\"\n| stats max(@memorySize/1024/1024) as provisioned,\navg(@maxMemoryUsed/1024/1024) as avg_used,\nmax(@maxMemoryUsed/1024/1024) as max_used by bin(60s)",
+                        "region": "us-east-1",
+                        "stacked": false,
+                        "title": "LowConcurrency Handler Memory",
+                        "view": "timeSeries"
+                    }
+                },
                 
 
                 
@@ -1783,7 +1815,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 87,
+                    "y": 86,
                     "x": 0,
                     "type": "text",
                     "properties": {
@@ -1793,7 +1825,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 3,
-                    "y": 87,
+                    "y": 86,
                     "x": 6,
                     "type": "metric",
                     "properties": {
@@ -1811,7 +1843,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 15,
-                    "y": 87,
+                    "y": 86,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -1836,7 +1868,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 90,
+                    "y": 89,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -1861,7 +1893,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 9,
-                    "y": 90,
+                    "y": 89,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -1882,7 +1914,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 9,
-                    "y": 90,
+                    "y": 89,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1904,7 +1936,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 9,
-                    "y": 93,
+                    "y": 92,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1926,7 +1958,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 93,
+                    "y": 92,
                     "x": 18,
                     "type": "metric",
                     "properties": {
@@ -1944,7 +1976,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 9,
-                    "y": 93,
+                    "y": 92,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -1970,11 +2002,11 @@ Resources:
                 { 
                   "type": "log",
                   "x": 0,
-                  "y": 96,
+                  "y": 95,
                   "width": 9,
                   "height": 3,
                   "properties": {
-                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.JobActivatorName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(1h)\n",
+                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.JobActivatorName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(20m)\n",
                     "region": "us-east-1",
                     "stacked": false,
                     "view": "timeSeries",
@@ -1984,7 +2016,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 9,
-                    "y": 96,
+                    "y": 95,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -2008,7 +2040,7 @@ Resources:
                 { 
                     "height": 3,
                     "width": 6,
-                    "y": 96,
+                    "y": 95,
                     "x": 18,
                     "type": "metric",
                     "properties": {

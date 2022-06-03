@@ -21,7 +21,7 @@ Resources:
                 },
                 <% current_y += 3 %>
 
-                { <% "Primary Workers Overview" %>
+                { <% "Worker Overview" %>
                     "height": 1,
                     "width": 24,
                     "y": <%= current_y %>,
@@ -236,9 +236,6 @@ Resources:
                 },
                 <% current_y += 3 %>
 
-
-
-
                 { <% "Processed Jobs By Worker" %>
                     "height": 3,
                     "width": 3,
@@ -351,7 +348,7 @@ Resources:
               <%- end -%>
 
                 { <% "Funktor Behind the Scenes Banner" %>
-                    "height": 3,
+                    "height": 2,
                     "width": 24,
                     "y": <%= current_y %>,
                     "x": 0,
@@ -360,9 +357,9 @@ Resources:
                         "markdown": "\n# Behind the scenes\n\n The stats below give some insight into the inner workings of the Funktor apparatus."
                     }
                 },
+                <% current_y += 2 %>
 
 
-                <% current_y += 6 %>
                 { <% "Incoming Jobs" %>
                     "height": 3,
                     "width": 6,
@@ -370,7 +367,7 @@ Resources:
                     "x": 0,
                     "type": "text",
                     "properties": {
-                        "markdown": "\n# Incoming Jobs\n"
+                        "markdown": "\n# Incoming Jobs\n All jobs enter the system here. Jobs that are to be executed within the next 90 second go directly to a work queue. Jobs farther in the future are put in the jobs table."
                     }
                 },
                 { <% "Incoming Job Queue Messages per minute" %>
@@ -412,11 +409,11 @@ Resources:
                         "title": "Handler Duration Percentiles"
                     }
                 },
-
-
                 <% current_y += 3 %>
-                { <% "Incoming Job Queue (Async & scheduled jobs land here first)" %>
-                    "height": 3,
+
+
+                { <% "Incoming Job Queue Counts" %>
+                    "height": 4,
                     "width": 9,
                     "y": <%= current_y %>,
                     "x": 0,
@@ -434,53 +431,18 @@ Resources:
                         "view": "timeSeries",
                         "stacked": false,
                         "region": "us-east-1",
-                        "title": "Incoming Job Queue (Async & scheduled jobs land here first)",
+                        "title": "Incoming Job Queue Counts",
                         "period": 60,
                         "stat": "Sum",
                         "setPeriodToTimeRange": true,
                         "liveData": true
                     }
                 },
-                { <% "Incoming Job Handler Init Duration" %>
-                  "type": "log",
-                  "x": 0,
-                  "y": <%= current_y + 3 %>,
-                  "width": 9,
-                  "height": 3,
-                  "properties": {
-                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.IncomingJobHandlerName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(1h)\n",
-                    "region": "us-east-1",
-                    "stacked": false,
-                    "view": "timeSeries",
-                    "title": "Incoming Job Handler Init Duration"
-                  }
-                },
-                { <% "Incoming Job Handler Duration in Milliseconds" %>
-                    "height": 6,
-                    "width": 9,
-                    "y": <%= current_y %>,
-                    "x": 9,
-                    "type": "metric",
-                    "properties": {
-                        "period": 60,
-                        "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.IncomingJobHandlerName}", { "stat": "p20" } ],
-                            [ "...", { "stat": "p50" } ],
-                            [ "...", { "stat": "p80" } ],
-                            [ "...", { "stat": "p90" } ]
-                        ],
-                        "region": "us-east-1",
-                        "title": "Incoming Job Handler Duration in Milliseconds",
-                        "view": "timeSeries",
-                        "stacked": false,
-                        "liveData": true
-                    }
-                },
                 { <% "Incoming Job Handler Error count and success rate (%)" %>
                     "height": 3,
-                    "width": 6,
-                    "y": <%= current_y %>,
-                    "x": 18,
+                    "width": 4,
+                    "y": <%= current_y + 4 %>,
+                    "x": 0,
                     "type": "metric",
                     "properties": {
                         "period": 60,
@@ -501,13 +463,11 @@ Resources:
                         "liveData": true
                     }
                 },
-
-
                 { <% "Incoming Job Handler Concurrent Executions" %>
                     "height": 3,
-                    "width": 6,
-                    "y": <%= current_y + 3 %>,
-                    "x": 18,
+                    "width": 5,
+                    "y": <%= current_y + 4 %>,
+                    "x": 4,
                     "type": "metric",
                     "properties": {
                         "period": 60,
@@ -521,9 +481,58 @@ Resources:
                         "liveData": true
                     }
                 },
-                <% current_y += 6 %>
+ 
+                { <% "Incoming Job Handler Duration in Milliseconds" %>
+                    "x": 9,
+                    "y": <%= current_y %>,
+                    "width": 10,
+                    "height": 7,
+                    "type": "metric",
+                    "properties": {
+                        "period": 60,
+                        "metrics": [
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.IncomingJobHandlerName}", { "stat": "p20" } ],
+                            [ "...", { "stat": "p50" } ],
+                            [ "...", { "stat": "p80" } ],
+                            [ "...", { "stat": "p90" } ]
+                        ],
+                        "region": "us-east-1",
+                        "title": "Incoming Job Handler Duration in Milliseconds",
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "liveData": true
+                    }
+                },
+                { <% "Incoming Job Handler Init Duration" %>
+                  "type": "log",
+                  "height": 4,
+                  "width": 5,
+                  "y": <%= current_y %>,
+                  "x": 19,
+                  "properties": {
+                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.IncomingJobHandlerName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(20m)\n",
+                    "region": "us-east-1",
+                    "stacked": false,
+                    "view": "timeSeries",
+                    "title": "Incoming Job Handler Init Duration"
+                  }
+                },
+                { <% "Incoming Job Handler Memory" %>
+                    "height": 3,
+                    "width": 5,
+                    "y": <%= current_y + 4 %>,
+                    "x": 19,
+                    "type": "log",
+                    "properties": {
+                        "query": "SOURCE '/aws/lambda/wsl-funktor-production-IncomingJobHandler' | filter @type=\"REPORT\"\n| stats max(@memorySize/1024/1024) as provisioned,\navg(@maxMemoryUsed/1024/1024) as avg_used,\nmax(@maxMemoryUsed/1024/1024) as max_used by bin(60s)",
+                        "region": "us-east-1",
+                        "stacked": false,
+                        "title": "IncomingJobHandler Memory",
+                        "view": "timeSeries"
+                    }
+                },
+                <% current_y += 7 %>
 
-                
 
 
                 <%- queue_names.each do |queue_name| -%>
@@ -534,7 +543,7 @@ Resources:
                     "x": 0,
                     "type": "text",
                     "properties": {
-                        "markdown": "\n# <%= queue_name.camelize %> Queue\n"
+                        "markdown": "\n# <%= queue_name.camelize %> Queue\n Async jobs land here immediately, scheduled jobs land here in the minute before they're scheduled."
                     }
                 },
                 { <% "Active Jobs messages per minut" %>
@@ -579,10 +588,12 @@ Resources:
                         "title": "Handler Duration"
                     }
                 },
-                { <% "Active Job Queue" %>
-                    "height": 3,
+                <% current_y += 3 %>
+
+                { <% "Active Job Queue Counts" %>
+                    "height": 4,
                     "width": 9,
-                    "y": <%= current_y + 3 %>,
+                    "y": <%= current_y %>,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -603,52 +614,17 @@ Resources:
                         "view": "timeSeries",
                         "stacked": false,
                         "region": "us-east-1",
-                        "title": "<%= queue_name.camelize %> Queue (Async jobs go here immediately, scheduled jobs land here in the minute before they're scheduled)",
+                        "title": "<%= queue_name.camelize %> Queue Counts",
                         "period": 60,
                         "stat": "Sum",
                         "liveData": true
                     }
                 },
-                { <% "Queue Handler Init Duration" %>
-                  "type": "log",
-                  "x": 0,
-                  "y": <%= current_y + 3 %>,
-                  "width": 9,
-                  "height": 3,
-                  "properties": {
-                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.<%= queue_name.camelize %>QueueHandlerName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(1h)\n",
-                    "region": "us-east-1",
-                    "stacked": false,
-                    "view": "timeSeries",
-                    "title": "Handler Init Duration"
-                  }
-                },
-                { <% "Active Job Handler Duration in Milliseconds" %>
-                    "height": 6,
-                    "width": 9,
-                    "y": <%= current_y + 3 %>,
-                    "x": 9,
-                    "type": "metric",
-                    "properties": {
-                        "period": 60,
-                        "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.<%= queue_name.camelize %>QueueHandlerName}", { "stat": "p20" } ],
-                            [ "...", { "stat": "p50" } ],
-                            [ "...", { "stat": "p80" } ],
-                            [ "...", { "stat": "p90" } ]
-                        ],
-                        "region": "us-east-1",
-                        "title": "<%= queue_name.camelize %> Queue Handler Duration in Milliseconds",
-                        "view": "timeSeries",
-                        "stacked": false,
-                        "liveData": true
-                    }
-                },
                 { <% "Active Job HandlerError count and success rate (%)" %>
                     "height": 3,
-                    "width": 6,
-                    "y": <%= current_y + 3 %>,
-                    "x": 18,
+                    "width": 4,
+                    "y": <%= current_y + 4 %>,
+                    "x": 0,
                     "type": "metric",
                     "properties": {
                         "period": 60,
@@ -672,9 +648,9 @@ Resources:
                 },
                 { <% "Active Job Handler Concurrent executions" %>
                     "height": 3,
-                    "width": 6,
-                    "y": <%= current_y + 6 %>,
-                    "x": 18,
+                    "width": 5,
+                    "y": <%= current_y + 4 %>,
+                    "x": 4,
                     "type": "metric",
                     "properties": {
                         "period": 60,
@@ -690,7 +666,56 @@ Resources:
                     }
                 },
 
-                <% current_y += 9 %>
+                { <% "Active Job Handler Duration in Milliseconds" %>
+                    "x": 9,
+                    "y": <%= current_y %>,
+                    "width": 10,
+                    "height": 7,
+                    "type": "metric",
+                    "properties": {
+                        "period": 60,
+                        "metrics": [
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.<%= queue_name.camelize %>QueueHandlerName}", { "stat": "p20" } ],
+                            [ "...", { "stat": "p50" } ],
+                            [ "...", { "stat": "p80" } ],
+                            [ "...", { "stat": "p90" } ]
+                        ],
+                        "region": "us-east-1",
+                        "title": "<%= queue_name.camelize %> Queue Handler Duration in Milliseconds",
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "liveData": true
+                    }
+                },
+                { <% "Queue Handler Init Duration" %>
+                  "type": "log",
+                  "height": 4,
+                  "width": 5,
+                  "y": <%= current_y %>,
+                  "x": 19,
+                  "properties": {
+                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.<%= queue_name.camelize %>QueueHandlerName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(20m)\n",
+                    "region": "us-east-1",
+                    "stacked": false,
+                    "view": "timeSeries",
+                    "title": "<%= queue_name.camelize %> Handler Init Duration"
+                  }
+                },
+                { <% "Queue Handler Memory" %>
+                    "height": 3,
+                    "width": 5,
+                    "y": <%= current_y + 4 %>,
+                    "x": 19,
+                    "type": "log",
+                    "properties": {
+                        "query": "SOURCE '/aws/lambda/${self:custom.funktor.<%= queue_name.camelize %>QueueHandlerName}' | filter @type=\"REPORT\"\n| stats max(@memorySize/1024/1024) as provisioned,\navg(@maxMemoryUsed/1024/1024) as avg_used,\nmax(@maxMemoryUsed/1024/1024) as max_used by bin(60s)",
+                        "region": "us-east-1",
+                        "stacked": false,
+                        "title": "<%= queue_name.camelize %> Handler Memory",
+                        "view": "timeSeries"
+                    }
+                },
+                <% current_y += 7 %>
                 <%- end -%>
 
                 
@@ -889,7 +914,7 @@ Resources:
                   "width": 9,
                   "height": 3,
                   "properties": {
-                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.JobActivatorName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(1h)\n",
+                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.JobActivatorName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(20m)\n",
                     "region": "us-east-1",
                     "stacked": false,
                     "view": "timeSeries",
