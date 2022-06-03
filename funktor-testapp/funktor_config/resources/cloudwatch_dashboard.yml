@@ -1438,7 +1438,7 @@ Resources:
                     "x": 19,
                     "type": "log",
                     "properties": {
-                        "query": "SOURCE '/aws/lambda/wsl-funktor-production-IncomingJobHandler' | filter @type=\"REPORT\"\n| stats max(@memorySize/1024/1024) as provisioned,\navg(@maxMemoryUsed/1024/1024) as avg_used,\nmax(@maxMemoryUsed/1024/1024) as max_used by bin(60s)",
+                        "query": "SOURCE '/aws/lambda/${self:custom.funktor.IncomingJobHandlerName}' | filter @type=\"REPORT\"\n| stats max(@memorySize) as provisioned,\navg(@maxMemoryUsed) as avg_used,\nmax(@maxMemoryUsed) as max_used by bin(60s)",
                         "region": "us-east-1",
                         "stacked": false,
                         "title": "IncomingJobHandler Memory",
@@ -1456,7 +1456,7 @@ Resources:
                     "x": 0,
                     "type": "text",
                     "properties": {
-                        "markdown": "\n# Default Queue\n This is a queue that handles jobs that are ready to execute. (Async jobs go here immediately, scheduled jobs land here in the minute before they're scheduled.)"
+                        "markdown": "\n# Default Queue\n Async jobs land here immediately, scheduled jobs land here in the minute before they're scheduled."
                     }
                 },
                 { 
@@ -1621,7 +1621,7 @@ Resources:
                     "x": 19,
                     "type": "log",
                     "properties": {
-                        "query": "SOURCE '/aws/lambda/${self:custom.funktor.DefaultQueueHandlerName}' | filter @type=\"REPORT\"\n| stats max(@memorySize/1024/1024) as provisioned,\navg(@maxMemoryUsed/1024/1024) as avg_used,\nmax(@maxMemoryUsed/1024/1024) as max_used by bin(60s)",
+                        "query": "SOURCE '/aws/lambda/${self:custom.funktor.DefaultQueueHandlerName}' | filter @type=\"REPORT\"\n| stats max(@memorySize) as provisioned,\navg(@maxMemoryUsed) as avg_used,\nmax(@maxMemoryUsed) as max_used by bin(60s)",
                         "region": "us-east-1",
                         "stacked": false,
                         "title": "Default Handler Memory",
@@ -1636,7 +1636,7 @@ Resources:
                     "x": 0,
                     "type": "text",
                     "properties": {
-                        "markdown": "\n# LowConcurrency Queue\n This is a queue that handles jobs that are ready to execute. (Async jobs go here immediately, scheduled jobs land here in the minute before they're scheduled.)"
+                        "markdown": "\n# LowConcurrency Queue\n Async jobs land here immediately, scheduled jobs land here in the minute before they're scheduled."
                     }
                 },
                 { 
@@ -1801,7 +1801,7 @@ Resources:
                     "x": 19,
                     "type": "log",
                     "properties": {
-                        "query": "SOURCE '/aws/lambda/${self:custom.funktor.LowConcurrencyQueueHandlerName}' | filter @type=\"REPORT\"\n| stats max(@memorySize/1024/1024) as provisioned,\navg(@maxMemoryUsed/1024/1024) as avg_used,\nmax(@maxMemoryUsed/1024/1024) as max_used by bin(60s)",
+                        "query": "SOURCE '/aws/lambda/${self:custom.funktor.LowConcurrencyQueueHandlerName}' | filter @type=\"REPORT\"\n| stats max(@memorySize) as provisioned,\navg(@maxMemoryUsed) as avg_used,\nmax(@maxMemoryUsed) as max_used by bin(60s)",
                         "region": "us-east-1",
                         "stacked": false,
                         "title": "LowConcurrency Handler Memory",
@@ -1810,7 +1810,6 @@ Resources:
                 },
                 
 
-                
 
                 { 
                     "height": 3,
@@ -1819,7 +1818,7 @@ Resources:
                     "x": 0,
                     "type": "text",
                     "properties": {
-                        "markdown": "\n# Delayed Jobs\n"
+                        "markdown": "\n# Delayed Job Activator\n This job fires every minute and pulls jobs scheduled in the next 90 seconds from the table and sends them to the Incoming Jobs Queue."
                     }
                 },
                 { 
@@ -1861,15 +1860,17 @@ Resources:
                         "title": "Handler Duration"
                     }
                 },
-
-
-
                 
+
+
+
+
+
                 { 
                     "height": 3,
-                    "width": 6,
-                    "y": 89,
-                    "x": 18,
+                    "width": 4,
+                    "y": 93,
+                    "x": 0,
                     "type": "metric",
                     "properties": {
                         "period": 60,
@@ -1879,7 +1880,7 @@ Resources:
                             [ { "expression": "100 - 100 * errors / MAX([errors, invocations])", "label": "Success rate (%)", "id": "availability", "yAxis": "right", "region": "us-east-1" } ]
                         ],
                         "region": "us-east-1",
-                        "title": "Delayed Job SchedulerError count and success rate (%)",
+                        "title": "Job Activator Error count and success rate (%)",
                         "yAxis": {
                             "right": {
                                 "max": 100
@@ -1892,29 +1893,26 @@ Resources:
                 },
                 { 
                     "height": 3,
-                    "width": 9,
-                    "y": 89,
-                    "x": 9,
+                    "width": 5,
+                    "y": 93,
+                    "x": 4,
                     "type": "metric",
                     "properties": {
                         "period": 60,
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.JobActivatorName}", { "stat": "p20" } ],
-                            [ "...", { "stat": "p50" } ],
-                            [ "...", { "stat": "p80" } ],
-                            [ "...", { "stat": "p90" } ]
+                            [ "AWS/Lambda", "ConcurrentExecutions", "FunctionName", "${self:custom.funktor.JobActivatorName}", { "stat": "Maximum" } ]
                         ],
                         "region": "us-east-1",
-                        "title": "Delayed Job Scheduler Duration",
+                        "title": "Job Activator Concurrent Executions",
                         "view": "timeSeries",
                         "stacked": false,
                         "liveData": true
                     }
                 },
                 { 
-                    "height": 3,
+                    "height": 4,
                     "width": 9,
-                    "y": 89,
+                    "y": 92,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1930,13 +1928,63 @@ Resources:
                         "liveData": true
                     }
                 },
-
-
+                { 
+                    "x": 9,
+                    "y": 89,
+                    "width": 10,
+                    "height": 7,
+                    "type": "metric",
+                    "properties": {
+                        "period": 60,
+                        "metrics": [
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.JobActivatorName}", { "stat": "p20" } ],
+                            [ "...", { "stat": "p50" } ],
+                            [ "...", { "stat": "p80" } ],
+                            [ "...", { "stat": "p90" } ]
+                        ],
+                        "region": "us-east-1",
+                        "title": "Job Activator Duration in Milliseconds",
+                        "view": "timeSeries",
+                        "stacked": false,
+                        "liveData": true
+                    }
+                },
+                { 
+                  "type": "log",
+                  "height": 4,
+                  "width": 5,
+                  "y": 89,
+                  "x": 19,
+                  "properties": {
+                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.JobActivatorName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(20m)\n",
+                    "region": "us-east-1",
+                    "stacked": false,
+                    "view": "timeSeries",
+                    "title": "Job Activator Init Duration"
+                  }
+                },
+                { 
+                    "height": 3,
+                    "width": 5,
+                    "y": 93,
+                    "x": 19,
+                    "type": "log",
+                    "properties": {
+                        "query": "SOURCE '/aws/lambda/${self:custom.funktor.JobActivatorName}' | filter @type=\"REPORT\"\n| stats max(@memorySize) as provisioned,\navg(@maxMemoryUsed) as avg_used,\nmax(@maxMemoryUsed) as max_used by bin(60s)",
+                        "region": "us-east-1",
+                        "stacked": false,
+                        "title": "Job Activator Memory",
+                        "view": "timeSeries"
+                    }
+                },
                 
+
+
+
                 { 
                     "height": 3,
                     "width": 9,
-                    "y": 92,
+                    "y": 96,
                     "x": 0,
                     "type": "metric",
                     "properties": {
@@ -1957,27 +2005,9 @@ Resources:
                 },
                 { 
                     "height": 3,
-                    "width": 6,
-                    "y": 92,
-                    "x": 18,
-                    "type": "metric",
-                    "properties": {
-                        "period": 60,
-                        "metrics": [
-                            [ "AWS/Lambda", "ConcurrentExecutions", "FunctionName", "${self:custom.funktor.JobActivatorName}", { "stat": "Maximum" } ]
-                        ],
-                        "region": "us-east-1",
-                        "title": "Delayd Job Schedule Concurrent executions",
-                        "view": "timeSeries",
-                        "stacked": false,
-                        "liveData": true
-                    }
-                },
-                { 
-                    "height": 3,
                     "width": 9,
-                    "y": 92,
-                    "x": 9,
+                    "y": 99,
+                    "x": 0,
                     "type": "metric",
                     "properties": {
                         "metrics": [
@@ -1996,27 +2026,10 @@ Resources:
                     }
                 },
 
-
-
-                
                 { 
-                  "type": "log",
-                  "x": 0,
-                  "y": 95,
-                  "width": 9,
-                  "height": 3,
-                  "properties": {
-                    "query": "SOURCE '/aws/lambda/${self:custom.funktor.JobActivatorName}' | fields @initDuration\n| filter ispresent(@initDuration)\n| stats pct(@initDuration, 5) as p5,\n\n\n\n        pct(@initDuration, 50) as p50,\n\n\n\n        pct(@initDuration, 95) as p95,\n\n\n\n        pct(@initDuration, 99) as p99\n\n\n\n  by bin(20m)\n",
-                    "region": "us-east-1",
-                    "stacked": false,
-                    "view": "timeSeries",
-                    "title": "Handler Init Duration"
-                  }
-                },
-                { 
-                    "height": 3,
-                    "width": 9,
-                    "y": 95,
+                    "height": 6,
+                    "width": 10,
+                    "y": 96,
                     "x": 9,
                     "type": "metric",
                     "properties": {
@@ -2026,6 +2039,7 @@ Resources:
                             [ ".", "ThrottledRequests", ".", ".", ".", "PutItem", { "yAxis": "right", "visible": false } ],
                             [ ".", "SuccessfulRequestLatency", ".", ".", ".", "DeleteItem" ],
                             [ ".", "SuccessfulRequestLatency", ".", ".", ".", "UpdateItem" ],
+                            [ ".", "SuccessfulRequestLatency", ".", ".", ".", "GetItem" ],
                             [ ".", "ThrottledRequests", ".", ".", ".", ".", { "yAxis": "right", "visible": false } ]
                         ],
                         "view": "timeSeries",
@@ -2037,16 +2051,19 @@ Resources:
                         "liveData": true
                     }
                 },
+
                 { 
-                    "height": 3,
-                    "width": 6,
-                    "y": 95,
-                    "x": 18,
+                    "height": 6,
+                    "width": 5,
+                    "y": 96,
+                    "x": 19,
                     "type": "metric",
                     "properties": {
                         "metrics": [
                             [ "AWS/DynamoDB", "ThrottledRequests", "TableName", "${self:custom.funktor.JobsTableName}", "Operation", "DeleteItem" ],
-                            [ "...", "PutItem" ]
+                            [ "...", "PutItem" ],
+                            [ "...", "UpdateItem" ],
+                            [ "...", "GetItem" ]
                         ],
                         "view": "timeSeries",
                         "stacked": false,
@@ -2057,8 +2074,6 @@ Resources:
                         "liveData": true
                     }
                 }
-
-
                 
 
             ]
