@@ -44,7 +44,7 @@ Resources:
                           "metrics": [
                             [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "HelloWorker", { "color": "#2ca02c" } ],
                             [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "label": "p90", "color": "#ff7f0e", "stat": "p90" } ],
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "label": "p60", "color": "#1f77b4", "stat": "p60" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "label": "p50", "color": "#1f77b4", "stat": "p50" } ]
                           ],
                           "view": "singleValue",
                           "region": "us-east-1",
@@ -83,7 +83,7 @@ Resources:
                           "metrics": [
                             [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "AuditWorker", { "color": "#2ca02c" } ],
                             [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "label": "p90", "color": "#ff7f0e", "stat": "p90" } ],
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "label": "p60", "color": "#1f77b4", "stat": "p60" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "label": "p50", "color": "#1f77b4", "stat": "p50" } ]
                           ],
                           "view": "singleValue",
                           "region": "us-east-1",
@@ -122,7 +122,7 @@ Resources:
                           "metrics": [
                             [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "GreetingsWorker", { "color": "#2ca02c" } ],
                             [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "p90", "color": "#ff7f0e", "stat": "p90" } ],
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "p60", "color": "#1f77b4", "stat": "p60" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "p50", "color": "#1f77b4", "stat": "p50" } ]
                           ],
                           "view": "singleValue",
                           "region": "us-east-1",
@@ -161,7 +161,7 @@ Resources:
                           "metrics": [
                             [ "${self:custom.funktor.DashboardNamespace}", "processed", "WorkerClassName", "SingleThreadAuditWorker", { "color": "#2ca02c" } ],
                             [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "SingleThreadAuditWorker", { "label": "p90", "color": "#ff7f0e", "stat": "p90" } ],
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "SingleThreadAuditWorker", { "label": "p60", "color": "#1f77b4", "stat": "p60" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "SingleThreadAuditWorker", { "label": "p50", "color": "#1f77b4", "stat": "p50" } ]
                           ],
                           "view": "singleValue",
                           "region": "us-east-1",
@@ -248,14 +248,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "label": "p60", "color": "#1f77b4" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "label": "p20", "color": "#1f77b4" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
-                        "stat": "p60",
+                        "stat": "p20",
                         "period": 60,
                         "sparkline": true,
-                        "title": "HelloWorker p60"
+                        "title": "HelloWorker p20"
                     }
                 },
                { 
@@ -266,14 +266,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "label": "p70", "color": "#ff7f0e" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "label": "p50", "color": "#ff7f0e" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
-                        "stat": "p70",
+                        "stat": "p50",
                         "period": 60,
                         "sparkline": true,
-                        "title": "HelloWorker p70"
+                        "title": "HelloWorker p50"
                     }
                 },
                { 
@@ -405,13 +405,13 @@ Resources:
                         "metrics": [
                           [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "HelloWorker", { "stat": "p90", "color": "#d62728" } ],
                           [ "...", { "stat": "p80", "color": "#2ca02c" } ],
-                          [ "...", { "stat": "p70", "color": "#ff7f0e" } ],
+                          [ "...", { "stat": "p50", "color": "#ff7f0e" } ],
                           [ "...", { "color": "#1f77b4" } ]
                         ],
                         "view": "timeSeries",
                         "stacked": false,
                         "region": "us-east-1",
-                        "stat": "p60",
+                        "stat": "p20",
                         "period": 60,
                         "title": "HelloWorker Duration Percentiles",
                         "legend": {
@@ -518,14 +518,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "label": "p60", "color": "#1f77b4" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "label": "p20", "color": "#1f77b4" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
-                        "stat": "p60",
+                        "stat": "p20",
                         "period": 60,
                         "sparkline": true,
-                        "title": "AuditWorker p60"
+                        "title": "AuditWorker p20"
                     }
                 },
                { 
@@ -536,14 +536,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "label": "p70", "color": "#ff7f0e" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "label": "p50", "color": "#ff7f0e" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
-                        "stat": "p70",
+                        "stat": "p50",
                         "period": 60,
                         "sparkline": true,
-                        "title": "AuditWorker p70"
+                        "title": "AuditWorker p50"
                     }
                 },
                { 
@@ -675,13 +675,13 @@ Resources:
                         "metrics": [
                           [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "AuditWorker", { "stat": "p90", "color": "#d62728" } ],
                           [ "...", { "stat": "p80", "color": "#2ca02c" } ],
-                          [ "...", { "stat": "p70", "color": "#ff7f0e" } ],
+                          [ "...", { "stat": "p50", "color": "#ff7f0e" } ],
                           [ "...", { "color": "#1f77b4" } ]
                         ],
                         "view": "timeSeries",
                         "stacked": false,
                         "region": "us-east-1",
-                        "stat": "p60",
+                        "stat": "p20",
                         "period": 60,
                         "title": "AuditWorker Duration Percentiles",
                         "legend": {
@@ -788,14 +788,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "p60", "color": "#1f77b4" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "p20", "color": "#1f77b4" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
-                        "stat": "p60",
+                        "stat": "p20",
                         "period": 60,
                         "sparkline": true,
-                        "title": "GreetingsWorker p60"
+                        "title": "GreetingsWorker p20"
                     }
                 },
                { 
@@ -806,14 +806,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "p70", "color": "#ff7f0e" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "label": "p50", "color": "#ff7f0e" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
-                        "stat": "p70",
+                        "stat": "p50",
                         "period": 60,
                         "sparkline": true,
-                        "title": "GreetingsWorker p70"
+                        "title": "GreetingsWorker p50"
                     }
                 },
                { 
@@ -945,13 +945,13 @@ Resources:
                         "metrics": [
                           [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "GreetingsWorker", { "stat": "p90", "color": "#d62728" } ],
                           [ "...", { "stat": "p80", "color": "#2ca02c" } ],
-                          [ "...", { "stat": "p70", "color": "#ff7f0e" } ],
+                          [ "...", { "stat": "p50", "color": "#ff7f0e" } ],
                           [ "...", { "color": "#1f77b4" } ]
                         ],
                         "view": "timeSeries",
                         "stacked": false,
                         "region": "us-east-1",
-                        "stat": "p60",
+                        "stat": "p20",
                         "period": 60,
                         "title": "GreetingsWorker Duration Percentiles",
                         "legend": {
@@ -1058,14 +1058,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "SingleThreadAuditWorker", { "label": "p60", "color": "#1f77b4" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "SingleThreadAuditWorker", { "label": "p20", "color": "#1f77b4" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
-                        "stat": "p60",
+                        "stat": "p20",
                         "period": 60,
                         "sparkline": true,
-                        "title": "SingleThreadAuditWorker p60"
+                        "title": "SingleThreadAuditWorker p20"
                     }
                 },
                { 
@@ -1076,14 +1076,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "SingleThreadAuditWorker", { "label": "p70", "color": "#ff7f0e" } ]
+                            [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "SingleThreadAuditWorker", { "label": "p50", "color": "#ff7f0e" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
-                        "stat": "p70",
+                        "stat": "p50",
                         "period": 60,
                         "sparkline": true,
-                        "title": "SingleThreadAuditWorker p70"
+                        "title": "SingleThreadAuditWorker p50"
                     }
                 },
                { 
@@ -1215,13 +1215,13 @@ Resources:
                         "metrics": [
                           [ "${self:custom.funktor.DashboardNamespace}", "Duration", "WorkerClassName", "SingleThreadAuditWorker", { "stat": "p90", "color": "#d62728" } ],
                           [ "...", { "stat": "p80", "color": "#2ca02c" } ],
-                          [ "...", { "stat": "p70", "color": "#ff7f0e" } ],
+                          [ "...", { "stat": "p50", "color": "#ff7f0e" } ],
                           [ "...", { "color": "#1f77b4" } ]
                         ],
                         "view": "timeSeries",
                         "stacked": false,
                         "region": "us-east-1",
-                        "stat": "p60",
+                        "stat": "p20",
                         "period": 60,
                         "title": "SingleThreadAuditWorker Duration Percentiles",
                         "legend": {
@@ -1322,14 +1322,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.IncomingJobHandlerName}", "Resource", "${self:custom.funktor.IncomingJobHandlerName}", { "label": "p60" } ],
-                            [ "...", { "label": "p70", "stat": "p70" } ],
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.IncomingJobHandlerName}", "Resource", "${self:custom.funktor.IncomingJobHandlerName}", { "label": "p20" } ],
+                            [ "...", { "label": "p50", "stat": "p50" } ],
                             [ "...", { "label": "p80", "stat": "p80" } ],
                             [ "...", { "label": "p90", "stat": "p90" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
-                        "stat": "p60",
+                        "stat": "p20",
                         "period": 60,
                         "sparkline": true,
                         "title": "Handler Duration Percentiles"
@@ -1387,8 +1387,8 @@ Resources:
                     "properties": {
                         "period": 60,
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.IncomingJobHandlerName}", { "stat": "p60" } ],
-                            [ "...", { "stat": "p70" } ],
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.IncomingJobHandlerName}", { "stat": "p20" } ],
+                            [ "...", { "stat": "p50" } ],
                             [ "...", { "stat": "p80" } ],
                             [ "...", { "stat": "p90" } ]
                         ],
@@ -1488,14 +1488,14 @@ Resources:
                         "metrics": [
                             [ "AWS/Lambda", "Duration", "FunctionName",
                               "${self:custom.funktor.DefaultQueueHandlerName}", "Resource",
-                              "${self:custom.funktor.DefaultQueueHandlerName}", { "label": "p60" } ],
-                            [ "...", { "label": "p70", "stat": "p70" } ],
+                              "${self:custom.funktor.DefaultQueueHandlerName}", { "label": "p20" } ],
+                            [ "...", { "label": "p50", "stat": "p50" } ],
                             [ "...", { "label": "p80", "stat": "p80" } ],
                             [ "...", { "label": "p90", "stat": "p90" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
-                        "stat": "p60",
+                        "stat": "p20",
                         "period": 60,
                         "sparkline": true,
                         "title": "Handler Duration"
@@ -1554,8 +1554,8 @@ Resources:
                     "properties": {
                         "period": 60,
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.DefaultQueueHandlerName}", { "stat": "p60" } ],
-                            [ "...", { "stat": "p70" } ],
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.DefaultQueueHandlerName}", { "stat": "p20" } ],
+                            [ "...", { "stat": "p50" } ],
                             [ "...", { "stat": "p80" } ],
                             [ "...", { "stat": "p90" } ]
                         ],
@@ -1652,14 +1652,14 @@ Resources:
                         "metrics": [
                             [ "AWS/Lambda", "Duration", "FunctionName",
                               "${self:custom.funktor.LowConcurrencyQueueHandlerName}", "Resource",
-                              "${self:custom.funktor.LowConcurrencyQueueHandlerName}", { "label": "p60" } ],
-                            [ "...", { "label": "p70", "stat": "p70" } ],
+                              "${self:custom.funktor.LowConcurrencyQueueHandlerName}", { "label": "p20" } ],
+                            [ "...", { "label": "p50", "stat": "p50" } ],
                             [ "...", { "label": "p80", "stat": "p80" } ],
                             [ "...", { "label": "p90", "stat": "p90" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
-                        "stat": "p60",
+                        "stat": "p20",
                         "period": 60,
                         "sparkline": true,
                         "title": "Handler Duration"
@@ -1718,8 +1718,8 @@ Resources:
                     "properties": {
                         "period": 60,
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.LowConcurrencyQueueHandlerName}", { "stat": "p60" } ],
-                            [ "...", { "stat": "p70" } ],
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.LowConcurrencyQueueHandlerName}", { "stat": "p20" } ],
+                            [ "...", { "stat": "p50" } ],
                             [ "...", { "stat": "p80" } ],
                             [ "...", { "stat": "p90" } ]
                         ],
@@ -1816,14 +1816,14 @@ Resources:
                     "type": "metric",
                     "properties": {
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.JobActivatorName}", "Resource", "${self:custom.funktor.JobActivatorName}", { "label": "p60" } ],
-                            [ "...", { "label": "p70", "stat": "p70" } ],
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.JobActivatorName}", "Resource", "${self:custom.funktor.JobActivatorName}", { "label": "p20" } ],
+                            [ "...", { "label": "p50", "stat": "p50" } ],
                             [ "...", { "label": "p80", "stat": "p80" } ],
                             [ "...", { "label": "p90", "stat": "p90" } ]
                         ],
                         "view": "singleValue",
                         "region": "us-east-1",
-                        "stat": "p60",
+                        "stat": "p20",
                         "period": 60,
                         "sparkline": true,
                         "title": "Handler Duration"
@@ -1867,8 +1867,8 @@ Resources:
                     "properties": {
                         "period": 60,
                         "metrics": [
-                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.JobActivatorName}", { "stat": "p60" } ],
-                            [ "...", { "stat": "p70" } ],
+                            [ "AWS/Lambda", "Duration", "FunctionName", "${self:custom.funktor.JobActivatorName}", { "stat": "p20" } ],
+                            [ "...", { "stat": "p50" } ],
                             [ "...", { "stat": "p80" } ],
                             [ "...", { "stat": "p90" } ]
                         ],
