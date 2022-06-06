@@ -49,9 +49,6 @@ custom:
   # commands. Or fallsback to what we have set in the provider section.
   stage: ${self:provider.stage, 'dev'}
   funktor: ${file(funktor_config/funktor.yml)}
-  #rubyLayer: ${file(funktor_config/ruby_layer.yml)}
-
-#package: ${file(funktor_config/package.yml)}
 
 functions:
   <%- all_function_definitions.each do |function_definition| -%>
@@ -64,4 +61,3 @@ resources:
   <%- end -%>
 
 plugins:
-  #- serverless-ruby-layer

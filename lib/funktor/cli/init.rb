@@ -33,27 +33,13 @@ module Funktor
       def funktor_config_yml
         #template "funktor_config.yml", File.join("funktor_config.yml")
         template File.join("funktor_config", "funktor.yml"), File.join("funktor_config", "funktor.yml")
-        template File.join("funktor_config", "ruby_layer.yml"), File.join("funktor_config", "ruby_layer.yml")
-        template File.join("funktor_config", "package.yml"), File.join("funktor_config", "package.yml")
         template File.join("funktor_config", "environment.yml"), File.join("funktor_config", "environment.yml")
         template File.join("funktor_config", "boot.rb"), File.join("funktor_config", "boot.rb")
       end
 
       def package_json
         if File.exist?("package.json")
-          package_data = File.open("package.json").read
-          if package_data =~ /serverless-ruby-layer/
-            say "serverless-ruby-layer is already installed in package.json"
-          else
-            if File.exist?("package-lock.json")
-              run "npm install serverless-ruby-layer@1.4.0 --save-dev"
-              # TODO - Add handers for yarn and what not
-            elsif File.exist?("yarn.lock")
-              run "yarn add --dev serverless-ruby-layer@1.4.0"
-            else
-              say "You should install serverless-ruby-layer version 1.4.0 using yor package manager of choice."
-            end
-          end
+          say "package.json already exists"
         else
           template "package.json", File.join("package.json")
         end

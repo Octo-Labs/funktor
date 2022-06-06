@@ -38,12 +38,12 @@ handlerDefaults:
   # Visibility timeout should only come into play in the case of Funktor errors.
   # Application level errors should be handled by Funktor retry mechanisms.
   # The visibility timeout should be at least as long as the function timeout, and up to 6 times larger.
-  visibilityTimeout: 1800
+  visibilityTimeout: 300
 
   # Max recieve count affects how many times a job will retry that has been throttled at the SQS -> Lambda boundary.
   # Amazon recommend this be at least 5, but I've found that higher numbers are better to avoid legit jobs ending
   # up in the dead letter queue
-  maxReceiveCount: 20
+  maxReceiveCount: 120
 
 # Incoming Job Handler
 incomingJobHandler:
