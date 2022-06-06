@@ -23,3 +23,5 @@ gem 'aws-sdk-dynamodb', '~> 1.62'
 gem "activesupport"
 gem "thor" # Thor drives the CLI TODO - Maybe we don't need it here?
 
+# This helps make cold starts faster
+gem 'bootsnap', require: false

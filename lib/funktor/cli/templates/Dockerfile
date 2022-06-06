@@ -8,7 +8,7 @@ FROM public.ecr.aws/lambda/ruby:2.7 AS build_image
 #ENV BUNDLE_GEM__FURY__IO=${BUNDLE_GEM__FURY__IO}
 
 # First we install some stuff that we need for gems that have to compile native extensions
-#RUN yum groupinstall "Development Tools" -y
+RUN yum groupinstall "Development Tools" -y
 #RUN yum install -y amazon-linux-extras
 #RUN amazon-linux-extras enable postgresql11
 #RUN yum install -y postgresql-devel
@@ -56,6 +56,12 @@ FROM public.ecr.aws/lambda/ruby:2.7 AS deploy_image
 
 COPY --from=build_image /var/task .
 COPY . .
+
+# Now we prime the bootsnap cache to minimize cold start times.
+
+ENV BOOTSNAP_CACHE_DIR=/var/task/tmp/cache
+RUN bundle exec bootsnap precompile --gemfile . \
+ && SKIP_ENV=true bundle exec ruby lambda_event_handlers/incoming_job_handler.rb
 
 # And finally we have the CMD for the deployed container
 # You can overwrite command in `serverless.yml` template

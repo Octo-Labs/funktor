@@ -22,11 +22,14 @@ GEM
       aws-sigv4 (~> 1.1)
     aws-sigv4 (1.2.4)
       aws-eventstream (~> 1, >= 1.0.2)
+    bootsnap (1.12.0)
+      msgpack (~> 1.2)
     concurrent-ruby (1.1.9)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
     jmespath (1.4.0)
     minitest (5.14.4)
+    msgpack (1.5.2)
     require_all (1.5.0)
     thor (1.1.0)
     tzinfo (2.0.4)
@@ -41,6 +44,7 @@ DEPENDENCIES
   activesupport
   aws-sdk-dynamodb (~> 1.62)
   aws-sdk-sqs (~> 1.37)
+  bootsnap
   require_all (~> 1.0)
   thor
 
