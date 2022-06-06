@@ -52,9 +52,6 @@ custom:
   # commands. Or fallsback to what we have set in the provider section.
   stage: ${self:provider.stage, 'dev'}
   funktor: ${file(funktor_config/funktor.yml)}
-  #rubyLayer: ${file(funktor_config/ruby_layer.yml)}
-
-#package: ${file(funktor_config/package.yml)}
 
 functions:
   IncomingJobHandler: ${file(funktor_config/function_definitions/incoming_job_handler.yml)}
@@ -72,4 +69,3 @@ resources:
   - ${file(funktor_config/resources/jobs_table.yml)}
 
 plugins:
-  #- serverless-ruby-layer
