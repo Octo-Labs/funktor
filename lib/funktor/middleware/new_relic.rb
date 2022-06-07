@@ -20,7 +20,7 @@ module Funktor
     end
   end
 
-  def new_relic!
+  def self.new_relic!
     Funktor.configure_work_queue_handler do |config|
       config.work_queue_handler_middleware do |chain|
         chain.add Funktor::Middleware::NewRelic
