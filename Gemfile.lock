@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    funktor (0.7.27)
+    funktor (0.7.28)
       activesupport
       aws-sdk-dynamodb (~> 1.62)
       aws-sdk-sqs (~> 1.37)
