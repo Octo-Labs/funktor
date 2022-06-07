@@ -14,6 +14,14 @@ class FailWorker
   end
 end
 
+class NoRetryWorker
+  include Funktor::Worker
+  funktor_options retry: 0
+  def perform(param_one = nil, param_two = nil)
+    raise "hell"
+  end
+end
+
 module JobSpecHelpers
   def build_payload(worker_class, delay = 0)
     job_time = Time.now.utc + delay

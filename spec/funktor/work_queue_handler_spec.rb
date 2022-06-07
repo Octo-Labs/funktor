@@ -10,6 +10,7 @@ RSpec.describe Funktor::WorkQueueHandler, type: :handler do
   let(:single_job_event){ create_event [HelloWorker] }
   let(:double_job_event){ create_event [HelloWorker, HelloWorker] }
   let(:fail_once_job_event){ create_event [FailWorker] }
+  let(:no_retry_job_event){ create_event [NoRetryWorker] }
   let(:dynamodb_client){ double Aws::DynamoDB::Client }
   let(:work_queue_handler){ Funktor::WorkQueueHandler.new }
 
@@ -39,7 +40,7 @@ RSpec.describe Funktor::WorkQueueHandler, type: :handler do
     end
     context 'on failure' do
       before do
-        expect(Funktor).to receive(:sqs_client).and_return(sqs_client)
+        allow(Funktor).to receive(:sqs_client).and_return(sqs_client)
       end
       it "sends a message to the IncomingJobQueue to retry on failure" do
         expect(sqs_client).to receive(:send_message).and_return(nil)
@@ -47,6 +48,15 @@ RSpec.describe Funktor::WorkQueueHandler, type: :handler do
         expect(work_queue_handler).to receive(:dynamodb_client).twice.and_return(dynamodb_client)
         work_queue_handler.call(
           event: fail_once_job_event,
+          context: {}
+        )
+      end
+      it "does not send a message to the IncomingJobQueue if the worker can't retry" do
+        expect(sqs_client).not_to receive(:send_message)
+        expect(dynamodb_client).to receive(:update_item).twice.and_return(nil)
+        expect(work_queue_handler).to receive(:dynamodb_client).twice.and_return(dynamodb_client)
+        work_queue_handler.call(
+          event: no_retry_job_event,
           context: {}
         )
       end

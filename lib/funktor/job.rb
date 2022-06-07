@@ -114,8 +114,12 @@ module Funktor
       self.delay = seconds_to_delay(retries)
     end
 
-    # delayed_job and sidekiq use the same basic formula
     def seconds_to_delay(count)
+      default_seconds_to_delay(count)
+    end
+
+    # delayed_job and sidekiq use the same basic formula
+    def default_seconds_to_delay(count)
       (count**4) + 15 + (rand(30) * (count + 1))
     end
 
@@ -124,7 +128,7 @@ module Funktor
     end
 
     def retry_limit
-      25
+      worker_class&.custom_retry_limit || 25
     end
 
     def can_retry

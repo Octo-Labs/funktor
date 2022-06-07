@@ -26,6 +26,16 @@ module Funktor
           get_funktor_options[:queue]
         end
 
+        def custom_retry_limit
+          retry_limit = get_funktor_options[:retry]
+          if retry_limit.nil?
+            retry_limit = 25
+          elsif !retry_limit # if someone did "retry: false"
+            retry_limit = 0
+          end
+          return retry_limit
+        end
+
         def queue_url
           custom_queue_url
         end
