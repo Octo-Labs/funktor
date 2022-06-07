@@ -22,6 +22,17 @@ class NoRetryWorker
   end
 end
 
+class CustomRetryWorker
+  include Funktor::Worker
+  funktor_retry_in do |count|
+    8
+  end
+
+  def perform(param_one = nil, param_two = nil)
+    raise "hell"
+  end
+end
+
 module JobSpecHelpers
   def build_payload(worker_class, delay = 0)
     job_time = Time.now.utc + delay

@@ -115,7 +115,11 @@ module Funktor
     end
 
     def seconds_to_delay(count)
-      default_seconds_to_delay(count)
+      if worker_class&.funktor_retry_in_block
+        worker_class.funktor_retry_in_block.call(count)
+      else
+        default_seconds_to_delay(count)
+      end
     end
 
     # delayed_job and sidekiq use the same basic formula

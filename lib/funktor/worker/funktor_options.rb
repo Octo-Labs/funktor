@@ -7,6 +7,7 @@ module Funktor
         base.extend ClassMethods
         base.class_eval do
           class_attribute :funktor_options_hash
+          class_attribute :funktor_retry_in_block
         end
       end
       module ClassMethods
@@ -16,6 +17,10 @@ module Funktor
 
         def get_funktor_options
           self.funktor_options_hash || {}
+        end
+
+        def funktor_retry_in(&block)
+          self.funktor_retry_in_block = block
         end
 
         def custom_queue_url
