@@ -1,10 +1,11 @@
-require 'newrelic_rpm'
+require 'new_relic/agent'
 module Funktor
   module Middleware
     class NewRelic
       include ::NewRelic::Agent::Instrumentation::ControllerInstrumentation
 
       def call(job)
+        ::NewRelic::Agent.manual_start(:sync_startup => true)
         trace_args = {
           :name => 'perform',
           :class_name => job.worker_class_name_for_metrics,
@@ -16,6 +17,7 @@ module Funktor
                                                                         ::NewRelic::Agent::AttributeFilter::DST_NONE)
           yield
         end
+        ::NewRelic::Agent.shutdown
       end
     end
   end
