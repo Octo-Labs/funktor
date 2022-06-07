@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    funktor (0.7.25)
+    funktor (0.7.27)
       activesupport
       aws-sdk-dynamodb (~> 1.62)
       aws-sdk-sqs (~> 1.37)
@@ -22,7 +22,7 @@ GEM
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     aws-eventstream (1.2.0)
-    aws-partitions (1.596.0)
+    aws-partitions (1.597.0)
     aws-sdk-core (3.131.1)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.525.0)
@@ -53,6 +53,7 @@ GEM
     minitest (5.14.4)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
+    newrelic_rpm (8.8.0)
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -107,6 +108,7 @@ PLATFORMS
 DEPENDENCIES
   activejob (>= 5.1.5)
   funktor!
+  newrelic_rpm
   pry-byebug
   rake (~> 12.0)
   rspec (~> 3.0)
