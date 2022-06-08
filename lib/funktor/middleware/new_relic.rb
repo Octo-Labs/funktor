@@ -1,4 +1,9 @@
 require 'new_relic/agent'
+# This is kind of a brute force approach that's not very performant. It's based on this documentaion:
+# https://docs.newrelic.com/docs/apm/agents/ruby-agent/background-jobs/monitor-ruby-background-processes
+#
+# It might be better if we could use the NewRelic Lambda Layer, but currently it doesn't seem to support Ruby.
+# https://docs.newrelic.com/docs/serverless-function-monitoring/aws-lambda-monitoring/get-started/monitoring-aws-lambda-serverless-monitoring
 module Funktor
   module Middleware
     class NewRelic
