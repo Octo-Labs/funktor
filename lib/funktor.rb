@@ -21,7 +21,8 @@ module Funktor
   DEFAULT_OPTIONS = {
     error_handlers: [],
     log_level: Logger::DEBUG, # Set a high log level during early, active development
-    enable_work_queue_visibility: true # Enable this by default during early, active development
+    enable_work_queue_visibility: true, # Enable this by default during early, active development
+    enable_activity_tracking: true, # Enable this by default during early, active development
   }
 
   def self.configure_job_pusher
@@ -119,6 +120,14 @@ module Funktor
 
   def self.enable_work_queue_visibility= enabled
     options[:enable_work_queue_visibility] = enabled
+  end
+
+  def self.enable_activity_tracking
+    options[:enable_activity_tracking]
+  end
+
+  def self.enable_activity_tracking= enabled
+    options[:enable_activity_tracking] = enabled
   end
 
   # We have a raw_logger that doesn't add timestamps and what not. This is used to publish

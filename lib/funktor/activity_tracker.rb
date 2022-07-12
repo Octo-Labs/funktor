@@ -40,6 +40,10 @@ module Funktor
     }
 
     def track(activity, job)
+      unless Funktor.enable_activity_tracking
+        Funktor.logger.debug "activity tracking is disabled"
+        return
+      end
       Funktor.logger.debug "starting track activity for #{activity}"
       incrKey = nil || INCR_KEYS[activity.to_sym]
       decrKey = nil || DECR_KEYS[activity.to_sym]
