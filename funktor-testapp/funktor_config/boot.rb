@@ -6,7 +6,7 @@ require "rubygems"
 require 'bundler/setup'
 
 # load bootsnap for faster cold starts
-require 'bootsnap/setup'
+#require 'bootsnap/setup'
 
 # Set up gems listed in the Gemfile.
 Bundler.require(:default, :production)
@@ -17,6 +17,7 @@ require 'funktor'
 
 
 Funktor.enable_work_queue_visibility = false
+Funktor.enable_activity_tracking = false
 
 # Load all ruby files in the app directory
 require_rel File.join('..', 'app')
