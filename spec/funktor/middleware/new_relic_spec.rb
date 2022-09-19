@@ -55,7 +55,6 @@ RSpec.describe Funktor::Middleware::NewRelic do
           'Content-Encoding'=>'identity',
           'Content-Type'=>'application/octet-stream',
           'Host'=>'collector.newrelic.com',
-          'User-Agent'=>'NewRelic-RubyAgent/8.8.0 (ruby 2.7.3 x86_64-darwin20) zlib/1.2.11'
            }).
          to_return(status: 200, body: "", headers: {})
       stub_request(:post, "https://collector.newrelic.com/agent_listener/invoke_raw_method?license_key=&marshal_format=json&method=connect&protocol_version=17").
@@ -67,7 +66,6 @@ RSpec.describe Funktor::Middleware::NewRelic do
           'Content-Encoding'=>'gzip',
           'Content-Type'=>'application/octet-stream',
           'Host'=>'collector.newrelic.com',
-          'User-Agent'=>'NewRelic-RubyAgent/8.8.0 (ruby 2.7.3 x86_64-darwin20) zlib/1.2.11'
            }).
          to_return(status: 200, body: "", headers: {})
       block_was_called = false
