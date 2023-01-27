@@ -27,7 +27,7 @@ GEM
     concurrent-ruby (1.1.9)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
-    jmespath (1.4.0)
+    jmespath (1.6.2)
     minitest (5.14.4)
     msgpack (1.5.2)
     require_all (1.5.0)
